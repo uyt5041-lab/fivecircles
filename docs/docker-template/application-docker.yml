@@ -1,0 +1,20 @@
+# ==============================================================================
+# application-docker.yml Template
+# This configuration is used when the Spring Profile is set to 'docker'
+# ==============================================================================
+
+spring:
+  datasource:
+    # Use Environment Variables for sensitive data & dynamic configuration
+    url: ${SPRING_DATASOURCE_URL} # e.g., jdbc:mysql://mysql-container:3306/mydb
+    username: ${SPRING_DATASOURCE_USERNAME} # e.g., root
+    password: ${SPRING_DATASOURCE_PASSWORD} # e.g., secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # Safer for production/container environments
+    show-sql: false # Reduce log noise in containers
+
+server:
+  port: 8080
