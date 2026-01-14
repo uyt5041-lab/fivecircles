@@ -9,10 +9,11 @@ NoSpoiler 프로젝트의 백엔드 개발 표준 및 전략 가이드입니다.
 
 ### 기술 스택 (Tech Stack)
 
-- **Language**: Java 17
-- **Framework**: Spring Boot 3.x
-- **Persistence**: MyBatis 3.x, MySQL 8.x
-- **Build**: Gradle (Multi-module 권장)
+- **Language**: Java 17 (LTS)
+- **Framework**: Spring Boot 3.2.1
+- **Persistence**: MyBatis 3.0.3 (Spring Boot Starter)
+- **Database**: MySQL 8.0.x
+- **Build Tool**: Gradle 8.5 (Multi-module 권장)
 
 ### 패키지 구조 (Package Structure)
 
