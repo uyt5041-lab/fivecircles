@@ -2,6 +2,8 @@
 
 이 폴더는 “요구사항을 쓰고, 논쟁하고, 확정하는” 공간입니다.
 
+**메인 요구사항 소스**: Notion Teamspace 'NoSpoiler' (MCP Server를 통해 연동)
+
 ## 파일 역할
 - current.md: 분석 전 요구사항(작업용)
 - REQUIREMENTS.md: 분석 후 결정된 사항(권위 높음)
