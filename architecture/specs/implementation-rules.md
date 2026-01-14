@@ -2,6 +2,9 @@
 
 These rules are promoted from test/learn-from-log.md and are mandatory.
 
+## Authoritative Reference
+- **Convention**: `docs/BACKEND_CONVENTION.md`
+
 ## Mapping and Persistence
 
 - When using Java records with MyBatis, always use constructor-based resultMap.

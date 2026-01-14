@@ -3,6 +3,10 @@
 This document defines how services are built and executed using Docker.
 It does NOT define application logic.
 
+## Authoritative Reference
+- **Guide**: `docs/DOCKER_GUIDE.md`
+- **Template**: `docs/docker-template/`
+
 Authority:
 - Application behavior is defined in workflow.md
 - This document defines runtime wiring only
