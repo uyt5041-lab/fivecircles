@@ -5,3 +5,16 @@ coverage/
 dist/
 .idea/
 .vscode/
+
+# Java / Gradle
+.gradle/
+build/
+out/
+*.class
+*.log
+*.jar
+*.war
+.settings/
+.classpath
+.project
+bin/
