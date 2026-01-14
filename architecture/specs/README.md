@@ -2,7 +2,9 @@
 
 > **Agent Orchestration**: See `agent-orchestrator.md` for active agent roles and session management.
 
-Agent-only operational guidance lives in `fivecircles/agent-guidelines.md` and is non-authoritative.
+- Read `fivecircles/agent-guidelines.md`.
+
+- Agent-only operational guidance lives in `fivecircles/agent-guidelines.md` and is non-authoritative.
 
 This specification is divided by responsibility.
 

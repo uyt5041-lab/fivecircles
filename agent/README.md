@@ -4,13 +4,14 @@
 가장 중요한 목표는: **요구사항을 명확히 하고, 작은 배치로 구현하며, 테스트 통과 상태를 커밋/푸시로 고정**하는 것입니다.
 
 ## Mandatory Read Order
-1) agent/authority.md
-2) agent/workflow.md
-3) agent/policies.md
-4) agent/methodology.md
-5) agent/operational-guidance.md
-6) test/testpolicy.md
-7) requirements/* (현재 유효한 요구사항)
+1) agent/agent-guidelines.md
+2) agent/authority.md
+3) agent/workflow.md
+4) agent/policies.md
+5) agent/methodology.md
+6) agent/operational-guidance.md
+7) test/testpolicy.md
+8) requirements/* (현재 유효한 요구사항)
 
 ## Working Mode
 - 모든 작업은 `architecture/todolist.md`의 **Batch** 단위로 수행합니다.
