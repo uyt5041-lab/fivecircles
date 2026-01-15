@@ -1,4 +1,4 @@
-# Campus Lost & Found – Specification
+# NoSpoiler – Specification
 
 > **Agent Orchestration**: See `agent-orchestrator.md` for active agent roles and session management.
 
