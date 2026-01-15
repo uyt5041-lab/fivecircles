@@ -10,6 +10,10 @@ This specification is divided by responsibility.
 
 ## Authority Order (Strict)
 
+0. notion-origin-roles.md
+   - Roles & Responsibilities (Source of Truth for Team Structure)
+0. notion-origin-erd.md
+   - Sprint 1 ERD & Flyway Rules (Source of Truth for Schema)
 1. buisiness-workflow.md
    - workflow by requirements and its analysis
 2. git.md
@@ -34,6 +38,11 @@ This specification is divided by responsibility.
    - evolve structure and economy
 If any document conflicts with a higher-priority document,
 the higher-priority document takes precedence.
+
+## Intelligence (root specs/)
+- `specs/intelligence/intelligence-events-contract.md`
+- `specs/intelligence/intelligence-api-contract.md`
+- `specs/intelligence/intelligence-db-schema.md`
 
 ## Language Policy
 - All authoritative specs are English only
