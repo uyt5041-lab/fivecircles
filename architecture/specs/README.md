@@ -24,8 +24,8 @@ This specification is divided by responsibility.
 
 1. buisiness-workflow.md
    - workflow by requirements and its analysis
-2. git.md
-   - git workflow
+2. docs/GIT_STRATEGY.md
+   - git workflow (mirror: fivecircles/agent/git.md)
 3. data-model.md
    - Entity meaning
    - Field semantics
