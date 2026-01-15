@@ -10,10 +10,12 @@ This specification is divided by responsibility.
 
 ## Authority Order (Strict)
 
-0. notion-origin-roles.md
-   - Roles & Responsibilities (Source of Truth for Team Structure)
-0. notion-origin-erd.md
-   - Sprint 1 ERD & Flyway Rules (Source of Truth for Schema)
+> **⚠️ Authority Principle**: Documents prefixed with `notion-origin-*` are the **primary source of truth** synced from Notion. They take precedence over all other local specifications.
+
+0. notion-origin-* (Notion Master Specs)
+   - `notion-origin-roles.md`: Project structure and R&R.
+   - `notion-origin-erd.md`: Database schema and migration rules.
+   - `notion-origin-ontology-layer.md`: Core logic definitions.
 1. buisiness-workflow.md
    - workflow by requirements and its analysis
 2. git.md
