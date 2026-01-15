@@ -44,7 +44,17 @@
 - [x] Scaffolding `qa-service`
 - [x] Implement Health Check API (/api/v1/qa/health)
 
-### 5. Next Steps (Sprint 2)
+### 5. API Refinement & Spec Alignment (Priority: High)
+- [ ] **Backend Convention Compliance**
+    - [ ] Add Swagger (`@Tag`, `@Operation`) to Controllers.
+    - [ ] Refactor DTO/Entity Lombok annotations (`@Data` -> `@Getter`, `@Builder`).
+    - [ ] Add `springdoc` dependency to `build.gradle`.
+- [ ] **Spec Alignment (`intelligence-api-contract.md`)**
+    - [x] Remove `/api/v1` prefix from paths (Done in `feature/api-alignment`).
+    - [ ] Enhance `EventController` search (add `q`, `uptoEpisode` params).
+    - [ ] Enhance `QaController` (implement `POST /qa/episode-range`).
+
+### 6. Next Steps (Sprint 2)
 - [ ] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding
