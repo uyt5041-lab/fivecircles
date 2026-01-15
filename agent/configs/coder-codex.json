@@ -1,0 +1,27 @@
+{
+  "$schema": "./schema.json",
+  "agent": {
+    "id": "codex-coder",
+    "type": "codex",
+    "role": "coder",
+    "description": "백엔드 구현 담당 (보조)"
+  },
+  "assignedZones": ["drama-service", "character-service", "wiki-service"],
+  "permissions": {
+    "fileSystem": "read-write",
+    "canCreateTasks": false,
+    "canAssignTasks": false,
+    "canModifyCode": true
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/pio/IdeaProjects/nospoiler"]
+    },
+    "terminal": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-terminal"]
+    }
+  },
+  "systemPrompt": "당신은 Coder 역할입니다. 작업 시작 전 fivecircles/agent/sync.md와 queue.json을 확인하세요. 담당 영역(assignedZones) 외 파일은 수정하지 마세요. 작업 시작 시 fivecircles/agent/locks/에 락을 생성하고, 완료 후 해제하세요."
+}

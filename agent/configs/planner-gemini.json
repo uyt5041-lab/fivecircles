@@ -1,0 +1,34 @@
+{
+  "$schema": "./schema.json",
+  "agent": {
+    "id": "gemini-planner",
+    "type": "gemini",
+    "role": "planner",
+    "description": "기획 및 외부 데이터 연동 담당"
+  },
+  "assignedZones": ["planning", "documentation"],
+  "permissions": {
+    "fileSystem": "read-only",
+    "canCreateTasks": true,
+    "canAssignTasks": true,
+    "canModifyCode": false
+  },
+  "mcpServers": {
+    "notion": {
+      "command": "node",
+      "args": ["/Users/pio/nospoiler-mcp-tools/notion-mcp/bin/cli.mjs"],
+      "env": {
+        "NOTION_API_TOKEN": "${NOTION_API_TOKEN}"
+      }
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  },
+  "systemPrompt": "당신은 Planner 역할입니다. 작업 시작 전 fivecircles/agent/sync.md를 읽고, 태스크 생성 시 fivecircles/agent/queue.json에 추가하세요. 코드 수정은 하지 마세요."
+}

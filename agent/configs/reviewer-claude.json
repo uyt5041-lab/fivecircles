@@ -1,0 +1,31 @@
+{
+  "$schema": "./schema.json",
+  "agent": {
+    "id": "claude-reviewer",
+    "type": "claude",
+    "role": "reviewer",
+    "description": "코드 리뷰 및 테스트 담당"
+  },
+  "assignedZones": ["review", "testing"],
+  "permissions": {
+    "fileSystem": "read-only",
+    "canCreateTasks": true,
+    "canAssignTasks": false,
+    "canModifyCode": false
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/pio/IdeaProjects/nospoiler"]
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-playwright"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  },
+  "systemPrompt": "당신은 Reviewer 역할입니다. 코드를 직접 수정하지 말고, 리뷰 의견을 fivecircles/agent/sync.md에 작성하세요. 이슈 발견 시 queue.json에 버그 태스크를 생성하세요."
+}
