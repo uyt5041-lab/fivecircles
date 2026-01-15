@@ -1,54 +1,50 @@
-# Todo List (Team Member C: Intelligence & Filter)
+# NoSpoiler Project Total Todo List
 
-> **Role**: AI Engineer & Filter Policy
-> **Services**: `event-service`, `spoiler-policy-service`, `qa-service`
-> **Goal**: Implement Spoiler Filtering Logic and Ontology Infrastructure.
-
-## 1. Infrastructure & Setup (Priority: High) - ✅ DONE
-- [x] **Docker Configuration**
-    - [x] Add `event-service` to `docker-compose.yml`.
-    - [x] Add `spoiler-policy-service` to `docker-compose.yml`.
-- [x] **Project Structure Refactoring**
-    - [x] Create `event-service` and `spoiler-policy-service` Gradle projects.
-    - [x] Register all services in `settings.gradle`.
-    - [x] Move/Re-implement `SpoilerManager` in `spoiler-policy-service`.
-
-## 2. Core Logic Implementation (Priority: High) - ✅ DONE
-- [x] **Spoiler Policy Logic**
-    - [x] Implement `SpoilerManager` in `spoiler-policy-service`.
-    - [x] Define `SpoilerEvaluationRequest` and `SpoilerEvaluationResponse` DTOs.
-    - [x] Implement `SpoilerPolicyController` API (`/api/v1/policy/check`).
-- [x] **Unit Testing (with Mocks)**
-    - [x] Create unit tests for `SpoilerManager`.
-    - [x] Verify tests pass with `./gradlew test`.
-
-## 3. Ontology Service Implementation (Priority: Medium) - ✅ DONE
-- [x] **JPA/MyBatis Entity Mapping (`event-service`)**
-    - [x] Map `Event` table to Entity & Mapper.
-    - [x] Map `EventCharacter` table to Entity.
-    - [x] Map `EventRelation` & `EventReveal` tables.
-- [x] **Service & Controller**
-    - [x] Implement `EventService` logic.
-    - [x] Implement `EventController` API (`/api/v1/events`).
-
-## 4. Collaboration & Proposals - ✅ DONE
-- [x] **Wiki Service Schema Proposal**
-    - [x] Draft `V2__create_wiki_entry.sql` matching `notion-origin-erd.md`.
-    - [x] Placed proposal in `fivecircles/architecture/proposals/`.
-
-## 5. QA Service (Sprint 1 Goal) - ✅ DONE
-- [x] **Initial Setup**
-    - [x] Scaffolding `qa-service` project.
-    - [x] Implement Health Check API (`/api/v1/qa/health`).
+> **Principle**: Each member updates their own section.
+> **Last Updated**: 2026-01-15
 
 ---
 
-## 🚀 Next Steps (Sprint 2 / Refinement)
-- [ ] **Integration Testing**
-    - [ ] Run full stack with `docker-compose up`.
-    - [ ] Verify inter-service communication (QA -> Event -> Policy).
-- [ ] **QA Service Logic**
-    - [ ] Implement search logic using `event-service` data.
-    - [ ] Connect with `spoiler-policy-service` for filtering.
-- [ ] **API Documentation**
-    - [ ] Setup Swagger/OpenAPI for new services.
+## 👥 Team Member A: Infra & Identity (System Gateway)
+- [x] API Gateway Scaffolding
+- [x] Auth Service Scaffolding
+- [x] User Service Scaffolding (Flyway V1)
+- [ ] Security Policy Implementation (JWT)
+- [ ] Admin Service Implementation
+
+---
+
+## 👥 Team Member B: Core Domain (Content & Data)
+- [x] Drama Service Scaffolding
+- [x] Character Service Scaffolding (Flyway V1, V2)
+- [x] Wiki Service Scaffolding (Flyway V1)
+- [ ] Wiki Service: `proposeEdit` (Draft creation)
+- [ ] Wiki Service: `getCharacterWiki` (Filtered view)
+- [ ] **Pending**: Apply Wiki Schema Proposal (V2)
+
+---
+
+## 👤 Team Member C: Intelligence & Filter (박지수 - YOU)
+### 1. Infrastructure & Setup - ✅ DONE
+- [x] Docker Configuration (Add event, policy services)
+- [x] Gradle Project Scaffolding (event, policy, qa)
+- [x] Register all services in `settings.gradle`
+
+### 2. Core Logic Implementation - ✅ DONE
+- [x] `SpoilerManager` Implementation (Policy engine)
+- [x] `SpoilerPolicyController` API (`/api/v1/policy/check`)
+- [x] Unit Testing for Policy logic
+
+### 3. Ontology Service Implementation - ✅ DONE
+- [x] JPA/MyBatis Entity Mapping (event, character, relation, reveal)
+- [x] `EventService` & `EventController` API (/api/v1/events)
+- [x] DB Schema Fix (V2) for event_reveal
+
+### 4. QA Service (Sprint 1 Goal) - ✅ DONE
+- [x] Scaffolding `qa-service`
+- [x] Implement Health Check API (/api/v1/qa/health)
+
+### 5. Next Steps (Sprint 2)
+- [ ] **Integration**: Connect QA -> Event -> Policy flow
+- [ ] **Logic**: Multi-hop Ontology Retrieval
+- [ ] **Verifying**: API JSON response spoiler hiding
