@@ -10,12 +10,18 @@ This specification is divided by responsibility.
 
 ## Authority Order (Strict)
 
-> **⚠️ Authority Principle**: Documents prefixed with `notion-origin-*` are the **primary source of truth** synced from Notion. They take precedence over all other local specifications.
+> **⚠️ Authority Principle**: The ultimate **Source of Truth** is the **[Notion NoSpoiler Space]**.
+> Local files prefixed with `notion-origin-*` are **MIRRORS managed by Team Member C (Intelligence & Filter)**.
+> They reflect the latest consensus from Notion.
 
-0. notion-origin-* (Notion Master Specs)
-   - `notion-origin-roles.md`: Project structure and R&R.
-   - `notion-origin-erd.md`: Database schema and migration rules.
-   - `notion-origin-ontology-layer.md`: Core logic definitions.
+0. Notion NoSpoiler Space (Web)
+   - The absolute master for requirements, R&R, and schema.
+
+0.1 notion-origin-* (Member C's Mirrors)
+   - `notion-origin-roles.md`: Mirror of R&R.
+   - `notion-origin-erd.md`: Mirror of ERD.
+   - `notion-origin-ontology-layer.md`: Mirror of Ontology Specs.
+
 1. buisiness-workflow.md
    - workflow by requirements and its analysis
 2. git.md
