@@ -27,6 +27,7 @@
 ## 👤 Team Member C: Intelligence & Filter (박지수 - YOU)
 ### 1. Infrastructure & Setup - ✅ DONE
 - [x] Docker Configuration (Add event, policy services)
+- [x] Docker QA service (Dockerfile + compose service)
 - [x] Gradle Project Scaffolding (event, policy, qa)
 - [x] Register all services in `settings.gradle`
 
@@ -58,3 +59,8 @@
 - [ ] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding
+
+### 7. Deploy & Ops (Immediate)
+- [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build`
+- [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run
+- [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
