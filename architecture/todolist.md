@@ -65,3 +65,8 @@
 - [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build`
 - [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
+- [ ] Decide whether to track or clean `fivecircles/agent/skills/`
+- [ ] 협업으로 온톨로지 로직 검증 (wiki service)
+- [ ] 프론트 작업 진행
+- [ ] 프론트 MCP 설치 후 테스트
+- [ ] 남은 로컬 브랜치 정리 (`feature/api-enhancement-full`, `feature/filter-service-working`)
