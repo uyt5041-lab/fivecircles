@@ -3,21 +3,30 @@
 ## Overview
 이 문서는 여러 AI 에이전트가 동시에 협업할 때의 규칙을 정의합니다.
 
-## Agent Roles
+## Agent Roles (팀원 C - Intelligence & Filter)
 
-### Planner (Gemini)
-- **역할**: 기획, 노션 연동, 리서치, 태스크 분배
-- **권한**: 읽기 전용 파일 접근, 태스크 생성/할당
+### Planner (Gemini) - 조율자
+- **역할**: 전체 조율, 기획, 태스크 분배, 노션 연동
+- **권한**: 모든 에이전트에게 지시, 태스크 생성/할당
+- **담당**: 작업 흐름 관리, 우선순위 결정
 - **금지**: 코드 직접 수정
 
-### Coder (Claude/Codex)
-- **역할**: 백엔드 구현, 버그 수정
-- **권한**: 담당 영역 파일 읽기/쓰기
-- **금지**: 담당 영역 외 파일 수정, 태스크 할당
+### Coder (Claude) - 구현자
+- **역할**: 코드 구현, 설정 작업
+- **권한**: 담당 서비스 파일 읽기/쓰기
+- **담당**: event-service, spoiler-policy-service, qa-service
+- **금지**: Planner 지시 없이 작업 시작, 다른 서비스 수정
 
-### Reviewer (Claude)
-- **역할**: 코드 리뷰, E2E 테스트
+### Ops (Codex) - 운영자
+- **역할**: Deploy, Git 작업, Document 편집
+- **권한**: 인프라/배포 관련 파일, Git 명령, 문서 편집
+- **담당**: 배포, 커밋/PR, 문서화
+- **금지**: Planner 지시 없이 작업 시작, 서비스 코드 수정
+
+### Reviewer (Claude) - 검토자
+- **역할**: 코드 리뷰, 테스트
 - **권한**: 읽기 전용, 버그 태스크 생성
+- **담당**: 코드 품질 검토, 테스트 실행
 - **금지**: 코드 직접 수정
 
 ---
@@ -68,29 +77,51 @@ pending → in_progress → review → completed
 - **Coder → Reviewer**: queue.json에서 status를 "review"로 변경
 - **긴급 사항**: sync.md 최상단에 `[URGENT]` 태그로 작성
 
-### 5. Debate (충돌 해결)
-의견 충돌 시:
-1. `fivecircles/agent/debate/YYYY-MM-DD-{topic}.md` 파일 생성
-2. 각 에이전트가 자신의 의견과 근거 작성
-3. 투표 또는 사용자 결정 대기
-4. 결론 도출 후 sync.md에 기록
+---
+
+## Test Execution Protocol (Remote: bit-ts)
+
+테스트 및 배포는 원격 서버(`bit-ts`)를 기준으로 수행합니다.
+
+### 1. 테스트 실행 (Reviewer 담당)
+Reviewer는 다음 명령어를 사용하여 원격 서버에서 테스트를 수행합니다.
+- 전체 테스트: `ssh bit-ts "cd ~/nospoiler && ./gradlew test"`
+- 상세 로그 확인: `ssh bit-ts "cd ~/nospoiler && ./gradlew test --info"`
+- Docker 기반 테스트 (필요 시): `ssh bit-ts "cd ~/nospoiler && docker compose run --rm test"`
+
+### 2. 배포 및 상태 확인 (Ops 담당)
+- 배포: `ssh bit-ts "cd ~/nospoiler && git pull && docker compose up -d --build"`
+- 프로세스 확인: `ssh bit-ts "cd ~/nospoiler && docker compose ps"`
+- 로그 확인: `ssh bit-ts "cd ~/nospoiler && docker compose logs --tail 200"`
+
+### 3. 결과 기록 (Test Policy 준수)
+- **성공 시**: `work/update.md`에 기록
+- **실패 시**:
+  1. `test/errorlogs/` 하위에 타임스탬프와 함께 로그 파일 생성
+  2. `queue.json`에 버그 태스크 생성 (status: pending)
+  3. 해결 후 `test/learn-from-log.md`에 원인 및 방지책 기록
 
 ---
 
-## Zone Assignments (기본값)
+## Zone Assignments (Source: notion-origin-roles.md)
 
-| Zone | Primary Agent | Backup Agent |
-|------|---------------|--------------|
-| auth-service | claude-coder | codex-coder |
-| user-service | claude-coder | codex-coder |
-| event-service | claude-coder | - |
-| drama-service | codex-coder | claude-coder |
-| character-service | codex-coder | claude-coder |
-| wiki-service | codex-coder | - |
-| spoiler-policy-service | claude-coder | - |
-| admin-service | claude-coder | - |
-| common | 협의 필요 | - |
-| infra | 협의 필요 | - |
+| Team | Services | Agent Role |
+|------|----------|------------|
+| **Team A** (Infra & Identity) | `api-gateway`, `auth-service`, `user-service`, `admin-service` | TBD (DevOps Leader) |
+| **Team B** (Core Domain) | `drama-service`, `character-service`, `wiki-service` | TBD (Data Architect) |
+| **Team C** (Intelligence & Filter) | `event-service`, `spoiler-policy-service`, `qa-service` | `claude-coder` (AI Engineer) |
+
+## Agent Hierarchy
+
+```
+Planner (Gemini)
+    ├── 전체 조율, 기획, 태스크 분배
+    ├── 지시 → Coder (Claude)
+    ├── 지시 → Ops (Codex)
+    └── 지시 → Reviewer (Claude)
+```
+
+**모든 작업은 Planner를 통해 조율됩니다.**
 
 ---
 

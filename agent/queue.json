@@ -1,18 +1,32 @@
 {
-  "version": "1.0",
-  "lastUpdated": "",
-  "tasks": [],
-  "template": {
-    "id": "TASK-001",
-    "title": "태스크 제목",
-    "description": "상세 설명",
-    "assignedTo": "gemini-1 | claude | codex-1",
-    "assignedZone": "auth-service",
-    "priority": "high | medium | low",
-    "status": "pending | in_progress | review | completed | blocked",
-    "dependencies": [],
-    "createdBy": "planner",
-    "createdAt": "2025-01-15T00:00:00Z",
-    "updatedAt": ""
-  }
+  "version": "1.2",
+  "lastUpdated": "2026-01-16T10:25:00Z",
+  "tasks": [
+    {
+      "id": "TASK-005",
+      "title": "Define Event Ontology Schema",
+      "description": "Implement the initial Event and Spoiler Policy entities in `event-service`.",
+      "assignedTo": "claude-coder",
+      "assignedZone": "event-service",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "planner",
+      "createdAt": "2026-01-16T10:15:00Z",
+      "updatedAt": "2026-01-16T10:15:00Z"
+    },
+    {
+      "id": "TASK-006",
+      "title": "Run Initial Remote Tests",
+      "description": "Execute `./gradlew test` on `bit-ts` server and report status.",
+      "assignedTo": "claude-reviewer",
+      "assignedZone": "testing",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "planner",
+      "createdAt": "2026-01-16T10:25:00Z",
+      "updatedAt": "2026-01-16T10:25:00Z"
+    }
+  ]
 }
