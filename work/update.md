@@ -24,3 +24,10 @@ This file summarizes recent updates so other agents can continue without re‑di
     - Recommended Keybindings: `Cmd+Alt+A` (Start All), `Cmd+Alt+T` (Tmux Style).
 - **Error Logs Created**: See `fivecircles/test/errorlogs/2026-01-15-ide-task-failure.md`.
 - **Knowledge Base Updated**: See `fivecircles/test/learn-from-log.md`.
+
+## Addendum (2026-01-16) - API/QnA + MCP collaboration
+### Backend
+- Add event search endpoint with `q`/`uptoEpisode` params (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventController.java)
+- Add QA episode-range endpoint + DTOs (refs: services/qa-service/src/main/java/com/nospoiler/qaservice/controller/QaController.java)
+### Docs
+- Add MCP/collaboration configs and prompts; update guide (refs: .mcp.json)

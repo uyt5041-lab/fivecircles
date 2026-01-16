@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-15
+> **Last Updated**: 2026-01-16
 
 ---
 
@@ -51,8 +51,8 @@
     - [ ] Add `springdoc` dependency to `build.gradle`.
 - [ ] **Spec Alignment (`intelligence-api-contract.md`)**
     - [x] Remove `/api/v1` prefix from paths (Done in `feature/api-alignment`).
-    - [ ] Enhance `EventController` search (add `q`, `uptoEpisode` params).
-    - [ ] Enhance `QaController` (implement `POST /qa/episode-range`).
+    - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
+    - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
 
 ### 6. Next Steps (Sprint 2)
 - [ ] **Integration**: Connect QA -> Event -> Policy flow

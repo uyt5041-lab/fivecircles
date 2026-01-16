@@ -12,3 +12,10 @@ Optimization:
 Why it increases score:
 When to apply:
 Related tasks/files:
+
+Timestamp: 2026-01-16
+Area: API/QnA endpoints
+Optimization: Run backend tests after API changes to claim mandatory test scenario points.
+Why it increases score: Test success yields +40 per agent-scoring-policy.md.
+When to apply: After endpoint changes are merged.
+Related tasks/files: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventController.java
