@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-16
+> **Last Updated**: 2026-01-17
 
 ---
 
@@ -26,6 +26,7 @@
 ---
 
 ## 👤 Team Member C: Intelligence & Filter (박지수 - YOU)
+> **My Todo**: 이 섹션(C 영역)만 작업
 ### 1. Infrastructure & Setup - ✅ DONE
 - [x] Docker Configuration (Add event, policy services)
 - [x] Docker QA service (Dockerfile + compose service)
@@ -47,17 +48,18 @@
 - [x] Implement Health Check API (/api/v1/qa/health)
 
 ### 5. API Refinement & Spec Alignment (Priority: High)
-- [ ] **Backend Convention Compliance**
-    - [ ] Add Swagger (`@Tag`, `@Operation`) to Controllers.
-    - [ ] Refactor DTO/Entity Lombok annotations (`@Data` -> `@Getter`, `@Builder`).
-    - [ ] Add `springdoc` dependency to `build.gradle`.
+- [x] **Backend Convention Compliance**
+    - [x] Add Swagger (`@Tag`, `@Operation`) to Controllers.
+    - [x] Refactor DTO/Entity Lombok annotations (`@Data` -> `@Getter`, `@Builder`).
+    - [x] Add `springdoc` dependency to `build.gradle`.
 - [ ] **Spec Alignment (`intelligence-api-contract.md`)**
     - [x] Remove `/api/v1` prefix from paths (Done in `feature/api-alignment`).
     - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
     - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
+- [ ] Swagger UI 화면 예시 공유 (모바일 확인용)
 
 ### 6. Next Steps (Sprint 2)
-- [ ] **Integration**: Connect QA -> Event -> Policy flow
+- [x] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding
 
