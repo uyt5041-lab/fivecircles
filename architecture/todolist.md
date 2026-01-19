@@ -9,8 +9,9 @@
 - [x] API Gateway Scaffolding
 - [x] Auth Service Scaffolding
 - [x] User Service Scaffolding (Flyway V1)
-- [ ] Security Policy Implementation (JWT)
-- [ ] Admin Service Implementation
+- [x] Gateway JWT 컨텍스트 전파 (검증/401·403 매핑, X-User-* 헤더 전달, 헬스·레디니스/재시도 설정)
+- [x] 인증 API 완성 (/api/auth: signup|login|reissue, 이메일·닉네임 중복 409, 비밀번호 해시, access/refresh 저장)
+- [x] 토큰 수명 관리 (리프레시 회전·무효화, clock skew 60s 적용, 인증 이벤트 감사 로그)
 
 ---
 
