@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-17
+> **Last Updated**: 2026-01-19
 
 ---
 
@@ -60,7 +60,9 @@
 
 ### 6. Next Steps (Sprint 2)
 - [x] **Integration**: Connect QA -> Event -> Policy flow
-- [ ] **Logic**: Multi-hop Ontology Retrieval
+- [ ] **Core Pipeline (no QA)**: Wiki 승인 → Event 생성 → Policy 태깅 정합성
+- [ ] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
+- [x] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding
 
 ### 7. Deploy & Ops (Immediate)
