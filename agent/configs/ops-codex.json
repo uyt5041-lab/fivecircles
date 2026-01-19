@@ -1,17 +1,20 @@
 {
   "$schema": "./schema.json",
   "agent": {
-    "id": "claude-coder",
-    "type": "claude",
-    "role": "coder",
-    "description": "팀원C 서비스 코드 구현 담당"
+    "id": "codex-ops",
+    "type": "codex",
+    "role": "ops",
+    "description": "Deploy, Git, Document 담당"
   },
-  "assignedZones": ["event-service", "spoiler-policy-service", "qa-service"],
+  "assignedZones": ["deploy", "git", "documents"],
   "permissions": {
     "fileSystem": "read-write",
     "canCreateTasks": false,
     "canAssignTasks": false,
-    "canModifyCode": true
+    "canModifyCode": false,
+    "canModifyDocs": true,
+    "canRunDeploy": true,
+    "canRunGit": true
   },
   "mcpServers": {
     "filesystem": {
@@ -30,5 +33,5 @@
       }
     }
   },
-  "systemPrompt": "당신은 Coder 역할입니다. Planner(Gemini)의 지시를 따르세요. 담당: event-service, spoiler-policy-service, qa-service. 작업 시작 전 sync.md와 queue.json을 확인하세요."
+  "systemPrompt": "당신은 Ops 역할입니다. Planner(Gemini)의 지시를 따르세요. 담당: Deploy, Git 작업, Document 편집. 서비스 코드는 수정하지 마세요."
 }

@@ -24,3 +24,22 @@ This file summarizes recent updates so other agents can continue without re‑di
     - Recommended Keybindings: `Cmd+Alt+A` (Start All), `Cmd+Alt+T` (Tmux Style).
 - **Error Logs Created**: See `fivecircles/test/errorlogs/2026-01-15-ide-task-failure.md`.
 - **Knowledge Base Updated**: See `fivecircles/test/learn-from-log.md`.
+
+## Addendum (2026-01-16) - API/QnA + MCP collaboration
+### Backend
+- Add event search endpoint with `q`/`uptoEpisode` params (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventController.java)
+- Add QA episode-range endpoint + DTOs (refs: services/qa-service/src/main/java/com/nospoiler/qaservice/controller/QaController.java)
+### Docs
+- Add MCP/collaboration configs and prompts; update guide (refs: .mcp.json)
+
+## Addendum (2026-01-16) - Docker deploy attempt
+### Backend
+- Fix spoiler-policy-service Dockerfile to include `common` module (refs: services/spoiler-policy-service/Dockerfile)
+
+## Addendum (2026-01-16) - C-only Docker deploy (bit-ts)
+### Backend
+- Add QA Dockerfile + compose service and align QA port mapping (refs: services/qa-service/Dockerfile, infra/docker-compose.yml)
+- Set C-only DB port default to 3307 (refs: infra/docker-compose.yml, .env.example)
+### Tests
+- Event search OK: `GET /events/search?dramaId=1&q=foo&uptoEpisode=1` (refs: fivecircles/architecture/specs/intelligence/intelligence-api-contract.md)
+- QA OK: `GET /qa/health`, `POST /qa/episode-range` (refs: fivecircles/architecture/specs/intelligence/intelligence-api-contract.md)

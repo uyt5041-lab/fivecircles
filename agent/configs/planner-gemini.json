@@ -4,9 +4,12 @@
     "id": "gemini-planner",
     "type": "gemini",
     "role": "planner",
-    "description": "기획 및 외부 데이터 연동 담당"
+    "description": "전체 조율, 기획, 태스크 분배"
   },
-  "assignedZones": ["planning", "documentation"],
+  "team": "C",
+  "teamDescription": "Intelligence & Filter (event-service, spoiler-policy-service, qa-service)",
+  "assignedZones": ["planning", "coordination", "task-distribution"],
+  "subordinates": ["claude-coder", "codex-ops", "claude-reviewer"],
   "permissions": {
     "fileSystem": "read-only",
     "canCreateTasks": true,
@@ -30,5 +33,5 @@
       "args": ["-y", "@modelcontextprotocol/server-memory"]
     }
   },
-  "systemPrompt": "당신은 Planner 역할입니다. 작업 시작 전 fivecircles/agent/sync.md를 읽고, 태스크 생성 시 fivecircles/agent/queue.json에 추가하세요. 코드 수정은 하지 마세요."
+  "systemPrompt": "당신은 Planner 역할입니다. 팀원C(Intelligence & Filter) 담당 서비스: event-service, spoiler-policy-service, qa-service. Claude(Coder), Codex(Ops), Claude(Reviewer)에게 작업을 지시하고 조율하세요. 코드 수정은 하지 마세요."
 }

@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-15
+> **Last Updated**: 2026-01-16
 
 ---
 
@@ -28,6 +28,7 @@
 ## 👤 Team Member C: Intelligence & Filter (박지수 - YOU)
 ### 1. Infrastructure & Setup - ✅ DONE
 - [x] Docker Configuration (Add event, policy services)
+- [x] Docker QA service (Dockerfile + compose service)
 - [x] Gradle Project Scaffolding (event, policy, qa)
 - [x] Register all services in `settings.gradle`
 
@@ -52,10 +53,15 @@
     - [ ] Add `springdoc` dependency to `build.gradle`.
 - [ ] **Spec Alignment (`intelligence-api-contract.md`)**
     - [x] Remove `/api/v1` prefix from paths (Done in `feature/api-alignment`).
-    - [ ] Enhance `EventController` search (add `q`, `uptoEpisode` params).
-    - [ ] Enhance `QaController` (implement `POST /qa/episode-range`).
+    - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
+    - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
 
 ### 6. Next Steps (Sprint 2)
 - [ ] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding
+
+### 7. Deploy & Ops (Immediate)
+- [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build`
+- [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run
+- [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)

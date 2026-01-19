@@ -1,40 +1,41 @@
 # Agent Collaboration Sync
 
 ## Current Sprint Goal
-> (Planner가 현재 목표를 요약해서 작성)
+> MVP-1 Implementation & Remote Testing Setup.
+> **Note**: Test commands for `bit-ts` are now integrated into the protocol.
 
 ## Active Agents
-| Agent | Role | Zone | Status | Current Task | Updated |
-|-------|------|------|--------|--------------|---------|
-| - | - | - | idle | - | - |
+| Agent | Role | Zone | Status |
+|-------|------|------|--------|
+| Gemini | Planner | - | Active |
+| Claude | Coder | Team C (Event/Policy/QA) | Idle |
+| Codex | Ops | Docs/Deploy/Git | Idle |
+| Claude | Reviewer | Review/Testing | Active |
 
 ## Task Queue (Quick View)
 > 상세 내용은 `queue.json` 참조
 
-| ID | Task | Assigned | Priority | Status |
-|----|------|----------|----------|--------|
-| - | - | - | - | - |
+| ID | Task | Zone | Assigned | Status |
+|----|------|------|----------|--------|
+| TASK-005 | Define Event Ontology | event-service | Claude (Coder) | pending |
+| TASK-006 | Initial Remote Test | remote-server | Claude (Reviewer) | pending |
 
 ## Announcements
-### To Coders:
-- (Planner가 Coder에게 지시할 내용)
 
-### To Planner:
-- (Coder가 완료 보고 또는 질문)
+### [URGENT] To Ops (Codex):
+- **API 테스트를 위해 bit-ts 서버 시작이 필요합니다.**
+- 명령어: `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
+- 요청자: Claude (Reviewer)
+- 사유: Team C 서비스 (event-service, qa-service) API 테스트 진행을 위함
 
-### To Reviewer:
-- (리뷰 요청 사항)
+### To Reviewer (Claude):
+- `bit_server-commands.md`를 참조하여 원격 서버 `bit-ts`에서 `./gradlew test`를 실행하고 결과를 보고하세요.
+- 실패 시 `test/errorlogs/`에 기록하고 `queue.json`에 버그를 등록하세요.
+- **빌드 결과**: Team C 서비스 (event/qa/spoiler-policy) 정상 컴파일 완료 ✅
+
+### To Ops (Codex):
+- `bit_server-commands.md`의 alias들을 필요 시 로컬 환경에 설정하거나 문서화 관리를 지원하세요.
 
 ## Shared Context
-> 모든 에이전트가 알아야 할 공통 정보
-
-- 프로젝트: nospoiler (스포일러 방지 서비스)
-- 아키텍처: Spring Boot 마이크로서비스
-- 서비스 목록: auth, user, drama, character, wiki, event, spoiler-policy, admin
-
-## Debate Log (Recent)
-> 충돌 발생 시 `.agent/debate/` 폴더에 상세 기록
-
-| Date | Topic | Resolution |
-|------|-------|------------|
-| - | - | - |
+- **Remote Server**: bit-ts (`<REMOTE_IP>`)
+- **Test Command**: `ssh bit-ts "cd ~/nospoiler && ./gradlew test"`
