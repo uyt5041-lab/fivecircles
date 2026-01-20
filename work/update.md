@@ -112,3 +112,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Event service tests pass (refs: ./gradlew :services:event-service:test)
+## Addendum (2026-01-20) - Event V2 queries
+### Backend
+- Implemented L1-3 query endpoints + mappers (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java)
+
+### Docs
+- Added V2 API spec and updated mappings (refs: fivecircles/architecture/specs/event-v2-api.md)
+
+### Tests
+- Server curl checks for new endpoints (refs: http://localhost:8089/dramas/1/events?safeUpToEpisode=1&predicateCode=STATUS_CHANGE)
