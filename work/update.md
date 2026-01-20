@@ -103,3 +103,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Server curl checks pass for event + policy (refs: fivecircles/test/errorlogs/backend/2026-01-20-policy-port-mapping.md)
+## Addendum (2026-01-20) - Event query APIs
+### Backend
+- Added L1-3 query endpoints and mappers (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java)
+
+### Docs
+- Synced intelligence mapping to V2 query docs (refs: fivecircles/architecture/specs/intelligence/intelligence-api-contract.md)
+
+### Tests
+- Event service tests pass (refs: ./gradlew :services:event-service:test)

@@ -35,6 +35,7 @@ Compose Location
 Remote Branch Sync (Required for Server Tests)
 - The server can only pull commits that exist on the remote.
 - Push your local branch first, then pull on the server.
+- Commit only after explicit approval from the owner.
 
 Example (Local -> Remote)
 1) `git status`

@@ -80,6 +80,10 @@ Response:
   }
 ]
 
+### Event Query Types (V2)
+- QueryType mapping and SQL patterns: `fivecircles/architecture/specs/event-v2-plan-map.md`
+- Endpoint list (L1–L3): `fivecircles/architecture/specs/event-v2-api.md`
+
 POST /qa/episode-range
 Request:
 { "dramaId":"string","queryText":"string","uptoEpisode":6 }
