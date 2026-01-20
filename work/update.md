@@ -121,3 +121,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Server curl checks for new endpoints (refs: http://localhost:8089/dramas/1/events?safeUpToEpisode=1&predicateCode=STATUS_CHANGE)
+## Addendum (2026-01-20) - Ignore local proposal drafts
+### Docs
+- Ignore nospoiler_newspecs proposal folder (refs: .gitignore)
