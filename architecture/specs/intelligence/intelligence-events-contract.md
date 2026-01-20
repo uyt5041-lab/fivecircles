@@ -34,6 +34,10 @@ Payload(data):
   "labelDraft":{"eventType":"REVEAL_CONFIRM","involvedCharacterIds":["string"]}
 }
 
+## Event type mapping (V2)
+- labelDraft.eventType is stored as event.predicate_code.
+- Allowed values: REVEAL_HINT, REVEAL_CONFIRM, RELATION_CHANGE, STATUS_CHANGE.
+
 wiki_entry.rejected.v1
 - 목적: 선택적으로 Assessment 비활성 처리
 

@@ -58,3 +58,17 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Order multi-hop results by hop distance before episode range (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java)
 ### Tests
 - `:services:event-service:test` OK (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplTest.java)
+
+## Addendum (2026-01-19) - Test server spec + episode cutoff
+### Backend
+- Add test server connection spec for Team C services (refs: fivecircles/architecture/specs/test-sever-policy.md)
+- Use episode_end as cutoff for event search filters (refs: services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+### Tests
+- Not run (not requested)
+
+## Addendum (2026-01-20) - Spec alignment (roles + event type)
+### Backend
+- Align user role enums with notion-origin (refs: fivecircles/architecture/specs/data-model.md)
+- Document eventType -> predicate_code mapping for V2 (refs: fivecircles/architecture/specs/intelligence/intelligence-events-contract.md)
+### Tests
+- Not run (not requested)
