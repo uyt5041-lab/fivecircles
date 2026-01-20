@@ -97,3 +97,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-01-20) - Test server policy sync
 ### Docs
 - Added remote sync + infra compose steps (refs: fivecircles/architecture/specs/test-server-policy-4C.md)
+## Addendum (2026-01-20) - Server curl validation
+### Backend
+- Fix policy service port mapping + compose env (refs: infra/docker-compose.yml)
+
+### Tests
+- Server curl checks pass for event + policy (refs: fivecircles/test/errorlogs/backend/2026-01-20-policy-port-mapping.md)
