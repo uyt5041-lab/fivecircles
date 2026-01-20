@@ -26,3 +26,9 @@ This document records insights gained from errors to prevent recurrence.
 ## [2026-01-16] MySQL port conflict on bit-ts
 - **Root cause**: Host 3306 already bound; compose could not publish MySQL.
 - **Prevention**: Use `DB_PORT=3307` for C-only runs and document the default. (refs: fivecircles/test/errorlogs/backend/2026-01-16-mysql-port-conflict.md)
+### Mockito unnecessary stubbing in event-service tests
+Cause:
+- policyServiceClient stubs were added for tests where uptoEpisode was null
+
+Preventive rule:
+- Only stub methods exercised in the test path or use lenient() for optional calls

@@ -79,3 +79,18 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Add V2 pre-triple migration for event domain (refs: services/event-service/src/main/resources/db/migration/V3__event_v2_pre_triple.sql)
 ### Tests
 - Not run (not requested)
+## Addendum (2026-01-20) - Event V2 fields + specs
+### Backend
+- V2 predicate fields and search filter (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java)
+
+### Docs
+- V2/V3 plans + test server policy updated (refs: fivecircles/architecture/specs/event-v2-plan-map.md)
+
+### Tests
+- Event service tests pass (refs: ./gradlew :services:event-service:test)
+## Addendum (2026-01-20) - Event search policy apply
+### Backend
+- Event search uses policy client (refs: services/event-service/src/main/java/com/nospoiler/eventservice/client/PolicyServiceClient.java)
+
+### Tests
+- Tests pass after stubbing fix (refs: fivecircles/test/errorlogs/backend/2026-01-20-mockito-unnecessary-stubbing.md)
