@@ -72,3 +72,10 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Document eventType -> predicate_code mapping for V2 (refs: fivecircles/architecture/specs/intelligence/intelligence-events-contract.md)
 ### Tests
 - Not run (not requested)
+
+## Addendum (2026-01-20) - V2 config + migration
+### Backend
+- Add Flyway history table override for event/user services (refs: services/event-service/src/main/resources/application.yml, services/user-service/src/main/resources/application.yml)
+- Add V2 pre-triple migration for event domain (refs: services/event-service/src/main/resources/db/migration/V3__event_v2_pre_triple.sql)
+### Tests
+- Not run (not requested)
