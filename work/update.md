@@ -94,3 +94,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Tests pass after stubbing fix (refs: fivecircles/test/errorlogs/backend/2026-01-20-mockito-unnecessary-stubbing.md)
+## Addendum (2026-01-20) - Test server policy sync
+### Docs
+- Added remote sync + infra compose steps (refs: fivecircles/architecture/specs/test-server-policy-4C.md)
