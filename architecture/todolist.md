@@ -61,6 +61,8 @@
 ### 6. Next Steps (Sprint 2)
 - [x] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Core Pipeline (no QA)**: Wiki 승인 → Event 생성 → Policy 태깅 정합성
+- [x] 테스트용 서버 연결 스펙 설정
+- [ ] 이벤트 검색 시 스포일러 정책 연동 로직 업그레이드
 - [ ] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
 - [x] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding

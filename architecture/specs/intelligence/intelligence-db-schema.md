@@ -78,20 +78,23 @@ INDEX
 - episode_start, episode_end
 - source_type: WIKI_ENTRY | MANUAL
 - source_id NULL
+- predicate_code: REVEAL_HINT | REVEAL_CONFIRM | RELATION_CHANGE | STATUS_CHANGE | UNKNOWN
+- source_status: APPROVED | PENDING | REJECTED
 - created_at
 
 INDEX
-- (drama_id, episode_end)
-- (drama_id, summary)
+- idx_event_drama_range (drama_id, episode_start, episode_end)
+- idx_event_drama_pred_end (drama_id, predicate_code, episode_end, episode_start, id)
+- idx_event_drama_end (drama_id, episode_end, id)
 
 ### event_character
 - event_id, character_id (PK)
 - role NULL
 
 ### event_relation
-- from_event_id, to_event_id, type (PK)
+- from_event_id, to_event_id (PK)
 - type: RELATED | PRECEDES
 
 ### event_reveal (옵션)
-- event_id, target_type, target_id, reveal_type (PK)
+- event_id, target_type, target_id (PK)
 - reveal_type: HINT | CONFIRM

@@ -25,7 +25,9 @@ Stores JWT refresh tokens.
 
 ### V2 (pre-triple)
 - Event 중심 데이터(episode range + summary)로 스포일러 게이트/기본 질의 지원
-- Event type / Character role 없음
+- Event type: event.predicate_code (default: UNKNOWN)
+- Event review status: event.source_status (default: APPROVED)
+- Character role 없음
 
 ### V3 (triple-enabled)
 Triple decomposition is stored in existing tables:

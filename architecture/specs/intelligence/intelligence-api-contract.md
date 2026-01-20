@@ -64,9 +64,21 @@ Response:
 
 ## 3) Event Search & Q&A
 
-GET /events/search?dramaId=...&q=...&uptoEpisode=K
+GET /events/search?dramaId=...&q=...&uptoEpisode=K&predicateCode=...
 Response:
-[ { "eventId":"string","summary":"string","episodeStart":3,"episodeEnd":4 } ]
+[
+  {
+    "id":"string",
+    "dramaId":"string",
+    "summary":"string",
+    "episodeStart":3,
+    "episodeEnd":4,
+    "sourceType":"WIKI_ENTRY|MANUAL",
+    "sourceId":"string|null",
+    "predicateCode":"REVEAL_HINT|REVEAL_CONFIRM|RELATION_CHANGE|STATUS_CHANGE|UNKNOWN",
+    "sourceStatus":"APPROVED|PENDING|REJECTED"
+  }
+]
 
 POST /qa/episode-range
 Request:
