@@ -32,3 +32,9 @@ Cause:
 
 Preventive rule:
 - Only stub methods exercised in the test path or use lenient() for optional calls
+### Spoiler policy port mismatch in docker-compose
+Cause:
+- compose mapped 8090:8080 while app listens on 8090
+
+Preventive rule:
+- Align compose ports with app server.port or add application-docker.yml
