@@ -124,3 +124,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-01-20) - Ignore local proposal drafts
 ### Docs
 - Ignore nospoiler_newspecs proposal folder (refs: .gitignore)
+## Addendum (2026-01-20) - Track shared proposal materials
+### Docs
+- Tracked shared proposal folder + skills (refs: fivecircles/architecture/proposals/공유-온톨로지레이어구축)
