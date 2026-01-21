@@ -129,90 +129,24 @@ Base URL: `/api/character/v1`
 
 ## Event Service
 
-Base URL: `/api/event`
+Base URL: `/api/event/v1`
 
-### POST /v1
+### POST /
 
 - **Description**: Create a new ontology event.
 - **Request**: `EventRequestDTO`
 - **Response**: `ApiResponse<EventResponseDTO>`
 
-### GET /v1/{id}
+### GET /{id}
 
 - **Description**: Get event details by ID.
 - **Response**: `ApiResponse<EventResponseDTO>`
 
-### GET /v1/search
+### GET /search
 
 - **Description**: Search events (Spoiler-aware).
 - **URL Params**: `dramaId`, `q` (optional), `uptoEpisode` (optional)
 - **Response**: `ApiResponse<List<EventResponseDTO>>`
-
----
-
-## Event Query Service (V2)
-
-Base URL: `/api/event`
-
-### GET /v2/dramas/{dramaId}/events
-
-- **Description**: Filter events by drama and predicate/episode range.
-- **URL Params**: `safeUpToEpisode` (optional), `predicateCode` (optional), `fromEpisode` (optional), `toEpisode` (optional), `limit` (optional)
-- **Response**: `ApiResponse<List<EventResponseDTO>>`
-
-### GET /v2/dramas/{dramaId}/characters
-
-- **Description**: Characters seen up to K by involvement.
-- **URL Params**: `safeUpToEpisode` (optional), `limit` (optional), `sort` (optional)
-- **Response**: `ApiResponse<List<CharacterInvolvementResponse>>`
-
-### GET /v2/characters/{characterId}/events
-
-- **Description**: Events involving the character.
-- **URL Params**: `safeUpToEpisode` (optional), `predicateCode` (optional), `limit` (optional)
-- **Response**: `ApiResponse<List<EventResponseDTO>>`
-
-### GET /v2/characters/{characterId}/coevents
-
-- **Description**: Events where two characters appear together.
-- **URL Params**: `with`, `safeUpToEpisode` (optional)
-- **Response**: `ApiResponse<List<EventResponseDTO>>`
-
-### GET /v2/events/{eventId}/characters
-
-- **Description**: Characters involved in the event.
-- **URL Params**: `safeUpToEpisode` (optional)
-- **Response**: `ApiResponse<List<EventCharacterResponse>>`
-
-### GET /v2/events/{eventId}/related
-
-- **Description**: Traverse related events (multi-hop).
-- **URL Params**: `depth` (optional, default 1), `safeUpToEpisode` (optional), `types` (optional)
-- **Response**: `ApiResponse<List<EventResponseDTO>>`
-
-### GET /v2/events/{eventId}/causes
-
-- **Description**: Traverse PRECEDES edges in reverse.
-- **URL Params**: `depth` (optional, default 1), `safeUpToEpisode` (optional)
-- **Response**: `ApiResponse<List<EventResponseDTO>>`
-
-### GET /v2/events/{eventId}/effects
-
-- **Description**: Traverse PRECEDES edges forward.
-- **URL Params**: `depth` (optional, default 1), `safeUpToEpisode` (optional)
-- **Response**: `ApiResponse<List<EventResponseDTO>>`
-
-### GET /v2/characters/{characterId}/related-characters
-
-- **Description**: Characters related via co-appearance.
-- **URL Params**: `safeUpToEpisode` (optional), `limit` (optional)
-- **Response**: `ApiResponse<List<CharacterRelationResponse>>`
-
-### GET /v2/characters/path
-
-- **Description**: Shortest path between characters via events.
-- **URL Params**: `from`, `to`, `maxDepth` (optional), `safeUpToEpisode` (optional)
-- **Response**: `ApiResponse<CharacterPathResponse>`
 
 ---
 
