@@ -7,6 +7,11 @@ Purpose
 Scope
 - event-service (ontology/event domain)
 
+Prerequisites (carry over from V2)
+- Exposure queries must apply: episode_end <= :K AND source_status = 'APPROVED'.
+- PRECEDES direction is fixed: from=previous, to=next (reverse traversal uses to_event_id).
+- Traversal should remain a safe graph (apply K + APPROVED during BFS expansion).
+
 1) Flyway migration (event-service)
 
 Path
@@ -33,6 +38,7 @@ FROM event_character ec
 JOIN event e ON e.id = ec.event_id
 WHERE ec.event_id = :eventId
   AND e.episode_end <= :K
+  AND e.source_status = 'APPROVED'
 ORDER BY ec.role ASC, ec.character_id ASC;
 ```
 
@@ -43,4 +49,5 @@ ORDER BY ec.role ASC, ec.character_id ASC;
 4) Implementation notes
 - Update event_character entity + mapper to include role.
 - Keep predicate_code in event table from V2.
-- Maintain K gating with episode_end.
+- Maintain K gating with episode_end and source_status = 'APPROVED'.
+- V3 does not introduce a CAUSES relation; PRECEDES remains the only temporal edge.

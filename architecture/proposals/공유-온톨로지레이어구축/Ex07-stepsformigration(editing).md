@@ -11,7 +11,7 @@
 * **노출 게이트는 항상** `event.episode_end <= K` (K=사용자 last_watched_episode_number)【/mnt/data/data-model.md】
 * 서비스별 DB 접근 원칙은 유지:
 
-  * **event-service는 event 도메인 테이블만** (event, event_character, event_relation, event_reveal)【/mnt/data/notion-origin-erd.md】
+  * **event-service는 event 도메인 테이블만** (event, event_character, event_relation, event_reveal)【/mnt/data/notion-origin-erd-v2.md】
 
 ---
 
@@ -123,7 +123,7 @@ CREATE TABLE event_metric (
 
 **목적:** “예고/떡밥”을 *미래 내용 없이* 카운트/축 수준으로만 제공
 
-* DB 컬럼은 VARCHAR(20)이라 **마이그레이션 불필요**【/mnt/data/notion-origin-erd.md】
+* DB 컬럼은 VARCHAR(20)이라 **마이그레이션 불필요**【/mnt/data/notion-origin-erd-v2.md】
 * 코드에서 허용 타입 목록에 `FORESHADOWS`만 추가
 * 기본 BFS 확장에는 **절대 포함시키지 않기** (위험)
 

@@ -38,3 +38,45 @@ Cause:
 
 Preventive rule:
 - Align compose ports with app server.port or add application-docker.yml
+### MySQL volume skips init.sql
+Cause:
+- Existing mysql volume prevents init.sql from creating nospoiler_event/nospoiler_wiki
+
+Preventive rule:
+- Ensure DBs exist before service start or recreate mysql volume
+### Flyway history table collision risk
+Cause:
+- Multiple services share flyway_schema_history in one DB
+
+Preventive rule:
+- Set SPRING_FLYWAY_TABLE per service and keep default in application.yml (refs: fivecircles/test/errorlogs/backend/2026-01-20-flyway-history-collision-risk.md)
+### Exposure queries missing source_status gate
+Cause:
+- Event exposure queries did not filter APPROVED only
+
+Preventive rule:
+- Apply source_status='APPROVED' + episode_end<=K to all exposure queries and join event for character lists (refs: fivecircles/test/errorlogs/backend/2026-01-20-source-status-gate-missing.md)
+### Traversal must expand safe graph
+Cause:
+- BFS expansion happened without K/APPROVED gating
+
+Preventive rule:
+- Join event in relation queries and apply K + APPROVED during traversal (refs: fivecircles/test/errorlogs/backend/2026-01-20-bfs-safe-graph-missing.md)
+### PRECEDES direction ambiguity
+Cause:
+- from/to semantics not fixed, making reverse traversal unclear
+
+Preventive rule:
+- Define PRECEDES as from=previous, to=next and use to_event_id for reverse traversal (refs: fivecircles/test/errorlogs/backend/2026-01-20-precedes-direction-ambiguous.md)
+### Character-event reverse index missing
+Cause:
+- event_character lacked character_id->event_id index for timeline queries
+
+Preventive rule:
+- Add idx_ec_character_event (character_id, event_id) migration (refs: fivecircles/test/errorlogs/backend/2026-01-20-character-event-index-missing.md)
+### V2 event_character insert should not include role
+Cause:
+- V2 schema lacks event_character.role but mapper attempted role insert
+
+Preventive rule:
+- Use role-less insert in V2; add role only after V3 migration (refs: fivecircles/test/errorlogs/backend/2026-01-20-v3-role-column-missing.md)

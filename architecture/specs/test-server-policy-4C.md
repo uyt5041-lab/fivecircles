@@ -32,6 +32,15 @@ Compose Location
 - Docker compose runs from `~/nospoiler/infra` on the server.
 - Use the infra folder for `docker compose up -d --build`.
 
+MySQL Bootstrap (When Volume Exists)
+- If the MySQL volume already exists, `docker/mysql/init/init.sql` will NOT run again.
+- Ensure required databases exist before starting services:
+  - nospoiler_event
+  - nospoiler_wiki
+  - nospoiler_policy
+- Create them (server):
+  - `ssh bit-ts "docker exec -i nospoiler-mysql mysql -uroot -proot -e 'CREATE DATABASE IF NOT EXISTS nospoiler_event; CREATE DATABASE IF NOT EXISTS nospoiler_wiki; CREATE DATABASE IF NOT EXISTS nospoiler_policy;'"` 
+
 Remote Branch Sync (Required for Server Tests)
 - The server can only pull commits that exist on the remote.
 - Push your local branch first, then pull on the server.

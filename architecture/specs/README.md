@@ -18,9 +18,9 @@ This specification is divided by responsibility.
    - The absolute master for requirements, R&R, and schema.
 
 0.1 notion-origin-* (Member C's Mirrors)
-   - `notion-origin-roles.md`: Mirror of R&R.
-   - `notion-origin-erd.md`: Mirror of ERD.
-   - `notion-origin-ontology-layer.md`: Mirror of Ontology Specs.
+   - `notion-origin-roles-v2.md`: Mirror of R&R.
+   - `notion-origin-erd-v2.md`: Mirror of ERD.
+   - `notion-origin-ontology-layer-v2.md`: Mirror of Ontology Specs.
 
 1. buisiness-workflow.md
    - workflow by requirements and its analysis
@@ -49,7 +49,6 @@ the higher-priority document takes precedence.
 
 ## Intelligence (root specs/)
 - `specs/intelligence/intelligence-events-contract.md`
-- `specs/intelligence/intelligence-api-contract.md`
 - `specs/intelligence/intelligence-db-schema.md`
 
 ## Language Policy

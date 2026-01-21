@@ -8,6 +8,32 @@ Scope
 - event-service (ontology/event domain)
 - user-service (Flyway table separation)
 
+Issue Resolution Plan (V2 blockers)
+1) Flyway history table collision (HIGH)
+- Fix: set SPRING_FLYWAY_TABLE via compose env for event/user (and content if used).
+- Keep application.yml default table as a fallback.
+- AC: event/user migrations do not share history or version state.
+
+2) Source status gate (HIGH/CRITICAL)
+- All exposure queries must include: e.source_status = 'APPROVED' AND e.episode_end <= :K.
+- Character lists must JOIN event to apply the same gate.
+- If missing, add source_status column + index by drama/status/episode_end.
+- AC: PENDING events never appear in any API response.
+
+3) Safe traversal gating (MEDIUM)
+- Apply K + APPROVED gates during traversal (safe graph), not only after expansion.
+- AC: BFS never walks outside the safe graph, even at intermediate hops.
+
+4) PRECEDES direction rule (MEDIUM)
+- Store PRECEDES as from=previous, to=next. Reverse traversal uses to_event_id.
+- If endpoint name is "causes", treat it as predecessors until a CAUSES type exists.
+- AC: Reverse traversal returns deterministic predecessors under the same rule.
+
+5) Traversal/character reverse indexes (MEDIUM)
+- Ensure idx_er_from_type_to and idx_er_to_type_from exist.
+- Add idx_ec_character_event (character_id, event_id) for CHARACTER_EVENTS.
+- AC: BFS and character timelines remain stable under data growth.
+
 2) Config changes (code/config only, no migration)
 
 Add to each service's application.yml or application.properties.
@@ -52,6 +78,17 @@ CREATE INDEX idx_er_to_type_from
   ON event_relation (to_event_id, type, from_event_id);
 ```
 
+Optional follow-up migrations (when needed)
+```sql
+-- V4__event_v2_status_index.sql
+CREATE INDEX idx_event_drama_status_end
+  ON event (drama_id, source_status, episode_end, id);
+
+-- V5__event_v2_character_index.sql
+CREATE INDEX idx_ec_character_event
+  ON event_character (character_id, event_id);
+```
+
 4) "20 questions -> 6 queryType" mapping (doc-only)
 
 Query Types
@@ -87,7 +124,7 @@ Mapping (sample 20)
 5) Query patterns (spec-only)
 
 Common rule
-- Always apply: episode_end <= :K
+- Always apply: episode_end <= :K AND source_status = 'APPROVED'
 
 1) CHARACTER_EVENTS
 ```sql
@@ -96,6 +133,7 @@ FROM event e
 JOIN event_character ec ON ec.event_id = e.id
 WHERE e.drama_id = :dramaId
   AND e.episode_end <= :K
+  AND e.source_status = 'APPROVED'
   AND ec.character_id = :characterId
   AND (:predicateCode IS NULL OR e.predicate_code = :predicateCode)
 ORDER BY e.episode_start ASC, e.id ASC;
@@ -108,6 +146,7 @@ FROM event_character ec
 JOIN event e ON e.id = ec.event_id
 WHERE ec.event_id = :eventId
   AND e.episode_end <= :K
+  AND e.source_status = 'APPROVED'
 ORDER BY ec.character_id ASC;
 ```
 
@@ -119,6 +158,7 @@ JOIN event_character ec1 ON ec1.event_id = e.id AND ec1.character_id = :a
 JOIN event_character ec2 ON ec2.event_id = e.id AND ec2.character_id = :b
 WHERE e.drama_id = :dramaId
   AND e.episode_end <= :K
+  AND e.source_status = 'APPROVED'
 ORDER BY e.episode_start ASC, e.id ASC;
 ```
 
@@ -126,16 +166,24 @@ ORDER BY e.episode_start ASC, e.id ASC;
 ```sql
 SELECT r.from_event_id, r.to_event_id
 FROM event_relation r
+JOIN event ef ON ef.id = r.from_event_id
+JOIN event et ON et.id = r.to_event_id
 WHERE r.to_event_id IN (:frontierIds)
-  AND r.type = 'PRECEDES';
+  AND r.type = 'PRECEDES'
+  AND ef.episode_end <= :K AND ef.source_status = 'APPROVED'
+  AND et.episode_end <= :K AND et.source_status = 'APPROVED';
 ```
 
 5) EVENT_EFFECTS (PRECEDES forward BFS)
 ```sql
 SELECT r.from_event_id, r.to_event_id
 FROM event_relation r
+JOIN event ef ON ef.id = r.from_event_id
+JOIN event et ON et.id = r.to_event_id
 WHERE r.from_event_id IN (:frontierIds)
-  AND r.type = 'PRECEDES';
+  AND r.type = 'PRECEDES'
+  AND ef.episode_end <= :K AND ef.source_status = 'APPROVED'
+  AND et.episode_end <= :K AND et.source_status = 'APPROVED';
 ```
 
 6) PATH_BETWEEN_CHARACTERS (BFS on bipartite graph)
@@ -147,3 +195,4 @@ WHERE r.from_event_id IN (:frontierIds)
 Notes
 - Keep REVEALS in event_reveal and use it for explanations only.
 - Do not expose future events in user-facing results without K gating.
+- PRECEDES direction is fixed: from=previous, to=next. Reverse traversal uses to_event_id.

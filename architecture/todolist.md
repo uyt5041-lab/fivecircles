@@ -66,6 +66,11 @@
 - [x] 이벤트 검색 시 스포일러 정책 연동 로직 업그레이드
 - [x] 스포일러 정책 연동 curl 테스트
 - [ ] 스포일러 정책 연동 테스트 완료 후 V3 진행 여부 결정
+- [ ] Fix QA service client URLs/paths for docker (event search + policy check)
+- [ ] Fix wiki approval -> event publish (client path + request mapping)
+- [ ] Align wiki->event request/response contract (DTO mapping)
+- [ ] Fix event-service EventServiceClient default URL (8083 -> correct base)
+- [ ] Sync auth/gateway/user endpoint mismatches with Team A (auth base URL, TokenDto, logout parsing, reissue validation, gateway secret, user profile path)
 - [ ] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
 - [x] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Verifying**: API JSON response spoiler hiding

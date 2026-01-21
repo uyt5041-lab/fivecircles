@@ -103,7 +103,7 @@ Reviewer는 다음 명령어를 사용하여 원격 서버에서 테스트를 �
 
 ---
 
-## Zone Assignments (Source: notion-origin-roles.md)
+## Zone Assignments (Source: notion-origin-roles-v2.md)
 
 | Team | Services | Agent Role |
 |------|----------|------------|

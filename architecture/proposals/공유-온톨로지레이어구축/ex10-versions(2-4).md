@@ -67,7 +67,7 @@ Notes:
 - All exposure rules still use episode_end <= K.
 ```
 
-### (B) notion-origin-erd.md의 event/event_character 정의에 추가
+### (B) notion-origin-erd-v2.md의 event/event_character 정의에 추가
 
 ```md
 event
@@ -131,4 +131,3 @@ DB 저장:
 **contains 포함**
 
  한 이벤트가 다른 이벤트(들)을 포함하는 경우 
-
