@@ -1,7 +1,7 @@
 # Repeat Mistakes and Fixes
 
 Rule
-- Always prefix each mistake with a category tag (e.g., [경로설정], [api분류], [깃], [명령어오류]).
+- Always prefix each mistake with a category tag (e.g., [경로설정], [api분류], [깃], [명령어오류], [spec-alignment]).
 
 ## Mistake
 - [경로설정] Touched non-owned areas (ex: drama/character scope) instead of keeping them aligned with develop.

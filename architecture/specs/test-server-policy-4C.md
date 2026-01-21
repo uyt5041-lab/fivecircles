@@ -58,6 +58,16 @@ Example (Remote pull + deploy)
 3) `ssh bit-ts "cd ~/nospoiler && git pull origin docs/next-tasks"`
 4) `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
 
+Latest Sync Check (Before Any Server Test)
+1) `ssh bit-ts "cd ~/nospoiler && git status -sb"`
+2) `ssh bit-ts "cd ~/nospoiler && git fetch origin"`
+3) `ssh bit-ts "cd ~/nospoiler && git rev-parse HEAD"`
+4) `ssh bit-ts "cd ~/nospoiler && git rev-parse origin/develop"`
+5) If the two SHAs differ, stop and run:
+   - `ssh bit-ts "cd ~/nospoiler && git checkout develop"`
+   - `ssh bit-ts "cd ~/nospoiler && git pull origin develop"`
+   - `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
+
 
 
 🔁 앞으로의 표준 루프 (이것만 쓰면 됨)

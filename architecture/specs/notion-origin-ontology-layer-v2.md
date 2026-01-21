@@ -126,11 +126,10 @@
 
 ---
 
-### 5.2 WikiEntry → Event 변환 규칙
+### 5.2 Wiki Submission → Event 변환 규칙
 
-- WikiEntry 승인 시 LabelDraft도 함께 승인
-- 승인된 LabelDraft → Event 자동 생성
-- source_type = 'WIKI_ENTRY', source_id = wiki_entry.id
+- Submission 승인 시 Event 자동 생성
+- source_type = 'WIKI', source_id = wiki_submission.id
 
 ---
 

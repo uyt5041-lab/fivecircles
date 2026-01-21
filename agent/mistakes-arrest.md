@@ -34,3 +34,17 @@ Alignment Flow (Keyword Check)
 6) 기록
 - `fivecircles/work/update.md`
 - 필요 시 `fivecircles/scoring/optimization.md`
+
+Commit Timing Guardrail
+1) 커밋 전 체크
+- "새 브랜치 + 투두 완료 후 커밋" 지시 여부 확인
+- 지시가 있으면 커밋 금지
+2) 실수 시 조치
+- 즉시 스테이징/커밋 중단
+- `fivecircles/agent/mistakes-repeating.md`에 기록
+
+Server Sync Guardrail
+1) 테스트 전 체크
+- `fivecircles/architecture/specs/test-server-policy-4C.md`의 Latest Sync Check 실행
+2) 불일치 시 조치
+- 서버에서 develop 최신화 후 테스트 재개
