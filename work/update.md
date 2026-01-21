@@ -273,3 +273,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-01-21) - Replace repeat-mistakes doc
 ### Docs
 - Replace repeat-mistakes with mistakes-repeating (refs: fivecircles/agent/mistakes-repeating.md)
+## Addendum (2026-01-21) - Align event-service port for gateway tests
+### Backend/Infra
+- Parameterize event-service port for docker runtime and align wiki event URL (refs: services/event-service/src/main/resources/application-docker.yml, infra/docker-compose.yml)
+
+### Tests
+- Server gateway smoke: auth login -> event search returns 200 with Bearer (refs: services/api-gateway/src/main/resources/application-docker.yml, services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventController.java)
