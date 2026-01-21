@@ -34,3 +34,7 @@ Alignment Flow (Keyword Check)
 6) 기록
 - `fivecircles/work/update.md`
 - 필요 시 `fivecircles/scoring/optimization.md`
+
+Response Output Arrest
+- Trigger: "diff 보여줘", "출력 보여줘" 요청인데 요약만 전달한 경우.
+- Rule: 요청받은 출력(디프/로그)을 먼저 제공하고, 요약은 확인 요청 후 제공.

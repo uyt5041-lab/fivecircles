@@ -1,0 +1,248 @@
+# 요구사항 분석 (Notion 원본)
+
+> **Synced from Notion**: 2026-01-15  
+> **Notion Page ID**: `2e6f14a9-663b-803f-8e45-db791ca16891`
+
+---
+
+# 1. 문서 목적
+
+이 문서는 노스포일러 필터링 팀 프로젝트의 요구사항을 정의한다.
+개발자는 이 문서만 보고도 기능 구현, 역할 분담, API 설계, UI 흐름 구성이 가능해야 한다.
+본 문서는 기획서 + 요구사항 명세서 + 협업 기준 문서의 역할을 동시에 가진다.
+
+---
+
+# 2. 프로젝트 개요
+
+## 2.1 프로젝트 배경
+
+스포일러는 콘텐츠 소비 경험을 심각하게 훼손하지만, 기존 서비스는 이를 키워드 차단이나 사용자 신고에 의존한다.
+이 방식은 다음 한계를 가진다:
+- 표현이 바뀌면 차단 실패
+- 사용자의 실제 시청 상태를 고려하지 않음
+- 왜 차단되었는지 설명 불가
+
+본 프로젝트는 스포일러를 맥락·에피소드·인물 중심의 정보 문제로 재정의한다.
+
+## 2.2 프로젝트 핵심 문제 정의
+
+1. "사용자가 지금 알고 있어도 되는 정보는 어디까지인가?"
+2. "정보를 숨기지 않고도 안전하게 전달할 수 있는가?"
+3. "AI 판단을 사용자가 신뢰할 수 있게 만들 수 있는가?"
+
+## 2.3 해결 전략 요약
+
+- 에피소드 기반 사용자 상태 모델을 명시적으로 사용한다
+- 모든 정보는 "사건(Event) + 유효 에피소드 범위"로 관리한다
+- AI는 판단 보조자로만 사용하고, 최종 노출 정책은 시스템 규칙이 결정한다
+
+## 2.4 프로젝트 성공 기준 (Outcome)
+
+- 동일 인물 정보가 에피소드 선택에 따라 다르게 표현된다
+- 사용자가 스포일러에 대한 불안 없이 탐색을 지속한다
+- AI 판단 근거를 설명할 수 있다
+
+---
+
+# 3. 사용자 정의 (User Definition)
+
+## 3.1 1차 핵심 사용자: 시청 중 사용자
+
+### 특징
+- 드라마를 연속 시청 중
+- 인물/관계 정리에 대한 니즈가 높음
+- 스포일러에 매우 민감함
+
+### 목표
+- "지금까지 본 내용"을 정리하고 싶다
+- 인물 관계를 헷갈리지 않고 이해하고 싶다
+
+### 불안 요소
+- 작은 정보 하나로도 이후 전개를 예측하게 되는 것
+
+## 3.2 2차 사용자: 기여자 / 검수자
+
+### 특징
+- 작품 이해도가 높음
+- 정보의 정확성과 표현을 중요시함
+
+### 목표
+- 정확한 정보를 체계적으로 남기고 싶다
+- 잘못된 정보가 확산되는 것을 막고 싶다
+
+## 3.3 사용자 공통 전제
+
+- 사용자는 시스템이 완벽하지 않음을 인지한다
+- 시스템은 안전 우선으로 동작하기를 기대한다
+
+---
+
+# 4. 핵심 사용자 시나리오
+
+## S-1 메인 페이지 탐색 시나리오
+
+1. 사용자는 서비스를 방문한다
+2. 드라마를 선택한다
+3. "현재 ○화까지 시청" 상태를 설정한다
+4. 시스템은 해당 상태에 맞는 인물 목록을 노출한다
+5. 사용자는 인물을 클릭해 안전한 요약 정보를 확인한다
+
+**성공 기준**: 사용자는 스포일러 불안 없이 인물을 탐색한다
+
+## S-2 기억 기반 에피소드 확인 시나리오 (Q&A)
+
+1. 사용자는 기억나는 장면을 자연어로 입력한다
+2. 시스템은 사건을 분석한다
+3. "이 내용은 ○~○화 범위의 내용입니다"라고 응답한다
+
+**성공 기준**: 사용자는 자신의 시청 위치를 가늠할 수 있다
+
+## S-3 위키 기여 및 검수 시나리오
+
+### 기여자 흐름
+1. 기여자는 인물을 선택한다
+2. 자연어로 정보를 작성한다
+3. 에피소드 범위를 지정한다
+4. AI 보조를 받아 구조화한다
+
+### 검수자 흐름
+1. 검수자는 대기 중인 정보를 확인한다
+2. 사실 여부 및 스포일러 적합성을 평가한다
+3. 승인 또는 반려한다
+
+**성공 기준**: 검수 완료된 정보만 사용자에게 노출된다
+
+---
+
+# 5. 페이지별 기능 요구사항
+
+## P-1 메인 페이지 (Main Page)
+
+### P-1.1 목적
+- 사용자가 현재 시청한 에피소드까지의 정보만 안전하게 탐색하도록 한다
+- 인물 중심으로 정보를 제공하되, 스포일러 가능성은 시스템이 제어한다
+
+### P-1.2 화면 흐름
+1. 드라마 선택
+2. 에피소드 선택
+3. 메인 컨텐츠 영역에 인물 카드 노출
+4. 인물 카드 클릭 → 인물 상세 정보 표시
+
+### P-1.3~1.8 상세 요구사항
+- 드라마는 고유 ID를 가진다
+- 에피소드는 순서형 데이터이다
+- 인물은 선택된 에피소드까지 언급된 인물만 노출된다
+- 인물 중요도(score) 기준 정렬
+- 이미지 노출 정책: 정체 미공개 시 블러/? 이미지
+
+## P-2 Q&A 페이지 (MVP 제외)
+
+본 페이지는 MVP 범위에 포함하지 않는다.
+
+## P-3 위키 페이지
+
+### 사용자 역할
+- **기여자 (Contributor)**: 정보 작성 + 에피소드 기준 명시
+- **검수자 (Reviewer)**: 사실 여부, 스포일러 적절성 평가
+
+### 검수 프로세스
+- N명 이상의 검수 필요
+- 승인 기준 충족 시 APPROVED 상태로 전환
+
+---
+
+# 6. 비기능 요구사항 (NFR)
+
+## NFR-1 성능
+- 메인 페이지 인물 목록 로딩: 1.5초 이내
+- 인물 상세 정보 조회: 1초 이내
+- Q&A 페이지 응답: 평균 2초 이내, 최대 4초 허용
+
+## NFR-2 안정성
+- AI 분석 실패 시에도 서비스는 중단되지 않아야 한다
+- 실패 시 보수적 차단 정책 적용
+
+## NFR-3 설명 가능성
+- 각 정보에는 에피소드 범위, 출처 위키 ID, 검수 상태 메타데이터 존재
+
+---
+
+# 7. AI 사용 정책
+
+- AI는 판단 보조자이며, 최종 진실 판정자는 아니다
+- AI 출력은 항상 구조화된 JSON 반환
+- AI 출력은 단독으로 사용자에게 노출되지 않는다
+
+---
+
+# 8. 에러 및 예외 처리
+
+## 공통 에러 분류
+1. 사용자 입력 오류 (User Error)
+2. 시스템 오류 (System Error)
+3. AI 처리 오류 (AI Error)
+
+---
+
+# 9. MVP 기준
+
+## MVP-1 반드시 구현해야 하는 기능
+- 드라마/에피소드 선택, 사용자 상태 저장
+- 인물 카드 목록 노출 + 에피소드 기준 필터링
+- 위키 기여자 정보 작성, 검수자 승인/반려
+
+## MVP-2 구현하지 않아도 되는 것
+- 이미지 자동 수집, Q&A 페이지, 검수자 평판 시스템, AI 자동 학습, 다국어 지원
+
+## MVP-3 데모 성공 기준
+- 동일 인물이 에피소드 선택에 따라 다르게 표현됨
+- 검수되지 않은 정보는 사용자에게 노출되지 않음
+
+---
+
+# 10. 향후 확장 고려 (비구현)
+
+- 이미지 스포일러
+- 사용자 커뮤니티 신고 기반 학습
+- 작품별 스포일러 온톨로지 확장
+
+# Triple storage (MVP-friendly)
+- Triple is not stored as a new triple-store table.
+- It is decomposed into:
+  - event.predicate_code (P)
+  - event_character(role) participants (S/O)
+- This keeps the model queryable while staying relational and service-scoped.
+
+## Flyway History Table Isolation (1DB + multi-service)
+
+We use one MySQL database, but each service owns its Flyway migrations.
+To prevent version collisions, each service MUST use its own Flyway history table.
+
+Example:
+- event-service: flyway_schema_history_event
+- content-service: flyway_schema_history_content
+- user-service: flyway_schema_history_user
+
+## Explainability Metadata (Event)
+
+Each Event MUST store:
+- episode range (episode_start, episode_end)
+- source wiki identifier (source_type, source_id)
+- source review status (source_status)
+
+Rationale:
+Cross-service FK is forbidden, so Event must remain self-explainable without joins.
+
+
+## Core Query Types (MVP Implementation Contract)
+
+All query responses MUST apply Safety Gate:
+- event.episode_end <= K (K = user's last watched episode number)
+
+Traversal policy:
+- Multi-hop traversal uses event_relation.type in {PRECEDES, RELATED} only.
+- REVEALS / FORESHADOWS are NOT used for traversal.
+
+Ordering policy:
+- hopDistance -> episode_start -> id

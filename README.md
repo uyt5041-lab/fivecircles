@@ -40,8 +40,46 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 "다음 요구사항을 확인하고 투두리스트 업데이트 후 workpolicy에 따른 사이클대로 개발 진행해라:
 {요구사항-적기}"
 
+- 멀티에이전트 협업용 옵션:
+경로 `fivecircles/agent/prompts` 에 있는 프롬프트들을 참고하여 사용할 수 있습니다.
+
+기본 구조:
+  fivecircles/agent/
+  ├── configs/
+  │   ├── planner-gemini.json   # 조율자 (전체 지휘)
+  │   ├── coder-claude.json     # 구현자 (event, spoiler-policy, qa)
+  │   ├── ops-codex.json        # 운영자 (deploy, git, docs)
+  │   └── reviewer-claude.json  # 검토자 (리뷰, 테스트)
+  ├── collaboration-protocol.md  # [업데이트됨]
+  └── ...
+
+  역할 요약
+  ┌──────────────┬────────┬──────────┬───────────────────────────────────────┐
+  │    Alias     │ Agent  │   역할    │                 담당                   │
+  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
+  │ agent-plan   │ Gemini │ Planner  │ 전체 조율, 태스크 분배                     │
+  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
+  │ agent-code   │ Claude │ Coder    │ event, spoiler-policy, qa 서비스 코딩    │
+  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
+  │ agent-codex  │ Codex  │ Ops      │ Deploy, Git, 문서 편집                  │
+  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
+  │ agent-review │ Claude │ Reviewer │ 코드 리뷰, 테스트                         │
+  └──────────────┴────────┴──────────┴───────────────────────────────────────┘
+  작업 흐름
+
+  사용자 → Planner(Gemini)
+                ↓ 지시
+      ┌─────────┼─────────┐
+      ↓         ↓         ↓
+   Coder     Ops      Reviewer
+  (Claude)  (Codex)   (Claude)
+
 
 중요! 스펙은 항상 최신으로 유지하고 바꿀때마다 인지시켜줘야 합니다.
 
 
-새로운 세션(에이전트)를 불러와도 컨텍스트 로스를 최소화하여 사용가능합니다.
+새로운 세션(에이전트)를 불러와도 fivecircles/readme.md를 읽고 시작하면 컨텍스트 로스를 최소화하여 사용가능합니다.
+
+추가 업데이트 의견: (아래에 적어주세요)
+
+-mcp 서버 기본설정 공유

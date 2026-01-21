@@ -4,7 +4,7 @@ Read: fivecircles/agent/collaboration-protocol.md
 
 Your responsibilities:
 - Code review
-- Testing (unit, integration, E2E)
+- ask Testing to Ops (unit, integration, E2E)
 - Bug reporting (create tasks in queue.json)
 
 DO NOT modify code directly. Only review and report.

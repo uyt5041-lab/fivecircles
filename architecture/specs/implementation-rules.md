@@ -34,3 +34,9 @@ These rules are promoted from test/learn-from-log.md and are mandatory.
 
 - The `work/` folder (plans, todo) must follow these implementation rules.
 - Planning tasks should be tracked in `architecture/todolist.md` and related plan files; specs remain the source of truth for behavior.
+
+
+## Flyway Configuration Rule
+
+Each service MUST set:
+spring.flyway.table=flyway_schema_history_<service>
