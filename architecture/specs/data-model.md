@@ -10,7 +10,7 @@ Represents a registered user of the system.
 - `nickname`: String (Unique)
 - `socialType`: Enum (EMAIL, GOOGLE, KAKAO, NAVER)
 - `socialId`: String (Nullable)
-- `role`: Enum (VIEWER, CONTRIBUTOR, REVIEWER, ADMIN)
+- `role`: Enum (USER, ADMIN)
 - `createdAt`: DateTime
 - `updatedAt`: DateTime
 
@@ -21,19 +21,26 @@ Stores JWT refresh tokens.
 - `key`: String (Email)
 - `value`: String (Token)
 
+
+===== added 20th jan 2026 =====
+
 ## Schema Versioning (Event Domain)
 
 ### V2 (pre-triple)
-- Event 중심 데이터(episode range + summary)로 스포일러 게이트/기본 질의 지원
-- Event type: event.predicate_code (default: UNKNOWN)
-- Event review status: event.source_status (default: APPROVED)
-- Character role 없음
+Goal: Enable Level2 filtering + explainability + BFS performance, without requiring triple roles.
+Adds:
+- event.predicate_code (default UNKNOWN)
+- event.source_status (default APPROVED)
+- event_relation BFS indexes
 
 ### V3 (triple-enabled)
-Triple decomposition is stored in existing tables:
-- P (Predicate) -> event.predicate_code (default: UNKNOWN)
-- S/O participant set -> event_character.role (default: INVOLVED; SUBJECT/OBJECT optional)
+Goal: Store triple decomposition (S/O roles) in existing tables.
+Adds:
+- event_character.role (default INVOLVED; optional SUBJECT/OBJECT)
 
-Notes:
-- summary is display text; triple fields are query structure.
-- All exposure rules still use episode_end <= K.
+## Relation Type Policy (MVP)
+
+- Event <-> Character involvement is represented ONLY by event_character.
+- Event <-> Event relations are represented ONLY by event_relation.
+- event_relation.type allowed values (MVP): PRECEDES, RELATED
+- event_reveal exists for reveal semantics; traversal must not use reveal edges.

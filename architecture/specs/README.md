@@ -86,6 +86,8 @@ the higher-priority document takes precedence.
 
 ## Test Policy
 - Test policy is defined in `test/testpolicy.md`.
+- Test server policy: `architecture/specs/test-server-policy-4C.md`.
+- Frontend browser test policy: `architecture/specs/test-front-policy-4c.md`.
 
 ## Agent Scoring
 - Use `scoring/agent-scoring-policy.md` and code toward maximizing score while obeying higher-priority specs.

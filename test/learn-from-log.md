@@ -80,3 +80,9 @@ Cause:
 
 Preventive rule:
 - Use role-less insert in V2; add role only after V3 migration (refs: fivecircles/test/errorlogs/backend/2026-01-20-v3-role-column-missing.md)
+### MCP tools not exposed in Codex session
+Cause:
+- MCP collab flag off and local MCP template drifted from ~/.codex/config.toml
+
+Preventive rule:
+- Enable collab before session start; keep .mcp.json mirrored; verify .mcp-env.sh is sourced

@@ -23,3 +23,23 @@ Rule
 
 ## Fix (Do This Every Time)
 - When the user requests "diff" or "show output", return the raw output first, then summarize only if asked.
+
+## Mistake
+- [실행환경] Assumed Codex runs in an interactive shell and used `source .venv/bin/activate` in wrapper scripts, causing python/module not found errors.
+
+## Why It Happened
+- Codex and IDE tasks often run in non-interactive/non-login shells where `.zshrc` or `activate` scripts deviate or fail to propagate environment variables.
+
+## Fix (Do This Every Time)
+- Use **absolute paths** for all executables (e.g., `/full/path/to/.venv/bin/python`).
+- Explicitly export necessary environment variables (`PYTHONPATH`, `PATH`) in the script or `env` config, rather than relying on `source`.
+
+## Mistake
+- [MCP설정] Redirected `stdout` to a log file (`exec > log`) for debugging, breaking MCP JSON-RPC communication (Transport closed).
+
+## Why It Happened
+- I tried to capture all logs to debug startup failures but forgot that MCP servers use `stdout` for communication with the client.
+
+## Fix (Do This Every Time)
+- **Only** redirect `stderr` (`2>>`) to log files.
+- Never touch `stdout` in wrapper scripts for MCP servers.

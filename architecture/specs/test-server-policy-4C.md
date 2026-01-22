@@ -46,6 +46,11 @@ Remote Branch Sync (Required for Server Tests)
 - Push your local branch first, then pull on the server.
 - Commit only after explicit approval from the owner.
 
+Frontend Browser Tests (Playwright)
+- Push latest commits to the remote before server tests.
+- Pull on the server, then run Playwright against http://100.120.44.64:3000/
+- For local build tests, run the frontend locally and use http://localhost:3000/
+
 Example (Local -> Remote)
 1) `git status`
 2) `git add -A`

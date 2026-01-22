@@ -279,3 +279,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Server gateway smoke: auth login -> event search returns 200 with Bearer (refs: services/api-gateway/src/main/resources/application-docker.yml, services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventController.java)
+## Addendum (2026-01-21) - Align MCP template with local config
+### Docs
+- Update .mcp.json to include agent-bridge/playwright/browser-use (refs: .mcp.json)
