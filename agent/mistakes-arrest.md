@@ -38,3 +38,17 @@ Alignment Flow (Keyword Check)
 Response Output Arrest
 - Trigger: "diff 보여줘", "출력 보여줘" 요청인데 요약만 전달한 경우.
 - Rule: 요청받은 출력(디프/로그)을 먼저 제공하고, 요약은 확인 요청 후 제공.
+
+Commit Timing Guardrail
+1) 커밋 전 체크
+- "새 브랜치 + 투두 완료 후 커밋" 지시 여부 확인
+- 지시가 있으면 커밋 금지
+2) 실수 시 조치
+- 즉시 스테이징/커밋 중단
+- `fivecircles/agent/mistakes-repeating.md`에 기록
+
+Server Sync Guardrail
+1) 테스트 전 체크
+- `fivecircles/architecture/specs/test-server-policy-4C.md`의 Latest Sync Check 실행
+2) 불일치 시 조치
+- 서버에서 develop 최신화 후 테스트 재개

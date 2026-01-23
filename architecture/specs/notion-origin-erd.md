@@ -50,6 +50,8 @@
 ### `event`
 - `id` (PK), `drama_id`, `summary`, `episode_start`, `episode_end`, `source_type` (WIKI/MANUAL), `source_id`, `predicate_code`, `source_status`.
 - *Index*: `(drama_id, episode_start, episode_end)`
+- predicate_code VARCHAR(30) NOT NULL DEFAULT 'UNKNOWN'
+- source_status VARCHAR(20) NOT NULL DEFAULT 'APPROVED'
 
 ### `event_character`
 - `event_id`, `character_id`.
@@ -57,7 +59,11 @@
 
 ### `event_relation`
 - `from_event_id`, `to_event_id`, `type` (RELATED/PRECEDES).
-
+- type VARCHAR(20)
+  - PRECEDES | RELATED
+Indexes (for BFS):
+- (from_event_id, type, to_event_id)
+- (to_event_id, type, from_event_id)
 ### `event_reveal` (Sprint 1: Storage Only)
 - `event_id`, `target_type` (CHARACTER/ATTRIBUTE), `target_id`, `reveal_type`.
 
