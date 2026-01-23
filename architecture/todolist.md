@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-19
+> **Last Updated**: 2026-01-22
 
 ---
 
@@ -13,6 +13,7 @@
 - [x] Gateway JWT 컨텍스트 전파 (검증/401·403 매핑, X-User-\* 헤더 전달, 헬스·레디니스/재시도 설정)
 - [x] 인증 API 완성 (/api/auth: signup|login|reissue, 이메일·닉네임 중복 409, 비밀번호 해시, access/refresh 저장)
 - [x] 토큰 수명 관리 (리프레시 회전·무효화, clock skew 60s 적용, 인증 이벤트 감사 로그)
+- [x] OAuth2 카카오 로그인 연동 완료 (무상태/쿠키 인증, 프론트엔드 리다이렉트 처리, 로그인 화면 강제 옵션 적용)
 
 ---
 
