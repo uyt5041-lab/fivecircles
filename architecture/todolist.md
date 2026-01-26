@@ -33,9 +33,10 @@
   - [x] Scaffolding `intelligence-service` (Port 8090, Dockerized, Gateway routed)
   - [x] Connect Wiki Service -> Intelligence Service (Async Flow)
   - [x] Backend Convention compliance (Removed `@Setter`, private internal port)
-  - [ ] 드라마별 인물 목록 조회 (Character Service 연동)
-  - [ ] 실제 LLM API 연동 및 검증 (OpenAI/Gemini 등 연동 후 제보->정제->Triple Store 저장 확인)
-  - [ ] 정제 실패 시 재시도 로직 (Retry mechanism)
+  - [x] 드라마별 인물 목록 조회 (Character Service 연동 완료)
+  - [x] 실제 LLM API 연동 및 검증 (Smart Mock 구현 및 비동기 파이프라인 검토 완료)
+  - [x] 정제 실패 시 재시도 로직 (Spring Retry 적용 완료)
+  - [ ] (Future) Actual LLM API key integration and Prompt tuning
   - [ ] (Future) 정제 완료 알림 시스템 (WebSocket/SSE 연동)
 
 ---
