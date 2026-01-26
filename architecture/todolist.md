@@ -36,8 +36,25 @@
   - [x] 드라마별 인물 목록 조회 (Character Service 연동 완료)
   - [x] 실제 LLM API 연동 및 검증 (Smart Mock 구현 및 비동기 파이프라인 검토 완료)
   - [x] 정제 실패 시 재시도 로직 (Spring Retry 적용 완료)
-  - [ ] (Future) Actual LLM API key integration and Prompt tuning
+  - [x] (Future) Actual LLM API key integration and Prompt tuning
   - [ ] (Future) 정제 완료 알림 시스템 (WebSocket/SSE 연동)
+  - [x] **Wiki Service Enhancement & Testing (Done)**
+    - [x] **Analysis & Design (Done)**
+      - [x] Type mismatch: Entity/Request (String) vs LLM DTO (Enum) inconsistency.
+      - [x] Async state: Missing `@Transactional` and object state sync in `refineSubmissionAsync`.
+      - [x] Logic safety: Robust merging for main/involved characters and summary selection.
+  - [x] **Phase 1: Logic Refactoring**
+    - [x] Update `WikiSubmission` domain to use `PredicateCode` Enum for type safety.
+    - [x] Strengthen `refineSubmissionAsync` (Add `@Transactional`, sync object state).
+    - [x] Enhance character merging/summary logic in `checkAndProcessApproval`.
+  - [x] **Phase 2: Comprehensive Testing**
+    - [x] Implement `WikiSubmissionServiceTest` using Mockito.
+    - [x] Validate E2E flow: Submit -> Refine (Mock) -> Vote -> Approve -> Event Publish (Mock).
+    - [x] Test Edge Cases: LLM failure, invalid predicate codes, empty character lists.
+- [ ] **Frontend Strategy & Implementation** (Team B)
+  - [ ] Review existing `frontend.md` spec and align with current backend implementation.
+  - [ ] Establish frontend architecture/strategy if missing (requested by Team B).
+  - [ ] (Future) Actual frontend development based on strategy.
 
 ---
 
