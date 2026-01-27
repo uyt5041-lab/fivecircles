@@ -15,6 +15,13 @@
 - [x] 토큰 수명 관리 (리프레시 회전·무효화, clock skew 60s 적용, 인증 이벤트 감사 로그)
 - [x] OAuth2 카카오 로그인 연동 완료 (무상태/쿠키 인증, 프론트엔드 리다이렉트 처리, 로그인 화면 강제 옵션 적용)
 
+- [ ] **My Page Feature (User Service)**
+  - [ ] API: `GET /api/v1/users/me` (Get Profile)
+  - [ ] API: `PUT /api/v1/users/me` (Update Profile - Nickname, Image)
+  - [ ] API: `PUT /api/v1/users/me/password` (Change Password)
+  - [ ] API: `DELETE /api/v1/users/me` (Withdrawal)
+  - [ ] Logic: Social Login User Password Change Restriction
+
 ---
 
 ## 👥 Team Member B: Core Domain (Content & Data)
@@ -55,6 +62,12 @@
   - [ ] Review existing `frontend.md` spec and align with current backend implementation.
   - [ ] Establish frontend architecture/strategy if missing (requested by Team B).
   - [ ] (Future) Actual frontend development based on strategy.
+
+- [ ] **My Page UI Implementation**
+  - [ ] Component: Profile View/Edit Form
+  - [ ] Component: Password Change Form
+  - [ ] Page: `/mypage` Layout & Routing
+  - [ ] State: Auth Context Integration (User Info Sync)
 
 ---
 
