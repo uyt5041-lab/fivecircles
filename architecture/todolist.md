@@ -70,6 +70,11 @@
 - [ ] **Frontend Strategy & Implementation** (Team B)
   - [ ] Review existing `frontend.md` spec and align with current backend implementation.
   - [ ] Establish frontend architecture/strategy if missing (requested by Team B).
+  - [x] **Admin CRUD Integration (Priority)**
+    - [x] Mock Admin Login for development
+    - [x] Drama CRUD integration (Admin Page)
+    - [x] Character CRUD integration (Admin Page)
+    - [ ] Integrated image storage service (MinIO) - File upload for Drama/Character images
   - [ ] (Future) Actual frontend development based on strategy.
 
 - [ ] **My Page UI Implementation**

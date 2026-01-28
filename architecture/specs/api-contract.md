@@ -102,6 +102,17 @@ Base URL: `/api/drama/v1`
 - **URL Params**: `keyword`
 - **Response**: `ApiResponse<List<DramaResponseDTO>>`
 
+### PUT /{id}
+
+- **Description**: Update an existing drama.
+- **Request**: `DramaRequestDTO`
+- **Response**: `ApiResponse<DramaResponseDTO>`
+
+### DELETE /{id}
+
+- **Description**: Delete a drama.
+- **Response**: `ApiResponse<Void>`
+
 ---
 
 ## Character Service
@@ -124,6 +135,17 @@ Base URL: `/api/character/v1`
 
 - **Description**: Get character details by ID.
 - **Response**: `ApiResponse<CharacterResponseDTO>`
+
+### PUT /{id}
+
+- **Description**: Update an existing character.
+- **Request**: `CharacterRequestDTO`
+- **Response**: `ApiResponse<CharacterResponseDTO>`
+
+### DELETE /{id}
+
+- **Description**: Delete a character.
+- **Response**: `ApiResponse<Void>`
 
 ---
 
