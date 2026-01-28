@@ -429,3 +429,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Aligned qa-service base path in api-contract (refs: fivecircles/architecture/specs/api-contract.md)
 ### Tests
 - Frontend build passed (refs: front/package.json)
+
+## Addendum (2026-01-28) - Playwright server check (console)
+### Frontend
+- Updated Playwright flow to use `domcontentloaded` and fail on console errors (refs: front/check_console.spec.js)
+### Tests
+- Server browser test passed against http://100.120.44.64:3000 (refs: front/check_console.spec.js)

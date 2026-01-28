@@ -98,3 +98,9 @@ Cause:
 
 Preventive rule:
 - Wait for API response and list render before counting items (refs: fivecircles/test/errorlogs/frontend/2026-01-22-playwright-timeline-wait.md)
+### Playwright server test 502 due to gateway route not applied
+Cause:
+- Frontend server returned 502 when gateway/auth changes were not deployed, blocking drama fetch.
+
+Preventive rule:
+- Ensure gateway/auth changes are deployed on server before browser tests; redeploy `api-gateway`/`auth-service` then rerun Playwright.
