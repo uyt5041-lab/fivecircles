@@ -110,3 +110,21 @@ Cause:
 
 Preventive rule:
 - Run Playwright from front with @playwright/test or add @playwright/test to root before using root CLI
+### Playwright dev login dependency
+Cause:
+- DevAuth accounts missing on server, causing login-based UI flows to stall
+
+Preventive rule:
+- Seed a dedicated test user or use API-seeded submissions for wiki tests
+### Playwright strict-mode: timeline causes
+Cause:
+- Cause summary appeared in both timeline list and detail list
+
+Preventive rule:
+- Scope locators to the detail panel section for causes/effects
+### Playwright server test uses stale frontend build
+Cause:
+- Server deployment not updated after frontend changes
+
+Preventive rule:
+- Push + deploy frontend before running Playwright against server URL
