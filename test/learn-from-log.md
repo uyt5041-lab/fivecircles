@@ -128,3 +128,16 @@ Cause:
 
 Preventive rule:
 - Push + deploy frontend before running Playwright against server URL
+### Auth flyway checksum mismatch
+Cause:
+- Applied migration V1 checksum differs from local file
+
+Preventive rule:
+- Never modify applied migrations; add new versions or run flyway repair intentionally
+- When branch drift exists, verify actual tables/columns before assuming Flyway history reflects schema (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-flyway-checksum-mismatch.md)
+### Auth email verification send failure (SMTP)
+Cause:
+- auth-service uses smtp.naver.com with missing/invalid credentials in test env; EMAIL_SEND_FAILURE thrown
+
+Preventive rule:
+- Use Mailhog for test env (MAIL_HOST/PORT + disable SMTP auth) or set valid SMTP creds before testing

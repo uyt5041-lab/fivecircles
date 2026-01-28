@@ -469,3 +469,8 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Server Playwright wiki+timeline flows passed for seeded drama (refs: front/wiki_flow.spec.js, front/timeline_relations.spec.js)
+## Addendum (2026-01-28) - Auth signup smoke
+### Backend
+- Repaired auth flyway history + created refresh_tokens table (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-flyway-checksum-mismatch.md)
+### Tests
+- Signup/login/me verified via gateway for 6@6.com (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-email-send-failure.md)
