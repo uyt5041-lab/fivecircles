@@ -162,3 +162,39 @@ QA 대안 적용 시 축소/정리 제안
 
 **/#/timeline**
 - Q8 비교 뷰: 탭 제거, 상단에 "**QA 비교**" CTA만 노출
+
+## MVP 재귀 구현 플로우 (에이전트 공유용)
+
+진행 현황
+- /#/dashboard: **[완료]** 인물 목록 실제 API 연동 (`characterApi` + `eventV2Api`). V2 탭(타임라인, 공동등장, 경로 등) 기능 구현 완료.
+- /#/timeline: **[완료]** 실제 V2 API 기반 타임라인 조회, 필터링, 비교 뷰 구현 완료. 인물 이름 매핑 실제 API 연동 완료.
+- /#/wiki: 현재 `mockWikiApi` 사용 중. 실제 백엔드 연동(`wiki-service`) 대기 중.
+
+재귀 실행 규칙
+- 페이지 단위 mini-plan -> 구현 -> 서버/Playwright 검증 -> update.md 로그 -> 커밋.
+- 오류 발생 시 원인 조사 후 사용자와 논의, 동일 스텝 재실행.
+
+기술 메모 (현 상태 기준)
+- Event V2 클라이언트: `front/common/services/eventV2Api.ts` (api1~api10 매핑)
+- Character 클라이언트: `front/common/services/characterApi.ts` (인물 메타데이터 조회)
+- safeUpToEpisode: `currentEpisode`를 그대로 전달 (dashboard/timeline 모두 동일)
+- devAuth 로그인: `/#/login?devAuth=1`에서 1/1, 2/2 버튼 제공 (User ID 확보용)
+
+다음 작업 (우선순위)
+1) **Wiki Service Input Part (Priority: High)**
+   - 목표: `mockWikiApi` 제거 및 실제 `/api/wiki/v1/submissions` 연동
+   - **Step 1: API Client 생성**
+     - `front/common/services/wikiApi.ts` 생성
+     - 백엔드 DTO(`SubmissionRequest`) 스펙 준수
+   - **Step 2: User ID 매핑**
+     - 로그인 직후 `GET /api/user/v1/me` 호출하여 numeric `userId` 확보
+     - `UserProfile` 타입 내 `id` 필드가 실제 Long ID 문자열인지 확인
+   - **Step 3: Page Integration**
+     - `WikiPage.tsx`: `submitFact` 호출 시 `authorId`에 실제 user ID 전달. `dramaId`/`characterId`는 `toNumericId`로 변환.
+     - `WikiReviewPage.tsx`: `getAllSubmissions` 호출 시 실제 API 사용.
+   - **Step 4: 검증**
+     - `/login?devAuth=1`로 로그인 -> 위키 제출 -> `/wiki/reviews` 목록 확인 (Round Trip Test)
+
+2) UI Polishing (Low Priority)
+   - /#/dashboard: 영향 체인(api8) 결과의 가독성 개선 (현재 raw event list)
+   - /#/timeline: 검색 결과 없을 때의 안내 메시지 강화

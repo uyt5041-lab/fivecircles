@@ -160,6 +160,23 @@ Base URL: `/api/wiki/v1`
 - **Request**: `SubmissionRequest`
 - **Response**: `ApiResponse<Long>` (Submission ID)
 
+### GET /submissions
+
+- **Description**: List submissions by drama (optional).
+- **URL Params**: `dramaId` (optional)
+- **Response**: `ApiResponse<List<SubmissionResponse>>`
+
+### PUT /submissions/{submissionId}
+
+- **Description**: Update submission content.
+- **Request**: `SubmissionUpdateRequest`
+- **Response**: `ApiResponse<Void>`
+
+### DELETE /submissions/{submissionId}
+
+- **Description**: Delete a submission.
+- **Response**: `ApiResponse<Void>`
+
 ### POST /verifications
 
 - **Description**: Vote on a submitted fact.
