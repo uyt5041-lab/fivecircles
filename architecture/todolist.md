@@ -173,3 +173,4 @@
 2) [x] Validate each widget renders with mock/empty states (no crash)
 3) [x] Run Playwright flow for key pages and check console errors
 4) [x] Capture gaps (missing endpoints/data) and update `frontend.md` if mapping changes
+5) [x] Add dashboard QA entry points (global + character modal)

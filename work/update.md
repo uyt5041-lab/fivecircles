@@ -447,3 +447,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Playwright flow passed when run from front runner (refs: front/check_console.spec.js, playwright.config.cjs, fivecircles/test/errorlogs/frontend/2026-01-28-playwright-runner-mismatch.md)
+## Addendum (2026-01-28) - Dashboard QA entry points
+### Frontend
+- Added QA drawer entry points on dashboard header and character modal (refs: front/features/dashboard/DashboardPage.tsx, front/features/dashboard/components/CharacterModal.tsx)
+
+### Docs
+- Noted dashboard QA entry points in frontend spec (refs: fivecircles/architecture/specs/frontend.md)
+
+### Tests
+- Playwright console check passed (refs: front/check_console.spec.js)

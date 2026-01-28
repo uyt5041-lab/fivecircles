@@ -93,6 +93,8 @@ above list as the source of truth for QA drawer tests.
 ## Widget Test Entry Points (UI)
 - /#/qa → V2.5 QA Playground → Global Context: Q2 (search)
 - /#/qa → V2.5 QA Playground → Character Context: Q1, Q3, Q5, Q11, Q20
+- /#/dashboard → 상단 AI 검색: Q2 (global)
+- /#/dashboard → 인물 모달 AI 질문: Q1, Q3, Q5, Q11, Q20 (character)
 - /#/timeline → 사건 상세 패널 → AI 분석: Q2, Q7, Q9, Q13 (eventId 제공)
 
 ## 페이지 배치 (한글 버전)
