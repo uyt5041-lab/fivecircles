@@ -3,7 +3,6 @@
 > **Agent Orchestration**: See `agent-orchestrator.md` for active agent roles and session management.
 
 - Read `fivecircles/agent-guidelines.md`.
-- Read `fivecircles/agent/mcp-instruction.md` for tool usage protocols (Mandatory for tool discovery).
 
 - Agent-only operational guidance lives in `fivecircles/agent-guidelines.md` and is non-authoritative.
 
@@ -43,11 +42,7 @@ This specification is divided by responsibility.
    - Docker specs
 8. frontend.md
    - frontend specs
-9. mvp-experiment.md
-   - MVP experiment rules for fastest delivery
-10. mvp-plan.md
-   - MVP implementation plan (frontend-first)
-11. evaluatenvolve.md
+9. evaluatenvolve.md
    - evolve structure and economy
 If any document conflicts with a higher-priority document,
 the higher-priority document takes precedence.

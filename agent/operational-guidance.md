@@ -10,7 +10,3 @@ These notes are for agent execution only and do not override product specs.
 6. Avoid unnecessary intermediate confirmations unless required.
 7. Be innovative as long as core requirements are satisfied.
 8. Promote repeatable error learnings into specs when cost-effective; record runtime-only lessons in `fivecircles/test/learn-from-log.md`.
-
-9. **Workflow Automation**
-   - After completing a task, run `scripts/gemini-workflow.sh <feature-name>` to scaffold the required logs (Error Log, Update Log, Scoring).
-   - This script creates templates; you must fill in the details manually.

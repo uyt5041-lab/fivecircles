@@ -28,15 +28,9 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 
 이 섹션은 사람이 읽기위한 정보를 담고 있습니다.(설명서)
 
-## 초기화방법
-
--에이전트에게 프롬프트 입력:
+-초기화방법
+에이전트에게 프롬프트 입력:
 "fivecircles/README.md를 읽고 운영방침을 초기화하라"
--스킬을 등록했다면 "운영방침 초기화" 만으로 초기화 가능
-
-## 스킬등록방법
-- 프롬프트 입력: "agent/skills/ 폴더를 보고 스킬을 등록하세요."
-- 스킬설명은 이 문서 하단에 있음.
 
 - 개발시 자주 쓰는 프롬프트들:
 "스펙(architecture/specs)의 내용을 확인하고 그대로 개발하라"
@@ -89,28 +83,3 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 추가 업데이트 의견: (아래에 적어주세요)
 
 -mcp 서버 기본설정 공유
-
----
-
-## 에이전트 스킬 (Agent Skills)
-
-- fivecircles에서 사용하는 스킬 내용은 `fivecircles/agent/skills/` 폴더의 파일들에 나와있습니다.
-
-에이전트는 세션 시작 시 `fivecircles/agent/skills/` 폴더의 파일들을 읽고 다음 스킬들을 숙지하여 사용하거나,
-또는 에이전트 스킬로 등록해 사용할 수 있습니다(예: codex skills, gemini skills, claude skills)
-
-
-상세내용:
-
-| 스킬명 | 파일명 | 발동 명령어 | 설명 |
-|--------|--------|-------------|------|
-| **울트라 기록 (Ultra Record)** | `protocol_ultra_record.md` | `"울트라 기록해"` | 세션 종료 시 로그 작성(Update/Todo), 에러 기록, 스코어링, 동기화를 한 번에 수행합니다. (필수) |
-| **빠른 디버깅 (Quick Debug)** | `protocol_quick_debug.md` | `"빠른 디버깅해"` | 에러 발생 시 `mistakes-arrest`, `learn-from-log`를 먼저 검색하여 해결책을 찾습니다. |
-| **로그/요약 프로토콜 (Logging & Summary)** | `protocol_logging_summary.md` | `"로그 요약해"` | 작업 종료 시 update/todo/sync/error/mistakes/debate 기록을 표준화합니다. |
-| **동료 리뷰 (Peer Review)** | `protocol_peer_review.md` | `"리뷰해"` | debate.md를 중심으로 변경/의사결정을 검토하고 리뷰를 기록합니다. |
-| **운영방침 초기화 (Init Ops)** | `protocol_operation_init.md` | `"운영방침 초기화"` | 프로젝트 문서(Readme, Specs, Guidelines)를 읽고 에이전트의 역할과 맥락을 재설정합니다. |
-| **테스트 실행 (Test Exec)** | `protocol_test_execution.md` | `"테스트 실행"` | `test-front/server-policy`를 참조하여 규정된 환경과 명령어로 테스트를 수행합니다. |
-| **동료 리뷰 (Peer Review)** | `protocol_peer_review.md` | `"리뷰해줘"` | `debate.md`와 참조된 문서를 읽고 정합성, 안전성, 완성도를 평가하여 피드백을 남깁니다. |
-| **배포 (Deploy)** | `protocol_deploy.md` | `"배포해"` | 프론트엔드 빌드 상태를 점검하고 Vercel 배포(Push/CLI)를 트리거합니다. |
-| **스코어링 (Scoring)** | `protocol_agent_scoring.md` | (울트라 기록에 포함) | 작업 성과를 정량적으로 평가하고 `log-score.md`에 기록합니다. |
-| **톺아보기 (Read Log)** | `protocol_read_log_setup.md` | `"톺아보기"` | 로그(update, todo, sync)를 읽고 최근 변경사항(예: 포트변경)을 분석하여 다음 작업을 설정합니다. |

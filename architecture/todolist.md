@@ -1,15 +1,16 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-24
+> **Last Updated**: 2026-01-22
 
 ---
 
 ## 👥 Team Member A: Infra & Identity (System Gateway)
+
 - [x] API Gateway Scaffolding
 - [x] Auth Service Scaffolding
 - [x] User Service Scaffolding (Flyway V1)
-- [x] Gateway JWT 컨텍스트 전파 (검증/401·403 매핑, X-User-* 헤더 전달, 헬스·레디니스/재시도 설정)
+- [x] Gateway JWT 컨텍스트 전파 (검증/401·403 매핑, X-User-\* 헤더 전달, 헬스·레디니스/재시도 설정)
 - [x] 인증 API 완성 (/api/auth: signup|login|reissue, 이메일·닉네임 중복 409, 비밀번호 해시, access/refresh 저장)
 - [x] 토큰 수명 관리 (리프레시 회전·무효화, clock skew 60s 적용, 인증 이벤트 감사 로그)
 - [x] OAuth2 카카오 로그인 연동 완료 (무상태/쿠키 인증, 프론트엔드 리다이렉트 처리, 로그인 화면 강제 옵션 적용)
@@ -24,6 +25,7 @@
 ---
 
 ## 👥 Team Member B: Core Domain (Content & Data)
+
 - [x] Drama Service Scaffolding
 - [x] Character Service Scaffolding (Flyway V1, V2)
 - [x] Wiki Service Scaffolding (Flyway V1)
@@ -69,9 +71,6 @@
   - [ ] Review existing `frontend.md` spec and align with current backend implementation.
   - [ ] Establish frontend architecture/strategy if missing (requested by Team B).
   - [ ] (Future) Actual frontend development based on strategy.
-- [ ] MVP Experiment: Wiki list endpoint (`GET /api/wiki/v1/submissions?dramaId`)
-- [ ] MVP Experiment: Wiki update/delete endpoints (if review UI requires)
-- [ ] MVP Experiment: Seed drama/character/wiki data for FE smoke
 
 - [ ] **My Page UI Implementation**
   - [ ] Component: Profile View/Edit Form
@@ -82,39 +81,47 @@
 ---
 
 ## 👤 Team Member C: Intelligence & Filter (박지수 - YOU)
+
 > **My Todo**: 이 섹션(C 영역)만 작업
+
 ### 1. Infrastructure & Setup - ✅ DONE
+
 - [x] Docker Configuration (Add event, policy services)
 - [x] Docker QA service (Dockerfile + compose service)
 - [x] Gradle Project Scaffolding (event, policy, qa)
 - [x] Register all services in `settings.gradle`
 
 ### 2. Core Logic Implementation - ✅ DONE
+
 - [x] `SpoilerManager` Implementation (Policy engine)
 - [x] `SpoilerPolicyController` API (`/api/v1/policy/check`)
 - [x] Unit Testing for Policy logic
 
 ### 3. Ontology Service Implementation - ✅ DONE
+
 - [x] JPA/MyBatis Entity Mapping (event, character, relation, reveal)
 - [x] `EventService` & `EventController` API (/api/v1/events)
 - [x] DB Schema Fix (V2) for event_reveal
 
 ### 4. QA Service (Sprint 1 Goal) - ✅ DONE
+
 - [x] Scaffolding `qa-service`
 - [x] Implement Health Check API (/api/v1/qa/health)
 
 ### 5. API Refinement & Spec Alignment (Priority: High)
+
 - [x] **Backend Convention Compliance**
-    - [x] Add Swagger (`@Tag`, `@Operation`) to Controllers.
-    - [x] Refactor DTO/Entity Lombok annotations (`@Data` -> `@Getter`, `@Builder`).
-    - [x] Add `springdoc` dependency to `build.gradle`.
+  - [x] Add Swagger (`@Tag`, `@Operation`) to Controllers.
+  - [x] Refactor DTO/Entity Lombok annotations (`@Data` -> `@Getter`, `@Builder`).
+  - [x] Add `springdoc` dependency to `build.gradle`.
 - [ ] **Spec Alignment (`intelligence-api-contract.md`)**
-    - [x] Remove `/api/v1` prefix from paths (Done in `feature/api-alignment`).
-    - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
-    - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
+  - [x] Remove `/api/v1` prefix from paths (Done in `feature/api-alignment`).
+  - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
+  - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
 - [ ] Swagger UI 화면 예시 공유 (모바일 확인용)
 
 ### 6. Next Steps (Sprint 2)
+
 - [x] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Core Pipeline (no QA)**: Wiki 승인 → Event 생성 → Policy 태깅 정합성
 - [x] 테스트용 서버 연결 스펙 설정
@@ -122,48 +129,24 @@
 - [x] 이벤트 검색 시 스포일러 정책 연동 로직 업그레이드
 - [x] 스포일러 정책 연동 curl 테스트
 - [ ] 스포일러 정책 연동 테스트 완료 후 V3 진행 여부 결정
-- [x] (N/A) Fix QA service client URLs/paths for docker (Handled by Docker profiles)
-- [x] Fix wiki approval -> event publish (client path + request mapping)
+- [ ] Fix QA service client URLs/paths for docker (event search + policy check)
+- [ ] Fix wiki approval -> event publish (client path + request mapping)
+- [ ] Fix wiki approval -> event publish (client path + request mapping)
 - [x] Align wiki->event request/response contract (DTO mapping)
-- [ ] Verify Wiki→Event payload includes characterId; reconcile develop vs experimental contract
-- [ ] Verify Wiki→Intelligence publish flow after approval
-- [x] (N/A) Fix event-service EventServiceClient default URL (Handled by Docker profiles)
+  - [x] Updated `EventRequestDTO` to use `PredicateCode` Enum for strong typing.
+- [ ] Fix event-service EventServiceClient default URL (8083 -> correct base)
 - [ ] Sync auth/gateway/user endpoint mismatches with Team A (auth base URL, TokenDto, logout parsing, reissue validation, gateway secret, user profile path)
-- [ ] Fix auth/user mapping: user-service UserAuthResponse.id -> auth-service UserValidationResponse.userId (X-User-Id header missing in gateway)
-- [x] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
+- [ ] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
 - [x] **Logic**: Multi-hop Ontology Retrieval
-- [x] **Ontology V2.5 (Q20)**:
-    - [x] Update V2.5 Plan (v2.5-def-plan.md)
-    - [x] Correct EventServiceImpl role string (`PARTICIPANT` -> `INVOLVED`)
-    - [x] Create V6 Flyway Migration for `event_character.role`
-    - [x] Implement Q20 Narrative Distribution view on QA page
-    - [x] Implement Extended QA Widgets (Q3, Q5, Q7, Q9, Q11)
 - [ ] **Verifying**: API JSON response spoiler hiding
 
-### 6.1 Current Sprint (2026-01-26) - ✅ Complete
-**Priority Order**:
-1. [x] **Rebase to develop**: Rebase `feature/experimental-frontend` onto `origin/develop` (42 commits rebased)
-2. [x] **Skills tracking**: Track `fivecircles/agent/skills/` in Git (Decision made)
-3. [x] **QA Context UX (Q7/Q9)**:
-   - [x] Add `eventId?: number` to `EventQAButton` and pass into `EventQADrawer` context (Already implemented)
-   - [x] Timeline: pass eventId from event cards into `EventQAButton` for auto Q7/Q9
-   - [x] Drawer: add event selector (ID input/search) when eventId is missing
-   - [x] Filter Q7/Q9 visibility: show only when eventId exists (context or selected)
-   - [x] Wire selected eventId into Q7/Q9 widgets (Already implemented)
-4. [x] **MVP Experiment**: Playwright checks for MVP UI (1 passed in 6.5s)
+### 7. Deploy & Ops (Immediate)
 
-### 7. Deploy & Ops (Post-Sprint)
-> **Reference**: See `fivecircles/architecture/specs/test-server-policy-4C.md` for remote deploy & test protocols.
 - [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build`
 - [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
-- [x] Skills tracking decision (`fivecircles/agent/skills/` will be tracked)
+- [ ] Decide whether to track or clean `fivecircles/agent/skills/`
 - [ ] 협업으로 온톨로지 로직 검증 (wiki service)
-- [x] 프론트 작업 진행 (Dashboard/Timeline API Integration)
-- [x] 프론트 MCP 설치 후 테스트
-- [x] 남은 로컬 브랜치 정리 (`feature/api-enhancement-full`, `feature/filter-service-working`)
-- [x] MVP Experiment: Event V2 code path check (api1-10)
-- [x] MVP Experiment: Event V2 runtime smoke (api1-10)
-- [x] MVP Experiment: Event V2 readiness smoke (api1-10)
-- [x] MVP Experiment: FE integration for Q1-Q15 (dashboard/timeline)
-- [x] DramaSelectionPage Real API Integration & DB Seed Data injection
+- [ ] 프론트 작업 진행
+- [ ] 프론트 MCP 설치 후 테스트
+- [ ] 남은 로컬 브랜치 정리 (`feature/api-enhancement-full`, `feature/filter-service-working`)

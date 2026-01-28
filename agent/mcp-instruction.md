@@ -1,36 +1,5 @@
 # Multi-Agent MCP & Workflow Instructions
 
-## 0. Tool Discovery (Mandatory for New Agents)
-> **CHECK THIS FIRST**: Before claiming "I can't do X" or "I don't have tool Y", verify your environment.
-
-1.  **Check `.mcp.json`**: This file defines all available MCP servers and their configurations.
-2.  **Check Available Tools**: Look at the list of tools provided in your system prompt or by running `list_tools` (if available).
-3.  **Recognize Aliases**:
-    -   `fetch_page` comes from the `playwright` MCP.
-    -   `browse_web` comes from `browser-use`.
-    -   `safe_write_file` comes from `agent-bridge`.
-4.  **Inspect Scripts**: Check `~/nospoiler-mcp-tools/` or `.venv/bin/` for Python scripts or executables that can be run via `run_shell_command`.
-
----
-
-## 0.1 IDE MCP vs CLI MCP: 분리 구조
-
-> [!CAUTION]
-> **Antigravity IDE와 CLI agents는 MCP 설정 소스가 다르다.**
-
-| 환경 | 설정 파일 | 로더 |
-|:---|:---|:---|
-| **CLI agents** (Gemini, Codex) | `.mcp.json` | 각 에이전트 런타임 |
-| **Antigravity IDE** | `~/Library/Application Support/Antigravity/User/mcp.json` | IDE 전용 로더 (UI: Command Palette > MCP) |
-
-### 혼동 방지 규칙
-
-1.  **IDE에서 "MCP server not found"** → 서버 문제가 아니라 **IDE가 해당 서버를 등록 안 한 것**일 가능성 높음
-2.  **`.mcp.json` 수정**은 CLI agents에만 영향, IDE는 `User/mcp.json`을 수정하거나 UI로 추가해야 함
-3.  **IDE 재시작**으로 `.mcp.json` 서버가 로드되지 않음 (로드 대상 자체가 다름)
-
----
-
 ## 1. Safety Protocol: Concurrent File Access
 > **CRITICAL**: When multiple agents (Gemini, Codex) work simultaneously, they MUST adhere to this protocol to prevent race conditions (overwriting each other's work).
 
@@ -70,16 +39,14 @@ Gemini does not require a config swap; it supports on-demand flags.
 
 ---
 
-## Profile Switching & Context (WARNING)
-Switching profiles (Light <-> Full) requires a **process restart**.
+## 3. Resume Workflow (Context Preservation)
+You can switch profiles **mid-task** and keep your conversation history.
 
-> **⚠️ CAUTION**: 
-> Unless your specific client environment explicitly supports "history replay", **ALL CONVERSATION HISTORY IS LOST** upon restart.
+### Workflow
+1.  **Trigger Switch**: Run the appropriate "Switch" task (for Codex) or prepare to restart (for Gemini).
+2.  **Resume Session**: Run the Resume task.
+    -   `Agents: Codex (Resume)`
+    -   `Agents: Gemini (Resume)`
+3.  **Result**: The agent restarts with the *new* tool set (Light/Full) but reloads the *previous* chat history.
 
-### Safe Switching Workflow
-1.  **Save State**: Write your current progress, plan, and next steps to a file (e.g., `fivecircles/work/implementation-log.md` or a temp file).
-2.  **Trigger Switch**: Run the switch task.
-3.  **Restart**: Start the new session.
-4.  **Restore**: Read the state file you saved to resume work.
-
-**Do NOT assume memory persists across restarts.**
+> **Tip**: Use this pattern to start "Light" for planning/coding, then switch to "Full" only when you specifically need to browse the web or update Notion.

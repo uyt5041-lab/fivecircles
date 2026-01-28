@@ -27,19 +27,6 @@
       "createdBy": "planner",
       "createdAt": "2026-01-16T10:25:00Z",
       "updatedAt": "2026-01-16T10:25:00Z"
-    },
-    {
-      "id": "TASK-007",
-      "title": "Review V2.5/V3 Ontology Merge Strategy",
-      "description": "Review discrepancies between `origin/develop` and specs (Flyway V4 conflict, Role usage). Recommend 'Strict V2.5' vs 'V2.5 + Role' strategy.",
-      "assignedTo": "antigravity",
-      "assignedZone": "architecture",
-      "priority": "urgent",
-      "status": "pending",
-      "dependencies": [],
-      "createdBy": "gemini",
-      "createdAt": "2026-01-23T10:00:00Z",
-      "updatedAt": "2026-01-23T10:00:00Z"
     }
   ]
 }

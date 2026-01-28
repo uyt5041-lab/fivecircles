@@ -86,15 +86,3 @@ Cause:
 
 Preventive rule:
 - Enable collab before session start; keep .mcp.json mirrored; verify .mcp-env.sh is sourced
-### Playwright strict mode with duplicate labels
-Cause:
-- getByText("타임라인") matched both nav and modal tab during dashboard checks
-
-Preventive rule:
-- Scope Playwright locators to the modal/section container when labels repeat (refs: fivecircles/test/errorlogs/frontend/2026-01-22-playwright-strict-mode.md)
-### Playwright timeline list assertion before data load
-Cause:
-- Timeline list asserted before /api/event/v2 response completed
-
-Preventive rule:
-- Wait for API response and list render before counting items (refs: fivecircles/test/errorlogs/frontend/2026-01-22-playwright-timeline-wait.md)

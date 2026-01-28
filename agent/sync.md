@@ -7,58 +7,35 @@
 ## Active Agents
 | Agent | Role | Zone | Status |
 |-------|------|------|--------|
-| Gemini | Coder | Team C (Event/Policy/QA) | Idle (Task Completion Done) |
+| Gemini | Planner | - | Active |
+| Claude | Coder | Team C (Event/Policy/QA) | Idle |
+| Codex | Ops | Docs/Deploy/Git | Idle |
+| Claude | Reviewer | Review/Testing | Active |
+
+## Task Queue (Quick View)
+> 상세 내용은 `queue.json` 참조
+
+| ID | Task | Zone | Assigned | Status |
+|----|------|------|----------|--------|
+| TASK-005 | Define Event Ontology | event-service | Claude (Coder) | pending |
+| TASK-006 | Initial Remote Test | remote-server | Claude (Reviewer) | pending |
 
 ## Announcements
 
-### [REVIEW+PLAN] V2.5/V3 Sync Summary
-- **Author**: codex | Date: 2026-01-25
-- **Review**: V2.5 scope wording/QA button naming needs cleanup; role V6 must align with mapper+indexes; auth/gateway/user mismatch + spoiler JSON hiding are top risks.
-- **Next Actions**:
-  1. Normalize V2.5 doc scope + naming and refer to event-v2 mapping doc only.
-  2. Verify V6 migration index set and role insert/select in EventCharacterMapper.
-  3. Deploy to bit-ts and run runtime E2E (FE -> Gateway -> Event/QA).
-  4. Fix auth/gateway/user header/path mismatches and confirm spoiler hiding behavior.
+### [URGENT] To Ops (Codex):
+- **API 테스트를 위해 bit-ts 서버 시작이 필요합니다.**
+- 명령어: `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
+- 요청자: Claude (Reviewer)
+- 사유: Team C 서비스 (event-service, qa-service) API 테스트 진행을 위함
 
-### [COMPLETED] V2.5 UI Components & Q20 Logic
-- **Author**: gemini-coder | Date: 2026-01-24
-- **Result**: Implemented Q3, Q5, Q7, Q9, Q11, Q13, Q20 widgets. Fixed QA service Gateway routing.
-- **Validation**: Frontend build passed. `application-docker.yml` updated.
-- **Protocol**: Ready for E2E verification.
+### To Reviewer (Claude):
+- `bit_server-commands.md`를 참조하여 원격 서버 `bit-ts`에서 `./gradlew test`를 실행하고 결과를 보고하세요.
+- 실패 시 `test/errorlogs/`에 기록하고 `queue.json`에 버그를 등록하세요.
+- **빌드 결과**: Team C 서비스 (event/qa/spoiler-policy) 정상 컴파일 완료 ✅
 
-### [COMPLETED] Frontend Local Dev Environment Setup (Port 3000)
-- **Author**: gemini-coder | Date: 2026-01-26
-- **Result**: Configured frontend to run on port 3000 for independent UI testing. Created `front/.env` from `.env.example` targeting `localhost:8080`.
-- **Validation**: Verified `http://localhost:3000` accessibility using Playwright (`fetch_page`).
-- **Note**: Changed from default to 3000 for sync testing purposes.
-
-### [REVIEW REQUEST] Gateway Port Mismatch Diagnosis
-- **Author**: gemini-coder | Date: 2026-01-26
-- **Context**: API Gateway returns 500 (Connection Refused) when calling `character-service`.
-- **Diagnosis**:
-  - `infra/.env` sets `CHARACTER_SERVICE_PORT=8084`.
-  - `character-service` container listens on port `8080` (Spring Boot default).
-  - Gateway tries to connect to `character-service:8084` (failed).
-- **User Question**: "Why did it work before (V2) if this config is wrong?"
-- **Request**: Verify if `character-service` previously ran on 8084 inside the container, or if `api-gateway` had a different configuration strategy.
-
-### [HANDOVER] Next Session
-- **Context**: V2.5 Features implemented and built locally.
-- **Current State**: Codebase ready for deployment testing on `bit-ts`.
-- **Next Actions**:
-  1. Deploy latest changes to `bit-ts`.
-  2. Perform runtime E2E test (Frontend -> Gateway -> Event/QA Service).
-  3. Verify `event_character.role` migration in production.
+### To Ops (Codex):
+- `bit_server-commands.md`의 alias들을 필요 시 로컬 환경에 설정하거나 문서화 관리를 지원하세요.
 
 ## Shared Context
-- **Remote Server**: `bit-ts` (Accessed via ssh alias)
+- **Remote Server**: bit-ts (`<REMOTE_IP>`)
 - **Test Command**: `ssh bit-ts "cd ~/nospoiler && ./gradlew test"`
-
-### From Antigravity (Review Result for TASK-007):
-- **Role Necessity (Q18)**: **Confirmed**. `Role` is essential for Triple (Subject-Predicate-Object) semantics to distinguish between `SUBJECT` (Agent) and `OBJECT` (Patient). Without it, the graph loses directionality essential for "Who did what" queries.
-- **Flyway Conflict**: `V4` and `V5` are already taken by existing index migrations.
-    - **Action**: Rename proposed migration to **`V6__event_v3_triple_roles.sql`**.
-- **Mismatch (PARTICIPANT vs INVOLVED)**:
-    - **Status**: FIXED (Changed to `INVOLVED` in `EventServiceImpl.java` by Antigravity).
-    - **Discussion Topic**: Future role names should be strictly defined in `fivecircles/architecture/specs/` before implementation to avoid hardcoded aliases like 'PARTICIPANT'.
-    - **Origin**: Introduced in commit `09b8f92` (feat: Event Service DTO...).
