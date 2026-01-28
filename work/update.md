@@ -435,3 +435,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Updated Playwright flow to use `domcontentloaded` and fail on console errors (refs: front/check_console.spec.js)
 ### Tests
 - Server browser test passed against http://100.120.44.64:3000 (refs: front/check_console.spec.js)
+## Addendum (2026-01-28) - Widget commonization + Playwright output
+### Frontend
+- Moved event QA widgets to front/common and updated imports (refs: front/common/widgets, front/features/event/components/EventQADrawer.tsx)
+
+### Tests
+- Set Playwright outputDir to fivecircles/test/test-results (refs: playwright.config.cjs)
