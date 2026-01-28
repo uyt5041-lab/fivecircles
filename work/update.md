@@ -456,3 +456,10 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Playwright console check passed (refs: front/check_console.spec.js)
+## Addendum (2026-01-28) - Plenty seed data + dashboard test
+### Backend
+- Seeded new drama+character+event data via API and added event_relation links on server (dramaId=7, eventIds=1005-1009)
+- Verified wiki approval publishes event (submissionId=4 -> eventId=1010)
+
+### Tests
+- Playwright dashboard check passed for new drama (refs: front/check_console.spec.js)
