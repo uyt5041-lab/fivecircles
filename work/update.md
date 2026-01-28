@@ -463,3 +463,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Playwright dashboard check passed for new drama (refs: front/check_console.spec.js)
+## Addendum (2026-01-28) - Wiki/timeline Playwright validation
+### Frontend
+- Wiki submit/review now use selected dramaId and dynamic character fetch (refs: front/features/wiki/WikiPage.tsx, front/features/wiki/WikiReviewPage.tsx, front/features/wiki/components/WikiCharacterSelectModal.tsx)
+
+### Tests
+- Server Playwright wiki+timeline flows passed for seeded drama (refs: front/wiki_flow.spec.js, front/timeline_relations.spec.js)
