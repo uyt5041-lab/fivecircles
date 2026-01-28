@@ -37,7 +37,16 @@
   - [x] 실제 LLM API 연동 및 검증 (Smart Mock 구현 및 비동기 파이프라인 검토 완료)
   - [x] 정제 실패 시 재시도 로직 (Spring Retry 적용 완료)
   - [x] (Future) Actual LLM API key integration and Prompt tuning
+  - [x] (B) LLM 연동 테스트 (OpenAI 기반): 프롬프트 엔지니어링 및 통합 검증 완료
+    - [x] 인물 요약 통합(combineSummaries) 로직 구현 및 테스트 통과
+    - [x] Intelligence Service API 엔드포인트 개설 (/api/intelligence/v1/refine, /summary)
+    - [x] API 버전 관리 컨벤션 적용 및 .env 자동 로드 설정
+  - [ ] (B) 로컬 LLM 통합 조사 (GLM 3.x) 및 Smart Mock 고도화
   - [ ] (Future) 정제 완료 알림 시스템 (WebSocket/SSE 연동)
+  - [ ] **인물 요약본 생성 프롬프트 테스트 (Prompt Engineering)**
+    - [ ] Wiki DB (`wiki_submission`) 기반 특정 character_id의 에피소드 K 이하 `refined_summary` 추출
+    - [ ] 추출된 다수의 요약본을 하나로 통합하는 프롬프트 생성 및 검증
+    - [ ] (Future) GLM 3.x 등 로컬 LLM 도입 가능성 조사 및 학습 (Next Week)
   - [x] **Wiki Service Enhancement & Testing (Done)**
     - [x] **Analysis & Design (Done)**
       - [x] Type mismatch: Entity/Request (String) vs LLM DTO (Enum) inconsistency.
