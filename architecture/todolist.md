@@ -167,3 +167,9 @@
 - [x] MVP Experiment: Event V2 readiness smoke (api1-10)
 - [x] MVP Experiment: FE integration for Q1-Q15 (dashboard/timeline)
 - [x] DramaSelectionPage Real API Integration & DB Seed Data injection
+
+### 8. Frontend Widget Placement & Test Plan (Pending)
+1) [ ] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points
+2) [ ] Validate each widget renders with mock/empty states (no crash)
+3) [ ] Run Playwright flow for key pages and check console errors
+4) [ ] Capture gaps (missing endpoints/data) and update `frontend.md` if mapping changes
