@@ -13,6 +13,7 @@ This policy belongs to the Test phase of the development cycle
 
 - Applies to local runs, CI runs, and ad-hoc manual testing.
 - Does not change product behavior; it prevents repeatable test failures.
+- For frontend checks, run an automated browser flow (Playwright or browser-use) and fail if the developer console logs errors during key page loads, renders, or core interactions.
 
 ## Log Formatting (Mandatory)
 
