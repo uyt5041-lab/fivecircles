@@ -441,3 +441,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Tests
 - Set Playwright outputDir to fivecircles/test/test-results (refs: playwright.config.cjs)
+## Addendum (2026-01-28) - Widget QA placement + Playwright runner fix
+### Frontend
+- Aligned QA widget imports after common move and documented QA drawer entry points (refs: front/common/widgets/Q1_CharacterTrace.tsx, front/common/widgets/Q2_EventSearch.tsx, front/common/widgets/Q13_SpoilerCheck.tsx, front/common/widgets/Q20_NarrativeDistribution.tsx, fivecircles/architecture/specs/frontend.md)
+
+### Tests
+- Playwright flow passed when run from front runner (refs: front/check_console.spec.js, playwright.config.cjs, fivecircles/test/errorlogs/frontend/2026-01-28-playwright-runner-mismatch.md)

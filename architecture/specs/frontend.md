@@ -74,6 +74,27 @@ Page -> Questions
 - Q11 (Prior causes of event): causes tab
 - Q12 (Derived effects after event): effects tab
 
+## QA Drawer Widget Mapping (Experimental)
+*Used in /#/qa playground and /#/timeline event detail.*
+- Q1_CharacterTrace: api3 (character events) - Character context
+- Q2_EventSearch: api1 (drama events search) - Dashboard/Timeline context
+- Q3_RelatedCharacters: api9 (related characters) - Character context
+- Q5_CoEvents: api4 (co-events) - Character context
+- Q7_EventCauses: api7 (event causes) - Timeline context (requires eventId)
+- Q9_EventEffects: api8 (event effects) - Timeline context (requires eventId)
+- Q11_CharacterPath: api10 (character path) - Character context
+- Q13_SpoilerCheck: policy check-text (assumed /api/policy/v1/check-text)
+- Q20_NarrativeDistribution: api3 (character events stats) - Character context
+
+Note: QA drawer numbering is currently a UI label for testing and does not match
+the spec numbering (e.g., Q3 widget maps to api9/related-characters). Use the
+above list as the source of truth for QA drawer tests.
+
+## Widget Test Entry Points (UI)
+- /#/qa → V2.5 QA Playground → Global Context: Q2 (search)
+- /#/qa → V2.5 QA Playground → Character Context: Q1, Q3, Q5, Q11, Q20
+- /#/timeline → 사건 상세 패널 → AI 분석: Q2, Q7, Q9, Q13 (eventId 제공)
+
 ## 페이지 배치 (한글 버전)
 
 현재 라우트 요약 (HashRouter)

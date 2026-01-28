@@ -104,3 +104,9 @@ Cause:
 
 Preventive rule:
 - Ensure gateway/auth changes are deployed on server before browser tests; redeploy `api-gateway`/`auth-service` then rerun Playwright.
+### Playwright runner mismatch
+Cause:
+- Root run used playwright package without @playwright/test, causing config/test mismatch
+
+Preventive rule:
+- Run Playwright from front with @playwright/test or add @playwright/test to root before using root CLI
