@@ -474,3 +474,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Repaired auth flyway history + created refresh_tokens table (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-flyway-checksum-mismatch.md)
 ### Tests
 - Signup/login/me verified via gateway for 6@6.com (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-email-send-failure.md)
+## Addendum (2026-01-28) - Frontend console check
+### Tests
+- Server Playwright console check passed (refs: front/check_console.spec.js)
