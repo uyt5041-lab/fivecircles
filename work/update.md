@@ -487,3 +487,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Tests
 - Character summary endpoint returns 200 (refs: /api/intelligence/v1/summary)
 - Scripted 5-vote approvals for dramaId=8 submissions so dashboard summaries render (refs: fivecircles/work/scripts/approve_drama8.py)
+## Addendum (2026-01-29) - Dashboard summary sources
+### Frontend
+- Combine approved wiki + event summaries for CharacterModal AI summary (refs: front/features/dashboard/components/CharacterModal.tsx)
