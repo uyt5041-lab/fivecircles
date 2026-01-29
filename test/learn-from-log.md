@@ -141,3 +141,9 @@ Cause:
 
 Preventive rule:
 - Use Mailhog for test env (MAIL_HOST/PORT + disable SMTP auth) or set valid SMTP creds before testing
+### Playwright drawer close blocked by backdrop
+Cause:
+- Modal backdrop intercepted clicks on close button in qa_widgets.spec.js
+
+Preventive rule:
+- Close drawers via backdrop or stable selector to avoid overlay pointer interception

@@ -477,3 +477,6 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-01-28) - Frontend console check
 ### Tests
 - Server Playwright console check passed (refs: front/check_console.spec.js)
+## Addendum (2026-01-29) - QA widget Playwright
+### Tests
+- Server Playwright console + QA widget flows passed (refs: front/check_console.spec.js, front/qa_widgets.spec.js)
