@@ -480,3 +480,10 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-01-29) - QA widget Playwright
 ### Tests
 - Server Playwright console + QA widget flows passed (refs: front/check_console.spec.js, front/qa_widgets.spec.js)
+## Addendum (2026-01-29) - Intelligence prompt + wiki approvals (drama 8)
+### Backend
+- Added combine summaries prompt for intelligence service and redeployed (refs: services/intelligence-service/src/main/resources/prompts/combine-summaries.txt)
+- Repaired auth DB schema (nospoiler_auth) so login works on server
+### Tests
+- Character summary endpoint returns 200 (refs: /api/intelligence/v1/summary)
+- Scripted 5-vote approvals for dramaId=8 submissions so dashboard summaries render (refs: fivecircles/work/scripts/approve_drama8.py)
