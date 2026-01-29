@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-22
+> **Last Updated**: 2026-01-29
 
 ---
 
@@ -14,6 +14,14 @@
 - [x] 인증 API 완성 (/api/auth: signup|login|reissue, 이메일·닉네임 중복 409, 비밀번호 해시, access/refresh 저장)
 - [x] 토큰 수명 관리 (리프레시 회전·무효화, clock skew 60s 적용, 인증 이벤트 감사 로그)
 - [x] OAuth2 카카오 로그인 연동 완료 (무상태/쿠키 인증, 프론트엔드 리다이렉트 처리, 로그인 화면 강제 옵션 적용)
+- [x] 회원가입 이메일 인증 400 원인 조치: SMTP 계정/비밀번호 환경변수 누락(공용 SMTP 설정) 정리 및 재검증, DTO @Setter 추가로 해결, MailHog/Real SMTP 전환 설정 완료
+- [x] Refresh Token DB 저장 문제 해결 (Flyway 마이그레이션 스크립트 추가 및 동작 검증)
+- [x] OAuth2 구글 로그인 연동 완료 (프론트엔드 버튼, 리다이렉트 처리, 설정 연동)
+- [x] OAuth2 카카오 로그인 안정화 (Scope/Grant 오류 수정, 동의 화면 강제 옵션 적용)
+- [x] 마이페이지 API 구현 완료 (프로필 조회/수정, 비밀번호 변경, 회원 탈퇴 - 검증 로직 포함)
+- [x] OAuth2 예외 처리 강화 (invalid_grant 발생 시 로그인 페이지 강제 리다이렉트 및 안내 메시지)
+- [x] 개발 모드 안내 문구 추가 (로그인 페이지: 테스터 계정 전용 안내)
+- [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
 
 ---
 
