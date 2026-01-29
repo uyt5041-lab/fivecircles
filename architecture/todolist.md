@@ -180,6 +180,7 @@
 - [x] MVP Experiment: Event V2 readiness smoke (api1-10)
 - [x] MVP Experiment: FE integration for Q1-Q15 (dashboard/timeline)
 - [x] DramaSelectionPage Real API Integration & DB Seed Data injection
+- [ ] Fix QA widget endpoints (Q13 policy path, Q2 keyword filter, event_character role insert)
 
 ### 8. Frontend Widget Placement & Test Plan (Pending)
 1) [x] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points
