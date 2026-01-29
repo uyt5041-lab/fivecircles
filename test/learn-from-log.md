@@ -86,3 +86,58 @@ Cause:
 
 Preventive rule:
 - Enable collab before session start; keep .mcp.json mirrored; verify .mcp-env.sh is sourced
+### Playwright strict mode with duplicate labels
+Cause:
+- getByText("타임라인") matched both nav and modal tab during dashboard checks
+
+Preventive rule:
+- Scope Playwright locators to the modal/section container when labels repeat (refs: fivecircles/test/errorlogs/frontend/2026-01-22-playwright-strict-mode.md)
+### Playwright timeline list assertion before data load
+Cause:
+- Timeline list asserted before /api/event/v2 response completed
+
+Preventive rule:
+- Wait for API response and list render before counting items (refs: fivecircles/test/errorlogs/frontend/2026-01-22-playwright-timeline-wait.md)
+### Playwright server test 502 due to gateway route not applied
+Cause:
+- Frontend server returned 502 when gateway/auth changes were not deployed, blocking drama fetch.
+
+Preventive rule:
+- Ensure gateway/auth changes are deployed on server before browser tests; redeploy `api-gateway`/`auth-service` then rerun Playwright.
+### Playwright runner mismatch
+Cause:
+- Root run used playwright package without @playwright/test, causing config/test mismatch
+
+Preventive rule:
+- Run Playwright from front with @playwright/test or add @playwright/test to root before using root CLI
+### Playwright dev login dependency
+Cause:
+- DevAuth accounts missing on server, causing login-based UI flows to stall
+
+Preventive rule:
+- Seed a dedicated test user or use API-seeded submissions for wiki tests
+### Playwright strict-mode: timeline causes
+Cause:
+- Cause summary appeared in both timeline list and detail list
+
+Preventive rule:
+- Scope locators to the detail panel section for causes/effects
+### Playwright server test uses stale frontend build
+Cause:
+- Server deployment not updated after frontend changes
+
+Preventive rule:
+- Push + deploy frontend before running Playwright against server URL
+### Auth flyway checksum mismatch
+Cause:
+- Applied migration V1 checksum differs from local file
+
+Preventive rule:
+- Never modify applied migrations; add new versions or run flyway repair intentionally
+- When branch drift exists, verify actual tables/columns before assuming Flyway history reflects schema (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-flyway-checksum-mismatch.md)
+### Auth email verification send failure (SMTP)
+Cause:
+- auth-service uses smtp.naver.com with missing/invalid credentials in test env; EMAIL_SEND_FAILURE thrown
+
+Preventive rule:
+- Use Mailhog for test env (MAIL_HOST/PORT + disable SMTP auth) or set valid SMTP creds before testing

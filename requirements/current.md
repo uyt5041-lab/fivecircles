@@ -176,6 +176,17 @@ Spoilers significantly damage content consumption experiences, yet existing serv
 - Final approval requires N reviewers
 - Only approved data is used by the system
 
+### P-4 My Page
+**Purpose**
+- Manage personal account and view activity history
+
+**Functions**
+- **View Profile**: Show email, nickname, profile image, join date, social login provider
+- **Edit Profile**: Update nickname (check duplicates), update profile image
+- **Change Password**: Verify current password, set new password (hidden for social login users)
+- **Withdrawal**: Soft/Hard delete account data
+- **My Activities**: (Future) List of reviews, likes, etc.
+
 ## 6. Non-Functional Requirements
 
 ### Performance

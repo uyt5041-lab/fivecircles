@@ -102,6 +102,17 @@ Base URL: `/api/drama/v1`
 - **URL Params**: `keyword`
 - **Response**: `ApiResponse<List<DramaResponseDTO>>`
 
+### PUT /{id}
+
+- **Description**: Update an existing drama.
+- **Request**: `DramaRequestDTO`
+- **Response**: `ApiResponse<DramaResponseDTO>`
+
+### DELETE /{id}
+
+- **Description**: Delete a drama.
+- **Response**: `ApiResponse<Void>`
+
 ---
 
 ## Character Service
@@ -124,6 +135,17 @@ Base URL: `/api/character/v1`
 
 - **Description**: Get character details by ID.
 - **Response**: `ApiResponse<CharacterResponseDTO>`
+
+### PUT /{id}
+
+- **Description**: Update an existing character.
+- **Request**: `CharacterRequestDTO`
+- **Response**: `ApiResponse<CharacterResponseDTO>`
+
+### DELETE /{id}
+
+- **Description**: Delete a character.
+- **Response**: `ApiResponse<Void>`
 
 ---
 
@@ -159,6 +181,23 @@ Base URL: `/api/wiki/v1`
 - **Description**: Submit a new fact for a character.
 - **Request**: `SubmissionRequest`
 - **Response**: `ApiResponse<Long>` (Submission ID)
+
+### GET /submissions
+
+- **Description**: List submissions by drama (optional).
+- **URL Params**: `dramaId` (optional)
+- **Response**: `ApiResponse<List<SubmissionResponse>>`
+
+### PUT /submissions/{submissionId}
+
+- **Description**: Update submission content.
+- **Request**: `SubmissionUpdateRequest`
+- **Response**: `ApiResponse<Void>`
+
+### DELETE /submissions/{submissionId}
+
+- **Description**: Delete a submission.
+- **Response**: `ApiResponse<Void>`
 
 ### POST /verifications
 
@@ -199,3 +238,20 @@ Base URL: `/api/qa/v1`
 - **Description**: Estimate episode range for a query.
 - **Request**: `QaRequestDTO`
 - **Response**: `ApiResponse<QaResponseDTO>`
+---
+
+## Intelligence Service
+
+Base URL: `/api/intelligence/v1`
+
+### POST /refine
+
+- **Description**: 자연어 제보 내용을 분석하여 구조화된 온톨로지 정보(인물 ID, 서술어 코드, 정제된 요약)로 변환합니다.
+- **Request**: `RefineRequest` (content, context)
+- **Response**: `ApiResponse<RefineResponse>` (predicateCode, involvedCharacterIds, refinedSummary)
+
+### POST /summary
+
+- **Description**: 특정 인물의 여러 사건 요약본을 하나의 일관된 스토리라인(문단)으로 통합합니다.
+- **Request**: `CharacterSummaryRequest` (characterName, episodeK, summaries)
+- **Response**: `ApiResponse<String>` (Unified Summary text)
