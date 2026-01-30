@@ -23,12 +23,15 @@
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
 - [x] 세션 유지 및 UX 개선 (새로고침 시 로그인 유지, 드라마 선택 정보 영속화, 초기화 로딩 화면)
 
-- [ ] **My Page Feature (User Service)**
-  - [ ] API: `GET /api/v1/users/me` (Get Profile)
-  - [ ] API: `PUT /api/v1/users/me` (Update Profile - Nickname, Image)
-  - [ ] API: `PUT /api/v1/users/me/password` (Change Password)
-  - [ ] API: `DELETE /api/v1/users/me` (Withdrawal)
-  - [ ] Logic: Social Login User Password Change Restriction
+- [x] **마이페이지 기능 구현 (User Service)**
+  - [x] API: `GET /api/v1/users/me` (프로필 조회)
+  - [x] API: `UPDATE /api/v1/users/me` (프로필 수정 - 닉네임)
+  - [x] API: `POST /api/v1/users/me/profile-image` (프로필 이미지 수정 - MinIO 연동 및 DB 컬럼 TEXT로 변경)
+  - [x] API: `POST /api/auth/v1/password/change` (비밀번호 변경)
+  - [x] API: `DELETE /api/v1/users/me` (회원 탈퇴)
+  - [x] 로직: 소셜 로그인 유저 비밀번호 변경 제한
+  - [x] 버그수정: Flyway 마이그레이션 체크섬 불일치 및 V2 스키마 동기화 해결
+  - [x] 버그수정: MinIO URL Localhost 접근 불가 문제 해결 (Docker 호스트네임 치환)
 
 ---
 
