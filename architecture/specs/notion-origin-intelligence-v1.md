@@ -87,6 +87,21 @@ The Intelligence Service acts as an **Ontology Refiner**, performing three prima
   }
   ```
 
+### `POST /intelligence/summary`
+
+- **Request**:
+  ```json
+  {
+    "characterName": "Character Name",
+    "episodeK": 5,
+    "summaries": ["summary 1", "summary 2"]
+  }
+  ```
+- **Response**:
+  ```json
+  "Unified Summary text"
+  ```
+
 ---
 
 <!-- USER_MEMO_START -->

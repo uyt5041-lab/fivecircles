@@ -87,6 +87,21 @@
   }
   ```
 
+### `POST /intelligence/summary`
+
+- **요청 (Request)**:
+  ```json
+  {
+    "characterName": "캐릭터명",
+    "episodeK": 5,
+    "summaries": ["요약 1", "요약 2"]
+  }
+  ```
+- **응답 (Response)**:
+  ```json
+  "통합 요약 결과"
+  ```
+
 ---
 
 <!-- USER_MEMO_START -->

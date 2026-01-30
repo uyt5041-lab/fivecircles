@@ -194,5 +194,6 @@ WHERE r.from_event_id IN (:frontierIds)
 
 Notes
 - Keep REVEALS in event_reveal and use it for explanations only.
+- **Keep event_relation.type** to preserve Level 3 traversal APIs (related/causes/effects/path).
 - Do not expose future events in user-facing results without K gating.
 - PRECEDES direction is fixed: from=previous, to=next. Reverse traversal uses to_event_id.

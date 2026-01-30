@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-29
+> **Last Updated**: 2026-01-30
 
 ---
 
@@ -21,6 +21,9 @@
 - [x] OAuth2 예외 처리 강화 (invalid_grant 발생 시 로그인 페이지 강제 리다이렉트 및 안내 메시지)
 - [x] 개발 모드 안내 문구 추가 (로그인 페이지: 테스터 계정 전용 안내)
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
+- [ ] Notion 정합성 점검: user_state 테이블 여부 결정 (per-drama watch state)
+- [ ] Notion 정합성 점검: 역할 체계(VIEWER/CONTRIBUTOR/REVIEWER/ADMIN vs USER/ADMIN)
+- [ ] Notion 정합성 점검: password_hash 컬럼명 정리(문서/구현 중 선택)
 
 - [ ] **My Page Feature (User Service)**
   - [ ] API: `GET /api/v1/users/me` (Get Profile)
@@ -85,6 +88,8 @@
 - [ ] MVP Experiment: Wiki list endpoint (`GET /api/wiki/v1/submissions?dramaId`)
 - [ ] MVP Experiment: Wiki update/delete endpoints (if review UI requires)
 - [ ] MVP Experiment: Seed drama/character/wiki data for FE smoke
+- [ ] Wiki revealEpisode 도입 여부 결정 (event vs wiki, 스키마/UX 영향 검토)
+- [ ] Wiki FK 정책 정합성 결정 (no-FK 원칙 vs 현재 FK 유지)
 
 - [ ] **My Page UI Implementation**
   - [ ] Component: Profile View/Edit Form
@@ -126,6 +131,7 @@
     - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
     - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
 - [ ] Swagger UI 화면 예시 공유 (모바일 확인용)
+- [x] Event relation PK에 type 포함 (V7 migration, type별 중복 허용)
 
 ### 6. Next Steps (Sprint 2)
 - [x] **Integration**: Connect QA -> Event -> Policy flow

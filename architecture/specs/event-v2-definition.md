@@ -31,6 +31,7 @@ Level 3 Questions (from ex03)
 
 Implementation Notes
 - Use event_relation traversal (PRECEDES/RELATED).
+- **Keep event_relation.type** to preserve Level 3 traversal APIs (related/causes/effects/path).
 - BFS with hop limit and visited dedup by event_id.
 - Apply spoiler policy / episode gate after traversal.
 - QueryType mapping and SQL patterns live in event-v2-plan-map.md.
