@@ -21,6 +21,7 @@
 - [x] OAuth2 예외 처리 강화 (invalid_grant 발생 시 로그인 페이지 강제 리다이렉트 및 안내 메시지)
 - [x] 개발 모드 안내 문구 추가 (로그인 페이지: 테스터 계정 전용 안내)
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
+- [x] 세션 유지 및 UX 개선 (새로고침 시 로그인 유지, 드라마 선택 정보 영속화, 초기화 로딩 화면)
 
 - [ ] **My Page Feature (User Service)**
   - [ ] API: `GET /api/v1/users/me` (Get Profile)
