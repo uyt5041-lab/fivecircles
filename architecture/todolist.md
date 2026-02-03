@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-29
+> **Last Updated**: 2026-02-03 (by Antigravity)
 
 ---
 
@@ -32,6 +32,7 @@
   - [x] 로직: 소셜 로그인 유저 비밀번호 변경 제한
   - [x] 버그수정: Flyway 마이그레이션 체크섬 불일치 및 V2 스키마 동기화 해결
   - [x] 버그수정: MinIO URL Localhost 접근 불가 문제 해결 (Docker 호스트네임 치환)
+  - [x] Wiki Review 태그 필터 구현 (주요 사건, #사망, #배신, #거래, #명대사)
 
 ---
 
