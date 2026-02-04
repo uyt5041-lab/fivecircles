@@ -48,3 +48,11 @@
 - [Comment]: Confirm whether Docker profile was active in V2; if `application.yml` (8084) was used, mismatch would not appear. Check compose profile history.
 - [Comment]: Prefer injecting service ports into `api-gateway` container env to avoid relying on defaults; align `.env` and docker-compose.
 - [Comment]: Also flag V2.5/V3 gaps: V6 index set and role mapper insert still misaligned with plan (refs: services/event-service/src/main/resources/db/migration/V6__event_v3_triple_roles.sql, services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml).
+
+### Review by Codex
+> Reviewer: codex-ops | Date: 2026-02-04
+- [Status]: Changes Requested
+- [Comment]: Q7/Q9는 현재 API 스펙이 depth 파라미터를 허용하므로, 단일 hop 전용 구현으로 바꾸면 계약 불일치가 됩니다. depth 지원 유지 또는 스펙/FE 동시 변경이 필요합니다. (refs: fivecircles/architecture/specs/event-v2-api.md)
+- [Comment]: 제안된 findEffect/findCause가 ID만 반환하면 현재 응답 형태(EventResponseDTO)와 불일치입니다. 이벤트 상세 조회까지 포함하거나 기존 서비스/컨트롤러 시그니처를 맞춰야 합니다.
+- [Comment]: suggestions 축소 규칙은 방향성은 좋지만 "캐릭터별 다음 등장 1개"가 실제로 1개만 되도록 tie-breaker(episode_start 동일 시 id 최소 등)와 safeUpToEpisode/APPROVED/동일드라마 필터를 명시해야 폭발/누락을 막습니다.
+- [Comment]: 500 원인 확인을 위해 실제 변경 코드(Mapper XML/Service)와 에러 로그/스택트레이스가 필요합니다. 현 설명만으로는 파라미터 바인딩/쿼리 오류 여부를 특정할 수 없습니다.
