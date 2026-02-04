@@ -140,9 +140,8 @@
 - [x] 이벤트 검색 시 스포일러 정책 연동 로직 업그레이드
 - [x] 스포일러 정책 연동 curl 테스트
 - [ ] 스포일러 정책 연동 테스트 완료 후 V3 진행 여부 결정
-- [x] (N/A) Fix QA service client URLs/paths for docker (Handled by Docker profiles)
-- [x] Fix wiki approval -> event publish (client path + request mapping)
-- [x] Align wiki->event request/response contract (DTO mapping)
+- [x] **위키 검증소 필터 개편**: 칩 방식에서 드롭다운 방식으로 전환 및 회차 필터 옆 배치 완료
+- [x] **실시간 탭 카운트**: 필터링 상태에 따른 탭 숫자 실시간 동기화 구현 완료
 - [ ] Verify Wiki→Event payload includes characterId; reconcile develop vs experimental contract
 - [ ] Verify Wiki→Intelligence publish flow after approval
 - [x] (N/A) Fix event-service EventServiceClient default URL (Handled by Docker profiles)
