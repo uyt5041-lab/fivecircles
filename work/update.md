@@ -513,3 +513,8 @@ This file summarizes recent updates so other agents can continue without re‑di
 - `./gradlew :services:event-service:test` (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplTest.java)
 ### Docs
 - Remove RELATED relation type and redefine related as derived rule (refs: fivecircles/architecture/specs/event-v2-definition.md, fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/event-v2-api.md)
+## Addendum (2026-02-04) - bit-ts deploy + Event V2 API smoke
+### Server
+- Deployed feature/qa-tasks on bit-ts with docker compose build (refs: infra/docker-compose.yml)
+### Tests
+- Event V2 API smoke on bit-ts (Breaking Bad, Jesse, K=7) with PRECEDES create + suggestions (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java, services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventRelationController.java)
