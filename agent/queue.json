@@ -1,6 +1,6 @@
 {
   "version": "1.2",
-  "lastUpdated": "2026-01-16T10:25:00Z",
+  "lastUpdated": "2026-02-04T07:15:00Z",
   "tasks": [
     {
       "id": "TASK-005",
@@ -40,6 +40,19 @@
       "createdBy": "gemini",
       "createdAt": "2026-01-23T10:00:00Z",
       "updatedAt": "2026-01-23T10:00:00Z"
+    },
+    {
+      "id": "TASK-008",
+      "title": "Admin UI for PRECEDES suggestions curation",
+      "description": "Background: Event V2 relation APIs added for PRECEDES-only curation. Suggestions are cross-episode only; same-episode PRECEDES must be manual.\nEndpoints:\n- GET /api/event/v2/relations/precedes/suggestions?eventId={E}&safeUpToEpisode={K}&limit={N}\n  Response fields: fromEventId, toEventId, summary, episodeStart, episodeEnd, sharedCharacterCount\n- POST /api/event/v2/relations/precedes {fromEventId, toEventId}\n  Returns data=CREATED or ALREADY_EXISTS\nUI goal (MVP): Admin page with eventId input (+ optional K/limit), fetch suggestions, show list with summary + ep range + shared count. Approve button triggers POST and updates row state.",
+      "assignedTo": "antigravity",
+      "assignedZone": "frontend",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "codex",
+      "createdAt": "2026-02-04T06:45:00Z",
+      "updatedAt": "2026-02-04T07:15:00Z"
     }
   ]
 }

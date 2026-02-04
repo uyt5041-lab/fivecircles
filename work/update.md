@@ -518,3 +518,18 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Deployed feature/qa-tasks on bit-ts with docker compose build (refs: infra/docker-compose.yml)
 ### Tests
 - Event V2 API smoke on bit-ts (Breaking Bad, Jesse, K=7) with PRECEDES create + suggestions (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java, services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventRelationController.java)
+### Tests (Detail)
+## Addendum (2026-02-04) - PRECEDES UI Enhancement & Bulk Approval
+### Frontend
+- **Searchable Drama Selection**: Implemented a searchable dropdown in `AdminPrecedesPage.tsx`. Fetches dramas from `dramaApi` and filters by title/ID.
+- **Bulk Approval**: Added "전체 승인" (Bulk Approve) button. Sequentially approves all currently filtered suggestions.
+- **UI Improvements**: Refactored table layout for better readability (break-words), added status indicators, and updated filtering logic to include both from/to summaries.
+- **Port Enforcement**: Configured `vite.config.ts` to strictly use port 3000 (`strictPort: true`).
+
+### Backend
+- **suggestions/all API**: Verified and used new endpoint `/api/event/v2/relations/precedes/suggestions/all` which includes `fromSummary`.
+- **Deployment**: Successfully rebuilt and restarted `event-service` on `bit-ts` to apply new PRECEDES logic.
+
+### Tests
+- **Verification**: Manually verified drama fetching, searchable filtering, individual approval, and bulk approval on local dev server.
+- **Remote Verification**: Confirmed API connectivity to `bit-ts` via gateway.

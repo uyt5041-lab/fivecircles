@@ -159,6 +159,7 @@
     - [x] Implement Q20 Narrative Distribution view on QA page
     - [x] Implement Extended QA Widgets (Q3, Q5, Q7, Q9, Q11)
 - [ ] **Verifying**: API JSON response spoiler hiding
+- [ ] Event-service 전체 주석 추가
 
 ### 6.1 Current Sprint (2026-01-26) - ✅ Complete
 **Priority Order**:
@@ -176,7 +177,7 @@
 > **Reference**: See `fivecircles/architecture/specs/test-server-policy-4C.md` for remote deploy & test protocols.
 - [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build` (상시체크)
 - [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run (상시체크)
-- [ ] bit-ts 배포 후 QA E2E 확인 (FE → Gateway → QA/Event/Policy)
+- [x] bit-ts 배포 후 QA E2E 확인 (FE → Gateway → QA/Event/Policy)
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
 - [x] Skills tracking decision (`fivecircles/agent/skills/` will be tracked)
 - [ ] 협업으로 온톨로지 로직 검증 (wiki service)
@@ -190,11 +191,12 @@
 - [x] DramaSelectionPage Real API Integration & DB Seed Data injection
 - [x] Fix QA widget endpoints (Q13 policy path, Q2 keyword filter, event_character role insert)
 - [x] QA: docker compose에 EVENT_SERVICE_URL/POLICY_SERVICE_URL 주입 (QA→Event/Policy 경로 정렬)
-- [ ] QA: QaPage 캐릭터 썸네일 필드 정정 (imageUrl -> profileImageUrl)
+- [x] QA: QaPage 캐릭터 썸네일 필드 정정 (imageUrl -> profileImageUrl)
 - [x] QA: QaService 스포일러 판정 기준을 episodeStart -> episodeEnd로 수정
 - [x] QA: Health check는 무인증 호출로 전환해 오프라인 오탐 방지
-- [ ] QA: Q1/Q3/Q5/Q7/Q9/Q11/Q20용 데이터 보강 (event_character, event_relation, predicate_code)
-- [ ] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인)
+- [x] QA: Q1/Q3/Q5/Q20용 데이터 보강 (event_character, event_relation, predicate_code)
+- [ ] QA: Q7/Q9/Q11용 데이터 보강 (event_character, event_relation, predicate_code)
+- [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval, 담당: Antigravity)
 
 ### 8. Frontend Widget Placement & Test Plan (Pending)
 1) [x] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points

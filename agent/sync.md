@@ -8,8 +8,15 @@
 | Agent | Role | Zone | Status |
 |-------|------|------|--------|
 | Gemini | Coder | Team C (Event/Policy/QA) | Idle (Task Completion Done) |
+| Antigravity | Coder | Frontend/Admin | Idle (PRECEDES UI Done) |
 
 ## Announcements
+
+### [COMPLETED] PRECEDES Curation UI & Bulk Approval (TASK-008)
+- **Author**: Antigravity | Date: 2026-02-04
+- **Result**: Implemented searchable drama selection, keyword filtering (from/to summaries), and Bulk Approval feature.
+- **Port**: Frontend enforced to port 3000.
+- **Verification**: Verified individual and bulk approval flows. Correctly handles `CREATED` vs `ALREADY_EXISTS` statuses.
 
 ### [REVIEW+PLAN] V2.5/V3 Sync Summary
 - **Author**: codex | Date: 2026-01-25
