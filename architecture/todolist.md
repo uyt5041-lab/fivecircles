@@ -96,6 +96,8 @@
 - [ ] MVP Experiment: Wiki list endpoint (`GET /api/wiki/v1/submissions?dramaId`)
 - [ ] MVP Experiment: Wiki update/delete endpoints (if review UI requires)
 - [ ] MVP Experiment: Seed drama/character/wiki data for FE smoke
+- [ ] Wiki revealEpisode 도입 여부 결정 (event vs wiki, 스키마/UX 영향 검토)
+- [ ] Wiki FK 정책 정합성 결정 (no-FK 원칙 vs 현재 FK 유지)
 
 - [ ] **My Page UI Implementation**
   - [ ] Component: Profile View/Edit Form
@@ -137,6 +139,7 @@
     - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
     - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
 - [ ] Swagger UI 화면 예시 공유 (모바일 확인용)
+- [x] Event relation PK에 type 포함 (V7 migration, type별 중복 허용)
 
 ### 6. Next Steps (Sprint 2)
 - [x] **Integration**: Connect QA -> Event -> Policy flow
