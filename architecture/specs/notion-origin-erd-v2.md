@@ -56,7 +56,7 @@
 - *Constraint*: `unique(event_id, character_id)`
 
 ### `event_relation`
-- `from_event_id`, `to_event_id`, `type` (RELATED/PRECEDES).
+- `from_event_id`, `to_event_id`, `type` (PRECEDES).
 
 ### `event_reveal` (Sprint 1: Storage Only)
 - `event_id`, `target_type` (CHARACTER/ATTRIBUTE), `target_id`, `reveal_type`.

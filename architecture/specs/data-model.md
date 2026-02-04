@@ -42,5 +42,6 @@ Adds:
 
 - Event <-> Character involvement is represented ONLY by event_character.
 - Event <-> Event relations are represented ONLY by event_relation.
-- event_relation.type allowed values (MVP): PRECEDES, RELATED
+- event_relation.type allowed values (MVP): PRECEDES
+- Related events are derived by shared character involvement (event_character).
 - event_reveal exists for reveal semantics; traversal must not use reveal edges.

@@ -12,7 +12,7 @@ Base URL: /api/event/v2
 - api3: GET /characters/{characterId}/events?safeUpToEpisode={K}&predicateCode={CODE}&limit={N}
 - api4: GET /characters/{characterId}/coevents?with={bId}&safeUpToEpisode={K}
 - api5: GET /events/{eventId}/characters?safeUpToEpisode={K}
-- api6: GET /events/{eventId}/related?depth={D}&safeUpToEpisode={K}&types=PRECEDES,RELATED
+- api6: GET /events/{eventId}/related?safeUpToEpisode={K}&limit={N}
 - api7: GET /events/{eventId}/causes?depth={D}&safeUpToEpisode={K}
 - api8: GET /events/{eventId}/effects?depth={D}&safeUpToEpisode={K}
 - api9: GET /characters/{characterId}/related-characters?safeUpToEpisode={K}&limit={N}

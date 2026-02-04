@@ -241,7 +241,8 @@ All query responses MUST apply Safety Gate:
 - event.episode_end <= K (K = user's last watched episode number)
 
 Traversal policy:
-- Multi-hop traversal uses event_relation.type in {PRECEDES, RELATED} only.
+- Multi-hop traversal uses event_relation.type = PRECEDES only.
+- Related events are derived by shared character involvement (event_character), not stored edges.
 - REVEALS / FORESHADOWS are NOT used for traversal.
 
 Ordering policy:

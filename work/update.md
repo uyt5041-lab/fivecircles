@@ -496,3 +496,20 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Docs
 - Sync migration compendium + FK meeting note (refs: fivecircles/architecture/specs/latest.sql, fivecircles/architecture/specs/latest-db-migrations.md, fivecircles/architecture/specs/no-fk-meeting-note.md)
 - Update V2/V2.5 + intelligence specs (/summary, relation type) (refs: fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/event-v2-definition.md, fivecircles/architecture/specs/event-v2-plan-map.md, fivecircles/architecture/specs/notion-origin-intelligence-v1.md, fivecircles/architecture/specs/notion-origin-intelligence-v1-ko.md)
+## Addendum (2026-02-04) - QA consistency fixes
+### Backend
+- QA policy check uses episode_end (fallback start); event_character insert allows null role default (refs: services/qa-service/src/main/java/com/nospoiler/qaservice/service/QaService.java, services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml)
+### Infra
+- Gateway adds /api/event & /api/policy routes and permits QA health (refs: services/api-gateway/src/main/resources/application.yml, services/api-gateway/src/main/java/com/nospoiler/apigateway/config/SecurityConfig.java)
+- QA docker env wires Event/Policy URLs (refs: infra/docker-compose.yml)
+### Frontend
+- QaPage uses profileImageUrl for character thumbnails (refs: front/features/qa/QaPage.tsx)
+## Addendum (2026-02-04) - Relation policy update
+### Backend
+- Related events now derived by shared characters; PRECEDES-only traversal enforced (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java)
+- Related endpoint signature updated to safeUpToEpisode/limit (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java)
+- Add PRECEDES manual insert API + cross-episode suggestion API (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventRelationController.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventRelationService.java)
+### Tests
+- `./gradlew :services:event-service:test` (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplTest.java)
+### Docs
+- Remove RELATED relation type and redefine related as derived rule (refs: fivecircles/architecture/specs/event-v2-definition.md, fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/event-v2-api.md)

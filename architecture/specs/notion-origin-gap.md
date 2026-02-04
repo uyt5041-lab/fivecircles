@@ -39,10 +39,8 @@
 ## 4) Event Domain
 - Notion: `event_character` has no role → current V6 adds `role`.
   - Action: **OK (intentional for V3).**
-- Notion: `event_relation` has `type` and allows multiple relation types.
-  - Current PK = (from_event_id, to_event_id), so **cannot store multiple types** between same pair.
-  - Meaning: you cannot have both `RELATED` and `PRECEDES` for the same (from,to) pair.
-  - Impact: relation semantics are **mutually exclusive per pair**; may need PK change if multi-type is required.
+- Notion: `event_relation` keeps `type` but MVP uses PRECEDES only.
+  - Impact: no multi-type per pair is required in MVP.
 - `event_reveal` was fixed in V2 to match Notion (target_type, target_id).
 
 ---

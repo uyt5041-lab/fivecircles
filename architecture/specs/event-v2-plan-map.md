@@ -188,12 +188,15 @@ WHERE r.from_event_id IN (:frontierIds)
 
 6) PATH_BETWEEN_CHARACTERS (BFS on bipartite graph)
 - Step A: character -> events (event_character)
-- Step B: event -> next events (event_relation PRECEDES/RELATED)
+- Step B: event -> next events (event_relation PRECEDES only)
 - Step C: event -> characters (event_character)
 - Output nodes: {node_type, node_id, hop_distance}
 
 Notes
 - Keep REVEALS in event_reveal and use it for explanations only.
-- **Keep event_relation.type** to preserve Level 3 traversal APIs (related/causes/effects/path).
+- event_relation.type is PRECEDES only (causes/effects/path).
+- Related events are derived by shared character involvement (event_character).
+- PRECEDES auto suggestions only target different episodes (base.episode_end < candidate.episode_start).
+- Same-episode PRECEDES is manual curation only.
 - Do not expose future events in user-facing results without K gating.
 - PRECEDES direction is fixed: from=previous, to=next. Reverse traversal uses to_event_id.
