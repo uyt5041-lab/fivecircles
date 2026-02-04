@@ -31,6 +31,7 @@ CREATE TABLE script_line (
 
 * 너가 만든 CSV/JSONL을 그대로 **bulk insert**하면 끝.
 * `line_hash`는 “같은 라인 중복 적재” 방지용 보험.
+* 로컬 적재는 `.venv`의 `PyMySQL`을 사용해 `ingestion/scripts/ingest_script_line_jsonl.py`로 실행한다.
 
 ---
 
