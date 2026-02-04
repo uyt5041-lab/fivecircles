@@ -159,7 +159,7 @@
     - [x] Implement Q20 Narrative Distribution view on QA page
     - [x] Implement Extended QA Widgets (Q3, Q5, Q7, Q9, Q11)
 - [ ] **Verifying**: API JSON response spoiler hiding
-- [ ] Event-service 전체 주석 추가
+- [x] Event-service 전체 주석 추가
 
 ### 6.1 Current Sprint (2026-01-26) - ✅ Complete
 **Priority Order**:
@@ -196,7 +196,7 @@
 - [x] QA: Health check는 무인증 호출로 전환해 오프라인 오탐 방지
 - [x] QA: Q1/Q3/Q5/Q20용 데이터 보강 (event_character, event_relation, predicate_code)
 - [ ] QA: Q7/Q9/Q11용 데이터 보강 (event_character, event_relation, predicate_code)
-- [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval, 담당: Antigravity)
+- [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval, pagination, 담당: Antigravity)
 
 ### 8. Frontend Widget Placement & Test Plan (Pending)
 1) [x] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points

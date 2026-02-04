@@ -56,3 +56,8 @@
 - [Comment]: 제안된 findEffect/findCause가 ID만 반환하면 현재 응답 형태(EventResponseDTO)와 불일치입니다. 이벤트 상세 조회까지 포함하거나 기존 서비스/컨트롤러 시그니처를 맞춰야 합니다.
 - [Comment]: suggestions 축소 규칙은 방향성은 좋지만 "캐릭터별 다음 등장 1개"가 실제로 1개만 되도록 tie-breaker(episode_start 동일 시 id 최소 등)와 safeUpToEpisode/APPROVED/동일드라마 필터를 명시해야 폭발/누락을 막습니다.
 - [Comment]: 500 원인 확인을 위해 실제 변경 코드(Mapper XML/Service)와 에러 로그/스택트레이스가 필요합니다. 현 설명만으로는 파라미터 바인딩/쿼리 오류 여부를 특정할 수 없습니다.
+
+### Review by Codex (Log update)
+> Reviewer: codex-ops | Date: 2026-02-04
+- [Status]: Agreed
+- [Comment]: 이벤트 서비스 주석 보강에 대한 로그/투두 업데이트만 반영됨. 기능 변경 없음.

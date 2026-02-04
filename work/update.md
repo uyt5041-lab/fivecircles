@@ -533,3 +533,17 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Tests
 - **Verification**: Manually verified drama fetching, searchable filtering, individual approval, and bulk approval on local dev server.
 - **Remote Verification**: Confirmed API connectivity to `bit-ts` via gateway.
+
+## Addendum (2026-02-04) - PRECEDES Pagination & Fixes
+### Frontend
+- **Pagination**: Implemented client-side pagination for PRECEDES suggestions (1000 items loaded, 50 items/page view).
+- **UI Tweaks**: Added "Items per page" display to pagination controls.
+- **Fixes**: Resolved state duplication and TypeErrors in `AdminPrecedesPage.tsx`.
+
+### Backend
+- **Fix**: Resolved `SAXParseException` (extra `</select>`) in `EventRelationMapper.xml` which caused 500 error on startup.
+- **Deployment**: Redeployed `event-service` to `bit-ts` after fix.
+
+## Addendum (2026-02-04) - Event-service 주석 보강
+### Backend
+- 이벤트 서비스 전반에 Javadoc/inline 주석 보강 (refs: services/event-service/src/main/java/com/nospoiler/eventservice)
