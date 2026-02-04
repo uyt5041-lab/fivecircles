@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-02-03 (by Antigravity)
+> **Last Updated**: 2026-02-04 (by Antigravity)
 
 ---
 
@@ -22,6 +22,12 @@
 - [x] 개발 모드 안내 문구 추가 (로그인 페이지: 테스터 계정 전용 안내)
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
 - [x] 세션 유지 및 UX 개선 (새로고침 시 로그인 유지, 드라마 선택 정보 영속화, 초기화 로딩 화면)
+
+- [x] **Wiki Review UI & Data Ingestion (New)**
+  - [x] Wiki Review 정렬 필터 개편 (단일 선택 방식 및 UI 고도화)
+  - [x] 캐릭터 상세 모달 및 위키 캐릭터 선택 모달 UI 정제
+  - [x] 드라마 데이터 벌크 인계 스크립트 구축 (`bulk_seed_moving.py`, `bulk_seed_pending.py`, `fetch_info.py`)
+  - [x] 무빙 시즌 1 에피소드 데이터 인계 완료 및 시드 데이터 정비
 
 - [x] **마이페이지 기능 구현 (User Service)**
   - [x] API: `GET /api/v1/users/me` (프로필 조회)
