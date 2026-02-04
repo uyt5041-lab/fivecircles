@@ -33,6 +33,7 @@
   - [x] API: `GET /api/v1/users/me` (프로필 조회)
   - [x] API: `UPDATE /api/v1/users/me` (프로필 수정 - 닉네임)
   - [x] API: `POST /api/v1/users/me/profile-image` (프로필 이미지 수정 - MinIO 연동 및 DB 컬럼 TEXT로 변경)
+  - [x] Storage: MinIO 폴더 구조화 구현 (profiles, dramas 등 유형별 자동 분류 저장 지원)
   - [x] API: `POST /api/auth/v1/password/change` (비밀번호 변경)
   - [x] API: `DELETE /api/v1/users/me` (회원 탈퇴)
   - [x] 로직: 소셜 로그인 유저 비밀번호 변경 제한
