@@ -222,7 +222,7 @@
 - [x] QA: Q1/Q3/Q5/Q20용 데이터 보강 (event_character, event_relation, predicate_code)
 - [ ] QA: Q7/Q9/Q11용 데이터 보강 (event_character, event_relation, predicate_code)
 - [ ] QA: Q7/Q9 정확도 개선 (PRECEDES 탐색/정렬/게이트 재검토)
-- [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval, pagination, 담당: Antigravity)
+- [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval/delete, pagination, 담당: Antigravity)
 
 ### 8. Frontend Widget Placement & Test Plan (Pending)
 1) [x] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points
