@@ -176,6 +176,7 @@
 - [ ] Fix auth/user mapping: user-service UserAuthResponse.id -> auth-service UserValidationResponse.userId (X-User-Id header missing in gateway)
 - [x] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
 - [x] **Logic**: Multi-hop Ontology Retrieval
+- [ ] **Admin/Precedes UI 보강 (Antigravity 큐)**: 이벤트 내용 수정 + 데이터 소스 표시/열람 지원
 - [x] **Ontology V2.5 (Q20)**:
     - [x] Update V2.5 Plan (v2.5-def-plan.md)
     - [x] Correct EventServiceImpl role string (`PARTICIPANT` -> `INVOLVED`)
