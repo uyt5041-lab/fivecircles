@@ -61,3 +61,11 @@
 > Reviewer: codex-ops | Date: 2026-02-04
 - [Status]: Agreed
 - [Comment]: 이벤트 서비스 주석 보강에 대한 로그/투두 업데이트만 반영됨. 기능 변경 없음.
+
+### Review by Codex (CAUSES scope)
+> Reviewer: codex-ops | Date: 2026-02-05
+- [Status]: Agreed
+- [Comment]: V2에서 CAUSES 미도입 + PRECEDES 기반 Q11/Q12 유지가 event-v2-plan-map의 "PRECEDES only" 규칙과 일치합니다.
+- [Comment]: V2 확장 포인트로 type allowlist/validator만 두는 방향은 안전합니다. 다만 미지 type 처리(거부/무시) 정책을 문서에 명시해야 합니다.
+- [Comment]: V3에서 CAUSES 도입 시 Q11/Q12의 우선순위(CAUSES 우선, PRECEDES fallback)와 게이트(episode_end, APPROVED) 적용을 명확히 해두는 것이 좋습니다.
+- [Comment]: V4에서 추천/운영 UX로 품질 관리 분리 제안은 리스크 완화에 유효합니다.
