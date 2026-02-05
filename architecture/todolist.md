@@ -22,6 +22,10 @@
 - [x] 개발 모드 안내 문구 추가 (로그인 페이지: 테스터 계정 전용 안내)
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
 - [x] 세션 유지 및 UX 개선 (새로고침 시 로그인 유지, 드라마 선택 정보 영속화, 초기화 로딩 화면)
+- [x] 카카오 로그인 디버깅 및 안정화 (Gateway 'No token' 문제 해결)
+  - [x] API Gateway: 상세 필터 로그 추가 (Method, URI, Headers)
+  - [x] API Gateway: `JwtTokenProvider` 로직 Auth Service와 동기화 (Clock skew, 키 생성 방식)
+  - [x] Frontend: OAuth2 `HashRouter` 리다이렉트 문제 해결 (`/oauth2/redirect` 라우트 추가 및 `index.html` 스크립트 적용)
 
 - [x] **Wiki Review UI & Data Ingestion (New)**
   - [x] Wiki Review 정렬 필터 개편 (단일 선택 방식 및 UI 고도화)
