@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-30
+> **Last Updated**: 2026-02-04 (by Antigravity)
 
 ---
 
@@ -23,6 +23,12 @@
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
 - [x] 세션 유지 및 UX 개선 (새로고침 시 로그인 유지, 드라마 선택 정보 영속화, 초기화 로딩 화면)
 
+- [x] **Wiki Review UI & Data Ingestion (New)**
+  - [x] Wiki Review 정렬 필터 개편 (단일 선택 방식 및 UI 고도화)
+  - [x] 캐릭터 상세 모달 및 위키 캐릭터 선택 모달 UI 정제
+  - [x] 드라마 데이터 벌크 인계 스크립트 구축 (`bulk_seed_moving.py`, `bulk_seed_pending.py`, `fetch_info.py`)
+  - [x] 무빙 시즌 1 에피소드 데이터 인계 완료 및 시드 데이터 정비
+
 - [x] **마이페이지 기능 구현 (User Service)**
   - [x] API: `GET /api/v1/users/me` (프로필 조회)
   - [x] API: `UPDATE /api/v1/users/me` (프로필 수정 - 닉네임)
@@ -32,6 +38,7 @@
   - [x] 로직: 소셜 로그인 유저 비밀번호 변경 제한
   - [x] 버그수정: Flyway 마이그레이션 체크섬 불일치 및 V2 스키마 동기화 해결
   - [x] 버그수정: MinIO URL Localhost 접근 불가 문제 해결 (Docker 호스트네임 치환)
+  - [x] Wiki Review 태그 필터 구현 (주요 사건, #사망, #배신, #거래, #명대사)
 
 ---
 
@@ -142,9 +149,8 @@
 - [x] 이벤트 검색 시 스포일러 정책 연동 로직 업그레이드
 - [x] 스포일러 정책 연동 curl 테스트
 - [ ] 스포일러 정책 연동 테스트 완료 후 V3 진행 여부 결정
-- [x] (N/A) Fix QA service client URLs/paths for docker (Handled by Docker profiles)
-- [x] Fix wiki approval -> event publish (client path + request mapping)
-- [x] Align wiki->event request/response contract (DTO mapping)
+- [x] **위키 검증소 필터 개편**: 칩 방식에서 드롭다운 방식으로 전환 및 회차 필터 옆 배치 완료
+- [x] **실시간 탭 카운트**: 필터링 상태에 따른 탭 숫자 실시간 동기화 구현 완료
 - [ ] Verify Wiki→Event payload includes characterId; reconcile develop vs experimental contract
 - [ ] Verify Wiki→Intelligence publish flow after approval
 - [x] (N/A) Fix event-service EventServiceClient default URL (Handled by Docker profiles)
