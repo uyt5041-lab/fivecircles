@@ -547,3 +547,22 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-02-04) - Event-service 주석 보강
 ### Backend
 - 이벤트 서비스 전반에 Javadoc/inline 주석 보강 (refs: services/event-service/src/main/java/com/nospoiler/eventservice)
+
+## 2026-02-05: MinIO Refactoring & Multi-Bucket Management
+- **Goal**: Centralize MinIO logic into `common` module and implement service-specific bucket management.
+- **Changes**:
+  - **Common Module**:
+    - Created `StorageService` interface and `MinioStorageService` implementation in `com.nospoiler.common.storage`.
+    - Added `minio` dependency to `common/build.gradle`.
+    - Centralized `MinioConfig` for shared reuse across services.
+    - Improved `upload` method to support hierarchical directory structures.
+    - Improved `delete` method to handle URLs with subdirectories correctly.
+  - **Infrastructure**:
+    - Refactored `docker-compose.yml` to initialize three separate buckets: `profile-images`, `drama-images`, and `character-images`.
+    - Configured each service (`user-service`, `drama-service`, `character-service`) to use its own dedicated bucket via environment variables.
+    - Ensured backward compatibility for existing profile images by preserving the `profile-images` bucket.
+  - **Service Layer**:
+    - Updated `UserService`, `DramaServiceImpl`, and `CharacterServiceImpl` to use the common `StorageService`.
+    - Removed redundant MinIO implementations from individual services.
+- **Status**: Backend refactoring complete. Multi-bucket storage is active.
+- **Next**: Verify actual file uploads from the Admin UI (Drama/Character) and My Page (User).
