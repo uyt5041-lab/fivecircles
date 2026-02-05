@@ -147,3 +147,7 @@ Cause:
 
 Preventive rule:
 - Close drawers via backdrop or stable selector to avoid overlay pointer interception
+
+## [2026-02-05] MinIO URL deletion logic failure with subdirectories
+- **Root cause**: The `delete` logic previously used `lastIndexOf("/") + 1` to extract the object name from the URL, which only worked for flat bucket structures. When subdirectories were introduced (e.g., `dramas/uuid-file.jpg`), it only extracted the filename, missing the directory path, leading to 404 errors on deletion attempts.
+- **Prevention**: Use a more robust extraction logic that identifies the start of the object path by finding the bucket name in the URL and taking everything after it (e.g., `fileUrl.substring(fileUrl.indexOf(bucket + "/") + bucket.length() + 1)`).
