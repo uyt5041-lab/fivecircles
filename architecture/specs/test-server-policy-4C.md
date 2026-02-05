@@ -111,3 +111,6 @@ alias np-test="ssh bit-ts 'cd ~/nospoiler/infra && if docker compose config --se
 
 alias np-test="ssh bit-ts 'cd ~/nospoiler && ./gradlew test'"
 alias np-test-info="ssh bit-ts 'cd ~/nospoiler && ./gradlew test --info'"
+
+# Automated Script
+For convenience, use `fivecircles/test/deploy-server.sh` to run the above flow (Push Local + SSH Pull/Build).
