@@ -198,6 +198,17 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Docs
 - Rebase on develop and align api-contract with event query + internal endpoints (refs: fivecircles/architecture/specs/api-contract.md)
 
+## Addendum (2026-02-05) - Precedes admin + V2 고도화 문서 정리
+### Frontend
+- Admin Precedes 화면에 캐릭터/관계 관리 보강 (refs: front/features/admin/AdminPrecedesPage.tsx, front/features/admin/services/precedesApi.ts)
+### Backend
+- PRECEDES 추천/기존 목록 API 보강 및 매퍼 정비 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventRelationController.java, services/event-service/src/main/resources/mapper/event/EventRelationMapper.xml)
+- 캐릭터 이름 조인/alias 정비 (refs: services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+### Docs
+- V2 고도화 명칭/진행축 표현 정리 + 배포 스크립트/스킬 등록 (refs: fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/event-v2-plan-map.md, fivecircles/test/deploy-server.sh)
+### Tests
+- Not run (not requested)
+
 ### Tests
 - Pending server retest after rebase
 ## Addendum (2026-01-20) - Rebase retest
