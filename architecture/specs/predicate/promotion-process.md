@@ -10,7 +10,7 @@
 - wiki는 원본/히스토리로만 유지한다.
 
 관련 문서
-- `fivecircles/architecture/specs/predicate-suggestion-sot-event.md`
+- `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`
 
 ---
 
@@ -77,4 +77,3 @@ Step 4: 가드레일
 - 후보 키워드 상위 N 목록의 변화량
 - 승격된 코드 사용 비율(OTHER 감소율)
 - 질문별 결과 hit rate(0건 비율) 및 운영 만족도(정성)
-

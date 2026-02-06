@@ -10,7 +10,7 @@
 - 자동 추론으로 `PredicateCode`를 확정 저장하지 않는다.
 
 관련 문서
-- SoT=event 운영: `fivecircles/architecture/specs/predicate-suggestion-sot-event.md`
+- SoT=event 운영: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`
 - ex14 정합성(TRANSFORMS/REVEALS): `fivecircles/architecture/specs/ex14-consistency-checklist.md`
 
 ---
@@ -79,11 +79,10 @@ Pattern C: PRECEDES 기반 원인/결과(설명 강화)
 ## 5) 표준 그룹 표(초안)
 
 정의는 다음 문서에서 단일 소스로 유지한다.
-- `fivecircles/architecture/specs/predicate-groups.md`
+- `fivecircles/architecture/specs/predicate/groups.md`
 
 승격(확장) 프로세스는 다음 문서에서 단일 소스로 유지한다.
-- `fivecircles/architecture/specs/predicate-promotion-process.md`
+- `fivecircles/architecture/specs/predicate/promotion-process.md`
 
 RDF/OWL 확장 노트는 다음 문서에서 단일 소스로 유지한다.
-- `fivecircles/architecture/specs/rdf-owl-extension-notes.md`
-
+- `fivecircles/architecture/specs/predicate/rdf-owl-extension-notes.md`

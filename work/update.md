@@ -590,7 +590,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 - bit-ts DB 백필: event/wiki `predicate_code`의 `STATUS_CHANGE` -> `TRANSFORMS` 일괄 변경 (nospoiler_event/nospoiler_wiki)
 ### Docs
 - ex14 정합성 체크리스트/변경계획 정리 (refs: fivecircles/architecture/specs/ex14-consistency-checklist.md)
-- suggestion 운영(SoT=event, 승인 시 snapshot) 계획 수립 (refs: fivecircles/architecture/specs/predicate-suggestion-sot-event.md)
+- suggestion 운영(SoT=event, 승인 시 snapshot) 계획 수립 (refs: fivecircles/architecture/specs/predicate/suggestion-sot-event.md)
 - Q6/Q7 문서 정합: enum 밖 코드(AFFILIATION_CHANGE/DEATH/EXIT) 대신 JOINS/LEAVES/DIES 조합으로 정의 (refs: fivecircles/architecture/specs/frontend.md, fivecircles/architecture/specs/v2.5-unify.md)
 - Event V2 API 문서에 OTHER/UNKNOWN filter 정책 명시 (refs: fivecircles/architecture/specs/event-v2-api.md)
 ### Tests
