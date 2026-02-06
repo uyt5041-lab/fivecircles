@@ -606,3 +606,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Add aggregate endpoint to specs: V2/V2.5/api-contract (refs: fivecircles/architecture/specs/event-v2-api.md, fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/api-contract.md)
 ### Tests
 - Local unit/compile OK: `./gradlew :services:event-service:test`
+
+## Addendum (2026-02-06) - Squid Game bulk ingestion dataset copies
+### Backend
+- Add Squid Game per-episode datasets under wiki-service test resources for ingestion (refs: services/wiki-service/src/test/resources/squid_game_dataset_ep1.json, ingestion/scripts/build_squid_game_bulk_dataset.py)
