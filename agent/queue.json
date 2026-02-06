@@ -1,6 +1,6 @@
 {
   "version": "1.2",
-  "lastUpdated": "2026-02-04T07:15:00Z",
+  "lastUpdated": "2026-02-06T07:58:56Z",
   "tasks": [
     {
       "id": "TASK-005",
@@ -53,6 +53,34 @@
       "createdBy": "codex",
       "createdAt": "2026-02-04T06:45:00Z",
       "updatedAt": "2026-02-04T07:15:00Z"
+    },
+    {
+      "id": "TASK-009",
+      "title": "QA UI: Related Characters Aggregate (ALLY/ADVERSARY)",
+      "description": "Implement QA widgets on /qa for derived questions using a single-call aggregate endpoint.\nAPI:\n- GET /api/event/v2/characters/{characterId}/related-characters/aggregate?safeUpToEpisode={K}&mode={ADVERSARY|ALLY|COEVENTS}&minScore={S}&limit={N}&includeEvidenceEventIds={true|false}\nResponse: { characterId, safeUpToEpisode, mode, items:[{ otherCharacterId, score, countsByGroup, evidenceEventIds? }] }\nUI requirements:\n- Expose on /qa only (fixed).\n- Provide mode toggle (ADVERSARY/ALLY).\n- Render list with score + countsByGroup.\n- Evidence toggle: when enabled, call with includeEvidenceEventIds=true and show evidenceEventIds.\nSuccess criteria: after server deploy, endpoint smoke passes and widget renders without console errors.\nSpecs:\n- fivecircles/architecture/specs/predicate/related-characters-aggregate.md\n- fivecircles/architecture/specs/predicate/rollout-plan-aggregate-qa.md\n- fivecircles/architecture/specs/api-contract.md",
+      "assignedTo": "antigravity",
+      "assignedZone": "frontend",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "codex",
+      "createdAt": "2026-02-06T07:58:56Z",
+      "updatedAt": "2026-02-06T07:58:56Z"
+    },
+    {
+      "id": "TASK-010",
+      "title": "Frontend API wrapper: related-characters/aggregate",
+      "description": "Add a single API client wrapper function for /api/event/v2/.../related-characters/aggregate to centralize URL building, default params, and ApiResponse unwrapping.\nNotes:\n- Avoid UI code manually assembling query strings.\n- Keep safeUpToEpisode required.\n- Align types with RelatedCharactersAggregateResponse in specs.\nSpecs:\n- fivecircles/architecture/specs/api-contract.md\n- fivecircles/architecture/specs/event-v2-api.md",
+      "assignedTo": "antigravity",
+      "assignedZone": "frontend",
+      "priority": "medium",
+      "status": "pending",
+      "dependencies": [
+        "TASK-009"
+      ],
+      "createdBy": "codex",
+      "createdAt": "2026-02-06T07:58:56Z",
+      "updatedAt": "2026-02-06T07:58:56Z"
     }
   ]
 }
