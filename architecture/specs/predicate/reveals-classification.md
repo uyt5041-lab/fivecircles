@@ -1,0 +1,112 @@
+# REVEALS Classification (Draft, Integration-Friendly)
+
+목적
+- `PredicateCode.REVEALS`를 "설명용"으로만 두지 않고, 질문/검색/검수에서 재사용 가능한 분류 체계를 만든다.
+- 다만 팀원이 진행 중인 작업(캐릭터 해금/타임라인 병합, reveal target 파이프라인)은 중복 구현하지 않고, 통합 포인트로만 남긴다.
+
+범위
+- 분류 기준(타입/레벨) 정의
+- 저장/조회 레이어에서 필요한 최소 메타데이터 정의
+- “지금 가능한 것(메타 없음)”과 “통합되면 가능한 것(메타 있음)”을 분리
+
+비범위(금지)
+- Identity Reveal 후처리(캐릭터 해금/타임라인 병합) 구현
+- intelligence-service refine 응답에 revealTarget을 추가하는 구현
+- wiki/intelligence -> event 파이프라인에서 `event_reveal` 저장을 새로 구현
+
+관련 문서
+- 표준 기준(ex14): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex14-reveal-implementation.md`
+- REVEALS(관계로 취급하는 초기 논의): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex11-reveals.md`
+- REVEALS type 제안(설명력 강화): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex11.2-reveals2.md`
+- 트리플스토어 예시(note 포함): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex04-triplestore.md`
+- predicate 전략: `fivecircles/architecture/specs/predicate/README.md`
+- ex14 정합성 갭: `fivecircles/architecture/specs/ex14-consistency-checklist.md`
+
+---
+
+## 0) 정합성 기준(이 문서가 따르는 표준)
+
+이 문서는 `ex14-reveal-implementation.md`와 현재 실제 DB 스키마(`V2__fix_event_reveal_schema.sql`)를 기준으로 정합성을 잡는다.
+
+정리
+- 초기 논의(ex11)는 REVEALS를 `event_relation.type=REVEALS`로 다뤘지만, 현재 표준(ex14)은 **REVEALS를 event의 predicate_code**로 둔다.
+- `event_relation.type`는 현재 제품 범위에서 `PRECEDES` 단일값 고정(탐색 안정성)으로 유지한다.
+- REVEALS는 스포일러 위험도가 높아서, 탐색/BFS 결과 확장에 기본 포함시키지 않고 설명/근거로만 노출한다.
+
+## 1) 왜 분류가 필요한가
+
+문제
+- `REVEALS`는 "드러남"의 형태가 다양해서, predicate 하나만으로는 질문(Q4 같은) 정답 찾기 정확도가 떨어진다.
+
+해결 방향
+- `REVEALS`는 그대로 유지하되, "무엇이 드러났는지"를 메타로 분류한다.
+- 메타가 아직 없다면, 운영/QA에서는 `REVEALS`를 1급 검색 키로 쓰지 않고(설명/근거용), 인지 변화/대면 행동 등 다른 predicate/group로 정답을 찾는다.
+
+---
+
+## 2) 분류 체계(초안)
+
+### 2.1 RevealTargetType
+- `CHARACTER`: 정체/동일인/가면 뒤 인물 공개(Identity Reveal)
+- `ATTRIBUTE`: 특정 인물의 속성/상태/사실 공개(Fact Reveal)
+- `RELATION` (옵션): 관계/혈연/소속/동맹 등의 "관계 사실" 공개(Relation Reveal)
+
+### 2.2 RevealType
+- `HINT`: 암시/단서
+- `CONFIRM`: 확정/공식 확인
+
+주의(용어 충돌)
+- `ex11.2-reveals2.md`에서는 `reveal_type`을 IDENTITY/RELATIONSHIP/EVIDENCE 같은 "의미 분류"로 쓰는 안을 제안한다.
+- 반면 일부 스펙에서는 HINT/CONFIRM을 `reveal_type`으로 쓰는 형태가 등장한다.
+- 현재 DB(`event_reveal.reveal_type` 단일 컬럼)는 두 축(강도 vs 의미 분류)을 동시에 담기 어렵다.
+- 그래서 본 문서는 일단 "강도(HINT/CONFIRM)"를 `reveal_type`의 의미로 두고, 의미 분류가 필요해지면 컬럼 추가(예: `reveal_semantic_type`)로 분리하는 것을 통합 포인트로 남긴다(구현 보류).
+
+### 2.3 Trigger(질문 레이어의 사용)
+- Q4 같은 "알아차린 시점" 질문:
+  - (메타 없음) `DISCOVERS/LEARNS` 계열 또는 group으로 정답 이벤트를 찾고, 같은 이벤트/인접 이벤트의 `REVEALS`를 근거로 보여준다.
+  - (메타 있음) `REVEALS + target=(범죄 사실/정체)`로 더 직접적으로 정답 탐색이 가능.
+
+---
+
+## 3) 저장/조회에 필요한 최소 메타(통합 포인트)
+
+DB 메타(권장, ex14 기준)
+- `event_reveal(event_id, target_type, target_id, reveal_type)`
+- 실제 스키마 참고: `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`
+
+추가로 필요할 수 있는 필드(옵션, 향후)
+- `key` (RELATION/ATTRIBUTE의 세부 키: 예. relationType/attributeKey)
+- `note` (설명 텍스트)
+  - `ex04-triplestore.md`의 예시에는 있으나, 현재 `event_reveal` 스키마에는 없다.
+  - 스키마 확장 전에는 문서/요약(refined_summary 등)에만 남긴다.
+
+통합 포인트(협업)
+- intelligence refine 응답에 `revealTargetType`, `revealTargetId`, `revealType(HINT/CONFIRM)`를 포함시키면,
+  - wiki 승인 -> event 발행 시 `event_reveal`까지 함께 저장 가능해진다.
+- 현재 이 파이프라인은 “정합성 갭 체크” 대상이며, 팀원 작업 완료 후 통합한다.
+
+---
+
+## 4) 운영 규칙(메타 없는 기간)
+
+Rule A: REVEALS는 설명/근거 우선
+- 메타가 없으면 `REVEALS`를 1급 검색 키로 사용하지 않는다.
+- 대신:
+  - 정답 이벤트(인지 변화/대면 행동/사건 전환)를 먼저 찾고,
+  - 그 이벤트에 `REVEALS`가 붙어 있으면 "근거"로 출력한다.
+
+Rule B: labelDraft.eventType과 저장 predicate 분리
+- `REVEAL_HINT/REVEAL_CONFIRM` 같은 내부 라벨은 저장 predicate가 아니라, 최종 저장은 `PredicateCode.REVEALS`로 정렬한다.
+- HINT/CONFIRM은 메타(`event_reveal.reveal_type`)로 내려간다(통합 시).
+
+---
+
+## 5) 향후(메타 도입 후) 기대 효과
+
+정확도
+- Q4/Q11류 질문에서 "무엇이 드러났나"를 기준으로 필터링 가능.
+
+확장성
+- RDF/OWL(트리플) 레이어로 확장할 때도,
+  - view-layer predicate(`REVEALS`)는 안정적으로 유지하고,
+  - target/object를 별도 레이어로 발전시키기 쉽다.
