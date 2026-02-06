@@ -90,6 +90,19 @@
 - [ ] MVP Experiment: Wiki update/delete endpoints (if review UI requires)
 - [ ] MVP Experiment: Seed drama/character/wiki data for FE smoke
 
+- [ ] **Ontology V3 & Image Spoiler Protection**
+  - [ ] **DB Schema**: `character` 테이블에 `is_hidden` (default false), `alias` 컬럼 추가 (Flyway Migration).
+  - [ ] **Common Module**: `PredicateCode` Enum에 `IDENTITY_REVEAL` (또는 `FACE_REVEAL`) 추가.
+  - [ ] **Event Service**:
+    - [ ] `EventQueryServiceImpl`: `REVEALS` 이벤트가 사용자의 safeEpisode 이전에 존재할 경우 `is_hidden` 해제 로직 구현.
+    - [ ] DTO response에 `public_image_url`(가명용)과 `image_url`(진짜) 구분 반환 또는 로직 처리.
+  - [ ] **Frontend (CharacterCard.tsx)**:
+    - [ ] 실루엣 처리 조건 강화: `isLocked || character.isHidden` (등장했더라도 hidden이면 잠금).
+    - [ ] Hidden 상태일 때 `public_image_url`(가면/실루엣) 표시, 해금 시 `image_url` 표시 스위칭.
+  - [ ] **Wiki Service (Contribution)**:
+    - [ ] 기여 화면에 "반전 캐릭터 여부(is_spoiler_identity)" 체크박스 추가.
+    - [ ] 검증 로직에 해당 플래그 반영 (`is_hidden` DB 업데이트).
+
 - [ ] **My Page UI Implementation**
   - [ ] Component: Profile View/Edit Form
   - [ ] Component: Password Change Form
@@ -192,3 +205,5 @@
 3) [x] Run Playwright flow for key pages and check console errors
 4) [x] Capture gaps (missing endpoints/data) and update `frontend.md` if mapping changes
 5) [x] Add dashboard QA entry points (global + character modal)
+
+
