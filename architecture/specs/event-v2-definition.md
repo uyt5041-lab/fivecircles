@@ -30,7 +30,10 @@ Level 3 Questions (from ex03)
 15. 인물 A가 원인이 된 사건들을 간접 포함해서 보여줘
 
 Implementation Notes
-- Use event_relation traversal (PRECEDES/RELATED).
+- Use PRECEDES edges for causes/effects/path traversal.
+- Related events are derived by shared character involvement (event_character), not stored edges.
+- event_relation.type is PRECEDES only.
+- PRECEDES suggestions are cross-episode only; same-episode links require manual curation.
 - BFS with hop limit and visited dedup by event_id.
 - Apply spoiler policy / episode gate after traversal.
 - QueryType mapping and SQL patterns live in event-v2-plan-map.md.

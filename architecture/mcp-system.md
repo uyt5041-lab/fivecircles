@@ -29,7 +29,7 @@ We define two operating modes:
 
 ### 2.3 Implementation
 -   **Gemini**: Uses `--allowed-mcp-server-names` flag to filter tools at runtime.
--   **Codex**: Uses a config swapping mechanism (`config.toml` vs `config.light.toml`) triggered by shell scripts (`switch-codex-mode.sh`).
+-   **Codex**: Uses a config swapping mechanism (`config.toml` vs `config.light.toml`) triggered by shell scripts (`ingestion/scripts/switch-codex-mode.sh`).
 
 ## 3. Resume Workflow
 The **Resume** capability allows agents to switch profiles without losing conversation history (Context).
@@ -43,5 +43,5 @@ The **Resume** capability allows agents to switch profiles without losing conver
 -   **Middleware**: `agent-bridge-mcp` (Node.js)
 -   **Configuration**:
     -   `.vscode/tasks.json`: Automation tasks.
-    -   `scripts/switch-codex-mode.sh`: Config swapper.
+    -   `ingestion/scripts/switch-codex-mode.sh`: Config swapper.
     -   `agent/mcp-instruction.md`: User manual.

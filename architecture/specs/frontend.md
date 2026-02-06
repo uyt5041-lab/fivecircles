@@ -12,7 +12,7 @@ Base URL: /api/event/v2
 - api3: GET /characters/{characterId}/events?safeUpToEpisode={K}&predicateCode={CODE}&limit={N}
 - api4: GET /characters/{characterId}/coevents?with={bId}&safeUpToEpisode={K}
 - api5: GET /events/{eventId}/characters?safeUpToEpisode={K}
-- api6: GET /events/{eventId}/related?depth={D}&safeUpToEpisode={K}&types=PRECEDES,RELATED
+- api6: GET /events/{eventId}/related?safeUpToEpisode={K}&limit={N}
 - api7: GET /events/{eventId}/causes?depth={D}&safeUpToEpisode={K}
 - api8: GET /events/{eventId}/effects?depth={D}&safeUpToEpisode={K}
 - api9: GET /characters/{characterId}/related-characters?safeUpToEpisode={K}&limit={N}
@@ -91,8 +91,8 @@ the spec numbering (e.g., Q3 widget maps to api9/related-characters). Use the
 above list as the source of truth for QA drawer tests.
 
 ## Widget Test Entry Points (UI)
-- /#/qa → V2.5 QA Playground → Global Context: Q2 (search)
-- /#/qa → V2.5 QA Playground → Character Context: Q1, Q3, Q5, Q11, Q20
+- /#/qa → V2 고도화 QA Playground → Global Context: Q2 (search)
+- /#/qa → V2 고도화 QA Playground → Character Context: Q1, Q3, Q5, Q11, Q20
 - /#/dashboard → 상단 AI 검색: Q2 (global)
 - /#/dashboard → 인물 모달 AI 질문: Q1, Q3, Q5, Q11, Q20 (character)
 - /#/timeline → 사건 상세 패널 → AI 분석: Q2, Q7, Q9, Q13 (eventId 제공)

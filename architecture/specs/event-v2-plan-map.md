@@ -3,6 +3,7 @@
 Purpose
 - Capture the V2 implementation plan (pre-triple).
 - Keep the plan aligned with Notion-origin specs and repo layout.
+- "V2 고도화"는 기존 문서의 V2.5 범위를 동일하게 재명명한 것이다.
 
 Scope
 - event-service (ontology/event domain)
@@ -25,9 +26,10 @@ Issue Resolution Plan (V2 blockers)
 - AC: BFS never walks outside the safe graph, even at intermediate hops.
 
 4) PRECEDES direction rule (MEDIUM)
-- Store PRECEDES as from=previous, to=next. Reverse traversal uses to_event_id.
-- If endpoint name is "causes", treat it as predecessors until a CAUSES type exists.
-- AC: Reverse traversal returns deterministic predecessors under the same rule.
+- PRECEDES는 '극중 진행축(노출/편집 순서)' 기준으로 from=이전, to=다음으로 저장한다.
+- 역방향 탐색은 to_event_id 기준으로 진행한다.
+- endpoint 이름이 "causes"인 경우에도 CAUSES 타입이 생기기 전까지는 PRECEDES의 predecessor로 해석한다.
+- AC: 동일 규칙 하에서 역방향 탐색이 결정적으로 동작한다.
 
 5) Traversal/character reverse indexes (MEDIUM)
 - Ensure idx_er_from_type_to and idx_er_to_type_from exist.
@@ -188,11 +190,15 @@ WHERE r.from_event_id IN (:frontierIds)
 
 6) PATH_BETWEEN_CHARACTERS (BFS on bipartite graph)
 - Step A: character -> events (event_character)
-- Step B: event -> next events (event_relation PRECEDES/RELATED)
+- Step B: event -> next events (event_relation PRECEDES only)
 - Step C: event -> characters (event_character)
 - Output nodes: {node_type, node_id, hop_distance}
 
 Notes
-- Keep REVEALS in event_reveal and use it for explanations only.
+- REVEALS는 event_reveal에 유지하고 설명용으로만 사용한다.
+- event_relation.type은 PRECEDES만 허용한다(원인/결과/경로는 PRECEDES의 진행축 해석으로 제공).
+- related는 저장 관계가 아니라 shared character 파생 규칙으로 정의한다.
+- PRECEDES 자동 제안은 서로 다른 에피소드 간만 후보로 노출한다(base.episode_end < candidate.episode_start).
+- 동일 에피소드 내 PRECEDES는 운영자 수동 큐레이션만 허용한다.
 - Do not expose future events in user-facing results without K gating.
 - PRECEDES direction is fixed: from=previous, to=next. Reverse traversal uses to_event_id.

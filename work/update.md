@@ -480,3 +480,89 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-01-29) - QA widget Playwright
 ### Tests
 - Server Playwright console + QA widget flows passed (refs: front/check_console.spec.js, front/qa_widgets.spec.js)
+## Addendum (2026-01-29) - Intelligence prompt + wiki approvals (drama 8)
+### Backend
+- Added combine summaries prompt for intelligence service and redeployed (refs: services/intelligence-service/src/main/resources/prompts/combine-summaries.txt)
+- Repaired auth DB schema (nospoiler_auth) so login works on server
+### Tests
+- Character summary endpoint returns 200 (refs: /api/intelligence/v1/summary)
+- Scripted 5-vote approvals for dramaId=8 submissions so dashboard summaries render (refs: fivecircles/work/scripts/approve_drama8.py)
+## Addendum (2026-01-29) - Dashboard summary sources
+### Frontend
+- Combine approved wiki + event summaries for CharacterModal AI summary (refs: front/features/dashboard/components/CharacterModal.tsx)
+## Addendum (2026-01-30) - Relation PK + spec sync
+### Backend
+- Add V7 migration to allow event_relation PK with type (refs: services/event-service/src/main/resources/db/migration/V7__event_relation_pk_with_type.sql)
+### Docs
+- Sync migration compendium + FK meeting note (refs: fivecircles/architecture/specs/latest.sql, fivecircles/architecture/specs/latest-db-migrations.md, fivecircles/architecture/specs/no-fk-meeting-note.md)
+- Update V2/V2.5 + intelligence specs (/summary, relation type) (refs: fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/event-v2-definition.md, fivecircles/architecture/specs/event-v2-plan-map.md, fivecircles/architecture/specs/notion-origin-intelligence-v1.md, fivecircles/architecture/specs/notion-origin-intelligence-v1-ko.md)
+## Addendum (2026-02-04) - QA consistency fixes
+### Backend
+- QA policy check uses episode_end (fallback start); event_character insert allows null role default (refs: services/qa-service/src/main/java/com/nospoiler/qaservice/service/QaService.java, services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml)
+### Infra
+- Gateway adds /api/event & /api/policy routes and permits QA health (refs: services/api-gateway/src/main/resources/application.yml, services/api-gateway/src/main/java/com/nospoiler/apigateway/config/SecurityConfig.java)
+- QA docker env wires Event/Policy URLs (refs: infra/docker-compose.yml)
+### Frontend
+- QaPage uses profileImageUrl for character thumbnails (refs: front/features/qa/QaPage.tsx)
+## Addendum (2026-02-04) - Relation policy update
+### Backend
+- Related events now derived by shared characters; PRECEDES-only traversal enforced (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java)
+- Related endpoint signature updated to safeUpToEpisode/limit (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java)
+- Add PRECEDES manual insert API + cross-episode suggestion API (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventRelationController.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventRelationService.java)
+### Tests
+- `./gradlew :services:event-service:test` (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplTest.java)
+### Docs
+- Remove RELATED relation type and redefine related as derived rule (refs: fivecircles/architecture/specs/event-v2-definition.md, fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/event-v2-api.md)
+## Addendum (2026-02-04) - bit-ts deploy + Event V2 API smoke
+### Server
+- Deployed feature/qa-tasks on bit-ts with docker compose build (refs: infra/docker-compose.yml)
+### Tests
+- Event V2 API smoke on bit-ts (Breaking Bad, Jesse, K=7) with PRECEDES create + suggestions (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java, services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventRelationController.java)
+### Tests (Detail)
+## Addendum (2026-02-04) - PRECEDES UI Enhancement & Bulk Approval
+### Frontend
+- **Searchable Drama Selection**: Implemented a searchable dropdown in `AdminPrecedesPage.tsx`. Fetches dramas from `dramaApi` and filters by title/ID.
+- **Bulk Approval**: Added "전체 승인" (Bulk Approve) button. Sequentially approves all currently filtered suggestions.
+- **UI Improvements**: Refactored table layout for better readability (break-words), added status indicators, and updated filtering logic to include both from/to summaries.
+- **Port Enforcement**: Configured `vite.config.ts` to strictly use port 3000 (`strictPort: true`).
+
+### Backend
+- **suggestions/all API**: Verified and used new endpoint `/api/event/v2/relations/precedes/suggestions/all` which includes `fromSummary`.
+- **Deployment**: Successfully rebuilt and restarted `event-service` on `bit-ts` to apply new PRECEDES logic.
+
+### Tests
+- **Verification**: Manually verified drama fetching, searchable filtering, individual approval, and bulk approval on local dev server.
+- **Remote Verification**: Confirmed API connectivity to `bit-ts` via gateway.
+
+## Addendum (2026-02-04) - PRECEDES Pagination & Fixes
+### Frontend
+- **Pagination**: Implemented client-side pagination for PRECEDES suggestions (1000 items loaded, 50 items/page view).
+- **UI Tweaks**: Added "Items per page" display to pagination controls.
+- **Fixes**: Resolved state duplication and TypeErrors in `AdminPrecedesPage.tsx`.
+
+### Backend
+- **Fix**: Resolved `SAXParseException` (extra `</select>`) in `EventRelationMapper.xml` which caused 500 error on startup.
+- **Deployment**: Redeployed `event-service` to `bit-ts` after fix.
+
+## Addendum (2026-02-04) - Event-service 주석 보강
+### Backend
+- 이벤트 서비스 전반에 Javadoc/inline 주석 보강 (refs: services/event-service/src/main/java/com/nospoiler/eventservice)
+
+## 2026-02-05: MinIO Refactoring & Multi-Bucket Management
+- **Goal**: Centralize MinIO logic into `common` module and implement service-specific bucket management.
+- **Changes**:
+  - **Common Module**:
+    - Created `StorageService` interface and `MinioStorageService` implementation in `com.nospoiler.common.storage`.
+    - Added `minio` dependency to `common/build.gradle`.
+    - Centralized `MinioConfig` for shared reuse across services.
+    - Improved `upload` method to support hierarchical directory structures.
+    - Improved `delete` method to handle URLs with subdirectories correctly.
+  - **Infrastructure**:
+    - Refactored `docker-compose.yml` to initialize three separate buckets: `profile-images`, `drama-images`, and `character-images`.
+    - Configured each service (`user-service`, `drama-service`, `character-service`) to use its own dedicated bucket via environment variables.
+    - Ensured backward compatibility for existing profile images by preserving the `profile-images` bucket.
+  - **Service Layer**:
+    - Updated `UserService`, `DramaServiceImpl`, and `CharacterServiceImpl` to use the common `StorageService`.
+    - Removed redundant MinIO implementations from individual services.
+- **Status**: Backend refactoring complete. Multi-bucket storage is active.
+- **Next**: Verify actual file uploads from the Admin UI (Drama/Character) and My Page (User).

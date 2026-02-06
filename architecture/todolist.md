@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-01-29
+> **Last Updated**: 2026-02-04 (by Antigravity)
 
 ---
 
@@ -22,16 +22,28 @@
 - [x] 개발 모드 안내 문구 추가 (로그인 페이지: 테스터 계정 전용 안내)
 - [x] auth-service Docker 설정 리팩토링 (application-docker.yml 분리 및 적용)
 - [x] 세션 유지 및 UX 개선 (새로고침 시 로그인 유지, 드라마 선택 정보 영속화, 초기화 로딩 화면)
+- [x] 카카오 로그인 디버깅 및 안정화 (Gateway 'No token' 문제 해결)
+  - [x] API Gateway: 상세 필터 로그 추가 (Method, URI, Headers)
+  - [x] API Gateway: `JwtTokenProvider` 로직 Auth Service와 동기화 (Clock skew, 키 생성 방식)
+  - [x] Frontend: OAuth2 `HashRouter` 리다이렉트 문제 해결 (`/oauth2/redirect` 라우트 추가 및 `index.html` 스크립트 적용)
+
+- [x] **Wiki Review UI & Data Ingestion (New)**
+  - [x] Wiki Review 정렬 필터 개편 (단일 선택 방식 및 UI 고도화)
+  - [x] 캐릭터 상세 모달 및 위키 캐릭터 선택 모달 UI 정제
+  - [x] 드라마 데이터 벌크 인계 스크립트 구축 (`bulk_seed_moving.py`, `bulk_seed_pending.py`, `fetch_info.py`)
+  - [x] 무빙 시즌 1 에피소드 데이터 인계 완료 및 시드 데이터 정비
 
 - [x] **마이페이지 기능 구현 (User Service)**
   - [x] API: `GET /api/v1/users/me` (프로필 조회)
   - [x] API: `UPDATE /api/v1/users/me` (프로필 수정 - 닉네임)
   - [x] API: `POST /api/v1/users/me/profile-image` (프로필 이미지 수정 - MinIO 연동 및 DB 컬럼 TEXT로 변경)
+  - [x] Storage: MinIO 공통 모듈화 및 폴더 구조화 구현 (`common/storage` 통합 완료)
   - [x] API: `POST /api/auth/v1/password/change` (비밀번호 변경)
   - [x] API: `DELETE /api/v1/users/me` (회원 탈퇴)
   - [x] 로직: 소셜 로그인 유저 비밀번호 변경 제한
   - [x] 버그수정: Flyway 마이그레이션 체크섬 불일치 및 V2 스키마 동기화 해결
   - [x] 버그수정: MinIO URL Localhost 접근 불가 문제 해결 (Docker 호스트네임 치환)
+  - [x] Wiki Review 태그 필터 구현 (주요 사건, #사망, #배신, #거래, #명대사)
 
 ---
 
@@ -84,11 +96,13 @@
     - [x] Mock Admin Login for development
     - [x] Drama CRUD integration (Admin Page)
     - [x] Character CRUD integration (Admin Page)
-    - [ ] Integrated image storage service (MinIO) - File upload for Drama/Character images
+    - [x] Integrated image storage service (MinIO) - File upload for Drama/Character images (Common module used)
   - [ ] (Future) Actual frontend development based on strategy.
 - [ ] MVP Experiment: Wiki list endpoint (`GET /api/wiki/v1/submissions?dramaId`)
 - [ ] MVP Experiment: Wiki update/delete endpoints (if review UI requires)
 - [ ] MVP Experiment: Seed drama/character/wiki data for FE smoke
+- [ ] Wiki revealEpisode 도입 여부 결정 (event vs wiki, 스키마/UX 영향 검토)
+- [ ] Wiki FK 정책 정합성 결정 (no-FK 원칙 vs 현재 FK 유지)
 
 - [ ] **Ontology V3 & Image Spoiler Protection**
   - [ ] **DB Schema**: `character` 테이블에 `is_hidden` (default false), `alias` 컬럼 추가 (Flyway Migration).
@@ -143,6 +157,7 @@
     - [x] Enhance `EventController` search (add `q`, `uptoEpisode` params).
     - [x] Enhance `QaController` (implement `POST /qa/episode-range`).
 - [ ] Swagger UI 화면 예시 공유 (모바일 확인용)
+- [x] Event relation PK에 type 포함 (V7 migration, type별 중복 허용)
 
 ### 6. Next Steps (Sprint 2)
 - [x] **Integration**: Connect QA -> Event -> Policy flow
@@ -152,9 +167,8 @@
 - [x] 이벤트 검색 시 스포일러 정책 연동 로직 업그레이드
 - [x] 스포일러 정책 연동 curl 테스트
 - [ ] 스포일러 정책 연동 테스트 완료 후 V3 진행 여부 결정
-- [x] (N/A) Fix QA service client URLs/paths for docker (Handled by Docker profiles)
-- [x] Fix wiki approval -> event publish (client path + request mapping)
-- [x] Align wiki->event request/response contract (DTO mapping)
+- [x] **위키 검증소 필터 개편**: 칩 방식에서 드롭다운 방식으로 전환 및 회차 필터 옆 배치 완료
+- [x] **실시간 탭 카운트**: 필터링 상태에 따른 탭 숫자 실시간 동기화 구현 완료
 - [ ] Verify Wiki→Event payload includes characterId; reconcile develop vs experimental contract
 - [ ] Verify Wiki→Intelligence publish flow after approval
 - [x] (N/A) Fix event-service EventServiceClient default URL (Handled by Docker profiles)
@@ -169,6 +183,7 @@
     - [x] Implement Q20 Narrative Distribution view on QA page
     - [x] Implement Extended QA Widgets (Q3, Q5, Q7, Q9, Q11)
 - [ ] **Verifying**: API JSON response spoiler hiding
+- [x] Event-service 전체 주석 추가
 
 ### 6.1 Current Sprint (2026-01-26) - ✅ Complete
 **Priority Order**:
@@ -184,8 +199,9 @@
 
 ### 7. Deploy & Ops (Post-Sprint)
 > **Reference**: See `fivecircles/architecture/specs/test-server-policy-4C.md` for remote deploy & test protocols.
-- [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build`
-- [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run
+- [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build` (상시체크)
+- [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run (상시체크)
+- [x] bit-ts 배포 후 QA E2E 확인 (FE → Gateway → QA/Event/Policy)
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
 - [x] Skills tracking decision (`fivecircles/agent/skills/` will be tracked)
 - [ ] 협업으로 온톨로지 로직 검증 (wiki service)
@@ -197,7 +213,15 @@
 - [x] MVP Experiment: Event V2 readiness smoke (api1-10)
 - [x] MVP Experiment: FE integration for Q1-Q15 (dashboard/timeline)
 - [x] DramaSelectionPage Real API Integration & DB Seed Data injection
-- [ ] Fix QA widget endpoints (Q13 policy path, Q2 keyword filter, event_character role insert)
+- [x] Fix QA widget endpoints (Q13 policy path, Q2 keyword filter, event_character role insert)
+- [x] QA: docker compose에 EVENT_SERVICE_URL/POLICY_SERVICE_URL 주입 (QA→Event/Policy 경로 정렬)
+- [x] QA: QaPage 캐릭터 썸네일 필드 정정 (imageUrl -> profileImageUrl)
+- [x] QA: QaService 스포일러 판정 기준을 episodeStart -> episodeEnd로 수정
+- [x] QA: Health check는 무인증 호출로 전환해 오프라인 오탐 방지
+- [x] QA: Q1/Q3/Q5/Q20용 데이터 보강 (event_character, event_relation, predicate_code)
+- [ ] QA: Q7/Q9/Q11용 데이터 보강 (event_character, event_relation, predicate_code)
+- [ ] QA: Q7/Q9 정확도 개선 (PRECEDES 탐색/정렬/게이트 재검토)
+- [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval, pagination, 담당: Antigravity)
 
 ### 8. Frontend Widget Placement & Test Plan (Pending)
 1) [x] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points
@@ -206,4 +230,8 @@
 4) [x] Capture gaps (missing endpoints/data) and update `frontend.md` if mapping changes
 5) [x] Add dashboard QA entry points (global + character modal)
 
+---
 
+## 🤖 Agent: Antigravity (Frontend Bug Fixes, 2026-02-04)
+- [x] `CharacterModal.tsx`: 중복 import 제거 및 `combinedSummaries` → `approvedSummaries` 수정 (500 에러 해결)
+- [x] `App.tsx`: `MyPage` 컴포넌트 import 누락 수정 (`ReferenceError` 해결)

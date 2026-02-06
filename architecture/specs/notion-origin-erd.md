@@ -58,9 +58,9 @@
 - *Constraint*: `unique(event_id, character_id)`
 
 ### `event_relation`
-- `from_event_id`, `to_event_id`, `type` (RELATED/PRECEDES).
+- `from_event_id`, `to_event_id`, `type` (PRECEDES).
 - type VARCHAR(20)
-  - PRECEDES | RELATED
+  - PRECEDES
 Indexes (for BFS):
 - (from_event_id, type, to_event_id)
 - (to_event_id, type, from_event_id)

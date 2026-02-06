@@ -93,7 +93,7 @@ INDEX
 
 ### event_relation
 - from_event_id, to_event_id (PK)
-- type: RELATED | PRECEDES
+- type: PRECEDES
 
 ### event_reveal (옵션)
 - event_id, target_type, target_id (PK)

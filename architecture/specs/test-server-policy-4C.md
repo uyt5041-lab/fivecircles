@@ -80,6 +80,7 @@ Remote Deploy Flow (Server)
 Use this flow when deploying from the Mac dev machine to the server.
 Preferred: Option 2 (Docker builds only, no host Gradle)
 Due to the migration to Tailscale, use this ip and command: ssh -p 2222 bit_@100.120.44.64
+Note: `100.120.44.64` is the Windows host. Ubuntu/WSL base: `http://100.79.74.49:8080`. DB connections should use the Ubuntu host address (`DB_HOST`), not this IP.
 
   ssh -p 2222 bit_@100.120.44.64 "curl -i -H 'X-User-Id: 13' http://localhost:18080/handovers/310"
 
@@ -110,3 +111,6 @@ alias np-test="ssh bit-ts 'cd ~/nospoiler/infra && if docker compose config --se
 
 alias np-test="ssh bit-ts 'cd ~/nospoiler && ./gradlew test'"
 alias np-test-info="ssh bit-ts 'cd ~/nospoiler && ./gradlew test --info'"
+
+# Automated Script
+For convenience, use `fivecircles/test/deploy-server.sh` to run the above flow (Push Local + SSH Pull/Build).

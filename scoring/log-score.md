@@ -34,3 +34,16 @@ LOSS: 0
 TOTAL_POINTS: 10
 UPGRADE: None
 TOTAL: 10
+
+### Session: 2026-02-05 [MinIO Refactoring & Multi-Bucket]
+- **RESULT**: Success
+- **SCOPE**: Infra / Common / Storage
+- **SPEC**: `fivecircles/architecture/specs/README.md`, `todolist.md`
+- **GAIN**:
+  - Task Completed (MinIO Common Refactoring): +30
+  - Quality (Error fixed + logged in learn-from-log.md): +35
+  - Ops Efficiency (Single-layer focused refactor): +10
+- **LOSS**: 0
+- **TOTAL_POINTS**: 75 (Accumulated: 330)
+- **REASON**: Centralized MinIO logic into common module and enabled multi-bucket isolation for User, Drama, and Character services. Fixed object name extraction logic for subdirectory support.
+- **UPGRADE**: Level 2 (Cross-service work enabled)

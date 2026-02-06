@@ -1,0 +1,111 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7] [cursor=pointer]:
+        - img [ref=e8]
+        - generic [ref=e11]: NoSpoiler
+      - generic [ref=e13]:
+        - button "플랜티 테스트 드라마 2026-01-29 | 5화" [ref=e14] [cursor=pointer]:
+          - generic [ref=e15]: 플랜티 테스트 드라마 2026-01-29
+          - generic [ref=e16]: "|"
+          - generic [ref=e17]: 5화
+          - img [ref=e18]
+        - button "드라마 변경" [ref=e20] [cursor=pointer]:
+          - img [ref=e21]
+          - text: 드라마 변경
+        - button "타임라인" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+          - text: 타임라인
+        - button "Q&A" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+          - text: Q&A
+        - button "위키" [ref=e35] [cursor=pointer]:
+          - img [ref=e36]
+          - text: 위키
+        - button "검증소" [ref=e39] [cursor=pointer]:
+          - img [ref=e40]
+          - text: 검증소
+        - button "로그인" [ref=e45] [cursor=pointer]:
+          - img [ref=e46]
+          - text: 로그인
+  - main [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - heading "인물 정보" [level=1] [ref=e53]
+          - paragraph [ref=e54]: 5화 기준 안전한 정보입니다 (4명)
+        - button "AI 검색" [ref=e55] [cursor=pointer]:
+          - img [ref=e56]
+          - generic [ref=e58]: AI 검색
+      - generic [ref=e59]:
+        - generic [ref=e60] [cursor=pointer]:
+          - img "아린" [ref=e63]
+          - heading "아린" [level=3] [ref=e64]
+        - generic [ref=e65] [cursor=pointer]:
+          - img "류" [ref=e68]
+          - heading "류" [level=3] [ref=e69]
+        - generic [ref=e70] [cursor=pointer]:
+          - img "세린" [ref=e73]
+          - heading "세린" [level=3] [ref=e74]
+        - generic [ref=e75] [cursor=pointer]:
+          - img "덕구" [ref=e78]
+          - heading "덕구" [level=3] [ref=e79]
+      - generic [ref=e81]:
+        - button [ref=e82] [cursor=pointer]:
+          - img [ref=e83]
+        - generic [ref=e87]:
+          - img "세린" [ref=e89]
+          - heading "세린" [level=3] [ref=e90]
+          - generic [ref=e91]: 조연
+          - button "AI 질문" [ref=e92] [cursor=pointer]:
+            - img [ref=e93]
+            - generic [ref=e95]: AI 질문
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - img [ref=e101]
+                - heading "AI 사건 분석기" [level=2] [ref=e103]
+              - button [ref=e104] [cursor=pointer]:
+                - img [ref=e105]
+            - generic [ref=e109]:
+              - button "← 질문 목록으로 돌아가기" [ref=e110] [cursor=pointer]
+              - generic [ref=e112]:
+                - heading "세린의 주요 행적" [level=3] [ref=e113]
+                - generic [ref=e114]:
+                  - generic [ref=e115]:
+                    - generic [ref=e117]: EPISODE 3
+                    - paragraph [ref=e118]: 류가 세린과 접촉하며 이중 행동을 시작한다
+                  - generic [ref=e119]:
+                    - generic [ref=e121]: EPISODE 4
+                    - paragraph [ref=e122]: 세린이 아린을 기습 공격한다
+        - generic [ref=e123]:
+          - generic [ref=e124]:
+            - generic [ref=e126]:
+              - img [ref=e127]
+              - generic [ref=e130]: 스포일러 방지 요약
+            - paragraph [ref=e131]: 이 인물은 등장했지만, 아직 알려진 정보가 많지 않습니다.
+          - heading "주요 사건 타임라인 (정책 검증됨)" [level=4] [ref=e133]:
+            - img [ref=e134]
+            - text: 주요 사건 타임라인 (정책 검증됨)
+          - generic [ref=e137]:
+            - heading "Event V2 탐색" [level=4] [ref=e138]
+            - generic [ref=e139]:
+              - button "타임라인" [ref=e140] [cursor=pointer]
+              - button "공동 등장" [ref=e141] [cursor=pointer]
+              - button "유형 필터" [ref=e142] [cursor=pointer]
+              - button "연관 인물" [ref=e143] [cursor=pointer]
+              - button "경로" [ref=e144] [cursor=pointer]
+              - button "영향 체인" [ref=e145] [cursor=pointer]
+            - generic [ref=e146]:
+              - generic [ref=e147]:
+                - generic [ref=e148]: 류가 세린과 접촉하며 이중 행동을 시작한다
+                - generic [ref=e149]: Ep.3~3 · BETRAYS
+              - generic [ref=e150]:
+                - generic [ref=e151]: 세린이 아린을 기습 공격한다
+                - generic [ref=e152]: Ep.4~4 · ATTACKS
+  - contentinfo [ref=e153]:
+    - paragraph [ref=e154]: © 2024 NoSpoiler Team. Powered by Google Gemini.
+```

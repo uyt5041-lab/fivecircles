@@ -112,5 +112,6 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 | **테스트 실행 (Test Exec)** | `protocol_test_execution.md` | `"테스트 실행"` | `test-front/server-policy`를 참조하여 규정된 환경과 명령어로 테스트를 수행합니다. |
 | **동료 리뷰 (Peer Review)** | `protocol_peer_review.md` | `"리뷰해줘"` | `debate.md`와 참조된 문서를 읽고 정합성, 안전성, 완성도를 평가하여 피드백을 남깁니다. |
 | **배포 (Deploy)** | `protocol_deploy.md` | `"배포해"` | 프론트엔드 빌드 상태를 점검하고 Vercel 배포(Push/CLI)를 트리거합니다. |
+| **서버 배포 (Deploy Server)** | `protocol_deploy_server.md` | `"서버 배포해"` | SSH를 통해 테스트 서버에 배포(`git pull` & `docker compose up`)를 수행합니다. |
 | **스코어링 (Scoring)** | `protocol_agent_scoring.md` | (울트라 기록에 포함) | 작업 성과를 정량적으로 평가하고 `log-score.md`에 기록합니다. |
 | **톺아보기 (Read Log)** | `protocol_read_log_setup.md` | `"톺아보기"` | 로그(update, todo, sync)를 읽고 최근 변경사항(예: 포트변경)을 분석하여 다음 작업을 설정합니다. |

@@ -37,8 +37,8 @@ GET /characters/{characterId}/events?predicateCode={CODE}&safeUpToEpisode={K}
 GET /dramas/{dramaId}/characters?safeUpToEpisode={K}&sort=involvement&limit={N}
 
 Level 3 (Relation traversal)
-9) Related events (multi-hop)
-GET /events/{eventId}/related?depth={D}&safeUpToEpisode={K}&types=PRECEDES,RELATED
+9) Related events (derived by shared characters)
+GET /events/{eventId}/related?safeUpToEpisode={K}&limit={N}
 
 10) Event causes (PRECEDES reverse)
 GET /events/{eventId}/causes?depth={D}&safeUpToEpisode={K}
@@ -52,6 +52,15 @@ GET /characters/{characterId}/related-characters?safeUpToEpisode={K}&limit={N}
 13) Character-to-character path (shortest)
 GET /characters/path?from={A}&to={B}&maxDepth={D}&safeUpToEpisode={K}
 
+14) Create PRECEDES relation (manual curation)
+POST /relations/precedes
+Body: { "fromEventId": X, "toEventId": Y }
+
+15) PRECEDES suggestions (cross-episode only)
+GET /relations/precedes/suggestions?eventId={E}&safeUpToEpisode={K}&limit={N}
+
 Notes
 - Use predicateCode (event.predicate_code) for filtering instead of a separate type field.
 - REVEALS edges should be excluded from general traversal unless used for explanations.
+- Related events are derived by shared character involvement (event_character).
+- PRECEDES suggestions are cross-episode only; same-episode links require manual curation.

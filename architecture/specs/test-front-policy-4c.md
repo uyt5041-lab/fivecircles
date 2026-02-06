@@ -11,6 +11,7 @@ Server Browser Test (Playwright)
 - Push latest commits to the remote.
 - Pull on the server before testing.
 - Open the server URL with Playwright: http://100.120.44.64:3000/
+- Note: `100.120.44.64` is the Windows host. Ubuntu/WSL base: `http://100.79.74.49:8080`. DB connections should use the Ubuntu host address (`DB_HOST`), not this IP.
 
 Local Build Test (Playwright)
 - Build the local frontend and run it on localhost.

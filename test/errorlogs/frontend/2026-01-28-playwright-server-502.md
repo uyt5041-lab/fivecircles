@@ -3,6 +3,7 @@
 - **Timestamp**: 2026-01-28 17:07:49 +0900
 - **Test**: Playwright `front/check_console.spec.js` (server URL)
 - **Target**: http://100.120.44.64:3000
+- **Note**: `100.120.44.64` is the Windows host. Ubuntu/WSL base: `http://100.79.74.49:8080`. DB connections use the Ubuntu host address (`DB_HOST`).
 - **Result**: FAIL
 
 ## Summary
