@@ -188,6 +188,7 @@
 - [x] **검색 정책(OTHER/UNKNOWN)**: user-facing predicateCode 필터에서 `OTHER|UNKNOWN`은 필터 미적용(비-1급 필터)으로 처리
 - [ ] **품질향상 레이어(구조적 방어) 구현**: evidence-first 응답, group 매핑 단일 소스, suggestion 정규화/alias, 집계 엔드포인트 도입 (spec: `fivecircles/architecture/specs/predicate/data-quality-risks-and-structure.md`, `fivecircles/architecture/specs/predicate/related-characters-aggregate.md`)
 - [ ] **related-characters/aggregate 롤아웃(서버 스모크 기준)**: /qa 노출(프론트는 Antigravity), 서버 배포 후 curl 스모크로 성공 판정 (spec: `fivecircles/architecture/specs/predicate/rollout-plan-aggregate-qa.md`)
+- [ ] **related-characters/aggregate 파인튜닝(데이터 기반)**: 실제 데이터에서 ADVERSARY/ALLY가 0점/빈 결과로 나오는 케이스를 수집하고, groupWeight/그룹 매핑을 조정 (예: 브레이킹 배드 행크 슈레이더 E5에서 ADVERSARY=0)
 - [ ] **Predicate suggestion 운영(SoT=event)**: `event.predicate_suggestion` 도입(승인 시 snapshot 저장), 운영 편집/집계는 event 기준, wiki는 히스토리만 유지 (spec: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`)
 - [x] **Predicate suggestion(코드/마이그레이션)**: event-service V8 컬럼 추가 + DTO/mapper + wiki 승인 publish payload 반영 (배포/DB 반영은 별도)
 - [x] **Ontology V2.5 (Q20)**:
