@@ -69,3 +69,20 @@
 - [Comment]: V2 확장 포인트로 type allowlist/validator만 두는 방향은 안전합니다. 다만 미지 type 처리(거부/무시) 정책을 문서에 명시해야 합니다.
 - [Comment]: V3에서 CAUSES 도입 시 Q11/Q12의 우선순위(CAUSES 우선, PRECEDES fallback)와 게이트(episode_end, APPROVED) 적용을 명확히 해두는 것이 좋습니다.
 - [Comment]: V4에서 추천/운영 UX로 품질 관리 분리 제안은 리스크 완화에 유효합니다.
+
+---
+
+# [Review] Predicate Docs + Aggregate Endpoint (Pre-Implementation)
+> Reviewer: codex | Date: 2026-02-06
+
+## Findings
+- [OK] `PredicateCode`(폐쇄집합) + `predicate_suggestion`(open) + `PredicateGroup`(질문 레이어) 3단 구조는 유지보수/확장(RDF/OWL) 관점에서 일관적이다. (refs: `fivecircles/architecture/specs/predicate/README.md`)
+- [OK] `REVEALS`를 "정답 검색 키"가 아니라 "근거/설명"으로 취급하는 정책은 메타 파이프라인 부재 기간의 오탐을 줄인다. (refs: `fivecircles/architecture/specs/predicate/reveals-classification.md`)
+- [Risk] 집계(countsByGroup)에서 그룹 간 overlap이 있으면 score가 과대계산되고 근거 표기도 혼란스럽다.
+  - 문서 기준으로 overlap 제거(배타 집계) 규칙을 추가하고, ADVERSARY/ALLY 그룹 정의에서 중복되는 predicate를 제거하는 방향이 안전하다. (refs: `fivecircles/architecture/specs/predicate/groups.md`)
+- [Gap] aggregate 엔드포인트는 신규 계약이므로, 구현 전에 `event-v2-api.md`에 명시(번호/경로/파라미터/게이트)를 추가해야 한다. (refs: `fivecircles/architecture/specs/event-v2-api.md`)
+
+## Decision (Proposed)
+- related-characters 집계 엔드포인트는 구현 범위에 포함한다.
+- countsByGroup는 서버에서 배타 규칙(중복 카운트 방지)을 고정한다.
+- 품질향상 레이어는 evidence-first + group 단일 소스 + suggestion 정규화/alias를 포함한다. (refs: `fivecircles/architecture/specs/predicate/data-quality-risks-and-structure.md`)

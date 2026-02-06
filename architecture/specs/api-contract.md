@@ -172,6 +172,65 @@ Base URL: `/api/event/v1`
 
 ---
 
+## Event Query API (V2)
+
+Base URL: `/api/event/v2`
+
+Note
+- This section documents "query" endpoints used by QA/FE widgets (Level 1-3).
+- Spoiler gate: `safeUpToEpisode=K` is applied on all query endpoints.
+
+### GET /characters/{characterId}/related-characters
+
+- **Description**: Related characters via co-appearance graph.
+- **URL Params**: `safeUpToEpisode` (optional), `limit` (optional)
+- **Response**: `ApiResponse<List<CharacterRelationResponse>>`
+
+### GET /characters/{characterId}/related-characters/aggregate
+
+- **Description**: Single-call aggregation for derived questions (ALLY/ADVERSARY/etc). Avoids N+1 coevents calls.
+- **URL Params**: `safeUpToEpisode` (required), `mode` (required), `minScore` (optional), `limit` (optional), `includeEvidenceEventIds` (optional)
+- **Response**: `ApiResponse<RelatedCharactersAggregateResponse>` (draft)
+- **Spec**: `fivecircles/architecture/specs/predicate/related-characters-aggregate.md`
+
+RelatedCharactersAggregateResponse (draft)
+- `characterId: long`
+- `safeUpToEpisode: int`
+- `mode: string` (one of `ADVERSARY|ALLY|COEVENTS`)
+- `items: RelatedCharactersAggregateItem[]`
+
+RelatedCharactersAggregateItem (draft)
+- `otherCharacterId: long`
+- `score: int`
+- `countsByGroup: map<string,int>`
+- `evidenceEventIds?: long[]`
+  - present only when `includeEvidenceEventIds=true`
+
+Example
+```json
+{
+  "success": true,
+  "data": {
+    "characterId": 100,
+    "safeUpToEpisode": 3,
+    "mode": "ADVERSARY",
+    "items": [
+      {
+        "otherCharacterId": 200,
+        "score": 17,
+        "countsByGroup": {
+          "BATTLE": 3,
+          "ADVERSARY": 2
+        },
+        "evidenceEventIds": [2052, 2083]
+      }
+    ]
+  }
+}
+```
+
+---
+
 ## Wiki Service
 
 Base URL: `/api/wiki/v1`

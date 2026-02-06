@@ -595,3 +595,14 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Event V2 API 문서에 OTHER/UNKNOWN filter 정책 명시 (refs: fivecircles/architecture/specs/event-v2-api.md)
 ### Tests
 - Local build OK: `./gradlew :common:build`, `front npm run build`
+
+## Addendum (2026-02-06) - Related-characters aggregate + predicate query layer docs
+### Backend
+- Add `GET /api/event/v2/characters/{characterId}/related-characters/aggregate` (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java)
+- Add aggregate scoring + evidence option (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java)
+- Add MyBatis aggregate/evidence queries (refs: services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml)
+### Docs
+- Add predicate docs folder (group/promotion/reveals/quality/aggregate spec) (refs: fivecircles/architecture/specs/predicate/README.md)
+- Add aggregate endpoint to specs: V2/V2.5/api-contract (refs: fivecircles/architecture/specs/event-v2-api.md, fivecircles/architecture/specs/v2.5-unify.md, fivecircles/architecture/specs/api-contract.md)
+### Tests
+- Local unit/compile OK: `./gradlew :services:event-service:test`

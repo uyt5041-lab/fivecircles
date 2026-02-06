@@ -83,6 +83,14 @@
 예시(가중치 개념)
 - score = sharedCharacterCount + closenessWeight + revealBoost
 
+교차 지점(“만들 때” vs “만든 뒤”)
+- 만들 때(서제스천 생성/정렬):
+  - REVEALS는 PRECEDES 후보의 정렬 신호(evidence feature)로만 사용한다.
+  - 즉, REVEALS가 있다고 해서 PRECEDES를 자동 저장하지 않는다.
+- 만든 뒤(승인된 PRECEDES를 표시/설명):
+  - causes/effects(PRECEDES 체인)를 UI에 보여줄 때, 체인 중간에 `REVEALS`가 있으면 “전환점 배지/근거”로 강조할 수 있다.
+  - 단, 체인 탐색 자체는 PRECEDES만으로 수행하고, REVEALS는 결과 렌더링 단계에서만 소비한다.
+
 ---
 
 ## 5) 안전 리캡/요약(episode gate 내 reveal만 모으기)
@@ -105,4 +113,3 @@
 아래 항목은 팀원 작업 완료 후 통합 시점에 반영 가능하다.
 - intelligence refine 응답에 reveal target 메타가 포함되면, wiki 승인 -> event 발행 시 `event_reveal` 저장이 자동화된다.
 - `ATTRIBUTE`를 엄밀히 하려면 `target_key`/`target_text` 같은 확장이 필요할 수 있다.
-

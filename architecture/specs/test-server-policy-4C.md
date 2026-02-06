@@ -6,7 +6,7 @@ Purpose
 
 Scope
 - Applies to event-service and spoiler-policy-service test runs.
-- QnA (qa-service) is excluded for now.
+- QnA (qa-service) is excluded for now. 단, /qa 화면이 호출하는 event-service query 엔드포인트 스모크는 이 문서의 범위에 포함한다.
 
 Defaults (Local)
 - Event service: http://localhost:8089
@@ -72,6 +72,14 @@ Latest Sync Check (Before Any Server Test)
    - `ssh bit-ts "cd ~/nospoiler && git checkout develop"`
    - `ssh bit-ts "cd ~/nospoiler && git pull origin develop"`
    - `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
+
+Smoke Checks (Event Query API, via Gateway)
+- related-characters aggregate (ADVERSARY)
+  - `ssh bit-ts "curl -sS -i 'http://localhost:8080/api/event/v2/characters/{id}/related-characters/aggregate?safeUpToEpisode={K}&mode=ADVERSARY&limit=30'"`
+- related-characters aggregate (ALLY)
+  - `ssh bit-ts "curl -sS -i 'http://localhost:8080/api/event/v2/characters/{id}/related-characters/aggregate?safeUpToEpisode={K}&mode=ALLY&limit=30'"`
+- evidence 포함
+  - `ssh bit-ts "curl -sS -i 'http://localhost:8080/api/event/v2/characters/{id}/related-characters/aggregate?safeUpToEpisode={K}&mode=ADVERSARY&includeEvidenceEventIds=true'"`
 
 
 

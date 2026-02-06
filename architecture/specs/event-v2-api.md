@@ -59,6 +59,9 @@ Body: { "fromEventId": X, "toEventId": Y }
 15) PRECEDES suggestions (cross-episode only)
 GET /relations/precedes/suggestions?eventId={E}&safeUpToEpisode={K}&limit={N}
 
+16) Related characters aggregate (single-call, derived)
+GET /characters/{characterId}/related-characters/aggregate?safeUpToEpisode={K}&mode={ADVERSARY|ALLY|COEVENTS}&minScore={S}&limit={N}&includeEvidenceEventIds={true|false}
+
 Notes
 - Use predicateCode (event.predicate_code) for filtering instead of a separate type field.
 - Search policy: `predicateCode=OTHER|UNKNOWN` is treated as "no filter" in user-facing endpoints (unclassified is not a first-class filter).

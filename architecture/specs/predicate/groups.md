@@ -20,8 +20,8 @@
 | AFFILIATION_CHANGE | JOINS, LEAVES | AFFILIATION_CHANGE | Q6 대응. "소속 변경"을 합류/이탈로 근사. |
 | DEATH_EXIT | DIES, LEAVES | DEATH, EXIT, DEATH_EXIT | Q7 대응. "퇴장"은 LEAVES로 근사. |
 | BATTLE | ATTACKS, DEFEATS, KILLS | BATTLE | "전투"의 최소 근사. 필요 시 CAPTURES 등 추가 검토. |
-| ADVERSARY | ATTACKS, DEFEATS, KILLS, CAPTURES, BETRAYS | THREAT, THREATENED, BLACKMAIL, BATTLE | 파생 질문(적대자). 1급 predicate 확장은 승격 프로세스로. |
-| ALLY | ALLIES_WITH, JOINS | ALLY, ALLIES_WITH, JOINS | 파생 질문(협력자). MEETS는 보조 증거로만 사용 권장. |
+| ADVERSARY | CAPTURES, BETRAYS | THREAT, THREATENED, BLACKMAIL | 파생 질문(적대자). BATTLE과 중복 카운팅을 피하려고 공격/전투는 BATTLE로만 집계. |
+| ALLY | ALLIES_WITH | ALLY, ALLIES_WITH | 파생 질문(협력자). AFFILIATION_CHANGE(JOINS/LEAVES)와 중복을 피하려고 JOINS는 제외. |
 
 ---
 
@@ -37,4 +37,3 @@ Rule B: fallback은 그룹에서만
 Rule C: 승격과 분리
 - group은 "질문 의미"를 표현하는 단위이고, enum 승격은 "데이터 품질/검색 정확도"를 올리는 작업이다.
 - group 자체는 유지하면서 내부 predicate 세트를 조정해도 된다.
-

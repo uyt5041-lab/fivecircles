@@ -110,3 +110,32 @@ Rule B: labelDraft.eventType과 저장 predicate 분리
 - RDF/OWL(트리플) 레이어로 확장할 때도,
   - view-layer predicate(`REVEALS`)는 안정적으로 유지하고,
   - target/object를 별도 레이어로 발전시키기 쉽다.
+
+---
+
+## 6) 예시(대표 케이스, 현재 스키마 기준)
+
+전제
+- 현재 스키마는 `event_reveal(target_type, target_id, reveal_type)`까지만 저장한다.
+- "어떤 속성이 드러났는지(예: alias=Heisenberg)" 같은 세부는 컬럼이 없으므로, 당장은 이벤트 요약/설명 텍스트에만 남긴다.
+
+예시 A: "하이젠버그의 정체는 월터였다"
+- 권장 표현:
+  - event.predicate_code = `REVEALS`
+  - event_reveal.target_type = `CHARACTER`
+  - event_reveal.target_id = (Walter characterId)
+  - event_reveal.reveal_type = `CONFIRM`
+- 비고:
+  - "Heisenberg"라는 별칭 문자열을 구조화하려면 향후 `target_key`/`target_text` 같은 확장이 필요하다.
+
+예시 B: "오일남이 사실은 게임 주최자였다"
+- 권장 표현:
+  - event.predicate_code = `REVEALS`
+  - event_reveal.target_type = `CHARACTER`
+  - event_reveal.target_id = (Oh Il-nam characterId)
+  - event_reveal.reveal_type = `CONFIRM`
+
+예시 C: "A가 B의 소속(조직)을 알고 있었다/드러났다"
+- 현재 스키마만으로는 다음 중 택1이 필요하다.
+  - (보수) 소속은 `TRANSFORMS`/`JOINS`/`LEAVES` 같은 predicate로 표현하고, REVEALS는 설명/근거로만 둔다.
+  - (확장) `ATTRIBUTE` target_type로 내려 보내되, 무엇(affiliation)이 드러났는지 key가 없어 정확도가 떨어진다.
