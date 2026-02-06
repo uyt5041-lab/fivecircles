@@ -28,8 +28,8 @@ Level 1
 - Q5 (Events by type) -> api1 + predicateCode
 
 Level 2
-- Q6 (Character A affiliation change events) -> api3 + predicateCode=AFFILIATION_CHANGE
-- Q7 (Character A death/exit events) -> api3 + predicateCode=DEATH or EXIT
+- Q6 (Character A affiliation change events) -> api3 (JOINS + LEAVES를 FE에서 합산/병합)
+- Q7 (Character A death/exit events) -> api3 (DIES + LEAVES를 FE에서 합산/병합)
 - Q8 (Compare same-type events) -> api1 + predicateCode per type, compare on FE
 - Q9 (Events within episode range) -> api1 + fromEpisode/toEpisode
 - Q10 (Event category) -> api1 or api3 response predicateCode
@@ -59,8 +59,8 @@ Page -> Questions
 - Q1 (Character A timeline): character modal timeline tab
 - Q2 (A and B co-appearance): co-appearance section
 - Q3 (Character C events by type): predicateCode filter
-- Q6 (Affiliation change events): predicateCode=AFFILIATION_CHANGE
-- Q7 (Death/exit events): predicateCode=DEATH/EXIT
+- Q6 (Affiliation change events): predicateCode=JOINS/LEAVES (FE union)
+- Q7 (Death/exit events): predicateCode=DIES/LEAVES (FE union)
 - Q13 (Path A -> event X -> B): relation/path tab
 - Q14 (Characters related to A): related characters section
 - Q15 (Events indirectly caused by A): impact chain section
@@ -115,8 +115,8 @@ above list as the source of truth for QA drawer tests.
 - Q1 인물 A 타임라인: 인물 상세 모달의 **타임라인 탭**
 - Q2 인물 A·B 공동 등장 사건: 인물 상세 모달의 **공동 등장 섹션**
 - Q3 인물 C 사건 유형 필터: **predicateCode 필터**
-- Q6 인물 소속 변경 사건: **predicateCode=AFFILIATION_CHANGE**
-- Q7 인물 사망/퇴장 사건: **predicateCode=DEATH/EXIT**
+- Q6 인물 소속 변경 사건: **predicateCode=JOINS/LEAVES (FE union)**
+- Q7 인물 사망/퇴장 사건: **predicateCode=DIES/LEAVES (FE union)**
 - Q13 A -> 사건 X -> B 경로: **관계/경로 탭**
 - Q14 인물 A 관련 인물: **연관 인물 섹션**
 - Q15 인물 A가 원인인 사건 연쇄: **영향 체인 섹션**

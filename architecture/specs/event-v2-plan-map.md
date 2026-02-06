@@ -103,7 +103,7 @@ Query Types
 
 Mapping (sample 20)
 - A가 K화까지 관여한 사건 전부 -> CHARACTER_EVENTS
-- A의 사건 중 특정 predicate(KILLS/BATTLE)만 -> CHARACTER_EVENTS (+predicateCode)
+- A의 사건 중 특정 predicate(KILLS/ATTACKS 등)만 -> CHARACTER_EVENTS (+predicateCode)
 - 사건 E에 등장한 인물 전부 -> EVENT_CHARACTERS
 - A와 B가 같이 나온 사건만 -> CHARACTER_AND_CHARACTER_EVENTS
 - A와 B가 처음 같이 등장한 사건 -> CHARACTER_AND_CHARACTER_EVENTS (sort then top1)

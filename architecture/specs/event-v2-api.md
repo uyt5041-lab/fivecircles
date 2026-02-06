@@ -61,6 +61,7 @@ GET /relations/precedes/suggestions?eventId={E}&safeUpToEpisode={K}&limit={N}
 
 Notes
 - Use predicateCode (event.predicate_code) for filtering instead of a separate type field.
+- Search policy: `predicateCode=OTHER|UNKNOWN` is treated as "no filter" in user-facing endpoints (unclassified is not a first-class filter).
 - REVEALS edges should be excluded from general traversal unless used for explanations.
 - Related events are derived by shared character involvement (event_character).
 - PRECEDES suggestions are cross-episode only; same-episode links require manual curation.

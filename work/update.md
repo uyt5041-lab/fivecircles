@@ -580,13 +580,18 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-02-06) - ex14 TRANSFORMS 정합 + 원격 DB 백필
 ### Frontend
 - Q20 집계에서 `STATUS_CHANGE`를 `TRANSFORMS`로 정규화/합산 처리 (refs: front/common/widgets/Q20_NarrativeDistribution.tsx)
+- 타임라인 빠른 필터 칩을 표준 predicate로 교체 (refs: front/features/timeline/EventTimelinePage.tsx)
 ### Backend
 - `PredicateCode` 표준명 `TRANSFORMS` 추가, `STATUS_CHANGE`는 레거시(deprecated) 유지 (refs: common/src/main/java/com/nospoiler/common/PredicateCode.java)
 - event-service 호환 레이어: 저장 시 `STATUS_CHANGE` -> `TRANSFORMS` 정규화, 조회 시 `TRANSFORMS`는 `STATUS_CHANGE`도 포함 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java, services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+- Search policy: user-facing predicateCode 필터에서 `OTHER|UNKNOWN`은 필터 미적용으로 처리 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java)
+- predicate suggestion(SoT=event) 저장 경로 및 마이그레이션 추가 (refs: services/event-service/src/main/resources/db/migration/V8__add_event_predicate_suggestion.sql, services/event-service/src/main/java/com/nospoiler/eventservice/dto/EventRequestDTO.java, services/event-service/src/main/java/com/nospoiler/eventservice/entity/Event.java, services/wiki-service/src/main/java/com/nospoiler/wikiservice/service/WikiSubmissionService.java)
 ### Server
 - bit-ts DB 백필: event/wiki `predicate_code`의 `STATUS_CHANGE` -> `TRANSFORMS` 일괄 변경 (nospoiler_event/nospoiler_wiki)
 ### Docs
 - ex14 정합성 체크리스트/변경계획 정리 (refs: fivecircles/architecture/specs/ex14-consistency-checklist.md)
 - suggestion 운영(SoT=event, 승인 시 snapshot) 계획 수립 (refs: fivecircles/architecture/specs/predicate-suggestion-sot-event.md)
+- Q6/Q7 문서 정합: enum 밖 코드(AFFILIATION_CHANGE/DEATH/EXIT) 대신 JOINS/LEAVES/DIES 조합으로 정의 (refs: fivecircles/architecture/specs/frontend.md, fivecircles/architecture/specs/v2.5-unify.md)
+- Event V2 API 문서에 OTHER/UNKNOWN filter 정책 명시 (refs: fivecircles/architecture/specs/event-v2-api.md)
 ### Tests
 - Local build OK: `./gradlew :common:build`, `front npm run build`
