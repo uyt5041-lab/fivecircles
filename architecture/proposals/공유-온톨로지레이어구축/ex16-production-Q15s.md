@@ -147,6 +147,17 @@ D) “월터의 적대 캐릭터/조직/협력자”는 어떻게 할까?
 * 스키마 변경 없음, QA/검색/API 전부 그대로 재사용
 (버린 이유) ❌ 별도 Organization 테이블 신설은 스펙 밖이고, 지금 단계에서 구현 리스크만 커짐.
 
+E) 성능 최적화(멀티유즈): coevents N+1 제거용 집계 엔드포인트 1개 추가
+현재 구조(api9로 후보 뽑기 + 후보별 coevents 호출)는 `1 + 후보수` 만큼 호출이 필요해진다.
+프로덕션/QA에서 “적대자/협력자/관계성” 질문이 늘어나면 병목이 되므로, 아래 1개 엔드포인트로 흡수한다.
+
+* API(제안): `GET /api/event/v2/characters/{id}/related-characters/aggregate?safeUpToEpisode={K}&limit={N}&mode={MODE}`
+* MODE 예시:
+  - `ADVERSARY`: 전투/배신/위협 그룹 카운트 기반(적대자)
+  - `ALLY`: 동맹/합류/도움 그룹 카운트 기반(협력자)
+* 응답 예시(개념): `{ otherCharacterId, score, countsByGroup, evidenceEventIds? }[]`
+* 그룹/폴백(정합성): `predicate_code` 합집합으로 1차 분류하고, `predicate_code='OTHER'`인 경우 `predicate_suggestion` 키워드(예: BATTLE/DEATH/EXIT/AFFILIATION_CHANGE)를 해당 그룹으로 폴백 매핑해 집계에 포함한다.
+
 원하면 다음 액션으로 바로 간다:
 1. 위 1–15를 고정 QA 버튼 셋(Q1~Q15)과 1:1로 매핑해서, /qa 화면에서 어떤 위젯이 어떤 API를 때리는지까지 “구현 체크리스트”로 뽑아줄게.
 
