@@ -120,7 +120,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Added V2 API spec and updated mappings (refs: fivecircles/architecture/specs/event-v2-api.md)
 
 ### Tests
-- Server curl checks for new endpoints (refs: http://localhost:8089/dramas/1/events?safeUpToEpisode=1&predicateCode=STATUS_CHANGE)
+- Server curl checks for new endpoints (refs: http://localhost:8089/dramas/1/events?safeUpToEpisode=1&predicateCode=TRANSFORMS)
 ## Addendum (2026-01-20) - Ignore local proposal drafts
 ### Docs
 - Ignore nospoiler_newspecs proposal folder (refs: .gitignore)
@@ -577,3 +577,16 @@ This file summarizes recent updates so other agents can continue without re‑di
     - Removed redundant MinIO implementations from individual services.
 - **Status**: Backend refactoring complete. Multi-bucket storage is active.
 - **Next**: Verify actual file uploads from the Admin UI (Drama/Character) and My Page (User).
+## Addendum (2026-02-06) - ex14 TRANSFORMS 정합 + 원격 DB 백필
+### Frontend
+- Q20 집계에서 `STATUS_CHANGE`를 `TRANSFORMS`로 정규화/합산 처리 (refs: front/common/widgets/Q20_NarrativeDistribution.tsx)
+### Backend
+- `PredicateCode` 표준명 `TRANSFORMS` 추가, `STATUS_CHANGE`는 레거시(deprecated) 유지 (refs: common/src/main/java/com/nospoiler/common/PredicateCode.java)
+- event-service 호환 레이어: 저장 시 `STATUS_CHANGE` -> `TRANSFORMS` 정규화, 조회 시 `TRANSFORMS`는 `STATUS_CHANGE`도 포함 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java, services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+### Server
+- bit-ts DB 백필: event/wiki `predicate_code`의 `STATUS_CHANGE` -> `TRANSFORMS` 일괄 변경 (nospoiler_event/nospoiler_wiki)
+### Docs
+- ex14 정합성 체크리스트/변경계획 정리 (refs: fivecircles/architecture/specs/ex14-consistency-checklist.md)
+- suggestion 운영(SoT=event, 승인 시 snapshot) 계획 수립 (refs: fivecircles/architecture/specs/predicate-suggestion-sot-event.md)
+### Tests
+- Local build OK: `./gradlew :common:build`, `front npm run build`

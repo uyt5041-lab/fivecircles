@@ -93,6 +93,10 @@
 | `RECOVERS`   | 회복       |
 | `TRANSFORMS` | 신분/상태 변화 |
 
+정의(혼동 방지)
+- `TRANSFORMS`는 “인물/관계/소속/법적 지위 등 **구조적 상태가 전환**되는 사건”에만 사용한다. (전/후가 명확해야 함)
+- 신체 컨디션 변화는 `INJURED`/`RECOVERS`로 분리하고, 정보 공개는 `REVEALS` + `event_reveal` 메타로 분리한다.
+
 ---
 
 ### B. **관계 변화 (Relationship)**

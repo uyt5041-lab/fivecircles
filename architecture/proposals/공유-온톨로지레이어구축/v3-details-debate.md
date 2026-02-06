@@ -100,7 +100,7 @@
   - out_degree: event_relation from_event 기준 연결 수
   - reveal_count: event_reveal 수
   - role_bonus: SUBJECT/OBJECT/ALLY/ENEMY 등 역할 가중치
-  - predicate_bonus: predicate_code가 중요한 타입이면 가점 (예: STATUS_CHANGE,
+  - predicate_bonus: predicate_code가 중요한 타입이면 가점 (예: TRANSFORMS,
     BATTLE)
 
   > 이 점수는 event_metric에 사전 계산해두는 게 안정적.

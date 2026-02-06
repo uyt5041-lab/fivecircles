@@ -177,6 +177,15 @@
 - [x] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
 - [x] **Logic**: Multi-hop Ontology Retrieval
 - [ ] **Admin/Precedes UI 보강 (Antigravity 큐)**: 이벤트 내용 수정 + 데이터 소스 표시/열람 지원
+- [x] **ex14 정합성(TRANSFORMS)**: 공통 enum에 `TRANSFORMS` 추가 + `STATUS_CHANGE` 레거시(deprecated) 유지
+- [x] **ex14 정합성(TRANSFORMS)**: Q20 집계 키 `STATUS_CHANGE` -> `TRANSFORMS` 정렬(legacy 합산 포함)
+- [x] **ex14 정합성 문서화**: 체크리스트/변경 계획 정리 (spec: `fivecircles/architecture/specs/ex14-consistency-checklist.md`)
+- [ ] **ex14 문서/스펙 치환(남음)**: `STATUS_CHANGE` 표기 제거 + intelligence `labelDraft.eventType` vs 저장 `predicate_code` 레이어 분리
+- [x] **ex14 호환 레이어**: event-service read/write에서 `TRANSFORMS` 요청 시 `STATUS_CHANGE`도 매칭/정규화(이행 기간)
+- [x] **ex14 백필(bit-ts)**: `nospoiler_event.event`/`nospoiler_wiki.wiki_submission`의 `predicate_code`를 `STATUS_CHANGE` -> `TRANSFORMS`로 일괄 변경
+- [ ] **정합성 갭 체크 (ex14, 협업)**: reveal 메타(event_reveal)가 wiki/intelligence→event 파이프라인에서 실제 전달/저장되는지 “현상 확인”만 하고, 결과를 문서에 상태로만 명시 (구현은 보류)
+- [ ] **Q1~Q15 정합성(별도)**: UI/스펙의 predicateCode(`BATTLE`, `AFFILIATION_CHANGE`, `DEATH`, `EXIT` 등)와 `common/PredicateCode`의 폐쇄 집합을 정렬 (ex14 범위 밖이므로 별도 작업으로 분리)
+- [ ] **Predicate suggestion 운영(SoT=event)**: `event.predicate_suggestion` 도입(승인 시 snapshot 저장), 운영 편집/집계는 event 기준, wiki는 히스토리만 유지 (spec: `fivecircles/architecture/specs/predicate-suggestion-sot-event.md`)
 - [x] **Ontology V2.5 (Q20)**:
     - [x] Update V2.5 Plan (v2.5-def-plan.md)
     - [x] Correct EventServiceImpl role string (`PARTICIPANT` -> `INVOLVED`)
