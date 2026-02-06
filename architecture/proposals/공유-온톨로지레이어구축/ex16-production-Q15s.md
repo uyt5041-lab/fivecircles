@@ -16,6 +16,11 @@
 14. 스카일러-월터 관계가 돌이키기 어려워지는 첫 균열?
 15. 월터가 본격적으로 은폐/도주를 시작하는 최초 지점?
 
+## 참고(정합성/재사용)
+- Predicate 그룹/승격/확장(질문 구현 + 유지보수): `fivecircles/architecture/specs/predicate/README.md`
+- REVEALS 분류(표준/용어 충돌 정리, 통합 포인트): `fivecircles/architecture/specs/predicate/reveals-classification.md`
+- REVEALS 재사용 케이스(정책/설명/랭킹/리캡 예시): `fivecircles/architecture/specs/predicate/reveals-reuse-cases.md`
+
 ---
 
 프로덕션 서비스 단계의 질문
@@ -170,7 +175,6 @@ E) 성능 최적화(멀티유즈): coevents N+1 제거용 집계 엔드포인트
 
 
 ===
-
 
 
 
