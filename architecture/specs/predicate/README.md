@@ -89,3 +89,6 @@ RDF/OWL 확장 노트는 다음 문서에서 단일 소스로 유지한다.
 
 REVEALS 분류(통합 포인트 포함)는 다음 문서에서 단일 소스로 유지한다.
 - `fivecircles/architecture/specs/predicate/reveals-classification.md`
+
+REVEALS 재사용 케이스(정책/설명/랭킹/리캡)는 다음 문서에서 단일 소스로 유지한다.
+- `fivecircles/architecture/specs/predicate/reveals-reuse-cases.md`
