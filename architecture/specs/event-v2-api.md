@@ -62,6 +62,8 @@ GET /relations/precedes/suggestions?eventId={E}&safeUpToEpisode={K}&limit={N}
 Notes
 - Use predicateCode (event.predicate_code) for filtering instead of a separate type field.
 - Search policy: `predicateCode=OTHER|UNKNOWN` is treated as "no filter" in user-facing endpoints (unclassified is not a first-class filter).
+  - 의미: 클라이언트가 `predicateCode=OTHER`를 보내더라도, 서버는 이를 필터로 쓰지 않고 `predicateCode=null`처럼 처리한다.
+  - 이유: OTHER/UNKNOWN은 “미분류 저장용”이지, 사용자가 의도적으로 좁혀 찾는 1급 분류로 취급하지 않는다.
 - REVEALS edges should be excluded from general traversal unless used for explanations.
 - Related events are derived by shared character involvement (event_character).
 - PRECEDES suggestions are cross-episode only; same-episode links require manual curation.

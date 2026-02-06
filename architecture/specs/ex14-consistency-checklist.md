@@ -17,6 +17,9 @@
 - 표준 predicate 설계: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex13-standard-predicates.md`
 - 현재 enum: `common/src/main/java/com/nospoiler/common/PredicateCode.java`
 - event_reveal 마이그레이션: `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`
+- (시범용) intelligence 정합성 초안(공식 문서 미수정):
+  - `fivecircles/architecture/specs/intelligence/intelligence-events-contract-시범용.md`
+  - `fivecircles/architecture/specs/intelligence/intelligence-db-schema-시범용.md`
 
 ---
 
@@ -76,6 +79,15 @@ UNKNOWN vs OTHER 기본값/표기 혼재
 - `fivecircles/architecture/specs/intelligence/intelligence-events-contract.md`는 labelDraft.eventType을 event.predicate_code로 저장한다고 되어 있다.
 - 반면 공통 enum에는 REVEAL_HINT/REVEAL_CONFIRM/RELATION_CHANGE가 없다.
 - 결론: "내부 라벨"과 "저장 predicate" 레이어 구분이 필요하며, 우선은 문서 정합성으로만 처리한다.
+
+인텔리전스 문서 정합성 비교표(ex14 기준, 시범용 초안으로만 제시)
+
+| 항목 | 기존 intelligence 문서 | ex14/common 기준 | 정합성 정리(문서 방향) |
+| --- | --- | --- | --- |
+| 저장 대상 | `labelDraft.eventType`을 `event.predicate_code`로 저장 | `event.predicate_code`는 `PredicateCode`(폐쇄 집합) | `labelDraft.eventType`은 내부 라벨로 남기고, 저장은 `PredicateCode`로 기록한다고 문구 변경 |
+| REVEAL 표현 | `REVEAL_HINT/REVEAL_CONFIRM`이 저장 predicate로 서술 | 저장 predicate는 `REVEALS` 1개 + (옵션) 메타 | `REVEAL_HINT/CONFIRM`은 내부 라벨, 저장은 `REVEALS`로 정렬(메타는 갭으로 기록) |
+| STATUS_CHANGE | 저장 predicate 허용값에 `STATUS_CHANGE` 포함 | 표준은 `TRANSFORMS`, `STATUS_CHANGE`는 legacy | 허용값 표기에서 표준은 `TRANSFORMS`로, legacy는 호환 항목으로만 명시 |
+| RELATION_CHANGE | 저장 predicate 허용값에 `RELATION_CHANGE` 포함 | 관계 변화는 `JOINS/LEAVES/BETRAYS/ALLIES_WITH` 등 | `RELATION_CHANGE`는 내부 라벨, 저장은 관계 predicate 중 선택하도록 문서에서 분리 |
 
 ex04(event_triplestore) 문서의 event_reveal 컬럼 드리프트
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex04-triplestore.md`는 `event_reveal(..., note)`를 예시로 든다.
