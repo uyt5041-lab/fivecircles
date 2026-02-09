@@ -617,3 +617,5 @@ This file summarizes recent updates so other agents can continue without re‑di
 - updateEvent: summary-only PUT에서 episodes null 덮어쓰기 방지 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service)
 ### Tests
 - PASS: `./gradlew :services:event-service:test` (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service)
+### Server
+- bit-ts 배포 + gateway curl 스모크 200 OK (drama events/character events/aggregate) (refs: fivecircles/test/deploy-server.sh, fivecircles/architecture/specs/test-server-policy-4C.md)
