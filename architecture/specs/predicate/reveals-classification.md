@@ -95,6 +95,11 @@ Rule A: REVEALS는 설명/근거 우선
   - 정답 이벤트(인지 변화/대면 행동/사건 전환)를 먼저 찾고,
   - 그 이벤트에 `REVEALS`가 붙어 있으면 "근거"로 출력한다.
 
+Rule A.1: revealType 미입력(null) 허용 (현 운영)
+- `event_reveal.reveal_type`는 현재 **미입력(null)을 허용**한다.
+- 아직 HINT/CONFIRM을 정책/랭킹/리캡에서 사용하지 않는 기간에는, wiki/intelligence에서 revealType을 강제 생성하지 않는다.
+- UI 표기 예: `REVEAL(미분류)` (내용 텍스트 없이 배지/메타 영역에만 표시)
+
 Rule B: labelDraft.eventType과 저장 predicate 분리
 - `REVEAL_HINT/REVEAL_CONFIRM` 같은 내부 라벨은 저장 predicate가 아니라, 최종 저장은 `PredicateCode.REVEALS`로 정렬한다.
 - HINT/CONFIRM은 메타(`event_reveal.reveal_type`)로 내려간다(통합 시).
