@@ -206,6 +206,8 @@ RelatedCharactersAggregateResponse (draft)
 - `characterId: long`
 - `safeUpToEpisode: int`
 - `mode: string` (one of `ADVERSARY|ALLY|COEVENTS`)
+- `scoreRule?: string`
+  - score 계산식 표시용. FE drift 방지를 위해 서버가 내려준다.
 - `items: RelatedCharactersAggregateItem[]`
 
 RelatedCharactersAggregateItem (draft)
@@ -223,6 +225,7 @@ Example
     "characterId": 100,
     "safeUpToEpisode": 3,
     "mode": "ADVERSARY",
+    "scoreRule": "score = 8*ADVERSARY + 5*BATTLE + 2*DEATH_EXIT",
     "items": [
       {
         "otherCharacterId": 200,
