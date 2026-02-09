@@ -41,6 +41,21 @@ MySQL Bootstrap (When Volume Exists)
 - Create them (server):
   - `ssh bit-ts "docker exec -i nospoiler-mysql mysql -uroot -proot -e 'CREATE DATABASE IF NOT EXISTS nospoiler_event; CREATE DATABASE IF NOT EXISTS nospoiler_wiki; CREATE DATABASE IF NOT EXISTS nospoiler_policy;'"` 
 
+Schema Drift (Ops / Backfill Tables)
+- Flyway is the source of truth for application schemas. Avoid creating/changing app tables manually.
+- However, some **ops-only** backfill runs may create temporary/audit tables (e.g., `ops_*`) to record what changed.
+  - This is a deliberate "drift": Flyway does not manage these tables.
+  - It should never block Flyway, but it can make the DB look "non-identical" across environments.
+- Rules:
+  - Only create ops tables on test servers unless explicitly approved.
+  - Prefix ops tables with `ops_` and keep the run id in the name (easy to find/drop later).
+  - Always record the run in `fivecircles/work/update.md` with:
+    - table name(s)
+    - target DB/schema
+    - selection criteria (what rows were touched)
+    - rollback path (how to restore / whether safe to drop the table)
+  - Put reproducible scripts under `scripts/ops/` and reference the script path in the update log.
+
 Remote Branch Sync (Required for Server Tests)
 - The server can only pull commits that exist on the remote.
 - Push your local branch first, then pull on the server.
