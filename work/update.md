@@ -610,3 +610,10 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-02-06) - Squid Game bulk ingestion dataset copies
 ### Backend
 - Add Squid Game per-episode datasets under wiki-service test resources for ingestion (refs: services/wiki-service/src/test/resources/squid_game_dataset_ep1.json, ingestion/scripts/build_squid_game_bulk_dataset.py)
+
+## Addendum (2026-02-09) - Event reveal N+1 제거 + updateEvent 안전화
+### Backend
+- Event reveal N+1 제거: revealMap 배치 조회(`IN`) 추가 (refs: services/event-service/src/main/resources/mapper/event/EventRevealMapper.xml)
+- updateEvent: summary-only PUT에서 episodes null 덮어쓰기 방지 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service)
+### Tests
+- PASS: `./gradlew :services:event-service:test` (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service)

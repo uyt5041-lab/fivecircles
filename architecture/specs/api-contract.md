@@ -164,6 +164,15 @@ Base URL: `/api/event/v1`
 - **Description**: Get event details by ID.
 - **Response**: `ApiResponse<EventResponseDTO>`
 
+### PUT /{id}
+
+- **Description**: Update an existing ontology event.
+- **Request**: `EventRequestDTO` (partial update allowed)
+- **Response**: `ApiResponse<EventResponseDTO>`
+- **Semantics**:
+  - PATCH-like behavior: omitted fields keep existing values.
+  - `null` values are treated as "not provided" (no field-clearing via null).
+
 ### GET /search
 
 - **Description**: Search events (Spoiler-aware).

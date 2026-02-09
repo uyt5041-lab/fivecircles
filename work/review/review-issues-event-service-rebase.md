@@ -27,23 +27,23 @@
 ### [P0] findRevealPartnerId 결정성/자기자신 partner 리스크
 파일: `services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml`
 
-- 문제 1: `UNION ... LIMIT 1`인데 `ORDER BY`가 없어 결과가 비결정적일 수 있음
-- 문제 2: Case2(숨은 정체가 reveal target인 경우)에서 `ec.character_id`가 자기 자신(`#{characterId}`)으로 반환될 여지가 있음
-- 영향
-  - `EventQueryServiceImpl.getEventsByCharacter`에서 partner merge가 흔들리거나 무의미해질 수 있음
-  - K(safeUpToEpisode) 기준에서 "보이거나/안보이거나"와 결합될 때 QA 신뢰도를 크게 깎음
+- 상태(확인 결과): **이미 방어 로직이 들어가 있음**
+- 확인 사항
+  - `UNION ALL ... LIMIT 1` 조합에 대해 `ORDER BY (episode_end DESC, event_id DESC, partner_id ASC)`가 존재하여 결과가 결정적임
+  - Case2에서 self 제외 조건(`ec.character_id <> #{characterId}`)이 포함되어 자기 자신이 partner로 반환되는 케이스를 방지함
+- 결론
+  - 이 항목은 "리베이스로 인한 신규 리스크"가 아니라, 현재 코드 기준으로는 **해결됨(Resolved)** 으로 분류 가능
 
 ### [P0] aggregate 집계(count)와 evidence 필터의 불일치
 파일: `services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml`
 파일: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java`
 
-- 현 상태
-  - 집계 쿼리에서 그룹별 count가 정의됨
-  - evidence 쿼리는 mode별로 별도 predicate 조건을 사용함
-- 문제
-  - evidence 조건이 집계 카운트보다 넓어, "카운트/점수에는 반영되지 않은 이벤트"가 evidence로 섞일 수 있음
-- 영향
-  - 운영/QA 화면에서 "왜 이 점수인데 이 근거가 나오지?" 혼란 발생
+- 확인 메모(현재 코드 기준)
+  - 집계 쿼리는 그룹별 count를 분리해 계산하고(e.g., battle/adversary/deathExit/ally/affiliationChange), evidence 쿼리는 mode별 predicate allowlist로 필터링함.
+  - 현재 evidence(ADVERSARY/ALLY)는 "해당 mode에서 점수에 기여하는 그룹들의 합집합"을 의도한 형태로 보이며, **명백한 누락/과포함은 코드만으로는 단정하기 어려움**.
+- 남는 리스크
+  - 집계 자체가 그룹 overlap(예: `LEAVES`가 deathExit/affiliationChange에 동시에 카운트)일 수 있어, evidence가 맞더라도 "왜 이 이벤트가 두 번 기여했나"가 불명확해질 수 있음.
+  - alias/정규화 목록이 집계/evidence에 중복 정의되어 있어 drift 위험이 있음(단일 소스화 필요).
 
 ### [P1] aggregate 그룹 overlap(중복 카운트) 정책 부재
 파일: `services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml`

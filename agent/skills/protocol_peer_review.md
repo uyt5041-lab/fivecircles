@@ -8,6 +8,15 @@ Execute this protocol when asked to "Review" (리뷰해) or when you detect a ma
 
 ## Protocol Steps
 
+0.  **Check Review Requests (Queue First)**
+    - Read `fivecircles/agent/queue.json` to find tasks with:
+      - `assignedTo` = you (e.g. `codex-ops`) and/or
+      - `assignedZone` = `review` and/or
+      - `status` indicating review is needed (`review`, `pending` with a review title), and/or
+      - references to a review doc under `fivecircles/work/review/`.
+    - Optional: read `fivecircles/agent/sync.md` for any additional review announcements or context.
+    - Select the highest-priority relevant review request(s) as the target scope for this review run.
+
 1.  **Load Debate Context**
     - Read `fivecircles/agent/debate.md`.
     - Identify the current topic, decision, and the `Author` of the proposal.

@@ -86,3 +86,23 @@
 - related-characters 집계 엔드포인트는 구현 범위에 포함한다.
 - countsByGroup는 서버에서 배타 규칙(중복 카운트 방지)을 고정한다.
 - 품질향상 레이어는 evidence-first + group 단일 소스 + suggestion 정규화/alias를 포함한다. (refs: `fivecircles/architecture/specs/predicate/data-quality-risks-and-structure.md`)
+
+---
+
+# [Review] feature/admin-event-edit (TASK-011) - Verification Only
+> Reviewer: codex-ops | Date: 2026-02-09
+
+## Scope
+- Review document: `fivecircles/work/review/review-admin-event-edit-2026-02-09.md`
+- Goal: 리뷰 문서의 핵심 지적사항을 **코드 기준으로 사실 확인**하고, 수정 전 필요한 정책 결정을 정리한다.
+
+## Findings (Confirmed)
+- [BE] `getRevealMap()`는 `eventRevealMapper.findByEventId()`를 이벤트 개수만큼 호출하는 구조로 N+1이 맞다. (refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`, `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java`)
+- [BE] `updateEvent`는 `summary/episodeStart/episodeEnd`에 null-fallback이 없어 partial update에서 덮어쓰기 위험이 있다. (refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`)
+- [FE] `saveEdit()`는 SAVING UI는 있으나 버튼/핸들러 레벨에서 re-entry 방어가 없어 중복 요청 가능성이 있다. (refs: `front/features/admin/AdminPrecedesPage.tsx`)
+- [FE] `AdminPrecedesPage`에는 `as any` 캐스팅이 남아 타입 안전성이 깨진다. (refs: `front/features/admin/AdminPrecedesPage.tsx`)
+- [OAuth2] URL query로 토큰 전달 + handler token 로그는 보안 리스크이며 Team A 소관으로 분리한다. (refs: `front/features/auth/OAuth2RedirectHandler.tsx`)
+
+## Policy To Decide Before Fix
+- `updateEvent`의 업데이트 semantics(= null 의미)를 PATCH-like vs PUT-like 중 하나로 고정하고 FE/BE 계약을 맞춘다.
+- `event_reveal` 대표 1건만 노출한다면, "대표 reveal 선택 규칙"을 정렬 기준으로 문서화한다.
