@@ -271,3 +271,9 @@
 - **[Semantics Gap] PUT vs PATCH**:
   - Current usage is PATCH-like (partial payload), but endpoint is PUT and mapper update overwrites all columns.
   - Either enforce full payload from FE or change contract/implementation to PATCH semantics.
+
+### Post-Fix Review Notes (2026-02-09)
+- [BE] 대표 reveal 1개 선택은 비결정적(first row)보다 결정적(rule/ORDER BY)인 편이 낫다. 현재는 `findByEventIds` 정렬 + `putIfAbsent`로 고정됨.
+- [FE] AdminPrecedesPage의 dead code(`startEdit`) 제거 완료.
+- [FE] QA 페이지의 `alert()` 제거: 실패 시 toast 사용으로 통일.
+- [FE] Aggregate score 기준 UI는 서버 로직과 drift 위험이 있어, 서버가 score rule(가중치)을 내려주도록 개선하는 편이 안전(추가 작업 예정).
