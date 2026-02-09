@@ -33,6 +33,7 @@ Rule A: 일반 검색은 PredicateCode만
 Rule B: fallback은 그룹에서만
 - `predicate_suggestion`은 불안정 텍스트이므로, 일반 검색 조건으로 쓰지 않는다.
 - 그룹 조회에서만 "보정" 목적의 fallback을 제한적으로 사용한다.
+  - 운영 표기를 위해 `TOKEN|한국어` 같은 structured 형식을 허용할 수 있다(서버는 토큰만 사용).
 
 Rule C: 승격과 분리
 - group은 "질문 의미"를 표현하는 단위이고, enum 승격은 "데이터 품질/검색 정확도"를 올리는 작업이다.

@@ -52,7 +52,8 @@ The Intelligence Service acts as an **Ontology Refiner**, performing three prima
 ### Hallucination Prevention & Expansion Strategy
 
 - **Backend**: Enforce **JSON Schema** in LLM response. Use `OTHER` as a fallback for undefined predicates.
-- **Semantic OTHER Strategy**: If LLM cannot find a suitable Enum value, it returns `OTHER` for `predicateCode` and provides the intended predicate (e.g., "KIDNAPS") in the `predicateSuggestion` field. This data is used for future ontology expansion.
+- **Semantic OTHER Strategy**: If LLM cannot find a suitable Enum value, it returns `OTHER` for `predicateCode` and provides a **codebook token** in `predicateSuggestion` when possible (e.g., `BATTLE` or `BATTLE|KoreanLabel`). This data is used for query-layer fallback (QA/ops) and future ontology expansion.
+  - If no codebook token fits, use `NEW|...` (or free text). These are stored as *candidates* for later review/codebook expansion (not blindly published to event-service to avoid data pollution).
 - **Frontend**: AI suggestions are rendered as "Clickable Tag Badges". Users can delete incorrect tags or manually search/add missing ones from the character DB.
 
 ### Fallback Mechanism (AI Unavailable)

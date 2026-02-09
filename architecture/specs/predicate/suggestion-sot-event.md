@@ -28,6 +28,8 @@ DB (nospoiler_event)
 
 DB (nospoiler_wiki)
 - 기존 유지: `nospoiler_wiki.wiki_submission.predicate_suggestion`
+- 추가(승격 후보 backlog): `nospoiler_wiki.wiki_predicate_suggestion_candidate`
+  - 목적: 코드북에 없는 suggestion을 “후보”로만 축적(운영 검토 후 코드북 확장)
 
 ---
 
@@ -35,7 +37,13 @@ DB (nospoiler_wiki)
 
 승인 시점 Snapshot
 - 위키 승인으로 event-service에 이벤트를 발행할 때:
-  - `predicate_code`가 `OTHER`인 경우에만 `predicate_suggestion`을 함께 전달한다.
+  - `predicate_code`가 `OTHER`인 경우에만 `predicate_suggestion`을 고려한다.
+  - 단, `predicate_suggestion`은 **코드북(codebook) 토큰**으로 정규화된 값만 event-service로 전달한다.
+    - 예: `BATTLE` 또는 `BATTLE|전투` (앞 토큰만 저장/활용)
+    - 코드북 기준: `common/src/main/java/com/nospoiler/common/PredicateSuggestionCode.java`
+  - 코드북에 없는 자유 텍스트(예: "KIDNAPS")는 event-service로 전달하지 않는다(데이터 오염 방지).
+    - 대신 “승격 후보”로 별도 후보 테이블에 적재해 backlog로 관리한다(운영 확장).
+    - 예: `NEW|...` 또는 invalid token → wiki 후보 테이블 저장
   - `predicate_code`가 `OTHER`가 아니면 `predicate_suggestion`은 NULL로 저장한다(정책 단순화).
 
 SoT 위치
@@ -96,4 +104,3 @@ P1 (운영 편집/집계)
 P2 (승격 프로세스 고정)
 - [ ] 승격 기준(빈도/검수) 문서화
 - [ ] 승격 시 작업: enum 추가, 프롬프트 업데이트, 과거 event/wik i 데이터 백필
-

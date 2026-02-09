@@ -52,7 +52,9 @@
 ### 할루시네이션(Hallucination) 방지 및 확장 전략
 
 - **백엔드**: LLM 응답에 대해 **JSON Schema**를 강제합니다. 정의되지 않은 서술어가 올 경우 `OTHER`를 기본값으로 사용합니다.
-- **Semantic OTHER 전략**: LLM이 적절한 Enum 값을 찾지 못한 경우, `predicateCode`는 `OTHER`로 반환하고 `predicateSuggestion` 필드에 원래 의도했던 서술어(예: "KIDNAPS")를 포함하여 전달합니다. 이는 향후 온톨로지 확장 데이터로 활용됩니다.
+- **Semantic OTHER 전략**: LLM이 적절한 Enum 값을 찾지 못한 경우, `predicateCode`는 `OTHER`로 반환하고 `predicateSuggestion`에는 **코드북 토큰**을 우선 포함하여 전달합니다(가능한 경우).
+  - 예: `BATTLE` 또는 `BATTLE|전투` (표시는 label까지 쓰되, 저장/정렬/그룹 fallback은 토큰 기준)
+  - 코드북에 맞는 토큰이 없으면 `NEW|...`(또는 자유 텍스트)로 남기고, 이는 “승격 후보”로만 축적하여 나중에 검토/코드북 확장에 활용합니다(무분별한 event-service publish로 데이터 오염 방지).
 - **프론트엔드**: AI 제안을 "클릭 가능한 태그 배지" 형태로 렌더링합니다. 사용자는 잘못된 태그를 삭제하거나 DB 검색을 통해 누락된 인물을 수동으로 추가할 수 있습니다.
 
 ### Fallback 매커니즘 (AI 호출 불가 시)

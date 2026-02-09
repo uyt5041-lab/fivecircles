@@ -59,6 +59,18 @@ Body: { "fromEventId": X, "toEventId": Y }
 15) PRECEDES suggestions (cross-episode only)
 GET /relations/precedes/suggestions?eventId={E}&safeUpToEpisode={K}&limit={N}
 
+15a) PRECEDES suggestions (bulk by drama, admin/ops)
+GET /relations/precedes/suggestions/all?dramaId={D}&safeUpToEpisode={K?}&limit={N}
+
+Response (both 15/15a)
+- Returns a list of suggestion rows.
+- Required fields (minimum): `fromEventId`, `toEventId`, `summary`, `episodeStart`, `episodeEnd`, `sharedCharacterCount`
+- Optional/enriched fields (admin UX / ranking signals; forward-compatible):
+  - `fromSummary`, `fromEpisodeStart`, `fromEpisodeEnd`
+  - `sharedCharacterIds`, `sharedCharacterNames`
+  - `sourceType`, `sourceId`, `fromSourceType`, `fromSourceId`
+  - `predicateCode`, `predicateSuggestion`, `fromPredicateCode`, `fromPredicateSuggestion`
+
 16) Related characters aggregate (single-call, derived)
 GET /characters/{characterId}/related-characters/aggregate?safeUpToEpisode={K}&mode={ADVERSARY|ALLY|COEVENTS}&minScore={S}&limit={N}&includeEvidenceEventIds={true|false}
 
