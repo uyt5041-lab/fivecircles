@@ -627,3 +627,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Server
 - bit-ts 배포: branch `feature/admin-event-edit`, commit `d361901` (refs: fivecircles/test/deploy-server.sh)
 - 스모크(서버 내부): `GET http://localhost:3000` 200, `GET http://localhost:8080/api/drama/v1/health` 200, `GET http://localhost:8080/api/event/v1/health` 200, aggregate 200 + `scoreRule` 확인
+
+## Addendum (2026-02-09) - PRECEDES suggestion 랭킹 강화(액션 가중치) + OTHER suggestion 노출
+### Backend
+- PRECEDES suggestions: predicate 기반 가중치로 정렬(액션/전환점 boost, OTHER 약한 패널티) (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventRelationService.java)
+- PRECEDES suggestion 응답에 from/to predicateCode(+predicateSuggestion) 및 sourceType/sourceId 포함 (refs: services/event-service/src/main/resources/mapper/event/EventMapper.xml, services/event-service/src/main/java/com/nospoiler/eventservice/dto/EventRelationSuggestionResponse.java)
+### Tests
+- PASS: `./gradlew :services:event-service:test`, `front npm run build`
+### Server
+- bit-ts 배포 후 `/api/event/v2/relations/precedes/suggestions/all` 200 + 확장 필드 확인, health 200 (Playwright `health_services.spec.js`)
