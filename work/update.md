@@ -636,3 +636,14 @@ This file summarizes recent updates so other agents can continue without re‑di
 - PASS: `./gradlew :services:event-service:test`, `front npm run build`
 ### Server
 - bit-ts 배포 후 `/api/event/v2/relations/precedes/suggestions/all` 200 + 확장 필드 확인, health 200 (Playwright `health_services.spec.js`)
+
+## Addendum (2026-02-09) - Predicate suggestion 코드북 + NEW 후보 등록(운영 확장용)
+### Common
+- predicateSuggestion 코드북 토큰 whitelist + `TOKEN|한국어` 파싱 유틸 추가 (refs: common/src/main/java/com/nospoiler/common/PredicateSuggestionCode.java)
+### Intelligence
+- OTHER일 때 `TOKEN|한국어` 형식으로 제안(코드북 우선), 코드북에 없으면 `NEW|...`로 후보 등록 유도 (refs: services/intelligence-service/src/main/resources/prompts/refine-fact.txt)
+### Wiki-service
+- publish 시 predicateSuggestion은 코드북 토큰만 event-service로 전달(그 외는 drop) (refs: services/wiki-service/src/main/java/com/nospoiler/wikiservice/service/WikiSubmissionService.java)
+- `NEW|...` 또는 invalid 토큰은 후보 테이블에 적재하여 코드북 확장 backlog로 관리 (refs: services/wiki-service/src/main/resources/db/migration/V7__add_predicate_suggestion_candidates.sql, services/wiki-service/src/main/resources/mapper/wiki/WikiSubmissionMapper.xml)
+### Tests / Safety
+- DB에 실제로 붙는 E2E 테스트는 기본 `test`에서 실행되지 않도록 게이트(`-DrunIntegrationTests=true`) 추가 (refs: services/wiki-service/src/test/java/com/nospoiler/wikiservice/service/WikiSubmissionServiceIntegrationTest.java)

@@ -220,10 +220,10 @@
 ### Confirmed (Frontend)
 - [FE-HIGH] `AdminPrecedesPage saveEdit()` 중복 요청(레이스) 가능: **Confirmed**.  
   - 현상: 저장 시 `status: 'SAVING'`으로 표시(spinner)하나, 저장 버튼이 disable되지 않아 더블클릭/연타 시 중복 호출 가능.  
-  - Refs: `front/features/admin/AdminPrecedesPage.tsx`
+  - Refs: `front/features/admin/precedes/PrecedesQueueTab.tsx`, `front/features/admin/precedes/useInlineEventSummaryEdit.ts`
 
 - [FE-HIGH] `as any` 타입 캐스팅: **Confirmed** (`row as any`, `(row as any).fromSourceType` 등).  
-  - Refs: `front/features/admin/AdminPrecedesPage.tsx`
+  - Refs: `front/features/admin/precedes/PrecedesQueueTab.tsx` (리팩터 이후 위치)
 
 ### Confirmed (Team A / Out Of Scope For This Branch)
 - [FE-CRITICAL] OAuth2 토큰이 URL query로 전달됨: **Confirmed** (`/oauth2/redirect?accessToken=...`).  
@@ -238,6 +238,14 @@
 ### Remaining Test Gaps (Still True)
 - updateEvent event-not-found 케이스 테스트 미커버
 - createEvent REVEALS 저장 테스트 미커버
+
+### Fixes Applied After Review (2026-02-09)
+- [FE-HIGH] saveEdit() 중복 요청 방지: `savingEventIdsRef`로 더블클릭/연타를 차단 + 저장/취소 버튼 disable 처리.  
+  - Refs: `front/features/admin/precedes/useInlineEventSummaryEdit.ts`, `front/features/admin/precedes/PrecedesQueueTab.tsx`
+- [FE-HIGH] `as any` 제거: `SuggestionRow` 타입에 `editTarget` 등 필드 포함, `rowAny` 캐스팅 제거.  
+  - Refs: `front/features/admin/precedes/precedesTypes.ts`, `front/features/admin/precedes/PrecedesQueueTab.tsx`
+- [TEST-SAFETY] DB를 건드리는 E2E 테스트 기본 실행 방지: `WikiSubmissionServiceIntegrationTest`는 `-DrunIntegrationTests=true`일 때만 실행되도록 게이트 추가(서버 DB/실데이터 보호 목적).  
+  - Refs: `services/wiki-service/src/test/java/com/nospoiler/wikiservice/service/WikiSubmissionServiceIntegrationTest.java`
 - aggregate 엔드포인트 단위/통합 테스트 미커버
 
 ---
