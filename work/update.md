@@ -647,6 +647,9 @@ This file summarizes recent updates so other agents can continue without re‑di
 - `NEW|...` 또는 invalid 토큰은 후보 테이블에 적재하여 코드북 확장 backlog로 관리 (refs: services/wiki-service/src/main/resources/db/migration/V7__add_predicate_suggestion_candidates.sql, services/wiki-service/src/main/resources/mapper/wiki/WikiSubmissionMapper.xml)
 ### Docs
 - predicate suggestion 후보 레지스트리 설계 정리: event를 단일 소스로 두고(hit count upsert), wiki는 필요 시 pre-approval 관측용으로만 사용(옵션) (refs: fivecircles/architecture/specs/predicate/README.md, fivecircles/architecture/specs/predicate/suggestion-sot-event.md, fivecircles/architecture/specs/predicate/promotion-process.md)
+### Data (bit-ts)
+- dramaId=10 백필(데이터 보강): APPROVED + `predicate_code=OTHER` 이벤트 중 `predicate_suggestion`이 비어있는 71건에 대해, WIKI submission의 `predicate_suggestion`을 `NEW|...`로 event에 채움 (PRECEDES suggestion 화면에서 OTHER 컨텍스트 노출 개선). (refs: scripts/ops/backfill_predicate_suggestion_drama10.sql)
+- 운영/런타임에서 raw predicateSuggestion을 event-service로 전달하는 변경은 팀 협의사항으로 보류.
 ### Tests / Safety
 - DB에 실제로 붙는 E2E 테스트는 기본 `test`에서 실행되지 않도록 게이트(`-DrunIntegrationTests=true`) 추가 (refs: services/wiki-service/src/test/java/com/nospoiler/wikiservice/service/WikiSubmissionServiceIntegrationTest.java)
 ### Server
