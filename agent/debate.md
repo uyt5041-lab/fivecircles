@@ -106,3 +106,22 @@
 ## Policy To Decide Before Fix
 - `updateEvent`의 업데이트 semantics(= null 의미)를 PATCH-like vs PUT-like 중 하나로 고정하고 FE/BE 계약을 맞춘다.
 - `event_reveal` 대표 1건만 노출한다면, "대표 reveal 선택 규칙"을 정렬 기준으로 문서화한다.
+
+---
+
+# [Review] Production Q Templates (MVP Plan)
+> Reviewer: codex-ops | Date: 2026-02-09
+
+## Findings
+- [OK] “Production 질문은 템플릿(Deterministic), 자유 질문은 Intelligence QuerySpec” 분리는 운영 안정성 관점에서 타당하다.
+- [OK] 템플릿에서 텍스트 오브젝트는 `api3.q`로 근사하는 것이 현재 데이터/스키마에서 가장 현실적이다.
+- [Risk] 템플릿을 범용으로 만들려면 characterId 하드코딩을 피해야 한다(환경/시드에 따라 id 변동 가능).
+  - 권장: 템플릿은 `CharacterRef(name+aliases)`로만 정의하고, 실행 시 드라마 캐릭터 목록에서 resolve.
+- [Hole] 현재 `api3` 구현은 REVEALS 파트너 캐릭터의 이벤트를 합치는 로직이 있어 “subject 캐릭터 단독 타임라인”이 아닐 수 있다.
+  - 이 상태로 “EARLIEST + limit=1” 템플릿을 돌리면 partner 이벤트로 오염될 수 있다.
+  - 대응: (1) FE에서 subject 포함 여부 재필터(api5)로 보수적 보정, 또는 (2) BE에 `includeRevealPartner=false` 파라미터 추가(기본값 유지).
+- [Gap] `coevents`에 limit가 없어서 큰 드라마에서 호출 비용이 커질 수 있다(템플릿/QuerySpec executor로 공용화하면 더 중요).
+
+## Decision
+- [Status]: Changes Requested
+- [Comment]: 템플릿 MVP를 진행하되, `api3` partner merge로 인해 “first” 질문이 깨지는지 먼저 확인하고(브베 Q1/Q2), 깨진다면 위 대응 중 하나를 필수로 포함.

@@ -122,3 +122,48 @@ QuerySpec 최소 스키마(초안)
 - 템플릿 Q2 같은 “키워드 기반”은 동의어 세트/정규화 규칙이 필요(데이터 보강 포함).
 - QuerySpec 로깅/샘플링으로 “자주 실패하는 질문”을 수집해 템플릿/그룹 후보로 승격.
 
+---
+
+## FE MVP Implementation Plan (Concrete)
+
+목표
+- dramaId=10(브베)에서 Q1/Q2/Q3를 “프리셋 버튼”으로 실행 가능하게 한다.
+- 백엔드 추가 변경 없이 진행하되, 정확도를 깨는 **Known Risk**가 확인되면 (아래) BE 옵션을 켠다.
+
+대상 파일(예시)
+- `front/features/qa/QaPage.tsx`: Production Q 섹션 UI 추가(드롭다운 + 실행 버튼 + 결과 패널)
+- `front/common/productionQ/templates.ts`: `ProductionQuestionTemplate` 타입 + 템플릿 레지스트리
+- `front/common/productionQ/executor.ts`: ops 실행기(api3/api4/api7/api8 호출 + pick 로직)
+- `front/common/productionQ/characterResolver.ts`: `CharacterRef(name/aliases)` -> id 해석(드라마 캐릭터 리스트 기반)
+
+설계 원칙
+- 템플릿은 **ID를 하드코딩하지 않고** `CharacterRef{name, aliases[]}`로 정의한다.
+  - 이유: 동일 드라마라도 환경(DB seed)에 따라 characterId가 달라질 수 있음.
+- 텍스트 오브젝트는 `qAnyOf: string[]`로 정의하고, executor가 여러 번 호출해 합쳐서 earliest를 고른다.
+  - 이유: 서버는 `q` 1개만 지원(단일 LIKE). 동의어는 executor가 OR로 처리.
+- 결과는 최소 형태로:
+  - `primaryEvent` 1개(earliest)
+  - `explanations[]` (옵션: causes depth=1)
+  - `debug.executedOps[]` (운영/디버그)
+
+템플릿 초안(브베)
+- Q1: subject=월터, predicate=KILLS, pick=EARLIEST, explain=causes depth=1 (옵션)
+- Q2: subject=월터, qAnyOf=["암페타민","메스","meth","cook"], pick=EARLIEST
+- Q3: coevents(월터, 투코), pick=EARLIEST (강화: predicate=MEETS가 있으면 우선)
+
+수동 QA(최소)
+1. 로컬에서 FE `/qa` 진입, 드라마=브베 선택 후 Production Q 실행.
+2. 네트워크 탭에서 호출 확인:
+   - Q1: `/characters/{id}/events?...predicateCode=KILLS`
+   - Q2: `/characters/{id}/events?...q=암페타민` (여러 키워드면 여러 호출)
+   - Q3: `/characters/{a}/coevents?with={b}`
+3. 결과 카드에 `eventId/episodeStart~End/summary` 표시 확인.
+
+Known Risk (Hole)
+- 현재 `api3`(getEventsByCharacter)는 REVEALS 파트너 캐릭터의 이벤트를 합치는 로직이 있어,
+  "subject=월터" 조회 결과가 **월터 단독 타임라인이 아닐 수 있음**.
+  - 영향: "첫 살인" 같은 “first” 템플릿이 partner 이벤트로 오염될 수 있음.
+  - 대응(우선순위 순):
+    1) (FE-only) `strictSubject=true` 옵션을 두고, candidate 상위 N개 이벤트에 대해 `api5(event characters)`로 subject 포함 여부를 필터(호출 비용 증가).
+    2) (BE) `includeRevealPartner=false` 같은 파라미터를 api3에 추가해 partner merge를 끄는 모드 제공(기본값은 기존 동작 유지).
+
