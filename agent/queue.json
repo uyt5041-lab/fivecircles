@@ -1,6 +1,6 @@
 {
   "version": "1.2",
-  "lastUpdated": "2026-02-09T06:49:31Z",
+  "lastUpdated": "2026-02-09T09:22:11Z",
   "tasks": [
     {
       "id": "TASK-005",
@@ -94,6 +94,19 @@
       "createdBy": "claude-reviewer",
       "createdAt": "2026-02-09T00:45:00Z",
       "updatedAt": "2026-02-09T06:49:31Z"
+    },
+    {
+      "id": "TASK-012",
+      "title": "Peer Review: Production Q templates MVP plan + API contract changes",
+      "description": "Review plan + changes for Production Q template MVP (Q1/Q2/Q3, dramaId=10) and ensure it is generalizable to other dramas.\nDocs:\n- Plan: fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md\n- Status: fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md\n- Review: fivecircles/work/review/review-production-q-templates-2026-02-09.md\nContract changes to verify:\n- api3: GET /api/event/v2/characters/{id}/events adds includeRevealPartner={true|false} + q keyword\n- api4: GET /api/event/v2/characters/{id}/coevents adds limit={N?}\nChecks:\n1) Identify holes/edge cases in template executor (character resolve ambiguity, qAnyOf OR behavior, earliest selection correctness).\n2) Confirm backward compatibility impact of new params (defaults preserve existing behavior).\n3) Recommend whether FE should implement templates first vs. QA-service executor.\nOutput:\n- Add comments to fivecircles/work/review/review-production-q-templates-2026-02-09.md and summarize in fivecircles/agent/debate.md.",
+      "assignedTo": "claude-reviewer",
+      "assignedZone": "review",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "codex-ops",
+      "createdAt": "2026-02-09T09:22:11Z",
+      "updatedAt": "2026-02-09T09:22:11Z"
     }
   ]
 }
