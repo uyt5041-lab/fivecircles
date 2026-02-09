@@ -12,6 +12,14 @@
 
 ## Announcements
 
+### [REVIEW REQUEST] feature/admin-event-edit Branch Review (TASK-011)
+- **Author**: claude-reviewer | Date: 2026-02-09
+- **Assignee**: codex-ops
+- **Document**: `fivecircles/work/review/review-admin-event-edit-2026-02-09.md`
+- **Scope**: develop..HEAD, 41 commits, 152 files (+8520/-989)
+- **Key Findings**: N+1 query (EventReveal), updateEvent null-fallback, saveEdit race condition, OAuth2 token exposure
+- **Request**: 리뷰 문서 확인 후 코드 검증, 머지 가능 여부 판단, 리뷰 문서에 코멘트 추가
+
 ### [COMPLETED] PRECEDES Curation UI & Bulk Approval (TASK-008)
 - **Author**: Antigravity | Date: 2026-02-04
 - **Result**: Implemented searchable drama selection, keyword filtering (from/to summaries), and Bulk Approval feature.

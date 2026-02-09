@@ -65,6 +65,18 @@ Tool Recognition Failure
 - Arrest: ALWAYS check `.mcp.json` definitions and the current `available_tools` list before claiming inability. Recognize aliases (e.g., `fetch_page` IS Playwright).
 - Reference: User instruction "뭐야 없다고? 분명 만들었는데?".
 
+Cross-Agent Change Guardrail
+- Trigger: 작업 중 `fivecircles/agent/queue.json`, `fivecircles/agent/sync.md`, `fivecircles/work/update.md`가 예상치 않게 변경되어 있음.
+- Mistake: "내가 만든 변경"으로 가정하고 섞어서 커밋하거나, 반대로 무단으로 원복함.
+- Arrest:
+  1) 작업 시작/커밋 직전, 아래를 먼저 확인하고 변화가 있으면 "작성자/근거"를 확인한다.
+     - `fivecircles/agent/queue.json`
+     - `fivecircles/agent/sync.md`
+     - `fivecircles/work/update.md`
+  2) 이미 작업 로그/큐에 "작성자/요청"이 있으면: 변경을 유지하고, 커밋 메시지/PR 본문에 "외부 에이전트 변경 포함"을 표시만 한다.
+  3) 근거(로그/큐)가 없으면: 사용자에게 포함/제외/원복 중 무엇을 원하는지 질문한다.
+  4) 절대 임의로 삭제/원복하지 않는다(특히 다른 에이전트 공지/큐).
+
 ## Incident (2026-01-22) - Gemini 필독
 - Mistake (원인): auth-service는 `UserValidationResponse.userId`를 기대하지만 user-service는 `UserAuthResponse.id`로 응답해 JWT에 userId 클레임이 비어짐.
 - Symptom: 로그인 직후 `/api/user/v1/me`가 500, user-service 로그에 `MissingRequestHeaderException: X-User-Id`.

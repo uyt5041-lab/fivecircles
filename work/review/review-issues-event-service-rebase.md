@@ -1,5 +1,8 @@
 # Event-service Rebase Review: 이슈와 수정 플랜
 
+> Author: codex reviewer
+> Date: 2026-02-09
+
 ## 범위/전제
 - 기준 브랜치: `origin/develop`
 - 리뷰 대상: `feature/admin-event-edit` 리베이스 후 event-service 변경분
@@ -118,4 +121,3 @@
 - `api-gateway(8080)`를 통해 스모크
   - aggregate 엔드포인트 200/400 응답 확인
   - character events에서 partner merge가 안정적으로 동작하는지 확인
-

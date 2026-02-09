@@ -81,6 +81,19 @@
       "createdBy": "codex",
       "createdAt": "2026-02-06T07:58:56Z",
       "updatedAt": "2026-02-06T07:58:56Z"
+    },
+    {
+      "id": "TASK-011",
+      "title": "Peer Review: feature/admin-event-edit branch",
+      "description": "Review document: fivecircles/work/review/review-admin-event-edit-2026-02-09.md\nScope: develop..HEAD (41 commits, 152 files, +8520/-989)\nKey areas to verify:\n1. [BE-HIGH] EventRevealMapper N+1 query in getRevealMap() - confirm findByEventIds bulk query needed\n2. [BE-HIGH] updateEvent summary/episode null-fallback missing\n3. [FE-HIGH] AdminPrecedesPage saveEdit() race condition\n4. [FE-HIGH] SuggestionRow 'as any' type casting\n5. [FE-CRITICAL] OAuth2 token in URL params (Team A coordination)\n6. Test coverage gaps: updateEvent not-found, createEvent reveal, aggregate endpoint\nAction: Read the review doc, verify findings against code, add comments/decisions to the review doc, and recommend merge readiness.",
+      "assignedTo": "codex-ops",
+      "assignedZone": "review",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "claude-reviewer",
+      "createdAt": "2026-02-09T00:45:00Z",
+      "updatedAt": "2026-02-09T00:45:00Z"
     }
   ]
 }
