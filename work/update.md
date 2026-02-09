@@ -645,6 +645,8 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Wiki-service
 - publish 시 predicateSuggestion은 코드북 토큰만 event-service로 전달(그 외는 drop) (refs: services/wiki-service/src/main/java/com/nospoiler/wikiservice/service/WikiSubmissionService.java)
 - `NEW|...` 또는 invalid 토큰은 후보 테이블에 적재하여 코드북 확장 backlog로 관리 (refs: services/wiki-service/src/main/resources/db/migration/V7__add_predicate_suggestion_candidates.sql, services/wiki-service/src/main/resources/mapper/wiki/WikiSubmissionMapper.xml)
+### Docs
+- predicate suggestion 후보 레지스트리 설계 정리: event를 단일 소스로 두고(hit count upsert), wiki는 필요 시 pre-approval 관측용으로만 사용(옵션) (refs: fivecircles/architecture/specs/predicate/README.md, fivecircles/architecture/specs/predicate/suggestion-sot-event.md, fivecircles/architecture/specs/predicate/promotion-process.md)
 ### Tests / Safety
 - DB에 실제로 붙는 E2E 테스트는 기본 `test`에서 실행되지 않도록 게이트(`-DrunIntegrationTests=true`) 추가 (refs: services/wiki-service/src/test/java/com/nospoiler/wikiservice/service/WikiSubmissionServiceIntegrationTest.java)
 ### Server

@@ -28,8 +28,19 @@ DB (nospoiler_event)
 
 DB (nospoiler_wiki)
 - 기존 유지: `nospoiler_wiki.wiki_submission.predicate_suggestion`
-- 추가(승격 후보 backlog): `nospoiler_wiki.wiki_predicate_suggestion_candidate`
-  - 목적: 코드북에 없는 suggestion을 “후보”로만 축적(운영 검토 후 코드북 확장)
+- (옵션) Pre-approval 관측용(LLM/가이드 튜닝): wiki 레벨의 후보 레지스트리
+  - 목적: PENDING/REJECTED까지 포함해 “어떤 NEW가 많이 나오는지”를 관측
+  - 주의: 노이즈가 크므로 승격 기준으로 직접 쓰지 않는다(승격은 event 기준)
+
+DB (권장, 단일 소스): 후보 레지스트리 (nospoiler_event)
+- 테이블(제안): `nospoiler_event.event_predicate_suggestion_candidate`
+- 목적: “새로운 코드가 반복해서 쌓이는지”를 정량(hit count)으로 관측해 승격 후보를 제안한다.
+- 원칙: 중복 row를 무한히 쌓지 말고, `(drama_id, suggestion_key)` 1행에 `hit_count++`로 누적(upsert).
+  - 승인 이벤트 + 운영 수정/생성 + 백필이 한 카운트로 합쳐진다.
+
+Implementation note
+- 초기 프로토타입에서는 wiki DB에 후보 테이블을 먼저 붙일 수 있다(개발/관측 편의).
+- 다만 “승격 후보”의 단일 소스는 event(승인 이벤트)로 수렴시키는 것을 목표로 한다.
 
 ---
 
@@ -42,8 +53,8 @@ DB (nospoiler_wiki)
     - 예: `BATTLE` 또는 `BATTLE|전투` (앞 토큰만 저장/활용)
     - 코드북 기준: `common/src/main/java/com/nospoiler/common/PredicateSuggestionCode.java`
   - 코드북에 없는 자유 텍스트(예: "KIDNAPS")는 event-service로 전달하지 않는다(데이터 오염 방지).
-    - 대신 “승격 후보”로 별도 후보 테이블에 적재해 backlog로 관리한다(운영 확장).
-    - 예: `NEW|...` 또는 invalid token → wiki 후보 테이블 저장
+    - 대신 “승격 후보”로 **후보 레지스트리(hit count)** 에 적재해 backlog로 관리한다(운영 확장).
+    - 예: `NEW|...` 또는 invalid token → (권장) event 후보 레지스트리 hit_count++ / (옵션) wiki 관측 레지스트리 hit_count++
   - `predicate_code`가 `OTHER`가 아니면 `predicate_suggestion`은 NULL로 저장한다(정책 단순화).
 
 SoT 위치

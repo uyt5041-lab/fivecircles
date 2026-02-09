@@ -21,15 +21,17 @@ Write 정책(권장)
 - `predicate_code == OTHER`이면 `predicate_suggestion`을 저장한다.
 
 축적 쿼리(운영/분석)
-- 후보 추출 기준: `predicate_code='OTHER' AND predicate_suggestion IS NOT NULL`
+- 후보 추출 기준(권장): 후보 레지스트리 테이블에서 `hit_count` 상위 N을 조회한다.
+  - 레지스트리 키: `(drama_id, suggestion_key)` (정규화된 키)
+  - 이유: free-text를 그대로 group by 하면 drift(표기 흔들림) 때문에 집계 품질이 빠르게 무너진다.
 
 ---
 
 ## 2) 후보 선정(집계)
 
 Candidate list (per drama)
-- group by `UPPER(TRIM(predicate_suggestion))`
-- count desc
+- group by `suggestion_key` (정규화된 키)
+- order by `hit_count` desc, `last_seen_at` desc
 
 필수 메타(운영 문서로 남길 것)
 - 후보 키워드

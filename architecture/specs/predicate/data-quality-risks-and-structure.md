@@ -20,10 +20,12 @@
 - 그룹 fallback이 텍스트에 직접 의존하면 시간이 갈수록 정확도가 떨어진다.
 
 권장 방어
-- raw 텍스트 외에, 집계/그룹 용으로는 다음 중 하나를 추가한다.
-  - 정규화 키(예: upper+trim+alias map)
-  - 사전 ID(예: suggestion_code_id)
-- 그룹 fallback은 “정규화된 값”만 사용한다.
+- raw 텍스트를 그대로 group by 하지 말고, 집계/그룹 용으로는 “정규화된 키”를 별도로 유지한다.
+  - 권장: 후보 레지스트리 테이블에 `(drama_id, suggestion_key)` 단위로 `hit_count`를 누적(upsert).
+  - `suggestion_key` 예시
+    - `TOKEN|한국어` 형태면 `TOKEN` + `label`로 분리 저장하고, group fallback은 토큰만 사용.
+    - NEW/free-text면 upper+trim(+ alias map) 같은 정규화 키를 사용.
+- 그룹 fallback은 “정규화된 값(토큰/키)”만 사용한다.
 
 ### R2. Direction 부족(누가 가해자인가)
 문제
