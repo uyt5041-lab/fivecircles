@@ -619,3 +619,11 @@ This file summarizes recent updates so other agents can continue without re‑di
 - PASS: `./gradlew :services:event-service:test` (refs: services/event-service/src/test/java/com/nospoiler/eventservice/service)
 ### Server
 - bit-ts 배포 + gateway curl 스모크 200 OK (drama events/character events/aggregate) (refs: fivecircles/test/deploy-server.sh, fivecircles/architecture/specs/test-server-policy-4C.md)
+
+## Addendum (2026-02-09) - Admin PRECEDES 리팩터 + bit-ts 배포 스모크
+### Frontend
+- PRECEDES Admin 페이지 탭 분리 + 훅 분리로 상태/전이 복잡도 축소 (refs: front/features/admin/AdminPrecedesPage.tsx, front/features/admin/precedes/PrecedesQueueTab.tsx, front/features/admin/precedes/PrecedesManualTab.tsx, front/features/admin/precedes/usePrecedesRows.ts, front/features/admin/precedes/useInlineEventSummaryEdit.ts)
+- apiClient: query param에 boolean 허용 (refs: front/common/services/apiClient.ts)
+### Server
+- bit-ts 배포: branch `feature/admin-event-edit`, commit `d361901` (refs: fivecircles/test/deploy-server.sh)
+- 스모크(서버 내부): `GET http://localhost:3000` 200, `GET http://localhost:8080/api/drama/v1/health` 200, `GET http://localhost:8080/api/event/v1/health` 200, aggregate 200 + `scoreRule` 확인
