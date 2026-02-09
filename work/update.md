@@ -664,3 +664,17 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Server
 - bit-ts 배포: branch `feature/admin-event-edit`, commit `09db73c` (refs: fivecircles/test/deploy-server.sh)
 - curl 스모크 200 OK: `GET http://localhost:3000`, `GET http://localhost:8080/api/event/v1/health`, aggregate, precedes suggestions (gateway)
+
+## Addendum (2026-02-10) - Production Q 템플릿(Q1~Q3) 실행기 + Event V2 파라미터 배포
+### Frontend
+- QA: Production Q Templates(MVP) 섹션 추가(Q1~Q3) (refs: front/features/qa/QaPage.tsx, front/features/qa/components/ProductionQSection.tsx, front/common/productionQ)
+### Backend
+- Event V2(api3): `q`, `includeRevealPartner` 지원 + summary/predicate_suggestion 키워드 검색 (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java, services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+- Event V2(api4): `limit` 지원 + server-side cap(max 200) (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java)
+### Docs
+- api-contract: V2 api3/api4 파라미터 반영 (refs: fivecircles/architecture/specs/api-contract.md)
+### Server
+- bit-ts 배포: branch `feature/admin-event-edit`, commit `ce23a0d` (`docker compose up -d --build event-service frontend`)
+- 스모크(서버 내부) 200 OK:
+  - `GET http://localhost:3000`
+  - `GET http://localhost:8080/api/event/v2/characters/17/events?safeUpToEpisode=5&predicateCode=KILLS&includeRevealPartner=false&limit=1`
