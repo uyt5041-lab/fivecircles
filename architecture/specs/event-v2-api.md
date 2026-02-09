@@ -12,7 +12,7 @@ Common Rule
 
 Level 1 (Direct joins)
 1) Character events timeline
-GET /characters/{characterId}/events?safeUpToEpisode={K}&limit={N}
+GET /characters/{characterId}/events?safeUpToEpisode={K}&q={KEYWORD?}&limit={N}
 
 2) Event characters
 GET /events/{eventId}/characters?safeUpToEpisode={K}
@@ -31,7 +31,7 @@ Level 2 (Range + predicate filters)
 GET /dramas/{dramaId}/events?fromEpisode={A}&toEpisode={B}&safeUpToEpisode={K}
 
 7) Character events filtered by predicate
-GET /characters/{characterId}/events?predicateCode={CODE}&safeUpToEpisode={K}
+GET /characters/{characterId}/events?predicateCode={CODE}&safeUpToEpisode={K}&q={KEYWORD?}
 
 8) Top-N characters by involvement
 GET /dramas/{dramaId}/characters?safeUpToEpisode={K}&sort=involvement&limit={N}
