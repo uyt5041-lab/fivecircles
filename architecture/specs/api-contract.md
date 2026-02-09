@@ -192,6 +192,29 @@ Note
 - This section documents "query" endpoints used by QA/FE widgets (Level 1-3).
 - Spoiler gate: `safeUpToEpisode=K` is applied on all query endpoints.
 
+### GET /characters/{characterId}/events
+
+- **Description**: Character events timeline (optional keyword/predicate filters).
+- **URL Params**:
+  - `safeUpToEpisode` (optional but recommended): spoiler gate K
+  - `predicateCode` (optional): filter by `event.predicate_code`
+  - `q` (optional): keyword filter (matches `summary` OR `predicate_suggestion`)
+  - `includeRevealPartner` (optional, default `true`)
+    - when `true`, timeline may include REVEALS "partner" events (for explanations)
+    - templates that need a clean "first/earliest" should pass `false`
+  - `limit` (optional)
+- **Response**: `ApiResponse<List<EventResponseDTO>>`
+
+### GET /characters/{characterId}/coevents
+
+- **Description**: Co-appearance events where `characterId` and `with` appear together.
+- **URL Params**:
+  - `with` (required): other character ID
+  - `safeUpToEpisode` (optional but recommended): spoiler gate K
+  - `limit` (optional)
+    - server-side cap: max 200
+- **Response**: `ApiResponse<List<EventResponseDTO>>`
+
 ### GET /characters/{characterId}/related-characters
 
 - **Description**: Related characters via co-appearance graph.
