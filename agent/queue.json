@@ -102,11 +102,11 @@
       "assignedTo": "claude-reviewer",
       "assignedZone": "review",
       "priority": "high",
-      "status": "pending",
+      "status": "completed",
       "dependencies": [],
       "createdBy": "codex-ops",
       "createdAt": "2026-02-09T09:22:11Z",
-      "updatedAt": "2026-02-09T09:22:11Z"
+      "updatedAt": "2026-02-09T12:00:00Z"
     }
   ]
 }

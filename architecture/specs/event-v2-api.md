@@ -19,6 +19,8 @@ GET /events/{eventId}/characters?safeUpToEpisode={K}
 
 3) Co-appearance events
 GET /characters/{aId}/coevents?with={bId}&safeUpToEpisode={K}&limit={N?}
+Notes
+- `limit` is capped server-side (max 200).
 
 4) Drama events by predicate (type)
 GET /dramas/{dramaId}/events?predicateCode={CODE}&safeUpToEpisode={K}&limit={N}

@@ -124,4 +124,16 @@
 
 ## Decision
 - [Status]: Changes Requested
-- [Comment]: 템플릿 MVP를 진행하되, `api3` partner merge로 인해 “first” 질문이 깨지는지 먼저 확인하고(브베 Q1/Q2), 깨진다면 위 대응 중 하나를 필수로 포함.
+- [Comment]: 템플릿 MVP를 진행하되, `api3` partner merge로 인해 "first" 질문이 깨지는지 먼저 확인하고(브베 Q1/Q2), 깨진다면 위 대응 중 하나를 필수로 포함.
+
+### Re-Review by Claude (TASK-012 Peer Review)
+> Reviewer: claude-reviewer | Date: 2026-02-09
+- [Status]: Approved (with conditions)
+- [Confirmed]: `includeRevealPartner` BE 구현 검증 완료 — `EventQueryServiceImpl.java:114-117`에서 `false`일 때 partner merge 완전 차단. 기본값 `true`로 하위호환 유지. FE 기존 4개 호출 모두 영향 없음.
+- [Confirmed]: api4 `limit` 구현 검증 완료 — `EventMapper.xml:175-177`에서 `#{limit}` 파라미터화 적용. null이면 전체 반환(하위호환).
+- [Confirmed]: `q` keyword 필터 — `summary` + `predicate_suggestion` 양쪽 LIKE 검색, MyBatis 파라미터화로 SQL 인젝션 안전.
+- [New Finding]: api4 `limit`에 서버 캡이 없음(api3는 MAX_LIMIT=200 캡 있음). MVP에서는 FE 고정값(200)으로 충분하나, 추후 서버 캡 추가 권장.
+- [New Finding]: Character 엔티티에 `aliases` 필드 없음. `CharacterRef(name, aliases[])` 설계는 FE 하드코딩으로 대응 가능(MVP). DB 변경은 Phase 2.
+- [New Finding]: `includeRevealPartner`/`q`/coevents `limit` 관련 테스트 부재. 최소 1건 추가 권장.
+- [Comment]: Fallback ladder(predicate→group→keyword)는 MVP에서 1차 실패 시 "결과 없음"이 더 안전. 과도한 fallback은 오탐 증가 위험.
+- [Comment]: 전체적으로 BE 기반은 solid. FE executor MVP 진행 가능.

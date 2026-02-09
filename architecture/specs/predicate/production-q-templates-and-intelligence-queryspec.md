@@ -143,6 +143,7 @@ QuerySpec 최소 스키마(초안)
 설계 원칙
 - 템플릿은 **ID를 하드코딩하지 않고** `CharacterRef{name, aliases[]}`로 정의한다.
   - 이유: 동일 드라마라도 환경(DB seed)에 따라 characterId가 달라질 수 있음.
+  - 주의: 현재 character-service 스키마에는 `aliases` 필드가 없으므로, aliases는 "템플릿 데이터(하드코딩)"로만 유지한다(MVP).
 - 텍스트 오브젝트는 `qAnyOf: string[]`로 정의하고, executor가 여러 번 호출해 합쳐서 earliest를 고른다.
   - 이유: 서버는 `q` 1개만 지원(단일 LIKE). 동의어는 executor가 OR로 처리.
 - 결과는 최소 형태로:
