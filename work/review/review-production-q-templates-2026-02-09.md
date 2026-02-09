@@ -35,12 +35,37 @@
 - `qAnyOf[]`로 동의어를 여러 번 호출해 OR를 흉내내고, 결과를 합쳐 earliest 1개 선택.
 - 실패 케이스는 “데이터 보강” 또는 “템플릿 키워드 세트 확장”로 해결(운영 레벨).
 
+---
+
+## Follow-up Review (After Defect Fixes)
+- api3 `includeRevealPartner` / api4 `limit`은 구현 반영 완료(템플릿에서 사용 가능).
+- 아래는 템플릿 실행기(프론트 구현)에서 남아있는 설계 구멍이다.
+
+### 5) `qAnyOf[]` OR 다중 호출의 중복 제거 미정의 (MEDIUM)
+- 같은 이벤트가 여러 키워드에 매칭될 수 있음.
+- executor union 시 `Set<eventId>`로 중복 제거 후 `episodeStart ASC, id ASC`로 earliest를 고르는 규칙을 고정해야 함.
+
+### 6) characterResolver 모호성 처리 (MEDIUM)
+- MVP 목표가 “프리셋 버튼 1개로 실행”이면, 모호성 UI는 Phase 2로 미루는 게 일관적.
+- MVP 권장: exact match only(name 또는 aliases의 정확 일치)로 제한하고, 모호하면 실패 메시지 + 템플릿 실행 중단.
+
+### 7) Q3 "처음 만남" 정확도 한계 (LOW-MEDIUM)
+- `MEETS` 데이터가 없으면 earliest coevent는 “첫 만남”을 보장하지 않음.
+- Known risk로 문서화하고, 데이터 보강/승격은 후순위.
+
+### 8) Intelligence QuerySpec 스키마 확정 시점 (LOW)
+- Phase 1(템플릿 MVP) 결과를 보고 Phase 3(QuerySpec) 스키마를 확정하는 게 안전함.
+
+### 9) Claude review 요청 상태
+- `fivecircles/agent/queue.json`에 `TASK-012`로 review 요청을 등록함(대기).
+
 ## Decision
-- REQUEST_CHANGES (플랜 자체는 타당, 단 HIGH 결함(api3 contamination) 대응이 반드시 포함돼야 함)
+- **APPROVE WITH NOTES** (BE 결함 수정 반영 완료. FE executor 구현 시 MEDIUM(5,6) 체크 필수)
 
 ## Next Actions (Implementation)
-1. BE: api3에 `includeRevealPartner` 파라미터 추가(기본 true) + false면 partner merge 비활성
-2. BE: api4(coevents)에 `limit` 추가(기본 null)
-3. Docs: event-v2-api/frontend.md 계약 반영
-4. FE: Production Q 템플릿 MVP 실행기 구현(Q1/Q2/Q3) 시 위 파라미터 사용
-
+| # | Action | Owner | Priority |
+|---|--------|-------|----------|
+| 1 | FE: `productionQ/executor.ts` 구현 (qAnyOf 중복 제거 + Promise.all 병렬) | antigravity | HIGH |
+| 2 | FE: `productionQ/characterResolver.ts` (exact match only, MVP) | antigravity | HIGH |
+| 3 | FE: `productionQ/templates.ts` (Q1/Q2/Q3 브베 템플릿 데이터) | antigravity | HIGH |
+| 4 | FE: QaPage에 Production Q 섹션 UI 추가 | antigravity | HIGH |

@@ -38,3 +38,12 @@ Rule B: fallback은 그룹에서만
 Rule C: 승격과 분리
 - group은 "질문 의미"를 표현하는 단위이고, enum 승격은 "데이터 품질/검색 정확도"를 올리는 작업이다.
 - group 자체는 유지하면서 내부 predicate 세트를 조정해도 된다.
+
+Rule D: 템플릿/라우터의 fallback ladder (권장)
+- Production Q 템플릿이나 QA 라우터처럼 "질문 레이어"에서 정답을 찾을 때는, 아래 순서로 fallback을 두는 것이 실무적으로 필요하다.
+  - 1차(정확): `PredicateCode` 기반 조회 (폐쇄집합, 안정)
+  - 2차(보정): `PredicateGroup` 기반 union/집계 + `predicate_suggestion` fallback(그룹에서만)
+  - 3차(근사): 키워드 `q` 검색 (summary/predicate_suggestion LIKE). 텍스트 오브젝트가 있는 질문에서만 사용.
+- 주의
+  - `predicateCode=OTHER`를 user-facing 필터로 쓰는 fallback은 금지한다(정답 검색 품질 악화).
+  - 3차(q)는 오탐 가능성이 높으므로, 템플릿은 `qAnyOf[]` 동의어 세트를 최소로 유지하고 "first" 질문은 보수적으로 적용한다.

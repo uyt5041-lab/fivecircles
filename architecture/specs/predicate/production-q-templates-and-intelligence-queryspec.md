@@ -10,6 +10,10 @@
 전제(현재 구현 상태)
 - `api3`(character events)에 `q` 키워드 필터가 추가되어 `summary`/`predicate_suggestion` 검색이 가능하다.
   - `GET /api/event/v2/characters/{characterId}/events?safeUpToEpisode=K&q=...&predicateCode=...&limit=N`
+- `api3`는 `includeRevealPartner` 파라미터로 “subject 단독 타임라인”을 강제할 수 있다(템플릿은 false 권장).
+  - `.../events?...&includeRevealPartner=false`
+- `api4`(coevents)는 `limit` optional 파라미터를 지원한다.
+  - `GET /api/event/v2/characters/{aId}/coevents?with={bId}&safeUpToEpisode=K&limit=N`
 - Production Q1~Q15 프리셋 실행 레이어는 아직 없다(문서/플랜만 존재).
 
 관련 문서
@@ -128,7 +132,7 @@ QuerySpec 최소 스키마(초안)
 
 목표
 - dramaId=10(브베)에서 Q1/Q2/Q3를 “프리셋 버튼”으로 실행 가능하게 한다.
-- 백엔드 추가 변경 없이 진행하되, 정확도를 깨는 **Known Risk**가 확인되면 (아래) BE 옵션을 켠다.
+- 백엔드 추가 변경 없이 진행하되(템플릿 레이어만), 정확도를 보장하기 위해 api3는 `includeRevealPartner=false`, api4는 `limit`을 사용한다.
 
 대상 파일(예시)
 - `front/features/qa/QaPage.tsx`: Production Q 섹션 UI 추가(드롭다운 + 실행 버튼 + 결과 패널)
@@ -151,12 +155,22 @@ QuerySpec 최소 스키마(초안)
 - Q2: subject=월터, qAnyOf=["암페타민","메스","meth","cook"], pick=EARLIEST
 - Q3: coevents(월터, 투코), pick=EARLIEST (강화: predicate=MEETS가 있으면 우선)
 
+템플릿 fallback(권장)
+- 템플릿 실행 결과가 0건이면, 아래 fallback을 허용한다(질문 레이어에서만).
+  - 1차: `predicateCode` 기반(있다면) 조회
+  - 2차: (있다면) group union/그룹 fallback
+  - 3차: `qAnyOf[]` 기반 재조회(텍스트 근사)
+- 예: Q1에서 `predicateCode=KILLS`가 0건이면
+  - `qAnyOf=["살해","죽임","killed","kills"]` 같은 보수 키워드로 api3 재조회(단, 오탐 가능성 있음)
+- 예: Q3에서 coevents 결과가 너무 크거나 모호하면
+  - coevents 결과에서 `predicateCode=MEETS` 우선 선택, 없으면 earliest coevent(근사 규칙)로 고정
+
 수동 QA(최소)
 1. 로컬에서 FE `/qa` 진입, 드라마=브베 선택 후 Production Q 실행.
 2. 네트워크 탭에서 호출 확인:
-   - Q1: `/characters/{id}/events?...predicateCode=KILLS`
-   - Q2: `/characters/{id}/events?...q=암페타민` (여러 키워드면 여러 호출)
-   - Q3: `/characters/{a}/coevents?with={b}`
+   - Q1: `/characters/{id}/events?...predicateCode=KILLS&includeRevealPartner=false`
+   - Q2: `/characters/{id}/events?...q=암페타민&includeRevealPartner=false` (여러 키워드면 여러 호출)
+   - Q3: `/characters/{a}/coevents?with={b}&limit=200`
 3. 결과 카드에 `eventId/episodeStart~End/summary` 표시 확인.
 
 Known Risk (Hole)
@@ -167,3 +181,11 @@ Applied Fix (Quality Guard)
 - `api3`는 `includeRevealPartner` 파라미터로 “subject 단독 타임라인”을 강제할 수 있다.
   - 템플릿/프리셋은 기본적으로 `includeRevealPartner=false`로 호출한다.
   - 기존 위젯/호환을 위해 기본값은 `true` 유지.
+
+범용 템플릿(다른 드라마 적용) 체크포인트
+- 템플릿은 **드라마-불변 엔진 + 드라마별 템플릿 데이터**로 분리한다.
+  - 엔진: ops 실행/조합/픽(earliest/latest), 결과 렌더링, 디버그 출력
+  - 데이터: `CharacterRef(name+aliases)` + `qAnyOf[]` 키워드 세트
+- 캐릭터 resolve가 실패/모호한 경우 처리:
+  - 기본: `aliases[]`를 충분히 제공해 충돌을 줄인다.
+  - 그래도 모호하면: 후보를 UI에서 보여주고 사용자가 선택(템플릿 실행 전에 1회만)하도록 한다.
