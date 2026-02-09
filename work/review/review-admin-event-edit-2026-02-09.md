@@ -252,9 +252,9 @@
 
 ### New / Stronger Findings (Based On Current Code)
 - **[BE-CRITICAL] `updateEvent` + FE inline edit = data loss risk is immediate**:
-  - FE calls `eventV2Api.updateEvent(eventId, { summary: newValue })` from `front/features/admin/AdminPrecedesPage.tsx`.
-  - BE `updateEvent` currently writes `summary/episodeStart/episodeEnd` directly from request without fallback.
-  - Result: a summary-only update can null out `episodeStart/episodeEnd` in DB (not theoretical).
+  - Status: **Fixed** (2026-02-09).
+  - BE `updateEvent` now uses PATCH-like semantics: omitted/null fields keep existing values.
+  - Unit test added: `services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplUpdateEventTest.java` (`updateEvent_doesNotNullOutEpisodesWhenRequestOmitsThem`).
 - **[BE-HIGH] `EventMapper.findById` filters `source_status = 'APPROVED'`**:
   - `updateEvent` calls `eventMapper.findById(id)`, so non-APPROVED events will be treated as "not found".
   - If admin workflows need editing pending/draft events, this is a contract/mapper problem (either add an admin findById, or remove the status filter for update paths).
@@ -267,7 +267,7 @@
   - `front/features/admin/AdminDramaPage.tsx`
   - Both set preview URLs without `URL.revokeObjectURL()` cleanup.
 - **[Docs Gap] `api-contract.md` is missing the update endpoint**:
-  - Implementation exposes `PUT /api/event/v1/{id}` (see `services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventController.java`), but `fivecircles/architecture/specs/api-contract.md` does not list it.
+  - Status: **Fixed** (2026-02-09). `PUT /api/event/v1/{id}`가 `fivecircles/architecture/specs/api-contract.md`에 반영됨.
 - **[Semantics Gap] PUT vs PATCH**:
   - Current usage is PATCH-like (partial payload), but endpoint is PUT and mapper update overwrites all columns.
   - Either enforce full payload from FE or change contract/implementation to PATCH semantics.
