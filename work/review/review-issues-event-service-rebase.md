@@ -72,8 +72,10 @@
   - `EventMapper.findById`가 `source_status = 'APPROVED'`만 조회
 - 영향
   - PENDING/REJECTED 이벤트를 수정하려는 운영 요구가 있을 때 막힘
-- 메모
-  - 의도된 정책일 수 있으므로 수정 전 합의 필요
+- 정책 결정 (2026-02-09)
+  - “approved만 온톨로지 레이어를 타는 데이터로 취급”은 우리 정책이므로 **현 구현이 맞음**
+  - pending 데이터를 다루려면 **별도 흐름/엔드포인트로 분리**해서 다룬다
+  - 지금은 필요 없으므로 **정책으로만 표시**하고, 필요해지면 구현한다 (no code change)
 
 ### [P2] predicateCode 정규화 정책의 적용 범위가 서비스마다 다를 수 있음
 파일: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`
