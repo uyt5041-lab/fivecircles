@@ -119,6 +119,14 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Docs
 - Added V2 API spec and updated mappings (refs: fivecircles/architecture/specs/event-v2-api.md)
 
+## Addendum (2026-02-09) - Production Q templates + api3 q filter
+### Backend
+- Add `q` keyword filter to api3 (character events) for `summary/predicate_suggestion` search (refs: services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+### Docs
+- Add production Q1~Q15 implementation status + template/QuerySpec plan (refs: fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md)
+### Tests
+- `:services:event-service:test` OK (refs: ./gradlew :services:event-service:test)
+
 ### Tests
 - Server curl checks for new endpoints (refs: http://localhost:8089/dramas/1/events?safeUpToEpisode=1&predicateCode=TRANSFORMS)
 ## Addendum (2026-01-20) - Ignore local proposal drafts

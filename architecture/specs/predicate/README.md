@@ -11,6 +11,7 @@
 
 관련 문서
 - SoT=event 운영: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`
+- Production Q 템플릿 + Intelligence QuerySpec 플랜: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`
 - ex14 정합성(TRANSFORMS/REVEALS): `fivecircles/architecture/specs/ex14-consistency-checklist.md`
 - Related characters 집계(단일 엔드포인트, N+1 제거): `fivecircles/architecture/specs/predicate/related-characters-aggregate.md`
 - 데이터 품질(구조적 결함/방어 설계): `fivecircles/architecture/specs/predicate/data-quality-risks-and-structure.md`
