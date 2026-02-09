@@ -184,6 +184,8 @@
 - [x] **ex14 호환 레이어**: event-service read/write에서 `TRANSFORMS` 요청 시 `STATUS_CHANGE`도 매칭/정규화(이행 기간)
 - [x] **ex14 백필(bit-ts)**: `nospoiler_event.event`/`nospoiler_wiki.wiki_submission`의 `predicate_code`를 `STATUS_CHANGE` -> `TRANSFORMS`로 일괄 변경
 - [ ] **정합성 갭 체크 (ex14, 협업)**: reveal 메타(event_reveal)가 wiki/intelligence→event 파이프라인에서 실제 전달/저장되는지 “현상 확인”만 하고, 결과를 문서에 상태로만 명시 (구현은 보류)
+- [ ] **Reveal 입력 정합성(서버)**: `predicateCode=REVEALS` + `revealTargetId`가 있는 요청에서 `revealTargetType`이 없으면 **silent skip 금지**(BusinessException로 실패 처리). (refs: `fivecircles/architecture/specs/predicate/reveals-classification.md`, `fivecircles/architecture/specs/ex14-consistency-checklist.md`)
+- [ ] **Reveal type 파이프라인**: `event_reveal.reveal_type(HINT|CONFIRM)`를 event 생성/수정 요청에서 받을 수 있게 DTO/API를 확장하고, 저장까지 end-to-end로 연결(미입력 시 정책: null 허용 vs 기본값 고정 결정 필요). (refs: `fivecircles/architecture/specs/predicate/reveals-classification.md`, `fivecircles/architecture/specs/predicate/reveals-reuse-cases.md`, `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`)
 - [ ] **Q1~Q15 정합성(별도)**: UI/스펙의 predicateCode(`BATTLE`, `AFFILIATION_CHANGE`, `DEATH`, `EXIT` 등)와 `common/PredicateCode`의 폐쇄 집합을 정렬 (ex14 범위 밖이므로 별도 작업으로 분리)
 - [x] **검색 정책(OTHER/UNKNOWN)**: user-facing predicateCode 필터에서 `OTHER|UNKNOWN`은 필터 미적용(비-1급 필터)으로 처리
 - [ ] **품질향상 레이어(구조적 방어) 구현**: evidence-first 응답, group 매핑 단일 소스, suggestion 정규화/alias, 집계 엔드포인트 도입 (spec: `fivecircles/architecture/specs/predicate/data-quality-risks-and-structure.md`, `fivecircles/architecture/specs/predicate/related-characters-aggregate.md`)
