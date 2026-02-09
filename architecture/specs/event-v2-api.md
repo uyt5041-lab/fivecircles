@@ -18,7 +18,7 @@ GET /characters/{characterId}/events?safeUpToEpisode={K}&q={KEYWORD?}&limit={N}
 GET /events/{eventId}/characters?safeUpToEpisode={K}
 
 3) Co-appearance events
-GET /characters/{aId}/coevents?with={bId}&safeUpToEpisode={K}
+GET /characters/{aId}/coevents?with={bId}&safeUpToEpisode={K}&limit={N?}
 
 4) Drama events by predicate (type)
 GET /dramas/{dramaId}/events?predicateCode={CODE}&safeUpToEpisode={K}&limit={N}
@@ -31,7 +31,7 @@ Level 2 (Range + predicate filters)
 GET /dramas/{dramaId}/events?fromEpisode={A}&toEpisode={B}&safeUpToEpisode={K}
 
 7) Character events filtered by predicate
-GET /characters/{characterId}/events?predicateCode={CODE}&safeUpToEpisode={K}&q={KEYWORD?}
+GET /characters/{characterId}/events?predicateCode={CODE}&safeUpToEpisode={K}&q={KEYWORD?}&includeRevealPartner={true|false}
 
 8) Top-N characters by involvement
 GET /dramas/{dramaId}/characters?safeUpToEpisode={K}&sort=involvement&limit={N}

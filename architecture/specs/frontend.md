@@ -9,8 +9,8 @@ Base URL: /api/event/v2
 
 - api1: GET /dramas/{dramaId}/events?safeUpToEpisode={K}&predicateCode={CODE}&fromEpisode={A}&toEpisode={B}&limit={N}
 - api2: GET /dramas/{dramaId}/characters?safeUpToEpisode={K}&limit={N}&sort={sort}
-- api3: GET /characters/{characterId}/events?safeUpToEpisode={K}&q={KEYWORD?}&predicateCode={CODE}&limit={N}
-- api4: GET /characters/{characterId}/coevents?with={bId}&safeUpToEpisode={K}
+- api3: GET /characters/{characterId}/events?safeUpToEpisode={K}&q={KEYWORD?}&includeRevealPartner={true|false}&predicateCode={CODE}&limit={N}
+- api4: GET /characters/{characterId}/coevents?with={bId}&safeUpToEpisode={K}&limit={N?}
 - api5: GET /events/{eventId}/characters?safeUpToEpisode={K}
 - api6: GET /events/{eventId}/related?safeUpToEpisode={K}&limit={N}
 - api7: GET /events/{eventId}/causes?depth={D}&safeUpToEpisode={K}

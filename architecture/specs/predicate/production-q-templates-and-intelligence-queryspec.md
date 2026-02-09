@@ -160,10 +160,10 @@ QuerySpec 최소 스키마(초안)
 3. 결과 카드에 `eventId/episodeStart~End/summary` 표시 확인.
 
 Known Risk (Hole)
-- 현재 `api3`(getEventsByCharacter)는 REVEALS 파트너 캐릭터의 이벤트를 합치는 로직이 있어,
-  "subject=월터" 조회 결과가 **월터 단독 타임라인이 아닐 수 있음**.
-  - 영향: "첫 살인" 같은 “first” 템플릿이 partner 이벤트로 오염될 수 있음.
-  - 대응(우선순위 순):
-    1) (FE-only) `strictSubject=true` 옵션을 두고, candidate 상위 N개 이벤트에 대해 `api5(event characters)`로 subject 포함 여부를 필터(호출 비용 증가).
-    2) (BE) `includeRevealPartner=false` 같은 파라미터를 api3에 추가해 partner merge를 끄는 모드 제공(기본값은 기존 동작 유지).
+- 텍스트 오브젝트 기반 템플릿(Q2 등)은 결국 데이터(summary/suggestion)에 키워드가 존재해야 한다.
+  - 대응: `qAnyOf[]` 동의어 세트 + 데이터 보강(운영)으로 해결.
 
+Applied Fix (Quality Guard)
+- `api3`는 `includeRevealPartner` 파라미터로 “subject 단독 타임라인”을 강제할 수 있다.
+  - 템플릿/프리셋은 기본적으로 `includeRevealPartner=false`로 호출한다.
+  - 기존 위젯/호환을 위해 기본값은 `true` 유지.

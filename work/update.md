@@ -122,6 +122,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 ## Addendum (2026-02-09) - Production Q templates + api3 q filter
 ### Backend
 - Add `q` keyword filter to api3 (character events) for `summary/predicate_suggestion` search (refs: services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+- Add `includeRevealPartner` option to api3 to prevent “first” template contamination; add `limit` option to api4 coevents (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java)
 ### Docs
 - Add production Q1~Q15 implementation status + template/QuerySpec plan (refs: fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md)
 ### Tests
