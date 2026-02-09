@@ -1,7 +1,7 @@
 # NoSpoiler Project Total Todo List
 
 > **Principle**: Each member updates their own section.
-> **Last Updated**: 2026-02-05 (by Antigravity)
+> **Last Updated**: 2026-02-09 (by Codex)
 
 ---
 
@@ -176,7 +176,7 @@
 - [ ] Fix auth/user mapping: user-service UserAuthResponse.id -> auth-service UserValidationResponse.userId (X-User-Id header missing in gateway)
 - [x] **QnA 분리**: QA 연동/정확도 개선은 후순위로 분리
 - [x] **Logic**: Multi-hop Ontology Retrieval
-- [ ] **Admin/Precedes UI 보강 (Antigravity 큐)**: 이벤트 내용 수정 + 데이터 소스 표시/열람 지원
+- [x] **Admin/Precedes UI 보강**: 이벤트 summary 인라인 수정 + 데이터 소스 표시 + 탭/훅 분리로 상태 전이 단순화
 - [x] **ex14 정합성(TRANSFORMS)**: 공통 enum에 `TRANSFORMS` 추가 + `STATUS_CHANGE` 레거시(deprecated) 유지
 - [x] **ex14 정합성(TRANSFORMS)**: Q20 집계 키 `STATUS_CHANGE` -> `TRANSFORMS` 정렬(legacy 합산 포함)
 - [x] **ex14 정합성 문서화**: 체크리스트/변경 계획 정리 (spec: `fivecircles/architecture/specs/ex14-consistency-checklist.md`)
@@ -216,7 +216,7 @@
 
 ### 7. Deploy & Ops (Post-Sprint)
 > **Reference**: See `fivecircles/architecture/specs/test-server-policy-4C.md` for remote deploy & test protocols.
-- [ ] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build` (상시체크)
+- [x] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build` (최근: 2026-02-09)
 - [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run (상시체크)
 - [x] bit-ts 배포 후 QA E2E 확인 (FE → Gateway → QA/Event/Policy)
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
