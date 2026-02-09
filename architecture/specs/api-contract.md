@@ -158,6 +158,9 @@ Base URL: `/api/event/v1`
 - **Description**: Create a new ontology event.
 - **Request**: `EventRequestDTO`
 - **Response**: `ApiResponse<EventResponseDTO>`
+  - Reveal metadata (optional):
+    - When `predicateCode=REVEALS` and `revealTargetId` is provided, `revealTargetType` is required.
+    - `revealType` is optional (`HINT|CONFIRM`) and is stored in `event_reveal.reveal_type` when provided.
 
 ### GET /{id}
 
