@@ -193,6 +193,7 @@
 - [ ] **related-characters/aggregate 파인튜닝(데이터 기반)**: 실제 데이터에서 ADVERSARY/ALLY가 0점/빈 결과로 나오는 케이스를 수집하고, groupWeight/그룹 매핑을 조정 (예: 브레이킹 배드 행크 슈레이더 E5에서 ADVERSARY=0)
 - [ ] **Predicate suggestion 운영(SoT=event)**: `event.predicate_suggestion` 도입(승인 시 snapshot 저장), 운영 편집/집계는 event 기준, wiki는 히스토리만 유지 (spec: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`)
 - [x] **Predicate suggestion(코드/마이그레이션)**: event-service V8 컬럼 추가 + DTO/mapper + wiki 승인 publish payload 반영 (배포/DB 반영은 별도)
+- [ ] **ex16 Production Q1~Q15 프리셋 실행 레이어**: Q1~Q15를 QuerySpec으로 고정하고 FE/QA에서 버튼 1개로 실행(api3/api4/api7/api8 조합). (status doc: `fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md`)
 - [x] **Ontology V2.5 (Q20)**:
     - [x] Update V2.5 Plan (v2.5-def-plan.md)
     - [x] Correct EventServiceImpl role string (`PARTICIPANT` -> `INVOLVED`)
