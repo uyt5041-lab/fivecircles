@@ -277,3 +277,5 @@
 - [FE] AdminPrecedesPage의 dead code(`startEdit`) 제거 완료.
 - [FE] QA 페이지의 `alert()` 제거: 실패 시 toast 사용으로 통일.
 - [BE/FE] Aggregate score 기준 drift 방지: 서버 응답에 `scoreRule`을 포함해 FE 표시가 서버와 동기화되게 처리.
+- [BE] Related characters aggregate: `ALLY` 모드에서 `COEVENTS`는 중립 시그널로 판단하여 **점수 가중치/카운트에서 제외**(모드 `COEVENTS` 자체는 유지).
+- [FE] Related characters aggregate: `minScore` 기본값을 `0`으로 변경하고, 입력을 **0 이상 정수로만** 처리(`parseInt` + clamp, 소수/문자/음수 방지).
