@@ -9,7 +9,9 @@
 - 메타(가능하면): `event_reveal(event_id, target_type, target_id, reveal_type)`
 - `target_type`은 현재 스키마 기준 `CHARACTER|ATTRIBUTE`
 - `reveal_type`은 현재 문서 기준 `HINT|CONFIRM`(강도)
-- `ATTRIBUTE`까지 엄밀히 하려면 `target_key` 같은 확장이 필요할 수 있다(향후).
+- MVP에서는 비인물 object를 1급 엔티티로 만들지 않는다.
+  - 대신 `target_type=ATTRIBUTE`도 조인/랭킹 신호로 쓰려면, `target_id`를 `aboutCharacterId`로 채우는 정책(0 금지)이 필요하다(Option 1).
+  - `ATTRIBUTE`의 “무슨 사실인지”까지 엄밀히 하려면 `target_key` 같은 확장이 필요할 수 있다(향후, Option 2).
 
 관련 문서
 - 분류/정합성: `fivecircles/architecture/specs/predicate/reveals-classification.md`
