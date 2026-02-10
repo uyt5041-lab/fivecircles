@@ -1,4 +1,4 @@
-# Work Update (2026-01-15)
+﻿# Work Update (2026-01-15)
 
 This file summarizes recent updates so other agents can continue without re‑discovering changes.
 
@@ -566,3 +566,27 @@ This file summarizes recent updates so other agents can continue without re‑di
     - Removed redundant MinIO implementations from individual services.
 - **Status**: Backend refactoring complete. Multi-bucket storage is active.
 - **Next**: Verify actual file uploads from the Admin UI (Drama/Character) and My Page (User).
+
+## 2026-02-09: Notification UX Refinement (Antigravity)
+- **Goal**: Prevent unexpected redirection when reading notifications and improve "Mark as Read" behavior.
+- **Changes**:
+  - `front/features/notification/NotificationList.tsx`: Removed the `navigate` logic and `useNavigate` hook from `handleNotificationClick`.
+  - Clicking a notification now only performs the `markRead` (API) and `markAsRead` (Store) actions, allowing the user to stay on their current page.
+  - The notification dropdown is kept open after clicking if no redirection occurs, providing visual feedback as the "unread" status/indicator disappears.
+- **Status**: Completed. Verified that clicking notifications no longer forces a redirect to the home page.
+
+## 2026-02-12: OAuth2 Token Security & Image Validation Enhancement (Antigravity)
+- **Goal**: Secure sensitive data transmission and improve upload reliability.
+- **Changes**:
+  - **OAuth2 Token Protection**:
+    - Backend: Migrated tokens from URL parameters to `HttpOnly` cookies (`accessToken`, `refreshToken`) in `OAuth2SuccessHandler` and `AuthController`.
+    - API Gateway: Updated `JwtAuthenticationFilter` to support cookie-based token resolution.
+    - Frontend:
+      - Configured `apiClient.ts` to use `credentials: 'include'` for all requests.
+      - Refactored `App.tsx` session restoration to prioritize cookies (silent refresh/reissue).
+      - Updated `useNotificationSource.ts` (SSE) to use cookies instead of token query params.
+  - **Image Upload Validation**:
+    - Created `front/common/utils/fileValidation.ts` for consistent image type and size checking.
+    - Applied validation to `MyPage.tsx`, `AdminDramaPage.tsx`, and `AdminCharacterPage.tsx`.
+    - Maximum file size: 5MB, Allowed types: `image/*`.
+- **Status**: Completed. Sensitive tokens are no longer exposed in URLs, and users receive immediate feedback for invalid image uploads.
