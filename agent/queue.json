@@ -1,6 +1,6 @@
 {
   "version": "1.2",
-  "lastUpdated": "2026-02-09T09:22:11Z",
+  "lastUpdated": "2026-02-10T03:12:00Z",
   "tasks": [
     {
       "id": "TASK-005",
@@ -107,6 +107,19 @@
       "createdBy": "codex-ops",
       "createdAt": "2026-02-09T09:22:11Z",
       "updatedAt": "2026-02-09T12:00:00Z"
+    },
+    {
+      "id": "TASK-013",
+      "title": "Peer Review: REVEALS ATTRIBUTE Option1 policy + rollout plan (MVP vs V3)",
+      "description": "Review the REVEALS docs for Option1 (ATTRIBUTE target_id=aboutCharacterId, 0 forbidden) and confirm the plan is consistent with current schema/pipeline, and that it cleanly defers Option2(target_key/object entity) to V3.\n\nDocs:\n- Spec: fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md (see section 7 rollout plan)\n- Spec: fivecircles/architecture/specs/reveals/reveals-reuse-cases.md\n- Self-review: fivecircles/work/review/review-reveals-attribute-option1-2026-02-10.md\n\nChecks:\n1) Identify any holes/edge cases in the Option1 policy (e.g., multi-reveal rows, representative reveal exposure, about character not included in event_character).\n2) Recommend the minimal enforcement point (wiki verification UI vs publish hard-fail vs drop).\n3) Evaluate whether Production Q4 / Quick20 #11/#18 routing is stable under current API behavior (single reveal vs list).\n\nOutput:\n- Add a short review block to fivecircles/agent/debate.md and optionally leave notes in a work/review doc.",
+      "assignedTo": "claude-reviewer",
+      "assignedZone": "review",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "codex-ops",
+      "createdAt": "2026-02-10T03:12:00Z",
+      "updatedAt": "2026-02-10T03:12:00Z"
     }
   ]
 }
