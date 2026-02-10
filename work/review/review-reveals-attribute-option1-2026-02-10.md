@@ -124,3 +124,26 @@ Option 1 정책을 실제 코드/스키마/프롬프트 기준으로 검증했�
 
 - **선택 사항**: DTO reveal 리스트 확장은 MVP에서 불필요. "1 이벤트 1 reveal row" 데이터 규칙으로 충분.
 
+---
+
+## Codex Follow-up (After Claude Review): 정합성 확인 + 결함 수정 반영
+> Date: 2026-02-10
+
+클로드 리뷰 내용에 **동의**하며, 실제 코드 기준으로 아래 “정합성 구멍”을 추가 확인했고 즉시 수정했다.
+
+### 추가로 확인된 구멍(대표 reveal 노출 우선순위)
+- `EventResponseDTO`가 reveal을 단일 1건만 노출하는 상태에서,
+  `EventRevealMapper.xml`의 정렬이 `target_type ASC`라 **ATTRIBUTE가 CHARACTER보다 먼저 선택**될 수 있었다.
+- 결과적으로 한 이벤트에 (ATTRIBUTE, CHARACTER) reveal row가 둘 다 있으면 “정체 공개”가 가려질 위험이 있다.
+
+### 반영한 수정(구현 완료 + 테스트 통과)
+- Intelligence mock: ATTRIBUTE revealTargetId=0 제거, involvedIds 기반 about 캐릭터로 채움(없으면 null).
+  - `services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`
+- event-service 방어벽: `REVEALS` + `revealTargetId<=0` 거부(0 금지), ATTRIBUTE about은 characterIds에 포함 강제(있을 때).
+  - `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`
+- 대표 reveal 안정화: reveal 정렬을 CHARACTER 우선으로 변경(단일 reveal 노출의 안정성).
+  - `services/event-service/src/main/resources/mapper/event/EventRevealMapper.xml`
+- PRECEDES revealBoost: `event_reveal.target_type`에서 ATTRIBUTE도 포함(aboutCharacterId 가정).
+  - `services/event-service/src/main/resources/mapper/event/EventMapper.xml`
+- 테스트 보강: `revealTargetId=0` 거부 + ATTRIBUTE about/involved 강제 케이스 추가.
+  - `services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplCreateEventRevealTest.java`

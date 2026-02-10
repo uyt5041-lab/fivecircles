@@ -138,6 +138,20 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
 
 ---
 
+## 6.1) Production Q15 / Quick20과 Option1/2 정합성 체크(요약)
+
+원칙
+- V2.5(=지금 스키마/파이프라인 유지)에서 **정답 찾기**는 `PredicateCode`/그룹/키워드(q) 중심.
+- `REVEALS`/`event_reveal`은 (메타가 있을 때) **근거/설명 + about 필터**로만 보조한다.
+
+매핑(핵심만)
+- Production Q4(“누가 누구의 범죄 사실을 알아차림”): Option1이 있으면 about 필터로 후보를 좁힐 수 있어 유효.
+- Production Q2(“첫 암페타민 제조”): Option2(object/target_key)는 **정확도 개선용**. MVP는 `q`로 근사.
+- Quick20 #11(“무엇을 드러냈나”): Option1로 “about=캐릭터”는 구조화 가능. “무슨 사실인지”는 Option2가 있어야 타입별 답이 가능.
+- Quick20 #18(“정체 reveal 이벤트만 나열”): Option1과 무관(CHARACTER reveal). 단, 현재 DTO가 대표 1건만 노출하므로 “대표 reveal 우선순위(CHARACTER 우선)”이 필요.
+
+---
+
 ## 7) 실행 계획(Option 1, V2.5)
 
 목표
@@ -207,3 +221,27 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
   - reveal about 필터(`target_id == aboutCharacterId`)가 안정적으로 동작해야 한다.
 - PRECEDES suggestion 랭킹에서:
   - reveal target hit 신호가 계산 가능해야 한다(about 캐릭터가 involved에 포함되어 있다는 전제).
+
+---
+
+## 8) 재귀적 실행 플랜(Option1 데이터 보강 루프)
+
+목표
+- “0 금지 + about 캐릭터 강제 + 대표 reveal 선택 규칙”을 먼저 안정화하고,
+- 소수 드라마(예: dramaId=10)에서 데이터 보강을 반복하면서 규칙/가이드를 튜닝한다.
+
+Loop(반복)
+1) Guardrail 반영(코드/프롬프트)
+   - (필수) `ATTRIBUTE target_id=0` 생성 경로를 제거(프롬프트/Mock)
+   - (필수) `event-service createEvent`에서 `revealTargetId<=0` 거부 + (가능하면) about은 involved에 포함 강제
+   - (필수) “대표 reveal” 노출은 CHARACTER 우선으로 정렬(단일 reveal DTO의 안정성)
+2) Data 보강(운영/QA)
+   - REVEALS 이벤트는 “1 event = 1 reveal row”를 임시 규칙으로 적용(대표 reveal 흔들림 방지)
+   - ATTRIBUTE는 about 캐릭터가 확정될 때만 저장(모르면 omit)
+3) 검증(질문 라우팅)
+   - Production Q4 / Quick20 #11/#18 템플릿으로 smoke test
+   - PRECEDES suggestion에서 revealBoost가 “연관 후보를 위로 올리는지” 확인
+4) Gap 수집 -> 규칙 수정
+   - about 누락 케이스: 위키 검증 UI에서 강제할지 / publish hard-fail할지 결정
+   - “무슨 사실인지”가 필요해지는 질문이 늘면 Option2(V3)로 승격
+5) 다시 1)로 회귀

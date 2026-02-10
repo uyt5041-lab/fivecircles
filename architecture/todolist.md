@@ -159,6 +159,14 @@
 - [ ] Swagger UI 화면 예시 공유 (모바일 확인용)
 - [x] Event relation PK에 type 포함 (V7 migration, type별 중복 허용)
 
+### 6. REVEALS Option1 (V2.5 Data Quality Guardrails)
+- [ ] (BLOCKER) Intelligence prompt: ATTRIBUTE revealTargetId=aboutCharacterId, 0 금지 (`services/intelligence-service/src/main/resources/prompts/refine-fact.txt`)
+- [ ] (BLOCKER) Intelligence mock: ATTRIBUTE revealTargetId=0 제거 (`services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`)
+- [ ] (BLOCKER) event-service createEvent 방어벽: revealTargetId<=0 거부 + ATTRIBUTE about은 characterIds에 포함 강제 (`services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`)
+- [ ] Representative reveal 안정화: reveal 정렬은 CHARACTER 우선 (`services/event-service/src/main/resources/mapper/event/EventRevealMapper.xml`)
+- [ ] PRECEDES suggestion revealBoost: event_reveal target_type에 ATTRIBUTE도 포함 (aboutCharacterId 가정) (`services/event-service/src/main/resources/mapper/event/EventMapper.xml`)
+- [ ] (Policy) 기존 `event_reveal(target_type=ATTRIBUTE,target_id=0)` 데이터 전환 정책 확정(무시/백필/삭제 중 택1)
+
 ### 6. Next Steps (Sprint 2)
 - [x] **Integration**: Connect QA -> Event -> Policy flow
 - [ ] **Core Pipeline (no QA)**: Wiki 승인 → Event 생성 → Policy 태깅 정합성

@@ -158,3 +158,10 @@
 - [GAP]: `EventServiceImpl.createEvent`에 `targetId=0` 거부 검증 없음. 프롬프트 수정 후에도 방어벽 추가 필요.
 - [Comment]: Q4/Quick20 #11/#18 라우팅은 "1 이벤트 1 reveal row" 데이터 규칙 하에서 안정적. reveal 리스트 확장은 V3로 미룰 수 있음.
 - [Comment]: 구현 전 필수: (1) 프롬프트 수정, (2) Mock 수정, (3) createEvent 검증 추가, (4) 기존 0 데이터 전환 정책 확정.
+
+### Codex Follow-up (TASK-013 Implementation Check)
+> Reviewer: codex-ops | Date: 2026-02-10
+- [Status]: Implemented + Verified (Unit tests)
+- [Agree]: Claude의 조건부 승인 내용에 동의하며, 실제 코드에서 “대표 reveal 1건 노출”의 우선순위 구멍(ATTRIBUTE가 CHARACTER보다 먼저 선택될 수 있음)을 추가로 확인해 수정함.
+- [Done]: 프롬프트/Mock의 `ATTRIBUTE target_id=0` 경로 제거 + event-service에서 `revealTargetId<=0` 거부(방어벽) + reveal 정렬을 CHARACTER 우선으로 변경 + PRECEDES revealBoost는 ATTRIBUTE도 포함.
+- [Note]: 기존 `ATTRIBUTE target_id=0` 레거시 데이터는 현재 쿼리에서 “무해하지만 무용” 상태로 자연스럽게 무시됨. 전환 정책(무시/백필/삭제)은 운영 결정으로 남김.
