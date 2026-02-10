@@ -137,3 +137,13 @@
 - [New Finding]: `includeRevealPartner`/`q`/coevents `limit` 관련 테스트 부재. 최소 1건 추가 권장.
 - [Comment]: Fallback ladder(predicate→group→keyword)는 MVP에서 1차 실패 시 "결과 없음"이 더 안전. 과도한 fallback은 오탐 증가 위험.
 - [Comment]: 전체적으로 BE 기반은 solid. FE executor MVP 진행 가능.
+
+---
+
+# [Review] REVEALS ATTRIBUTE Routing Doc (Option 1)
+> Reviewer: codex-ops | Date: 2026-02-10
+- [Status]: Approved (with notes)
+- [OK]: Option 1(`ATTRIBUTE target_id=aboutCharacterId`, 0 금지)은 V2.5에서 “조인/랭킹 가능”을 만드는 최소 조건으로 정합적.
+- [Risk]: 조회 응답이 reveal 메타를 대표 1건만 노출하면 about 필터가 흔들릴 수 있어, (1) 데이터 작성 규칙으로 1row 강제 또는 (2) API에서 reveal 리스트 노출 확장이 필요.
+- [Next]: 파이프라인(인텔리전스/위키 검증)에서 about 캐릭터 강제 + 기존 `target_id=0` 데이터 전환(백필/무시/삭제) 결정.
+(refs: `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`, `fivecircles/work/review/review-reveals-attribute-option1-2026-02-10.md`)
