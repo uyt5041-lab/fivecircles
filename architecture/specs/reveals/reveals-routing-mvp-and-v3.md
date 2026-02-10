@@ -133,3 +133,57 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
   - “무슨 사실인지”가 정답/필터에 직접 필요해지는 질문들(Q2, Q4, Quick20#11 등)을 위해
     `target_key` 또는 object 1급 엔티티화를 도입
 
+---
+
+## 7) 실행 계획(Option 1, V2.5)
+
+목표
+- `target_type=ATTRIBUTE`도 “about 캐릭터” 단위로 조인/랭킹/필터가 가능하도록 만든다.
+- MVP 범위에서는 속성(object) 1급 엔티티화는 하지 않는다.
+
+### 7.1 정책 확정(문서/규칙)
+1) 0 금지
+- `target_type=ATTRIBUTE`일 때 `target_id=0`을 금지한다.
+- 의미: `target_id`는 “이 사실이 누구에 대한 것인지(aboutCharacterId)”를 뜻한다.
+
+2) about 캐릭터는 involved에도 포함
+- `event_reveal.target_id`(about) 캐릭터는 해당 이벤트의 `event_character`에도 포함하는 것을 원칙으로 한다.
+- 이유: V2.5에서 조인/랭킹 신호는 `event_character`를 기반으로 계산하는 것이 비용/일관성 측면에서 가장 단순하다.
+
+3) 다중 reveal row 정책(중요)
+- 스키마는 `(event_id, target_type, target_id)` 복수 row를 허용하지만,
+  - 조회 응답이 reveal 메타를 “대표 1건”만 노출한다면 about 필터가 흔들릴 수 있다.
+- MVP 선택지(택1):
+  - A안(데이터 규칙): “Q4/라우팅에 쓰는 REVEALS 이벤트는 reveal row를 1개만 둔다”를 검증 UI에서 강제
+  - B안(API 확장): Event V2 응답에 `reveals: []` 리스트를 내려서 클라이언트가 about 필터를 정확히 수행
+
+### 7.2 파이프라인 반영(구현)
+1) Intelligence 단계(추천값)
+- refine 결과에서 `target_type=ATTRIBUTE`일 때도 “about 캐릭터”를 추론해 `revealTargetId`에 넣도록 가이드한다.
+- 단, LLM 추정은 오탐 가능성이 있으므로 최종 결정은 Wiki 검증 UI가 가져간다.
+
+2) Wiki 검증 UI(강제 지점, 권장)
+- `predicateCode=REVEALS`일 때:
+  - `target_type` 선택(CHARACTER/ATTRIBUTE)
+  - `target_id(about/identity)` 선택 강제(0 불가)
+  - (선택) `reveal_type(HINT/CONFIRM)` 입력은 당장은 null 허용
+- `target_type=ATTRIBUTE`의 `target_id`는 “about 캐릭터”로 라벨링해 혼동을 줄인다.
+
+3) Wiki publish -> event-service
+- publish 시 `event_reveal` 저장이 end-to-end로 반영되도록:
+  - `ATTRIBUTE`도 `target_id`가 캐릭터 ID로 내려가야 한다.
+- 기존 “0으로 내려오는 케이스”는 publish 단계에서 hard-fail(권장) 또는 reveal drop(차선) 중 택1 필요.
+
+### 7.3 기존 데이터 전환(선택)
+현실적으로 `target_id=0` 데이터가 이미 존재할 수 있으므로 전환 정책을 고정해야 한다.
+- A안(보수, 추천): `target_id=0`인 ATTRIBUTE reveal은 랭킹/필터에 사용하지 않고, 텍스트 설명으로만 남긴다.
+- B안(백필): 운영자가 about 캐릭터를 지정해 backfill한다(오탐 방지를 위해 자동 백필은 비추).
+- C안(정리): `target_id=0` row는 제거하고, 필요하면 이벤트 summary에만 남긴다.
+
+### 7.4 검증(AC)
+- Q4 라우팅에서:
+  - `subject`(인지자) 이벤트 타임라인에서 REVEALS 후보를 찾고,
+  - reveal about 필터(`target_id == aboutCharacterId`)가 안정적으로 동작해야 한다.
+- PRECEDES suggestion 랭킹에서:
+  - reveal target hit 신호가 계산 가능해야 한다(about 캐릭터가 involved에 포함되어 있다는 전제).
+
