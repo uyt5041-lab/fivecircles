@@ -13,13 +13,10 @@ Execute this protocol when the user asks to "Server Deploy" (서버 배포해) o
     - Confirm the current branch is correct.
 
 2.  **Execution (Automated)**
-    - Run the helper script: `fivecircles/test/deploy-server.sh`
-    - This script will:
-        - Check for uncommitted changes.
-        - Push the current branch to `origin`.
-        - SSH into the server (`bit-ts`).
-        - Checkout/Pull the same branch.
-        - Rebuild and restart containers (`docker compose up -d --build`).
+    - Prefer 4C fast-build deploy (keeps shared Dockerfiles/compose untouched; generates `*.4c` on server):
+      - `fivecircles/test/deploy-server-4c.sh`
+    - Fallback to default deploy:
+      - `fivecircles/test/deploy-server.sh`
 
 3.  **Manual Execution (Fallback)**
     - If the script fails, execute manually:
