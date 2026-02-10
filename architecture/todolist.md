@@ -228,7 +228,6 @@
 ### 7. Deploy & Ops (Post-Sprint)
 > **Reference**: See `fivecircles/architecture/specs/test-server-policy-4C.md` for remote deploy & test protocols.
 - [x] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build` (최근: 2026-02-09)
-- [x] 서버 배포 시간 단축: Docker build에서 Gradle 캐시 재사용(Wrapper dists 포함) + deploy 스크립트에서 변경 서비스만 `docker compose up -d --build <svc...>` 지원
 - [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run (상시체크)
 - [x] bit-ts 배포 후 QA E2E 확인 (FE → Gateway → QA/Event/Policy)
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)

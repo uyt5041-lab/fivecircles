@@ -8,7 +8,6 @@ SERVER_ALIAS="bit-ts"
 PROJECT_PATH="~/nospoiler"
 INFRA_PATH="~/nospoiler/infra"
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-SERVICES="$*"
 
 echo "=========================================="
 echo "🚀 Deploying to Test Server: $SERVER_ALIAS"
@@ -46,24 +45,11 @@ ssh $SERVER_ALIAS "bash -s" <<EOF
   echo "  [Server] Pulling latest changes..."
   git pull origin $BRANCH_NAME
 
-  echo "  [Server] Checking git working tree..."
-  if [ -n "\$(git status --porcelain)" ]; then
-    echo "  [Server] ❌ Working tree is dirty (untracked/modified files exist)."
-    echo "  [Server]     Resolve it before deploy (stash/move files) to avoid pull/build drift."
-    git status -sb
-    exit 1
-  fi
-
   echo "  [Server] Navigating to infra directory..."
   cd $INFRA_PATH || exit 1
 
   echo "  [Server] Rebuilding and restarting containers..."
-  if [ -n "$SERVICES" ]; then
-    echo "  [Server] Services (partial rebuild): $SERVICES"
-  else
-    echo "  [Server] Services: ALL"
-  fi
-  docker compose up -d --build $SERVICES
+  docker compose up -d --build
 
   echo "  [Server] Checking running services..."
   docker compose ps
