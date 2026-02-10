@@ -45,3 +45,82 @@
 3. Reveal 노출 정책:
   - 조회 응답에서 reveal 1건만 노출할지, 리스트로 확장할지 결정(대표 선택 규칙도 문서화)
 
+---
+
+## Peer Review (TASK-013) by Claude
+> Reviewer: claude-reviewer | Date: 2026-02-10
+
+### Code Verification Summary
+
+Option 1 정책을 실제 코드/스키마/프롬프트 기준으로 검증했다.
+
+#### A. 스키마 확인 (CONFIRMED)
+
+| 항목 | 파일 | 상태 | 비고 |
+|------|------|------|------|
+| `target_id NOT NULL` | `V2__fix_event_reveal_schema.sql:9` | ✓ | null 거부, 0은 허용 |
+| PK `(event_id, target_type, target_id)` | `V2__fix_event_reveal_schema.sql:11` | ✓ | 다중 reveal row 허용 |
+| DEFAULT 없음 | 같은 파일 | ✓ | 반드시 명시적으로 값 제공 필요 |
+
+- 스키마는 Option 1과 호환. `target_id=0` 금지는 **애플리케이션 레이어에서 강제해야** 함(DB 레벨에서는 0이 합법).
+
+#### B. "대표 1건" 노출 패턴 확인 (CONFIRMED — 리뷰 Finding #3 동의)
+
+- `EventResponseDTO`는 단일 reveal 필드 3개만 존재 (`revealTargetId`, `revealTargetType`, `revealType`).
+- `EventServiceImpl:389-391` — `reveals.get(0)` (first reveal wins).
+- `EventQueryServiceImpl:279-282` — `map.putIfAbsent()` (first reveal wins, 정렬: target_type ASC, target_id ASC).
+- **위험**: 다중 reveal row가 있으면 "대표 1건"이 about 필터 결과를 좌우함. `target_type ASC` 정렬이므로 `ATTRIBUTE < CHARACTER` — ATTRIBUTE가 먼저 선택됨.
+
+#### C. 코드에서 target_id=0 방어 부재 (GAP — 신규 발견)
+
+- `EventServiceImpl:97` — `revealTargetId != null`만 검사, 0은 통과.
+- `normalizeRevealTargetType()` — target_type 유효성만 검증, target_id 값은 미검증.
+- **테스트**: `EventServiceImplCreateEventRevealTest`에서 `revealTargetId(999L)`로만 테스트, 0 케이스 없음.
+- **권장**: `createEvent`에서 `if (REVEALS && ATTRIBUTE && targetId == 0) throw INVALID_INPUT_VALUE` 검증 추가.
+
+#### D. 프롬프트/Mock 코드 불일치 (CRITICAL GAP)
+
+| 소스 | 현재 동작 | Option 1 요구 |
+|------|-----------|---------------|
+| `refine-fact.txt:27` | `revealTargetId=0` (ATTRIBUTE) | `revealTargetId=aboutCharacterId` |
+| `OpenAiLlmClient.java:258` | `revealTargetId = 0L` (mock) | `revealTargetId = involvedIds.get(N)` |
+
+- 프롬프트와 Mock LLM 클라이언트가 **모두** Option 1과 충돌. 이 두 곳을 먼저 수정하지 않으면, 새로 생성되는 모든 ATTRIBUTE reveal이 0으로 들어옴.
+
+#### E. 기존 쿼리에서 target_id=0의 영향 (CONFIRMED SAFE — 현재는)
+
+- `findRevealPartnerId` (EventCharacterMapper.xml:111) — `WHERE er.target_id = #{characterId}`. characterId가 0인 캐릭터는 없으므로 매칭 안 됨.
+- PRECEDES suggestion 랭킹 (EventMapper.xml:247,315) — `LEFT JOIN ec_rt ON ec_rt.character_id = er_base.target_id`. target_id=0이면 character_id=0인 row가 없어서 JOIN 실패(NULL). 랭킹 가산 0.
+- **결론**: target_id=0 데이터는 **현재 "무해하지만 무용"**. Option 1 적용 후에도 기존 0 데이터는 조인/필터에서 자연스럽게 무시됨.
+
+#### F. Q4 / Quick20 라우팅 안정성 (CONDITIONAL PASS)
+
+- **Q4 "스카일러가 월터의 범죄를 알아차림"**:
+  - api3로 Skyler의 REVEALS 이벤트를 가져온 뒤 `revealTargetId == WalterId` 필터.
+  - 현재 DTO가 단일 reveal만 노출하므로, **해당 이벤트의 첫 reveal row가 ATTRIBUTE+about=Walter여야** 정상 작동.
+  - 다중 reveal row가 있고 CHARACTER row가 먼저 오면(target_type ASC → ATTRIBUTE가 먼저이므로 이 경우는 드묾) 필터가 깨질 수 있음.
+  - **MVP 안전 조건**: "REVEALS 이벤트당 reveal row 1개" 데이터 규칙 + about 캐릭터 정확 입력.
+
+- **Quick20 #11 "무엇을 드러냈나"**:
+  - 이벤트의 `revealTargetType`/`revealTargetId`를 설명으로 표시만 하면 되므로, 단일 reveal 노출로 충분.
+  - V3에서 "종류"까지 구조화하려면 `target_key` 확장 필요(문서 일치).
+
+- **Quick20 #18 "정체 밝혀지는 이벤트 나열"**:
+  - `predicateCode=REVEALS` 필터 후 `revealTargetType=CHARACTER` 클라이언트 필터.
+  - 단일 reveal 노출이므로 ATTRIBUTE+CHARACTER 혼합 이벤트에서 CHARACTER가 누락될 수 있음.
+  - **대응**: MVP에서는 REVEALS 이벤트당 1 row 규칙으로 커버 가능. 리스트 확장은 V3.
+
+### Final Verdict
+
+- **APPROVE** — Option 1 정책 자체는 일관적이고, V2.5/V3 경계가 명확함.
+- **구현 전 필수 조건 4건**:
+
+| # | 항목 | 우선순위 | 비고 |
+|---|------|----------|------|
+| 1 | `refine-fact.txt` 프롬프트 수정: ATTRIBUTE → `revealTargetId=aboutCharacterId` | CRITICAL | 현재 모든 신규 ATTRIBUTE reveal이 0으로 생성됨 |
+| 2 | `OpenAiLlmClient.java:258` Mock 수정: 0L → `involvedIds`에서 추론 | HIGH | 개발 환경 데이터도 오염됨 |
+| 3 | `EventServiceImpl.createEvent` 검증 추가: ATTRIBUTE + targetId=0 거부 | HIGH | 프롬프트 수정 후에도 방어벽 필요 |
+| 4 | 기존 `target_id=0` ATTRIBUTE 데이터 전환 정책 확정 | MEDIUM | 현재는 무해하나, Q4 라우팅 활성화 시 누락 원인 |
+
+- **선택 사항**: DTO reveal 리스트 확장은 MVP에서 불필요. "1 이벤트 1 reveal row" 데이터 규칙으로 충분.
+

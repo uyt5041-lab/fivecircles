@@ -147,3 +147,14 @@
 - [Risk]: 조회 응답이 reveal 메타를 대표 1건만 노출하면 about 필터가 흔들릴 수 있어, (1) 데이터 작성 규칙으로 1row 강제 또는 (2) API에서 reveal 리스트 노출 확장이 필요.
 - [Next]: 파이프라인(인텔리전스/위키 검증)에서 about 캐릭터 강제 + 기존 `target_id=0` 데이터 전환(백필/무시/삭제) 결정.
 (refs: `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`, `fivecircles/work/review/review-reveals-attribute-option1-2026-02-10.md`)
+
+### Re-Review by Claude (TASK-013 Peer Review)
+> Reviewer: claude-reviewer | Date: 2026-02-10
+- [Status]: Approved (with conditions)
+- [Confirmed]: 스키마 `target_id NOT NULL` + PK `(event_id, target_type, target_id)` — Option 1과 호환. 0 금지는 앱 레이어에서 강제 필요.
+- [Confirmed]: DTO는 단일 reveal 노출(`reveals.get(0)`, first wins). 정렬: `target_type ASC` → ATTRIBUTE가 CHARACTER보다 먼저 선택됨.
+- [Confirmed]: 기존 `target_id=0` 데이터는 조인/랭킹 쿼리에서 자연스럽게 무시됨(character_id=0 매칭 불가). 현재 무해.
+- [CRITICAL GAP]: `refine-fact.txt:27`이 ATTRIBUTE에 `revealTargetId=0`을 지시 + `OpenAiLlmClient.java:258`도 `0L` 하드코딩. Option 1 적용 전 **반드시** 수정 필요.
+- [GAP]: `EventServiceImpl.createEvent`에 `targetId=0` 거부 검증 없음. 프롬프트 수정 후에도 방어벽 추가 필요.
+- [Comment]: Q4/Quick20 #11/#18 라우팅은 "1 이벤트 1 reveal row" 데이터 규칙 하에서 안정적. reveal 리스트 확장은 V3로 미룰 수 있음.
+- [Comment]: 구현 전 필수: (1) 프롬프트 수정, (2) Mock 수정, (3) createEvent 검증 추가, (4) 기존 0 데이터 전환 정책 확정.
