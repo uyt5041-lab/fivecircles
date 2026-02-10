@@ -137,7 +137,7 @@ Option 1 정책을 실제 코드/스키마/프롬프트 기준으로 검증했�
 - 결과적으로 한 이벤트에 (ATTRIBUTE, CHARACTER) reveal row가 둘 다 있으면 “정체 공개”가 가려질 위험이 있다.
 
 ### 반영한 수정(구현 완료 + 테스트 통과)
-- Intelligence mock: ATTRIBUTE revealTargetId=0 제거, involvedIds 기반 about 캐릭터로 채움(없으면 null).
+- Intelligence mock: Option1 변경은 협의 후 적용. 현재는 원래 Mock(`ATTRIBUTE revealTargetId=0`)을 유지하되, Option1 적용 후보 코드를 주석으로 남김.
   - `services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`
 - event-service 방어벽: `REVEALS` + `revealTargetId<=0` 거부(0 금지), ATTRIBUTE about은 characterIds에 포함 강제(있을 때).
   - `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`
@@ -147,3 +147,8 @@ Option 1 정책을 실제 코드/스키마/프롬프트 기준으로 검증했�
   - `services/event-service/src/main/resources/mapper/event/EventMapper.xml`
 - 테스트 보강: `revealTargetId=0` 거부 + ATTRIBUTE about/involved 강제 케이스 추가.
   - `services/event-service/src/test/java/com/nospoiler/eventservice/service/EventServiceImplCreateEventRevealTest.java`
+
+### 남은 리스크(합의 필요)
+- OpenAI 호출 실패 시 Intelligence가 Mock refine으로 fallback하면, 여전히 `ATTRIBUTE revealTargetId=0`이 나올 수 있다.
+  - 이 경우 event-service가 `revealTargetId<=0`을 거부하므로 publish/create가 실패할 수 있음.
+  - 합의 후 처리 옵션: (1) Mock을 Option1로 맞춤, (2) event-service에서 “ATTRIBUTE+0 drop” 정책으로 완화(비추), (3) wiki publish 단계에서 reveal drop/hard-fail 정책 고정.

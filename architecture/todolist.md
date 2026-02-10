@@ -161,7 +161,7 @@
 
 ### 6. REVEALS Option1 (V2.5 Data Quality Guardrails)
 - [ ] (BLOCKER) Intelligence prompt: ATTRIBUTE revealTargetId=aboutCharacterId, 0 금지 (`services/intelligence-service/src/main/resources/prompts/refine-fact.txt`)
-- [ ] (BLOCKER) Intelligence mock: ATTRIBUTE revealTargetId=0 제거 (`services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`)
+- [ ] (BLOCKER) Intelligence mock 정합성: (현재는 원래 Mock 유지) 협의 후 `ATTRIBUTE revealTargetId=0` 제거 또는 fallback 정책 확정 (`services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`)
 - [ ] (BLOCKER) event-service createEvent 방어벽: revealTargetId<=0 거부 + ATTRIBUTE about은 characterIds에 포함 강제 (`services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`)
 - [ ] Representative reveal 안정화: reveal 정렬은 CHARACTER 우선 (`services/event-service/src/main/resources/mapper/event/EventRevealMapper.xml`)
 - [ ] PRECEDES suggestion revealBoost: event_reveal target_type에 ATTRIBUTE도 포함 (aboutCharacterId 가정) (`services/event-service/src/main/resources/mapper/event/EventMapper.xml`)

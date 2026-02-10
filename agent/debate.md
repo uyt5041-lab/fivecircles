@@ -163,5 +163,6 @@
 > Reviewer: codex-ops | Date: 2026-02-10
 - [Status]: Implemented + Verified (Unit tests)
 - [Agree]: Claude의 조건부 승인 내용에 동의하며, 실제 코드에서 “대표 reveal 1건 노출”의 우선순위 구멍(ATTRIBUTE가 CHARACTER보다 먼저 선택될 수 있음)을 추가로 확인해 수정함.
-- [Done]: 프롬프트/Mock의 `ATTRIBUTE target_id=0` 경로 제거 + event-service에서 `revealTargetId<=0` 거부(방어벽) + reveal 정렬을 CHARACTER 우선으로 변경 + PRECEDES revealBoost는 ATTRIBUTE도 포함.
+- [Done]: 프롬프트의 `ATTRIBUTE target_id=0` 지시 제거 + event-service에서 `revealTargetId<=0` 거부(방어벽) + reveal 정렬을 CHARACTER 우선으로 변경 + PRECEDES revealBoost는 ATTRIBUTE도 포함.
+- [Note]: Intelligence Mock(`OpenAiLlmClient`)의 `ATTRIBUTE revealTargetId=0`은 아직 원래대로 유지(협의 후 변경 예정). 따라서 “OpenAI 호출 실패 → Mock fallback”이 발생하면 createEvent가 실패할 수 있음(합의 후 같이 해결).
 - [Note]: 기존 `ATTRIBUTE target_id=0` 레거시 데이터는 현재 쿼리에서 “무해하지만 무용” 상태로 자연스럽게 무시됨. 전환 정책(무시/백필/삭제)은 운영 결정으로 남김.
