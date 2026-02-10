@@ -121,11 +121,14 @@ ssh bit-ts "cd ~/nospoiler && git status"
 # 원격 배포(서버에서 pull + compose)
 ssh bit-ts "cd ~/nospoiler/infra && git pull && docker compose up -d --build"
 
+# 변경된 서비스만 빠르게 재빌드(예: event-service/api-gateway만)
+ssh bit-ts "cd ~/nospoiler/infra && git pull && docker compose up -d --build event-service api-gateway"
+
 # alias
 
 cat >> ~/.zshrc <<'EOF'
 # nospoiler remote control (server: bit-ts, path: ~/nospoiler)
-alias np-deploy="ssh bit-ts 'cd ~/nospoiler/infra && git pull && docker compose up -d --build && docker compose ps'"
+np-deploy() { ssh bit-ts "cd ~/nospoiler/infra && git pull && docker compose up -d --build $* && docker compose ps"; }
 alias np-ps="ssh bit-ts 'cd ~/nospoiler/infra && docker compose ps'"
 alias np-logs="ssh bit-ts 'cd ~/nospoiler/infra && docker compose logs --tail 200'"
 alias np-logs-f="ssh bit-ts 'cd ~/nospoiler/infra && docker compose logs -f --tail 200'"
