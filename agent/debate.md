@@ -77,7 +77,7 @@
 
 ## Findings
 - [OK] `PredicateCode`(폐쇄집합) + `predicate_suggestion`(open) + `PredicateGroup`(질문 레이어) 3단 구조는 유지보수/확장(RDF/OWL) 관점에서 일관적이다. (refs: `fivecircles/architecture/specs/predicate/README.md`)
-- [OK] `REVEALS`를 "정답 검색 키"가 아니라 "근거/설명"으로 취급하는 정책은 메타 파이프라인 부재 기간의 오탐을 줄인다. (refs: `fivecircles/architecture/specs/predicate/reveals-classification.md`)
+- [OK] `REVEALS`를 "정답 검색 키"가 아니라 "근거/설명"으로 취급하는 정책은 메타 파이프라인 부재 기간의 오탐을 줄인다. (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`)
 - [Risk] 집계(countsByGroup)에서 그룹 간 overlap이 있으면 score가 과대계산되고 근거 표기도 혼란스럽다.
   - 문서 기준으로 overlap 제거(배타 집계) 규칙을 추가하고, ADVERSARY/ALLY 그룹 정의에서 중복되는 predicate를 제거하는 방향이 안전하다. (refs: `fivecircles/architecture/specs/predicate/groups.md`)
 - [Gap] aggregate 엔드포인트는 신규 계약이므로, 구현 전에 `event-v2-api.md`에 명시(번호/경로/파라미터/게이트)를 추가해야 한다. (refs: `fivecircles/architecture/specs/event-v2-api.md`)

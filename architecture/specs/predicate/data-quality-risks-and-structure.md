@@ -8,7 +8,7 @@
 - Predicate 전략/레이어: `fivecircles/architecture/specs/predicate/README.md`
 - 그룹 정의: `fivecircles/architecture/specs/predicate/groups.md`
 - Related characters 집계: `fivecircles/architecture/specs/predicate/related-characters-aggregate.md`
-- REVEALS 분류/통합 포인트: `fivecircles/architecture/specs/predicate/reveals-classification.md`
+- REVEALS 분류/통합 포인트: `fivecircles/architecture/specs/reveals/reveals-classification.md`
 
 ---
 

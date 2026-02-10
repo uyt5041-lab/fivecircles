@@ -14,7 +14,8 @@
   - `ATTRIBUTE`의 “무슨 사실인지”까지 엄밀히 하려면 `target_key` 같은 확장이 필요할 수 있다(향후, Option 2).
 
 관련 문서
-- 분류/정합성: `fivecircles/architecture/specs/predicate/reveals-classification.md`
+- 분류/정합성: `fivecircles/architecture/specs/reveals/reveals-classification.md`
+- 라우팅(MVP vs V3): `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 - DB 스키마: `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`
 
 ---
