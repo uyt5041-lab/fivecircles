@@ -121,6 +121,16 @@ ssh bit-ts "cd ~/nospoiler && git status"
 # 원격 배포(서버에서 pull + compose)
 ssh bit-ts "cd ~/nospoiler/infra && git pull && docker compose up -d --build"
 
+# 4C Fast-build (opt-in)
+# - 공유 파일(기본 docker-compose.yml / 서비스 Dockerfile) 변경 없이, override 파일로만 동작
+# - uses: infra/docker-compose.4c.yml + services/*/Dockerfile.4c + front/Dockerfile.4c
+#
+# 원격에서 직접 실행:
+#   ssh bit-ts "cd ~/nospoiler/infra && git pull && docker compose -f docker-compose.yml -f docker-compose.4c.yml up -d --build event-service api-gateway"
+#
+# 로컬 스크립트:
+#   fivecircles/test/deploy-server-4c.sh event-service api-gateway
+
 # alias
 
 cat >> ~/.zshrc <<'EOF'
