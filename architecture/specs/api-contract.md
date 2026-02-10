@@ -255,3 +255,33 @@ Base URL: `/api/intelligence/v1`
 - **Description**: 특정 인물의 여러 사건 요약본을 하나의 일관된 스토리라인(문단)으로 통합합니다.
 - **Request**: `CharacterSummaryRequest` (characterName, episodeK, summaries)
 - **Response**: `ApiResponse<String>` (Unified Summary text)
+
+---
+
+## Notification Service
+
+Base URL: `/api/notifications/v1`
+
+### GET /subscribe
+- **Description**: Subscribe to real-time notifications via SSE.
+- **Headers**: `X-User-Id`
+- **Response**: Event Stream
+
+### GET /
+- **Description**: Get notification list for current user.
+- **Headers**: `X-User-Id`
+- **Response**: `ApiResponse<Slice<NotificationResponse>>`
+
+### PATCH /{id}/read
+- **Description**: Mark a notification as read.
+- **Response**: `ApiResponse<Void>`
+
+### GET /unread-count
+- **Description**: Get the count of unread notifications.
+- **Headers**: `X-User-Id`
+- **Response**: `ApiResponse<Long>`
+
+### POST /internal/v1/notifications/send (Internal)
+- **Description**: Send a notification to a specific user.
+- **Request**: `NotificationRequest` (receiverId, title, content, type, relatedUrl)
+- **Response**: `ResponseEntity<Void>`
