@@ -9,6 +9,9 @@
 - 이벤트는 `PredicateCode.REVEALS`를 사용하고, 메타는 `event_reveal(event_id, target_type, target_id, reveal_type)`에 저장한다.
 - Event V2 응답(EventResponseDTO)은 reveal 메타를 포함할 수 있다. (예: `revealTargetType`, `revealTargetId`, `revealType`)
 - `event_reveal.target_type`은 스키마상 `CHARACTER|ATTRIBUTE`.
+- 현재 Intelligence mock/프롬프트는 `ATTRIBUTE -> target_id=0`을 사용하고 있어(정합성 갭), Option 1 적용 전 수정이 필요하다.
+  - 프롬프트: `services/intelligence-service/src/main/resources/prompts/refine-fact.txt`
+  - Mock: `services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`
 
 ---
 
@@ -64,19 +67,19 @@ Option 1 (MVP 최단거리)
 - safeUpToEpisode = K
 
 라우팅(결정론, V2.5로 가능)
-1) 후보 생성(정답 이벤트 후보):
-   - api3: `GET /api/event/v2/characters/{SkylerId}/events?safeUpToEpisode=K&predicateCode=REVEALS&includeRevealPartner=false`
-2) about 필터:
+1) 후보 생성(정답 이벤트 후보, 우선순위):
+   - 1차(인지 변화): `DISCOVERS`, `LEARNS`를 사용해 후보를 넓힌다.
+     - api3: `GET /api/event/v2/characters/{SkylerId}/events?safeUpToEpisode=K&predicateCode=DISCOVERS&includeRevealPartner=false`
+     - api3: `GET /api/event/v2/characters/{SkylerId}/events?safeUpToEpisode=K&predicateCode=LEARNS&includeRevealPartner=false`
+   - 2차(REVEALS): reveal 메타가 있는 후보를 원하면 `predicateCode=REVEALS`도 함께 조회한다(근거/설명용).
+2) about 필터(가능한 경우에만 강하게 적용):
    - `revealTargetType in (CHARACTER, ATTRIBUTE)` AND `revealTargetId == WalterId`
-   - (Option 1이 적용되어 있으면 ATTRIBUTE도 여기서 걸린다)
 3) earliest 1개 선택:
    - `episodeStart ASC, id ASC`로 1개 선택
 4) 결과 렌더링:
-   - 선택 이벤트 summary + (reveal 메타) “about=월터” 배지
+   - 선택 이벤트 summary + (reveal 메타가 있으면) “about=월터” 배지
 5) fallback(데이터가 아직 부족하면):
-   - api3: `predicateCode=DISCOVERS` 또는 `LEARNS`로 1차 후보를 넓히고
-   - 후보들 중 summary에 `범죄/마약/정체/거짓말` 등의 키워드가 있으면 운영용으로 표시
-   - MVP에서는 오탐 방지를 위해 “결과 없음”을 허용하는 편이 안전
+   - 텍스트(`q`) 기반은 오탐이 커질 수 있으므로 MVP에서는 “결과 없음”을 허용하는 편이 안전
 
 ---
 
@@ -157,10 +160,28 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
   - A안(데이터 규칙): “Q4/라우팅에 쓰는 REVEALS 이벤트는 reveal row를 1개만 둔다”를 검증 UI에서 강제
   - B안(API 확장): Event V2 응답에 `reveals: []` 리스트를 내려서 클라이언트가 about 필터를 정확히 수행
 
+정합성 메모(현재 코드 기준)
+- 조회 응답이 reveal 메타를 "대표 1건"만 노출하는 경우가 있어(예: `reveals.get(0)` 또는 `first wins`),
+  다중 reveal row가 존재하면 about 필터/정답 품질이 흔들릴 수 있다.
+- MVP에서는 A안(1 event = 1 reveal row)을 우선 권장하고, 리스트 노출은 V3로 미룬다.
+
 ### 7.2 파이프라인 반영(구현)
-1) Intelligence 단계(추천값)
-- refine 결과에서 `target_type=ATTRIBUTE`일 때도 “about 캐릭터”를 추론해 `revealTargetId`에 넣도록 가이드한다.
-- 단, LLM 추정은 오탐 가능성이 있으므로 최종 결정은 Wiki 검증 UI가 가져간다.
+0) (BLOCKER) 프롬프트/Mock 정합성 수정
+- `services/intelligence-service/src/main/resources/prompts/refine-fact.txt`
+  - 기존: ATTRIBUTE는 `revealTargetId=0`
+  - 변경: ATTRIBUTE는 `revealTargetId=aboutCharacterId` (0 금지)
+- `services/intelligence-service/src/main/java/com/nospoiler/intelligenceservice/service/OpenAiLlmClient.java`
+  - 기존: ATTRIBUTE는 `revealTargetId = 0L` 하드코딩
+  - 변경: about 캐릭터를 추정해 캐릭터 ID를 내려주거나, 최소한 null로 두고 Wiki 검증 UI에서 강제 입력하도록 한다.
+
+1) (BLOCKER) event-service 방어벽 추가
+- `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventServiceImpl.java`
+  - createEvent에서 `predicateCode=REVEALS`이고 `revealTargetType=ATTRIBUTE`인 경우 `revealTargetId==0`을 거부(예외)한다.
+  - 이유: DB 레벨에서 0은 합법이라 앱 레벨에서 강제하지 않으면 계속 데이터가 오염된다.
+
+2) Intelligence 단계(추천값)
+- refine 결과에서 `target_type=ATTRIBUTE`일 때도 “about 캐릭터” 후보를 제안할 수는 있다.
+- 단, LLM 추정은 오탐 가능성이 있으므로 최종 결정은 Wiki 검증 UI가 가져간다(강제 입력).
 
 2) Wiki 검증 UI(강제 지점, 권장)
 - `predicateCode=REVEALS`일 때:
@@ -186,4 +207,3 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
   - reveal about 필터(`target_id == aboutCharacterId`)가 안정적으로 동작해야 한다.
 - PRECEDES suggestion 랭킹에서:
   - reveal target hit 신호가 계산 가능해야 한다(about 캐릭터가 involved에 포함되어 있다는 전제).
-
