@@ -242,8 +242,8 @@
     - [x] `LOCKED`를 FE view-state로 구현 (domain status와 분리)
     - [x] 템플릿(`ProductionQTemplate`)에 `queryKind/strictFilters/approxFilters/disclosurePolicy` 반영
     - [x] Q5~Q15 템플릿 확장 적용 (현재 Q1~Q4 범위에서만 executor 반영)
-    - [ ] 04 매트릭스의 `evidence_event_id` TBD 칼럼을 DB 이벤트 ID로 채우기 (Q1~Q15) — 반영 완료: Q01/Q02/Q03/Q05/Q06/Q08/Q09/Q10/Q12/Q15
-    - [ ] 미채움 Q 원인별 보강(토큰/필터/데이터): `06-1-required-db-values.md` 상세 진단표 기준으로 Q04,Q07,Q11,Q13,Q14 우선 처리
+    - [ ] 04 매트릭스의 `evidence_event_id` TBD 칼럼을 DB 이벤트 ID로 채우기 (Q1~Q15) — 반영 완료: Q01/Q02/Q03/Q05/Q06/Q07/Q08/Q09/Q10/Q11/Q12/Q13/Q15 (남음: Q04,Q14)
+    - [ ] 미채움 Q 원인별 보강(토큰/필터/데이터): `06-1-required-db-values.md` 상세 진단표 기준으로 Q04,Q14 우선 처리
     - [x] canonical 불일치 정리: Q08,Q09,Q15의 `canonical_episode` vs strict earliest 충돌 해소(질문 의미 강화 기준 적용)
   - [ ] **Phase 3 / Aggregate Safety**
     - [ ] ALLY/ADVERSARY 라벨 확정 게이트 추가 (evidence predicate >= 1)

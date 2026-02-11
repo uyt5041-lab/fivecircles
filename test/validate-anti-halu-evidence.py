@@ -234,6 +234,16 @@ def main() -> int:
             ),
         },
         {
+            "qid": "Q07",
+            "expected": 2343,
+            "runner": lambda: run_character_predicate(
+                token,
+                17,
+                [],
+                ["거짓말", "휴대폰", "실종", "추궁", "의심", "행동 이상", "불신"],
+            ),
+        },
+        {
             "qid": "Q08",
             "expected": 2428,
             "runner": lambda: run_character_keyword(
@@ -259,9 +269,27 @@ def main() -> int:
             ),
         },
         {
+            "qid": "Q11",
+            "expected": 2343,
+            "runner": lambda: run_character_predicate(
+                token,
+                19,
+                [],
+                ["의심", "휴대폰", "실종", "행동 이상", "불신"],
+                target_id=17,
+            ),
+        },
+        {
             "qid": "Q12",
             "expected": 2450,
             "runner": lambda: run_character_predicate(token, 17, [], ["폭발"], target_id=25),
+        },
+        {
+            "qid": "Q13",
+            "expected": 2307,
+            "runner": lambda: run_character_predicate(
+                token, 17, [], ["대량 공급", "계약", "정기 수익", "주 단위"]
+            ),
         },
         {
             "qid": "Q15",

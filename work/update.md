@@ -837,3 +837,17 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Tests
 - PASS (bit-ts): `ssh bit-ts 'python3 -' < fivecircles/test/validate-anti-halu-evidence.py`
 - PASS: `front npm run build`
+
+## Addendum (2026-02-11) - Q07/Q11/Q13 evidence 채움 + Context depth 1/2 고정
+### Frontend
+- `Q07/Q11/Q13` strict를 DB 현실과 질문 의미에 맞게 정렬하고 `evidence_event_id`를 채웠다. (`Q07=2343`, `Q11=2343`, `Q13=2307`) (refs: front/common/productionQ/templates.ts)
+- `Q11` strict에서 `불안` 토큰을 제거해 “최초 의심” 의미와 earliest 선택을 정합화했다.
+- Production Q Context Timeline depth 입력을 자유 숫자에서 `1/2` 선택형으로 고정했다. (refs: front/features/qa/components/ProductionQSection.tsx)
+### Docs
+- Strict MUST 매트릭스(04)와 Required DB Values(06-1)를 위 strict/evidence 기준으로 동기화했다.
+- todolist 미채움 범위를 `Q04,Q14`로 축소했다. (refs: fivecircles/architecture/todolist.md)
+### Test Script
+- 검증 스크립트에 `Q07/Q11/Q13` 검증 케이스를 추가했다. (refs: fivecircles/test/validate-anti-halu-evidence.py)
+### Tests
+- PASS (bit-ts): `ssh bit-ts 'python3 -' < fivecircles/test/validate-anti-halu-evidence.py` (`Q01,Q02,Q03,Q05,Q06,Q07,Q08,Q09,Q10,Q11,Q12,Q13,Q15`)
+- PASS: `front npm run build`
