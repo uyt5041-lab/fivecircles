@@ -102,6 +102,26 @@
 - 방법: 질문 핵심 의미를 보존하는 strict 토큰/관계 신호를 데이터에 보강
 - 완료 기준: strict earliest 1건 이상 + canonical_episode 정합
 
+### 미채움 Q 상세 진단 (strict 0건/불일치 분해)
+
+| question_id | 상태 | 관찰 | 분류 | 다음 조치 |
+|---|---|---|---|---|
+| Q03 | strict 0건 | Walter-Tuco `MEETS` coevent 없음, with-only 완화 시 `INJURED`(S1E6)만 존재 | 데이터 구조 공백(coevents predicate 미정렬) | Tuco 관련 이벤트의 공동참여/predicate 정합성 점검(데이터 보강 우선) |
+| Q04 | strict 0건 | `DISCOVERS/LEARNS`는 존재하나 `범죄/마약` 키워드 동시 만족 이벤트 없음 | 토큰 과엄격 + 의미 미매핑 | crime-awareness 동치 토큰셋 보강 또는 `about/target` 신호 추가 |
+| Q05 | strict 0건 | predicate만 완화하면 `DISCOVERS(S1E1)`, keyword만 완화하면 `암 진단(TRANSFORMS,S1E1)` | AND 결합 과엄격 | Q05를 사건 분해(결심 vs 진단)하거나 strict를 2단 조건으로 재설계 |
+| Q07 | strict 0건 | predicate만 완화 시 generic `DISCOVERS`, keyword만 완화 시 `OTHER` 추궁 이벤트 | predicate/keyword 분리 저장 | 거짓말/들킴 전용 predicate 또는 동치 키워드 보강 |
+| Q08 | strict 매치 있음 | strict earliest=`2446(S1E1)`인데 canonical=`S1E5` | canonical 불일치 | canonical_episode 재검토 또는 strict 토큰 재정의 |
+| Q09 | strict 매치 있음 | strict earliest=`2363(S1E2)`인데 canonical=`S1E4` | canonical 불일치 | canonical_episode 재검토 또는 질문 의미(“크게 바꾸는”) 강화 토큰 추가 |
+| Q11 | strict 0건 | target 포함 strict 0건, predicate-only/keyword-only 완화 시 각각 후보 존재 | target + keyword 동시조건 과엄격 | `targetCharacterId` 유지하되 동치 키워드 확장(의심/불신/이상행동 계열) |
+| Q12 | strict 0건 | predicate-only(ATTACKS)와 keyword-only(폭발/협상 계열) 후보가 서로 다른 이벤트 | 의미 분산 | Q12를 “폭발 협상” 중심 단일 strict로 재정의 필요 |
+| Q13 | strict 0건 | keyword+exclude(OTHER) 모두 0건 | 데이터 공백 | 수익/계약 이벤트의 predicate 정규화 또는 데이터 보강 필요 |
+| Q14 | strict 0건 | Walter-Skyler coevent는 있으나 지정 predicate/keyword 불일치 | coevents 의미 미정렬 | 관계 균열 이벤트의 predicate 라벨링 보강 필요 |
+| Q15 | strict 매치 있음 | strict earliest=`2283(S1E1)`인데 canonical=`S1E2` | canonical 불일치 | canonical_episode 재검토 또는 은폐/도주 키워드 강화 |
+
+분류 요약
+- strict 0건(실제 데이터/필터 갭): `Q03,Q04,Q05,Q07,Q11,Q12,Q13,Q14`
+- strict 매치 있으나 canonical 불일치: `Q08,Q09,Q15`
+
 ---
 
 ## FactGrid 해석 (주석)
