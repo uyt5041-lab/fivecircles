@@ -702,3 +702,19 @@ This file summarizes recent updates so other agents can continue without re‑di
     - Applied validation to `MyPage.tsx`, `AdminDramaPage.tsx`, and `AdminCharacterPage.tsx`.
     - Maximum file size: 5MB, Allowed types: `image/*`.
 - **Status**: Completed. Sensitive tokens are no longer exposed in URLs, and users receive immediate feedback for invalid image uploads.
+
+## 2026-02-11: Event Reveal Debugging & Prompt Generalization (Antigravity)
+- **Goal**: Resolve identity reveal bugs and improve LLM prompt reliability/generality.
+- **Changes**:
+  - **Backend (event-service)**:
+    - Fixed `EventCharacterMapper.xml` to exclude self-reveal events when calculating `isAlias`.
+    - Refined `partnerCharacterId` logic to distinguish between the revealing source and the revealed target.
+  - **Frontend**:
+    - `DashboardPage.tsx`: Added safety check to the character filter to prevent hiding characters that are their own partners.
+    - `CharacterModal.tsx`: Updated `getRoleDisplayName` to hide actor name and show '미공개 인물' when `isHidden` is true.
+  - **Intelligence (intelligence-service)**:
+    - `refine-fact.txt`: Generalized prompt examples (e.g., `인물 A`, `가명 X`) to be drama-agnostic.
+    - Enforced strict evidence-based entity linking policy ("Never guess character IDs without explicit name mention").
+  - **Documentation**:
+    - Created `fivecircles/agent/prompt-optimization-strategy.md` to share long-term prompt improvement ideas.
+- **Status**: Completed. Squid Game identity reveal issues ("Frontman"/"Hwang In-ho" disappearance) resolved.
