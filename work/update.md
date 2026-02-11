@@ -792,3 +792,48 @@ This file summarizes recent updates so other agents can continue without re‑di
 - todolist에 evidence 채움 진행 상태(1차 완료 범위) 표기. (refs: fivecircles/architecture/todolist.md)
 ### Tests
 - PASS: `front npm run build`
+
+## Addendum (2026-02-11) - Anti-halu 미채움 Q 원인 분해(Strict 0건 진단)
+### Analysis
+- Q03/Q04/Q05/Q07/Q11/Q12/Q13/Q14의 strict 0건을 `predicate-only`, `keyword-only`, `with-only` 완화 비교로 분해했다.
+- Q08/Q09/Q15는 strict 매치는 있으나 canonical_episode와 earliest 결과가 충돌함을 확인했다.
+- 진단 결과를 문서 표로 고정해 다음 보강 우선순위를 명시했다. (refs: fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md)
+### Todo Sync
+- todolist에 미채움 Q 보강 트랙과 canonical 불일치 해소 트랙을 추가했다. (refs: fivecircles/architecture/todolist.md)
+### Tests
+- Not run (docs/analysis updates only).
+
+## Addendum (2026-02-11) - Anti-halu 재귀 실행순서(1차) 고정
+### Docs
+- `06-1-required-db-values.md`에 미채움 Q 처리 순서를 3트랙(토큰/필터 보강, 데이터 보강, canonical 조정)으로 고정했다.
+- 각 트랙별 완료 기준(strict 매치/정합성 기준)을 명시했다.
+### Tests
+- Not run (docs-only changes).
+
+## Addendum (2026-02-11) - Anti-halu 토큰 보강 후보(미적용) 기록
+### Docs
+- `Q05/Q07/Q11/Q12`의 strict 0건 해소를 위한 동치 토큰 후보를 표로 추가했다(검토용, 코드 미적용). (refs: fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md)
+### Tests
+- Not run (docs-only changes).
+
+## Addendum (2026-02-11) - Anti-halu 토큰 보강 2차 적용 및 재측정
+### Frontend
+- `Q05/Q07/Q11/Q12` strict `qAnyOf`에 동치 토큰을 추가 적용했다. (refs: front/common/productionQ/templates.ts)
+### Analysis
+- 재측정 결과: `Q05/Q11/Q12`는 strict hit, `Q07`은 strict 0건 유지.
+- `Q11`은 hit 이벤트 의미 신뢰도가 낮아 evidence 확정 보류, `Q12`는 `Q10`과 동일 이벤트 후보 충돌 검토 필요.
+- 문서/투두에 2차 결과를 반영했다. (refs: fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md, fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md, fivecircles/architecture/todolist.md)
+### Tests
+- PASS: `front npm run build`
+
+## Addendum (2026-02-11) - 06 정답 앵커 기반 evidence 확장 + 검증 스크립트
+### Frontend
+- `Q03/Q05/Q08/Q09/Q12/Q15` strict 필터를 06 정답 앵커와 데이터 현실에 맞게 보정하고 `evidence_event_id`를 채웠다. (refs: front/common/productionQ/templates.ts)
+### Docs
+- Strict MUST 매트릭스(04)에 위 6개 질문의 strict/evidence를 반영해 `TBD`를 축소했다.
+- Required DB Values(06-1)에 채움 완료 목록/미채움 목록/다음 실행 트랙을 최신화했다.
+### Test Script
+- `fivecircles/test/validate-anti-halu-evidence.py` 추가: 채운 질문들의 strict 재현 결과와 expected evidence id를 자동 비교.
+### Tests
+- PASS (bit-ts): `ssh bit-ts 'python3 -' < fivecircles/test/validate-anti-halu-evidence.py`
+- PASS: `front npm run build`
