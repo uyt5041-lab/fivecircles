@@ -122,6 +122,23 @@
 - strict 0건(실제 데이터/필터 갭): `Q03,Q04,Q05,Q07,Q11,Q12,Q13,Q14`
 - strict 매치 있으나 canonical 불일치: `Q08,Q09,Q15`
 
+### 다음 실행 순서 (재귀 구현 1차)
+
+1. 토큰/필터 보강(코드 무변경 가능)
+- 대상: `Q05,Q07,Q11,Q12`
+- 방법: strict 의미를 유지하는 동치 토큰만 `qAnyOf`에 추가하고 재측정한다.
+- 완료 기준: strict 1건 이상 + canonical_episode와 충돌 없음.
+
+2. 데이터 보강 필요 항목 분리
+- 대상: `Q03,Q04,Q13,Q14`
+- 방법: 템플릿 완화가 아니라 이벤트 라벨/공동참여(`event_character`) 정합성 보강 이슈로 큐에 분리한다.
+- 완료 기준: DB 보강 후 strict 재실행에서 1건 이상 도출.
+
+3. canonical 조정 트랙
+- 대상: `Q08,Q09,Q15`
+- 방법: 질문 의미를 유지하는 범위에서 `canonical_episode`를 earliest strict 결과에 맞출지, strict를 강화해 canonical을 유지할지 결정한다.
+- 완료 기준: canonical_episode와 evidence_event_id 불일치 0건.
+
 ---
 
 ## FactGrid 해석 (주석)
