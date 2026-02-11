@@ -1,6 +1,6 @@
 {
   "version": "1.2",
-  "lastUpdated": "2026-02-10T05:10:20Z",
+  "lastUpdated": "2026-02-11T04:47:18Z",
   "tasks": [
     {
       "id": "TASK-005",
@@ -120,6 +120,19 @@
       "createdBy": "codex-ops",
       "createdAt": "2026-02-10T03:12:00Z",
       "updatedAt": "2026-02-10T06:00:00Z"
+    },
+    {
+      "id": "TASK-014",
+      "title": "Implement Production Q anti-halu template execution (Q5~Q15) with strict-first policy",
+      "description": "Implement remaining Production Q templates for dramaId=10 with anti-hallucination execution policy using existing frontend template executor.\n\nScope:\n1) Extend `front/common/productionQ/templates.ts` from current Q1~Q4 to Q1~Q15.\n2) Fill structured fields for each template:\n   - question_id, question_text, queryKind, canonical_episode,\n   - strict_must, approx_only, sensitive_policy, evidence_event_id.\n3) Keep strict-first behavior in executor:\n   - strict filters are authoritative for selectedEvent,\n   - if strict has no hit, do not force ANSWERED from approx candidates.\n4) Keep compatibility with current UI overrides in `front/features/qa/components/ProductionQSection.tsx`.\n5) Do not add DB schema or server-side table/contract changes in this task.\n\nSuccess Criteria:\n- Front build passes (`cd front && npm run build`).\n- `/qa` ProductionQ section can run Q1~Q15 templates without runtime errors.\n- Template data aligns with anti-halu docs (canonical episode + strict/approx/disclosure policy).\n\nPrimary Docs (must read):\n- fivecircles/architecture/specs/questions-anti-halus/03-implementation-plan.md\n- fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md\n- fivecircles/architecture/specs/questions-anti-halus/05-v2-v25-adoption-review.md\n- fivecircles/architecture/specs/questions-anti-halus/06-answers-for-productionQs.md\n\nSupporting Docs:\n- fivecircles/architecture/specs/questions-anti-halus/01query-examples.md\n- fivecircles/architecture/specs/questions-anti-halus/02exists-limit1.md\n- fivecircles/architecture/specs/questions-anti-halus/07-맥락적답변형식.md\n- fivecircles/architecture/specs/questions-anti-halus/08-맥락적답변형식-메타모델.md\n- fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md\n- fivecircles/architecture/specs/predicate/groups.md\n- fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md\n\nTarget Files:\n- front/common/productionQ/types.ts\n- front/common/productionQ/templates.ts\n- front/common/productionQ/executor.ts\n- front/features/qa/components/ProductionQSection.tsx\n\nReport:\n- Update `fivecircles/work/review/review-anti-haluc.md` with implementation notes + unresolved holes.\n- Add short summary to `fivecircles/agent/debate.md`.",
+      "assignedTo": "claude-coder",
+      "assignedZone": "frontend",
+      "priority": "high",
+      "status": "pending",
+      "dependencies": [],
+      "createdBy": "codex-ops",
+      "createdAt": "2026-02-11T04:47:18Z",
+      "updatedAt": "2026-02-11T04:47:18Z"
     }
   ]
 }

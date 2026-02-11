@@ -219,6 +219,38 @@
 - [ ] **Predicate suggestion 운영(SoT=event)**: `event.predicate_suggestion` 도입(승인 시 snapshot 저장), 운영 편집/집계는 event 기준, wiki는 히스토리만 유지 (spec: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`)
 - [x] **Predicate suggestion(코드/마이그레이션)**: event-service V8 컬럼 추가 + DTO/mapper + wiki 승인 publish payload 반영 (배포/DB 반영은 별도)
 - [ ] **ex16 Production Q1~Q15 프리셋 실행 레이어**: Q1~Q15를 QuerySpec으로 고정하고 FE/QA에서 버튼 1개로 실행(api3/api4/api7/api8 조합). (status doc: `fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md`)
+- [ ] **ex16 Anti-Halu 재귀 구현 TODO (Q1~Q15)** (refs: `fivecircles/architecture/specs/questions-anti-halus/03-implementation-plan.md`, `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`, `fivecircles/architecture/specs/questions-anti-halus/05-v2-v25-adoption-review.md`)
+  - [ ] **Phase 0 / Spec Lock**
+    - [x] 질문별 Strict/Approx 분리 원칙 고정 (`Strict -> Probe -> Approx`)
+    - [x] Q1~Q15 Strict MUST 매트릭스 초안 고정 (`04-template-strict-must-matrix.md`)
+    - [ ] Q1~Q15 템플릿별 `disclosurePolicy` 확정 (`ALLOW_SPOILER_BLOCKED` vs `HIDE_EXISTS_BEYOND_K`)
+    - [ ] `queryKind` + `strictFilters` JSON 스키마 최종 확정 (single probe endpoint 기준)
+  - [ ] **Phase 1 / Backend Probe (event-service)**
+    - [ ] `POST /api/event/v2/probe` 엔드포인트 추가 (boolean only)
+    - [ ] Probe 요청 DTO 정의: `queryKind`, `safeUpToEpisode`, `strictFilters`
+    - [ ] Probe 응답 DTO 정의: `existsSafeApproved`, `existsAnyApproved`
+    - [ ] `StrictQuerySpec` 단일 빌더 도입 (answer/probe 필터 1:1 동기화 강제)
+    - [ ] `source_status='APPROVED'` 강제 + safe/any 조건 분기 구현
+    - [ ] 단위테스트: strict/probe 필터 불일치 방지, APPROVED gate 검증
+  - [ ] **Phase 2 / FE Executor**
+    - [ ] Step1 Strict query 실행 (<=K)
+    - [ ] Step2 Strict 0건일 때만 probe 호출
+    - [ ] Step3 Approx 후보 조회(내부 참고용) + `ANSWERED` 금지 규칙 반영
+    - [ ] `LOCKED`를 FE view-state로 구현 (domain status와 분리)
+    - [ ] 템플릿(`ProductionQTemplate`)에 `queryKind/strictFilters/approxFilters/disclosurePolicy` 반영
+  - [ ] **Phase 3 / Aggregate Safety**
+    - [ ] ALLY/ADVERSARY 라벨 확정 게이트 추가 (evidence predicate >= 1)
+    - [ ] Evidence 미충족 시 COEVENT/UNKNOWN 처리 (점수만으로 라벨 금지)
+    - [ ] group 매핑/토큰 동기화(동치 fallback only) 규칙 적용
+  - [ ] **Phase 4 / Ops Loop**
+    - [ ] `NOT_ENOUGH_DATA` 발생 시 `QA_MISS` 로그 적재 (`mustFilters` 스냅샷 포함)
+    - [ ] `qAnyOf` 보강 백로그 자동화(동치 토큰 중심)
+    - [ ] 운영 가이드 문서화(질문 추가 = Strict MUST 추가)
+  - [ ] **Phase 5 / Validation**
+    - [ ] 시나리오 검증: `ANSWERED / SPOILER_BLOCKED / NOT_ENOUGH_DATA`
+    - [ ] 민감 질문에서 사용자-facing `LOCKED` 마스킹 검증
+    - [ ] 회귀 검증: Q1~Q4 기존 템플릿 오답/누락 케이스 재현 후 통과 확인
+    - [ ] 성능 검증: 성공 경로 1콜 유지, 실패 경로 2콜(Strict 0건 시) 확인
 - [x] **Production Q 템플릿(MVP)**: 브베(dramaId=10) 기준 Q1/Q2/Q3 템플릿 + 실행기(FE) 구현. `api3.q`로 텍스트 object 근사. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [ ] **Intelligence QuerySpec(옵션)**: intelligence-service가 “존재하는 API로만 실행 가능한 QuerySpec” 생성 엔드포인트(`/queryspec`) 제공 + executor 가드레일 추가. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [x] **Ontology V2.5 (Q20)**:

@@ -44,3 +44,20 @@ Ideas (later)
 - Add an additional fetch source that explicitly retrieves reveal events within a bounded scope (drama + episode window), then `union` into the candidate list.
 - Keep scope bounded to avoid expensive full-scan behavior.
 
+### 4) Manual matching: load an event directly by eventId (numeric search)
+
+**Goal**
+- Let operators jump to a specific event without relying on full-text search (summary-based search often fails on numeric IDs).
+
+Notes (current API reality)
+- There is no dedicated `GET /api/event/v2/events/{id}` endpoint.
+- FE already has `eventV2Api.getEvent(eventId)` which calls `GET /api/event/v1/{id}` and returns the full event DTO.
+- If this is added later, the manual matching UI should validate:
+  - `event.dramaId` matches the current `dramaId`
+  - spoiler gating is still respected (either by server or by client-side safeUpToEpisode checks)
+
+UX options (treat these as mutually exclusive; pick one)
+1. Separate `From Event ID` / `To Event ID` inputs (explicit “ID mode”).
+2. Single search box with numeric auto-detect: if input matches `^\\d+$`, treat as `eventId` and auto-load; otherwise treat as full-text `q`.
+3. Single search box with explicit prefix: `id:1234` (or `#1234`) triggers ID load; everything else is `q` search.
+
