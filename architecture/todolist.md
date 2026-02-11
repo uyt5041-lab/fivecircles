@@ -219,12 +219,15 @@
 - [ ] **Predicate suggestion 운영(SoT=event)**: `event.predicate_suggestion` 도입(승인 시 snapshot 저장), 운영 편집/집계는 event 기준, wiki는 히스토리만 유지 (spec: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`)
 - [x] **Predicate suggestion(코드/마이그레이션)**: event-service V8 컬럼 추가 + DTO/mapper + wiki 승인 publish payload 반영 (배포/DB 반영은 별도)
 - [ ] **ex16 Production Q1~Q15 프리셋 실행 레이어**: Q1~Q15를 QuerySpec으로 고정하고 FE/QA에서 버튼 1개로 실행(api3/api4/api7/api8 조합). (status doc: `fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md`)
-- [ ] **ex16 Anti-Halu 재귀 구현 TODO (Q1~Q15)** (refs: `fivecircles/architecture/specs/questions-anti-halus/03-implementation-plan.md`, `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`, `fivecircles/architecture/specs/questions-anti-halus/05-v2-v25-adoption-review.md`)
+- [ ] **ex16 Anti-Halu 재귀 구현 TODO (Q1~Q15)** (refs: `questions-anti-halus/03-implementation-plan.md`, `04-template-strict-must-matrix.md`, `05-v2-v25-adoption-review.md`, `06-answers-for-productionQs.md`, `07-맥락적답변형식.md`, `08-맥락적답변형식-메타모델.md`)
   - [ ] **Phase 0 / Spec Lock**
     - [x] 질문별 Strict/Approx 분리 원칙 고정 (`Strict -> Probe -> Approx`)
     - [x] Q1~Q15 Strict MUST 매트릭스 초안 고정 (`04-template-strict-must-matrix.md`)
-    - [ ] Q1~Q15 템플릿별 `disclosurePolicy` 확정 (`ALLOW_SPOILER_BLOCKED` vs `HIDE_EXISTS_BEYOND_K`)
+    - [x] Q1~Q15 정답 에피소드 앵커 확정 (`06-answers-for-productionQs.md`)
+    - [x] V2~V2.5 채택/보강 체크포인트 정리 (`05-v2-v25-adoption-review.md`)
+    - [ ] Q1~Q15 템플릿별 `disclosurePolicy` 확정 (`ALLOW_SPOILER_BLOCKED` vs `HIDE_EXISTS_BEYOND_K`) — 04 매트릭스에 초안 있음, 런타임 매핑 확정 필요
     - [ ] `queryKind` + `strictFilters` JSON 스키마 최종 확정 (single probe endpoint 기준)
+    - [ ] 05 체크리스트 5개 항목 최종 서명 (probe APPROVED only, StrictQuerySpec 단일화, Strict 0건→ANSWERED 금지, disclosurePolicy 마스킹, QA_MISS 백로그)
   - [ ] **Phase 1 / Backend Probe (event-service)**
     - [x] `POST /api/event/v2/probe` 엔드포인트 추가 (boolean only)
     - [x] Probe 요청 DTO 정의: `queryKind`, `safeUpToEpisode`, `strictFilters`
@@ -238,7 +241,8 @@
     - [x] Step3 Approx 후보 조회(내부 참고용) + `ANSWERED` 금지 규칙 반영
     - [x] `LOCKED`를 FE view-state로 구현 (domain status와 분리)
     - [x] 템플릿(`ProductionQTemplate`)에 `queryKind/strictFilters/approxFilters/disclosurePolicy` 반영
-    - [ ] Q5~Q15 템플릿 확장 적용 (현재 Q1~Q4 범위에서만 executor 반영)
+    - [x] Q5~Q15 템플릿 확장 적용 (현재 Q1~Q4 범위에서만 executor 반영)
+    - [ ] 04 매트릭스의 `evidence_event_id` TBD 칼럼을 DB 이벤트 ID로 채우기 (Q1~Q15) — 1차 반영: Q01/Q02/Q06/Q10 완료
   - [ ] **Phase 3 / Aggregate Safety**
     - [ ] ALLY/ADVERSARY 라벨 확정 게이트 추가 (evidence predicate >= 1)
     - [ ] Evidence 미충족 시 COEVENT/UNKNOWN 처리 (점수만으로 라벨 금지)
@@ -248,10 +252,28 @@
     - [ ] `qAnyOf` 보강 백로그 자동화(동치 토큰 중심)
     - [ ] 운영 가이드 문서화(질문 추가 = Strict MUST 추가)
   - [ ] **Phase 5 / Validation**
-    - [ ] 시나리오 검증: `ANSWERED / SPOILER_BLOCKED / NOT_ENOUGH_DATA`
-    - [ ] 민감 질문에서 사용자-facing `LOCKED` 마스킹 검증
+    - [ ] 06 정답 기준 검증: Q1~Q15 canonical_episode과 Strict query 결과 1:1 매칭 확인
+    - [ ] 시나리오 검증: `ANSWERED / SPOILER_BLOCKED / NOT_ENOUGH_DATA` 3상태 분기
+    - [ ] 민감 질문에서 사용자-facing `LOCKED` 마스킹 검증 (Q1,Q2,Q4,Q5,Q7,Q8,Q10~Q15 = `HIDE_EXISTS_BEYOND_K`)
     - [ ] 회귀 검증: Q1~Q4 기존 템플릿 오답/누락 케이스 재현 후 통과 확인
     - [ ] 성능 검증: 성공 경로 1콜 유지, 실패 경로 2콜(Strict 0건 시) 확인
+    - [ ] 05 최종 체크리스트 6개 항목 통과 확인
+  - [ ] **Phase 6 / Contextual Answer Format (Level 1-3 진화형 응답)** (refs: `07-맥락적답변형식.md`, `08-맥락적답변형식-메타모델.md`)
+    - [ ] **메타모델 설계 확정**
+      - [ ] `structural_weight` (1=점/Anchor, 2=선/Structural Shift, 3=면/Systemic State) 스키마 확정
+      - [ ] `domain_type` enum 확정 (THREAT, POWER, MONEY, RELATION, IDENTITY, INVESTIGATION)
+      - [ ] predicate_group → 현재 DB `PredicateCode` 매핑 리팩토링 (08 §3 매핑표 기준)
+      - [ ] 08의 수도태그(`[수도태그]`) → 실제 PredicateCode 전환 계획 확정 (신규 코드 추가 vs 기존 매핑)
+    - [ ] **백엔드 레이어**
+      - [ ] Q별 Level 1-3 응답을 반환하는 엔드포인트 설계 (단일 Q → 3 Level 응답)
+      - [ ] `anchor_event_ids` 연결: Level별 evidence 이벤트 ID 매핑
+      - [ ] hop=1 관계(PRECEDES/REVEALS) 기반 Level 2-3 후보 자동 탐색 (V2.5 범위)
+    - [ ] **프론트엔드 레이어**
+      - [ ] Level 1-3 단계별 펼침(accordion/progressive disclosure) UI 설계
+      - [ ] spoiler gating: 사용자 safeUpToEpisode 이내 Level만 노출
+    - [ ] **검증**
+      - [ ] 06 정답 + 07 Level 1-3 데이터로 Q1~Q15 전체 응답 샘플 검증
+      - [ ] JSON 응답 스키마(`qna.levels.v1`) 확정 및 FE 파싱 테스트
 - [x] **Production Q 템플릿(MVP)**: 브베(dramaId=10) 기준 Q1/Q2/Q3 템플릿 + 실행기(FE) 구현. `api3.q`로 텍스트 object 근사. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [ ] **Intelligence QuerySpec(옵션)**: intelligence-service가 “존재하는 API로만 실행 가능한 QuerySpec” 생성 엔드포인트(`/queryspec`) 제공 + executor 가드레일 추가. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [x] **Ontology V2.5 (Q20)**:
@@ -278,7 +300,9 @@
 ### 7. Deploy & Ops (Post-Sprint)
 > **Reference**: See `fivecircles/architecture/specs/test-server-policy-4C.md` for remote deploy & test protocols.
 - [x] Deploy on bit-ts: `cd ~/nospoiler/infra && docker compose up -d --build` (최근: 2026-02-09)
+- [x] Deploy scripts generalized for target branch argument (refs: fivecircles/test/deploy-server.sh, fivecircles/test/deploy-server-4c.sh)
 - [ ] If deploy fails with `:common` missing, fix event-service Docker build and re-run (상시체크)
+- [x] bit-ts `user-service` Flyway checksum mismatch 복구 후 auth login 스모크 재검증 (refs: fivecircles/test/errorlogs/backend/2026-02-11-user-service-flyway-checksum-login-401.md)
 - [x] bit-ts 배포 후 QA E2E 확인 (FE → Gateway → QA/Event/Policy)
 - [x] C-only compose run on bit-ts (mysql/event/policy/qa, `DB_PORT=3307`)
 - [x] Skills tracking decision (`fivecircles/agent/skills/` will be tracked)
@@ -300,6 +324,7 @@
 - [ ] QA: Q7/Q9/Q11용 데이터 보강 (event_character, event_relation, predicate_code)
 - [ ] QA: Q7/Q9 정확도 개선 (PRECEDES 탐색/정렬/게이트 재검토)
 - [x] Admin/UI: PRECEDES 관계 큐레이션 화면 (suggestions 승인, searchable drama selection, bulk approval/delete, pagination, 담당: Antigravity)
+- [x] Hotfix(2026-02-11): 프론트 `index.html` 구문 오류 및 gateway `drama/character` 401 차단 해소
 
 ### 8. Frontend Widget Placement & Test Plan (Pending)
 1) [x] Confirm widget placement per frontend spec (dashboard/timeline/qa) and list target entry points
@@ -309,5 +334,4 @@
 5) [x] Add dashboard QA entry points (global + character modal)
 
 ---
-
 

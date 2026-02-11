@@ -718,6 +718,7 @@ This file summarizes recent updates so other agents can continue without re‑di
   - **Documentation**:
     - Created `fivecircles/agent/prompt-optimization-strategy.md` to share long-term prompt improvement ideas.
 - **Status**: Completed. Squid Game identity reveal issues ("Frontman"/"Hwang In-ho" disappearance) resolved.
+
 ## Addendum (2026-02-11) - Console syntax + gateway 401 hotfix
 ### Frontend
 - Fixed `index.html` script brace mismatch causing `Unexpected token '}'` at load. (refs: front/index.html)
@@ -754,4 +755,40 @@ This file summarizes recent updates so other agents can continue without re‑di
 - QA ProductionQ 섹션에 answerability/probe 상태 노출 추가. (refs: front/features/qa/components/ProductionQSection.tsx, front/common/services/eventV2Api.ts)
 ### Tests
 - PASS: `./gradlew :services:event-service:test`
+- PASS: `front npm run build`
+
+## Addendum (2026-02-11) - Anti-halu 문서 정합성 누락 보강
+### Docs
+- 02 문서 실행 순서를 03 기준으로 고정(`Strict -> Probe -> Approx`). (refs: fivecircles/architecture/specs/questions-anti-halus/02exists-limit1.md)
+- probe strictFilters에 `excludePredicateCodeAnyOf`를 명시하고 예시 payload에 반영. (refs: fivecircles/architecture/specs/questions-anti-halus/03-implementation-plan.md)
+- Q1~Q15 `evidence_event_id` 채움 전제 DB 조건 문서 추가(06-1). (refs: fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md)
+
+### Tests
+- Not run (docs-only changes).
+
+## Addendum (2026-02-11) - user-service Flyway 복구 및 로그인 401 해소
+### Backend
+- `nospoiler_user.flyway_schema_history_user` V1/V2 메타데이터(checksum + V2 description/script) 정합화 후 `user-service` 재기동. (refs: fivecircles/test/errorlogs/backend/2026-02-11-user-service-flyway-checksum-login-401.md)
+- `api/event/v2/dramas/{id}/characters` 호출에서 `isHidden`, `partnerCharacterId`, `isAlias` 필드 응답 정상 확인. (refs: services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml)
+### Tests
+- PASS (bit-ts): `POST /api/auth/v1/login` 200 (token issued).
+- PASS (bit-ts): `docker compose ps` 기준 `user-service` 상태 `Up`.
+
+## Addendum (2026-02-11) - Anti-halu Q5~Q15 템플릿 확장
+### Frontend
+- Production Q 템플릿을 Q1~Q4에서 Q1~Q15로 확장하고 질문 원문/정책 필드를 반영. (refs: front/common/productionQ/templates.ts)
+- executor strict 필터에 `excludePredicateCodeAnyOf`, coevents `qAnyOf`, predicate-only/keyword-only strict 조합 처리 추가. (refs: front/common/productionQ/executor.ts, front/common/productionQ/types.ts)
+### Tests
+- PASS: `front npm run build`
+
+## Addendum (2026-02-11) - Anti-halu strict 필터 정렬 + evidence_event_id 1차 채움
+### Frontend
+- `preferPredicateCodeAnyOf`를 strict 레이어에서 제거하고 `approx_only` 전용으로 이동(Strict/Approx 역할 분리). (refs: front/common/productionQ/types.ts, front/common/productionQ/executor.ts, front/common/productionQ/templates.ts, front/features/qa/components/ProductionQSection.tsx)
+- `targetCharacterId` 사용 케이스를 템플릿/실행기에 반영(질문 의미상 target 필터가 필요한 경우 strict/probe 동기화). (refs: front/common/productionQ/types.ts, front/common/productionQ/executor.ts, front/common/productionQ/templates.ts)
+- `evidence_event_id` 1차 반영: Q01=2292, Q02=2285, Q06=2448, Q10=2306. (refs: front/common/productionQ/templates.ts)
+### Docs
+- Strict MUST 매트릭스에 `evidence_event_id` 1차 채움 결과 반영(Q01/Q02/Q06/Q10), 미채움 Q는 `TBD` 유지. (refs: fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md)
+- Required DB Values 문서에 1차 채움 결과/미채움 사유를 추가. (refs: fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md)
+- todolist에 evidence 채움 진행 상태(1차 완료 범위) 표기. (refs: fivecircles/architecture/todolist.md)
+### Tests
 - PASS: `front npm run build`
