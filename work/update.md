@@ -860,3 +860,11 @@ This file summarizes recent updates so other agents can continue without re‑di
 - 재발 방지 규칙을 `learn-from-log`에 추가했다(응답 래퍼 불일치, optional 필드 join 크래시). (refs: fivecircles/test/learn-from-log.md)
 ### Tests
 - PASS: `front npm run build`
+
+## Addendum (2026-02-11) - Aggregate evidence 게이트 적용 (ALLY/ADVERSARY)
+### Backend
+- Aggregate 계산에서 ADVERSARY/ALLY는 evidence 카운트가 1 이상인 행만 통과하도록 게이트를 적용했다. (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java)
+### Docs
+- todolist에 Phase3 완료 상태와 로컬 Docker/MySQL/연관이벤트 표시 점검 TODO를 반영했다. (refs: fivecircles/architecture/todolist.md)
+### Tests
+- PASS: `./gradlew :services:event-service:test --tests com.nospoiler.eventservice.service.EventQueryServiceImplTest`

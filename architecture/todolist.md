@@ -246,8 +246,8 @@
     - [ ] 미채움 Q 원인별 보강(토큰/필터/데이터): `06-1-required-db-values.md` 상세 진단표 기준으로 Q04,Q14 우선 처리
     - [x] canonical 불일치 정리: Q08,Q09,Q15의 `canonical_episode` vs strict earliest 충돌 해소(질문 의미 강화 기준 적용)
   - [ ] **Phase 3 / Aggregate Safety**
-    - [ ] ALLY/ADVERSARY 라벨 확정 게이트 추가 (evidence predicate >= 1)
-    - [ ] Evidence 미충족 시 COEVENT/UNKNOWN 처리 (점수만으로 라벨 금지)
+    - [x] ALLY/ADVERSARY 라벨 확정 게이트 추가 (evidence predicate >= 1)
+    - [x] Evidence 미충족 시 COEVENT/UNKNOWN 처리 (점수만으로 라벨 금지) — ADVERSARY/ALLY 모드에서는 무근거 행 제외, 중립은 COEVENTS 모드로 조회
     - [ ] group 매핑/토큰 동기화(동치 fallback only) 규칙 적용
   - [ ] **Phase 4 / Ops Loop**
     - [ ] `NOT_ENOUGH_DATA` 발생 시 `QA_MISS` 로그 적재 (`mustFilters` 스냅샷 포함)
@@ -276,6 +276,10 @@
     - [ ] **검증**
       - [ ] 06 정답 + 07 Level 1-3 데이터로 Q1~Q15 전체 응답 샘플 검증
       - [ ] JSON 응답 스키마(`qna.levels.v1`) 확정 및 FE 파싱 테스트
+  - [ ] **Ops / Local Runtime**
+    - [ ] 로컬 Docker 전체 기동(`docker compose up -d --build`) 절차/체크리스트 정리
+    - [ ] 로컬 MySQL 스키마 생성(init) 절차 정리 및 재현 스크립트 추가
+    - [ ] Production 질문 화면에서 “연관 이벤트(맥락)” 표시가 PRECEDES 기준으로 맞게 나오는지 점검/보정 (depth 1/2)
 - [x] **Production Q 템플릿(MVP)**: 브베(dramaId=10) 기준 Q1/Q2/Q3 템플릿 + 실행기(FE) 구현. `api3.q`로 텍스트 object 근사. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [ ] **Intelligence QuerySpec(옵션)**: intelligence-service가 “존재하는 API로만 실행 가능한 QuerySpec” 생성 엔드포인트(`/queryspec`) 제공 + executor 가드레일 추가. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [x] **Ontology V2.5 (Q20)**:
