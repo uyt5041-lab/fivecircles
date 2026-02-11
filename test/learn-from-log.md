@@ -135,6 +135,12 @@ Cause:
 Preventive rule:
 - Never modify applied migrations; add new versions or run flyway repair intentionally
 - When branch drift exists, verify actual tables/columns before assuming Flyway history reflects schema (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-flyway-checksum-mismatch.md)
+### User-service flyway metadata drift can surface as login 401
+Cause:
+- `nospoiler_user.flyway_schema_history_user` V2 metadata (description/script) drifted from migration file, so `user-service` exited and auth dependency failed.
+
+Preventive rule:
+- On login-wide 401, check `gateway -> auth -> user-service` chain first; for Flyway failures, validate checksum + description + script before retrying. (refs: fivecircles/test/errorlogs/backend/2026-02-11-user-service-flyway-checksum-login-401.md)
 ### Auth email verification send failure (SMTP)
 Cause:
 - auth-service uses smtp.naver.com with missing/invalid credentials in test env; EMAIL_SEND_FAILURE thrown
@@ -151,3 +157,15 @@ Preventive rule:
 ## [2026-02-05] MinIO URL deletion logic failure with subdirectories
 - **Root cause**: The `delete` logic previously used `lastIndexOf("/") + 1` to extract the object name from the URL, which only worked for flat bucket structures. When subdirectories were introduced (e.g., `dramas/uuid-file.jpg`), it only extracted the filename, missing the directory path, leading to 404 errors on deletion attempts.
 - **Prevention**: Use a more robust extraction logic that identifies the start of the object path by finding the bucket name in the URL and taking everything after it (e.g., `fileUrl.substring(fileUrl.indexOf(bucket + "/") + bucket.length() + 1)`).
+
+## [2026-02-11] Login 401 can be downstream dependency failure
+- **Root cause**: Login 401 on gateway was caused by `user-service` startup failure (Flyway checksum mismatch), not by wrong passwords.
+- **Prevention**: For auth failures, validate dependency chain in order: gateway policy -> auth-service logs -> user-service health/Flyway status before rotating credentials. (refs: fivecircles/test/errorlogs/backend/2026-02-11-user-service-flyway-checksum-login-401.md)
+
+## [2026-02-11] API wrapper mismatch can break Notification fetch
+- **Root cause**: `apiClient.handleResponse` assumed all success responses follow `{result:'SUCCESS', data:...}` wrapper, but notification list endpoint returned raw page JSON.
+- **Prevention**: Response parser must support both wrapped and raw JSON success contracts; keep HTTP status as primary error gate.
+
+## [2026-02-11] ProductionQ override UI must tolerate optional strict predicate list
+- **Root cause**: `ProductionQSection` override placeholder called `.join()` on optional `strict_must.predicateCodeAnyOf`, causing runtime crash for keyword-only strict templates.
+- **Prevention**: UI placeholders/read paths for optional template fields must always use null-safe access (`?.` + fallback).

@@ -851,3 +851,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Tests
 - PASS (bit-ts): `ssh bit-ts 'python3 -' < fivecircles/test/validate-anti-halu-evidence.py` (`Q01,Q02,Q03,Q05,Q06,Q07,Q08,Q09,Q10,Q11,Q12,Q13,Q15`)
 - PASS: `front npm run build`
+
+## Addendum (2026-02-11) - Notification API 파서/ProductionQ override 런타임 오류 수정
+### Frontend
+- `apiClient.handleResponse`를 보강해 성공 응답이 wrapper(`result/data`) 형태가 아니어도 raw JSON을 정상 반환하도록 수정했다. (refs: front/common/services/apiClient.ts)
+- ProductionQ override 렌더링에서 optional `predicateCodeAnyOf`를 null-safe로 처리해 `.join()` 런타임 오류를 제거했다. (refs: front/features/qa/components/ProductionQSection.tsx)
+### Logs
+- 재발 방지 규칙을 `learn-from-log`에 추가했다(응답 래퍼 불일치, optional 필드 join 크래시). (refs: fivecircles/test/learn-from-log.md)
+### Tests
+- PASS: `front npm run build`
