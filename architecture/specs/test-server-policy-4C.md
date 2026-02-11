@@ -70,12 +70,12 @@ Example (Local -> Remote)
 1) `git status`
 2) `git add -A`
 3) `git commit -m "..."` (if needed)
-4) `git push origin docs/next-tasks`
+4) `git push origin {latest-branch-or-test-branch}`
 
 Example (Remote pull + deploy)
 1) `ssh bit-ts "cd ~/nospoiler && git fetch origin"`
-2) `ssh bit-ts "cd ~/nospoiler && git checkout docs/next-tasks"`
-3) `ssh bit-ts "cd ~/nospoiler && git pull origin docs/next-tasks"`
+2) `ssh bit-ts "cd ~/nospoiler && git checkout {latest-branch-or-test-branch}"`
+3) `ssh bit-ts "cd ~/nospoiler && git pull origin {latest-branch-or-test-branch}"`
 4) `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
 
 Latest Sync Check (Before Any Server Test)
@@ -84,8 +84,8 @@ Latest Sync Check (Before Any Server Test)
 3) `ssh bit-ts "cd ~/nospoiler && git rev-parse HEAD"`
 4) `ssh bit-ts "cd ~/nospoiler && git rev-parse origin/develop"`
 5) If the two SHAs differ, stop and run:
-   - `ssh bit-ts "cd ~/nospoiler && git checkout develop"`
-   - `ssh bit-ts "cd ~/nospoiler && git pull origin develop"`
+   - `ssh bit-ts "cd ~/nospoiler && git checkout {latest-branch-or-test-branch}"`
+   - `ssh bit-ts "cd ~/nospoiler && git pull origin {latest-branch-or-test-branch}"`
    - `ssh bit-ts "cd ~/nospoiler/infra && docker compose up -d --build"`
 
 Smoke Checks (Event Query API, via Gateway)

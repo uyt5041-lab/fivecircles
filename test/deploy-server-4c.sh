@@ -7,14 +7,35 @@
 # Usage:
 #   fivecircles/test/deploy-server-4c.sh                # deploy ALL services with 4c dockerfiles
 #   fivecircles/test/deploy-server-4c.sh event-service  # deploy only specific services
+#   fivecircles/test/deploy-server-4c.sh --branch <latest-branch-or-test-branch>
+#   fivecircles/test/deploy-server-4c.sh --branch <latest-branch-or-test-branch> event-service api-gateway
 
 set -euo pipefail
 
 SERVER_ALIAS="bit-ts"
 PROJECT_PATH="~/nospoiler"
 INFRA_PATH="~/nospoiler/infra"
-BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-SERVICES="$*"
+BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+SERVICES=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --branch)
+      if [[ -z "${2:-}" ]]; then
+        echo "[4C] ❌ Error: --branch requires a value"
+        exit 1
+      fi
+      BRANCH_NAME="$2"
+      shift 2
+      ;;
+    *)
+      SERVICES+=("$1")
+      shift
+      ;;
+  esac
+done
+
+SERVICES_STR="${SERVICES[*]}"
 
 echo "=========================================="
 echo "[4C] 🚀 Deploying to Test Server: $SERVER_ALIAS"
@@ -172,9 +193,9 @@ DOCKER
   echo "  [Server/4C] cd $INFRA_PATH"
   cd $INFRA_PATH || exit 1
 
-  echo "  [Server/4C] docker compose (override=4c) up -d --build $SERVICES"
-  if [ -n "$SERVICES" ]; then
-    docker compose -f docker-compose.yml -f docker-compose.4c.yml up -d --build $SERVICES
+  echo "  [Server/4C] docker compose (override=4c) up -d --build $SERVICES_STR"
+  if [ -n "$SERVICES_STR" ]; then
+    docker compose -f docker-compose.yml -f docker-compose.4c.yml up -d --build $SERVICES_STR
   else
     docker compose -f docker-compose.yml -f docker-compose.4c.yml up -d --build
   fi

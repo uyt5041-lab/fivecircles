@@ -3,11 +3,15 @@
 # Server Deployment Script
 # Based on fivecircles/architecture/specs/test-server-policy-4C.md
 # Reference: Step Id 326 (ssh bit-ts "cd ~/nospoiler/infra && git pull && docker compose up -d --build")
+#
+# Usage:
+#   fivecircles/test/deploy-server.sh
+#   fivecircles/test/deploy-server.sh <latest-branch-or-test-branch>
 
 SERVER_ALIAS="bit-ts"
 PROJECT_PATH="~/nospoiler"
 INFRA_PATH="~/nospoiler/infra"
-BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+BRANCH_NAME="${1:-$(git rev-parse --abbrev-ref HEAD)}"
 
 echo "=========================================="
 echo "🚀 Deploying to Test Server: $SERVER_ALIAS"
