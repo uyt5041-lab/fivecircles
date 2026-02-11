@@ -49,6 +49,14 @@
   - [x] `NotificationList.tsx`: 알림 클릭 시 홈 리다이렉트 로직 제거 및 읽음 표시 강화 (UX 개선)
   - [x] 보안 개선: OAuth2 토큰 URL 파라미터 노출 방지 (HttpOnly 쿠키 도입 완료)
 - [x] 보안 개선: 이미지 업로드 클라이언트 유효성 검사 추가 (용량 및 타입 체크)
+- [x] **이벤트 반전(Reveal) 로직 개선 및 프롬프트 일반화 (오징어 게임 이슈 해결)**
+  - [x] 백엔드: `EventCharacterMapper` 자가-반전(Self-reveal) 제외 로직 수정
+  - [x] 프론트엔드: `DashboardPage` 필터 안전장치 추가 & `CharacterModal` 역할 표시 수정 ('미공개 인물')
+  - [x] 인텔리전스: `refine-fact.txt` 프롬프트 일반화 (특정 드라마 의존성 제거)
+  - [x] 문서: `fivecircles/agent/prompt-optimization-strategy.md` 생성 (프롬프트 최적화 전략)
+- [x] **프론트엔드 버그 수정 (2026-02-04)**
+  - [x] `CharacterModal.tsx`: 중복 import 제거 및 `combinedSummaries` → `approvedSummaries` 수정 (500 에러 해결)
+  - [x] `App.tsx`: `MyPage` 컴포넌트 import 누락 수정 (`ReferenceError` 해결)
 
 ---
 
@@ -269,6 +277,4 @@
 
 ---
 
-## 🤖 Agent: Antigravity (Frontend Bug Fixes, 2026-02-04)
-- [x] `CharacterModal.tsx`: 중복 import 제거 및 `combinedSummaries` → `approvedSummaries` 수정 (500 에러 해결)
-- [x] `App.tsx`: `MyPage` 컴포넌트 import 누락 수정 (`ReferenceError` 해결)
+
