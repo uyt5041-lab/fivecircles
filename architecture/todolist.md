@@ -226,18 +226,19 @@
     - [ ] Q1~Q15 템플릿별 `disclosurePolicy` 확정 (`ALLOW_SPOILER_BLOCKED` vs `HIDE_EXISTS_BEYOND_K`)
     - [ ] `queryKind` + `strictFilters` JSON 스키마 최종 확정 (single probe endpoint 기준)
   - [ ] **Phase 1 / Backend Probe (event-service)**
-    - [ ] `POST /api/event/v2/probe` 엔드포인트 추가 (boolean only)
-    - [ ] Probe 요청 DTO 정의: `queryKind`, `safeUpToEpisode`, `strictFilters`
-    - [ ] Probe 응답 DTO 정의: `existsSafeApproved`, `existsAnyApproved`
-    - [ ] `StrictQuerySpec` 단일 빌더 도입 (answer/probe 필터 1:1 동기화 강제)
-    - [ ] `source_status='APPROVED'` 강제 + safe/any 조건 분기 구현
-    - [ ] 단위테스트: strict/probe 필터 불일치 방지, APPROVED gate 검증
+    - [x] `POST /api/event/v2/probe` 엔드포인트 추가 (boolean only)
+    - [x] Probe 요청 DTO 정의: `queryKind`, `safeUpToEpisode`, `strictFilters`
+    - [x] Probe 응답 DTO 정의: `existsSafeApproved`, `existsAnyApproved`
+    - [x] `StrictQuerySpec` 단일 빌더 도입 (answer/probe 필터 1:1 동기화 강제)
+    - [x] `source_status='APPROVED'` 강제 + safe/any 조건 분기 구현
+    - [x] 단위테스트: strict/probe 필터 불일치 방지, APPROVED gate 검증
   - [ ] **Phase 2 / FE Executor**
-    - [ ] Step1 Strict query 실행 (<=K)
-    - [ ] Step2 Strict 0건일 때만 probe 호출
-    - [ ] Step3 Approx 후보 조회(내부 참고용) + `ANSWERED` 금지 규칙 반영
-    - [ ] `LOCKED`를 FE view-state로 구현 (domain status와 분리)
-    - [ ] 템플릿(`ProductionQTemplate`)에 `queryKind/strictFilters/approxFilters/disclosurePolicy` 반영
+    - [x] Step1 Strict query 실행 (<=K)
+    - [x] Step2 Strict 0건일 때만 probe 호출
+    - [x] Step3 Approx 후보 조회(내부 참고용) + `ANSWERED` 금지 규칙 반영
+    - [x] `LOCKED`를 FE view-state로 구현 (domain status와 분리)
+    - [x] 템플릿(`ProductionQTemplate`)에 `queryKind/strictFilters/approxFilters/disclosurePolicy` 반영
+    - [ ] Q5~Q15 템플릿 확장 적용 (현재 Q1~Q4 범위에서만 executor 반영)
   - [ ] **Phase 3 / Aggregate Safety**
     - [ ] ALLY/ADVERSARY 라벨 확정 게이트 추가 (evidence predicate >= 1)
     - [ ] Evidence 미충족 시 COEVENT/UNKNOWN 처리 (점수만으로 라벨 금지)

@@ -718,3 +718,40 @@ This file summarizes recent updates so other agents can continue without re‑di
   - **Documentation**:
     - Created `fivecircles/agent/prompt-optimization-strategy.md` to share long-term prompt improvement ideas.
 - **Status**: Completed. Squid Game identity reveal issues ("Frontman"/"Hwang In-ho" disappearance) resolved.
+## Addendum (2026-02-11) - Console syntax + gateway 401 hotfix
+### Frontend
+- Fixed `index.html` script brace mismatch causing `Unexpected token '}'` at load. (refs: front/index.html)
+### Backend
+- Restored public paths for `/api/drama/**` and `/api/character/**` in JWT filter. (refs: services/api-gateway/src/main/java/com/nospoiler/apigateway/security/JwtAuthenticationFilter.java)
+### Tests
+- PASS: `front npm run build`, `./gradlew :services:api-gateway:compileJava`
+- PASS (bit-ts): `GET /actuator/health` 200, `GET /api/drama/v1` 200, `GET /api/character/v1?dramaId=10` 200
+
+## Addendum (2026-02-11) - Post-merge ops sync + mapper runtime verification
+### Backend
+- Post-merge ops script generalized to accept dynamic target branch for server deploy flow. (refs: fivecircles/test/deploy-server.sh, fivecircles/test/deploy-server-4c.sh)
+- Verified event mapper runtime paths on bit-ts after deploy (`isHidden`, `partnerCharacterId`, `isAlias` in V2 responses). (refs: services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml)
+### Server
+- Removed redundant remote branch `new-task` and deployed `feature/anti-halu-template-sync-20260211` to bit-ts.
+- Smoke verified event endpoints via service-direct curl and gateway health 200.
+### Tests
+- PASS (bit-ts): `/api/event/v2/dramas/{id}/characters`, `/api/event/v2/characters/{id}/events?includeRevealPartner=...`, aggregate endpoints.
+- FAIL (blocked): auth login checks returned 401 due `user-service` startup failure (Flyway checksum mismatch), not password mismatch. (refs: fivecircles/test/errorlogs/backend/2026-02-11-user-service-flyway-checksum-login-401.md)
+## Addendum (2026-02-11) - Anti-halu strict/must 문서 정리
+### Docs
+- 브베 shorthand와 범용 strictFilters 매핑 규칙 명시. (refs: .../03-implementation-plan.md, .../04-template-strict-must-matrix.md)
+- Q06 strict의 prefer 키 제거, MUST는 predicateCodeAnyOf로 통일. (refs: .../04-template-strict-must-matrix.md)
+
+### Tests
+- Not run (docs-only changes).
+
+## Addendum (2026-02-11) - Anti-halu 재귀 구현 Phase1~2(부분)
+### Backend
+- `POST /api/event/v2/probe` + strict spec 기반 APPROVED safe/any 존재판정 구현. (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java)
+- probe DTO/mapper/exists 쿼리 + strict/probe 동기화 테스트 추가. (refs: services/event-service/src/main/java/com/nospoiler/eventservice/dto/EventProbeRequest.java, services/event-service/src/main/resources/mapper/event/EventMapper.xml, services/event-service/src/test/java/com/nospoiler/eventservice/service/EventQueryServiceImplTest.java)
+### Frontend
+- ProductionQ executor에 `Strict 0건 -> probe -> ANSWERED|SPOILER_BLOCKED|NOT_ENOUGH_DATA` 분기 + `LOCKED` view-state 반영. (refs: front/common/productionQ/executor.ts, front/common/productionQ/types.ts)
+- QA ProductionQ 섹션에 answerability/probe 상태 노출 추가. (refs: front/features/qa/components/ProductionQSection.tsx, front/common/services/eventV2Api.ts)
+### Tests
+- PASS: `./gradlew :services:event-service:test`
+- PASS: `front npm run build`
