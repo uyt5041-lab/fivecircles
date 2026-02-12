@@ -257,6 +257,49 @@ ASK { ?event wdt:Pparticipant wd:Walter ; wdt:Pparticipant wd:Other ; wdt:Ppredi
 - Response
   - `{ existsSafeApproved: boolean, existsAnyApproved: boolean }`
 
+Probe 요청 스키마(최종 확정, single endpoint)
+- `queryKind` (required enum)
+  - `character_predicate_earliest`
+  - `character_keyword_earliest`
+  - `coevents_earliest`
+- `safeUpToEpisode` (required integer, `K`)
+- `strictFilters` (required object)
+  - `dramaId?: number`
+  - `subjectCharacterId?: number`
+  - `withCharacterIds?: number[]` (coevents)
+  - `targetCharacterId?: number`
+  - `aboutCharacterId?: number`
+  - `predicateCodeAnyOf?: string[]`
+  - `excludePredicateCodeAnyOf?: string[]`
+  - `qAnyOf?: string[]`
+
+중요 원칙: 범용 필터 vs 브베(Breaking Bad) 전용 표현 분리
+- 브베 문서에서 쓰는 `subject=Walter`, `with=[Walter,Tuco]`, `target=Walter` 같은 표기는 설명용 shorthand다.
+- 런타임에서는 반드시 위 `strictFilters`(범용 공통 스키마)로 변환해서 실행한다.
+  - `subject=Walter` -> `strictFilters.subjectCharacterId=<WalterId>`
+  - `with=[Walter,Tuco]` -> `strictFilters.withCharacterIds=[<WalterId>,<TucoId>]`
+  - `target=Walter` -> `strictFilters.targetCharacterId=<WalterId>`
+
+중요 원칙: Strict MUST에 "선호(prefer)"를 섞지 않는다
+- `preferPredicateCodeAnyOf`는 MUST가 아니라 "후보 중 우선 선택" 힌트(정렬/선호)다.
+- 따라서 `strictFilters`에는 넣지 않는다.
+- 선호/가중치는 `approx_only` 레이어에서만 표현한다.
+
+```json
+{
+  "queryKind": "character_predicate_earliest",
+  "safeUpToEpisode": 5,
+  "strictFilters": {
+    "dramaId": 10,
+    "subjectCharacterId": 19,
+    "targetCharacterId": 17,
+    "predicateCodeAnyOf": ["DISCOVERS", "LEARNS"],
+    "excludePredicateCodeAnyOf": ["OTHER"],
+    "qAnyOf": ["마약", "메스", "PRODUCTION"]
+  }
+}
+```
+
 설계 메모(단일 endpoint 장점)
 - 파라미터 증가(캐릭터, coevents, about/reveal, aggregate 관련 필터)에 대비해 URL을 늘리지 않고 body 스키마로 확장 가능.
 - `queryKind + strictFilters` 조합으로 템플릿별 MUST를 명시적으로 재현할 수 있다.
@@ -344,10 +387,11 @@ MUST 조건 스냅샷 전달 예시
 ```json
 {
   "queryKind": "character_predicate_earliest",
-  "subjectId": 19,
   "safeUpToEpisode": 5,
   "strictFilters": {
+    "subjectCharacterId": 19,
     "predicateCodeAnyOf": ["DISCOVERS", "LEARNS"],
+    "excludePredicateCodeAnyOf": ["OTHER"],
     "qAnyOf": ["마약", "메스", "범죄", "PRODUCTION"],
     "aboutCharacterId": 17
   }
@@ -363,8 +407,9 @@ Content-Type: application/json
   "queryKind": "character_predicate_earliest",
   "safeUpToEpisode": 5,
   "strictFilters": {
-    "subjectId": 19,
+    "subjectCharacterId": 19,
     "predicateCodeAnyOf": ["DISCOVERS", "LEARNS"],
+    "excludePredicateCodeAnyOf": ["OTHER"],
     "qAnyOf": ["마약", "메스", "범죄", "PRODUCTION"],
     "aboutCharacterId": 17
   }

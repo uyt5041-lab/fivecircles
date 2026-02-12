@@ -251,13 +251,19 @@ NOT_ENOUGH_DATA가 나왔다는 건 곧바로 이런 의미가 된다:
 
 ## 4) 구현 순서 (가장 짧은 완성 경로)
 
-1. **응답 타입을 3상태로 고정**
+> 실행 순서는 `fivecircles/architecture/specs/questions-anti-halus/03-implementation-plan.md`를 기준으로 고정한다.
+> (`Strict Answer Query -> Probe -> Approx(참고용)`)
 
-   * `ANSWERED | SPOILER_BLOCKED | NOT_ENOUGH_DATA`
-2. Q&A 핸들러 앞단에 **Answerability Gate** 삽입
-3. `ANSWERED`는 반드시 **evidenceEventIds 1개 이상** 포함 (없으면 서버에서 폐기)
-4. `SPOILER_BLOCKED`는 “DB에는 있으나 K 이후”라고만 말함 (내용 금지)
-5. `NOT_ENOUGH_DATA`는 “현재 DB에 근거 없음” + (선택) “현재 구축 범위 N화까지” 안내
+1. **Strict Answer Query(<=K)를 먼저 실행**
+   - Strict 결과가 1건 이상이면 `ANSWERED`
+   - Strict 결과가 0건이면 Probe 단계로 이동
+2. **Strict 0건일 때만 Probe(Answerability Gate) 실행**
+   - `exists_safe`, `exists_any` 판정
+3. **응답 타입을 3상태로 고정**
+   - `ANSWERED | SPOILER_BLOCKED | NOT_ENOUGH_DATA`
+4. `ANSWERED`는 반드시 **evidenceEventIds 1개 이상** 포함 (없으면 서버에서 폐기)
+5. `SPOILER_BLOCKED`는 “DB에는 있으나 K 이후”라고만 말함 (내용 금지)
+6. `NOT_ENOUGH_DATA`는 “현재 DB에 근거 없음” + (선택) “현재 구축 범위 N화까지” 안내
 
 ---
 
