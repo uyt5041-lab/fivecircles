@@ -204,9 +204,9 @@ def main() -> int:
         },
         {
             "qid": "Q02",
-            "expected": 2285,
+            "expected": 2449,
             "runner": lambda: run_character_keyword(
-                token, 17, ["암페타민", "메스암페타민", "meth", "methamphetamine", "cook"]
+                token, 17, ["처음으로 메스암페타민", "직접 제조한다"]
             ),
         },
         {
@@ -214,6 +214,16 @@ def main() -> int:
             "expected": 2450,
             "runner": lambda: run_coevents(
                 token, 17, 25, [], ["폭발"], ["MEETS"]
+            ),
+        },
+        {
+            "qid": "Q04",
+            "expected": 2922,
+            "runner": lambda: run_character_predicate(
+                token,
+                19,
+                ["DISCOVERS", "LEARNS"],
+                ["meth", "메스", "암페타민", "제조", "마약", "범죄"],
             ),
         },
         {
@@ -289,6 +299,13 @@ def main() -> int:
             "expected": 2307,
             "runner": lambda: run_character_predicate(
                 token, 17, [], ["대량 공급", "계약", "정기 수익", "주 단위"]
+            ),
+        },
+        {
+            "qid": "Q14",
+            "expected": 2923,
+            "runner": lambda: run_coevents(
+                token, 17, 19, ["BETRAYS", "LEARNS", "DISCOVERS"], ["별거", "신뢰 붕괴", "집에서 나가"], []
             ),
         },
         {

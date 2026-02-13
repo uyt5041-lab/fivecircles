@@ -169,3 +169,9 @@ Preventive rule:
 ## [2026-02-11] ProductionQ override UI must tolerate optional strict predicate list
 - **Root cause**: `ProductionQSection` override placeholder called `.join()` on optional `strict_must.predicateCodeAnyOf`, causing runtime crash for keyword-only strict templates.
 - **Prevention**: UI placeholders/read paths for optional template fields must always use null-safe access (`?.` + fallback).
+### Timeline sort priority must separate CAUSE/FOCUS/EFFECT
+Cause:
+- Single priority function treated CAUSE and EFFECT equally, FOCUS always last
+
+Preventive rule:
+- When sorting tagged timeline items, assign distinct sort priorities per tag (CAUSE<FOCUS<EFFECT) and keep dedup priority separate (FOCUS always wins)

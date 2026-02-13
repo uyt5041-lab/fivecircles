@@ -868,3 +868,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 - todolist에 Phase3 완료 상태와 로컬 Docker/MySQL/연관이벤트 표시 점검 TODO를 반영했다. (refs: fivecircles/architecture/todolist.md)
 ### Tests
 - PASS: `./gradlew :services:event-service:test --tests com.nospoiler.eventservice.service.EventQueryServiceImplTest`
+## Addendum (2026-02-13) - Q3 data fix + timeline sort fix + updateEvent characterIds
+### Frontend
+- Fixed contextTimeline sort priority: CAUSE(1)→FOCUS(2)→EFFECT(3) + separate dedupPriority (refs: ProductionQSection.tsx)
+
+### Backend
+- Added characterIds merge logic (PATCH semantics) to updateEvent, inserts only new characters (refs: EventServiceImpl.java)
+
+### Database
+- Fixed event_character for #2376: removed Hank(20), added Walter(17)+Jesse(18)+Tuco(25); fixed PRECEDES chain 2333→2306→2375→2376→2435→2452; removed reversed relations

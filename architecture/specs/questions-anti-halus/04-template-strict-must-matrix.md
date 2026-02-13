@@ -31,9 +31,9 @@
 |---|---|---|---|---|---|---|---|
 | `Q01` | 월터의 첫 살인은 언제지 | `character_predicate_earliest` | `S1E3` | `subject=Walter`, `predicateCodeAnyOf=[KILLS]` | Walter action broad(정답 확정 금지) | `HIDE_EXISTS_BEYOND_K` | `2292` |
 | `Q02` | 월터가 암페타민 제조시작한게 언제지? | `character_keyword_earliest` | `S1E1` | `subject=Walter`, `qAnyOf=[meth,메스,암페타민,PRODUCTION...]` | Walter keyword broad(정답 확정 금지) | `HIDE_EXISTS_BEYOND_K` | `2285` |
-| `Q03` | 투코를 처음 만나는 시점은 언제야? | `coevents_earliest` | `S1E6` | `with=[Walter,Tuco]`, `qAnyOf=[폭발]` | `prefer=[MEETS]`, `predicateCodeAnyOf=[MEETS,ALLIES_WITH,ATTACKS]` | `ALLOW_SPOILER_BLOCKED` | `2450` |
+| `Q03` | 투코를 처음 만나는 시점은 언제야? | `coevents_earliest` | `S1E6` | `with=[Walter,Tuco]`, `predicateCodeAnyOf=[MEETS]` | `predicateCodeAnyOf=[ALLIES_WITH,ATTACKS]`, `qAnyOf=[폭발,사무실,하이젠베르크]` | `ALLOW_SPOILER_BLOCKED` | `2376` |
 | `Q04` | 스카일러가 남편의 범죄사실을 알아차린 시점이언제냐? | `character_predicate_earliest` | `S3E2` | `subject=Skyler`, `predicateCodeAnyOf=[DISCOVERS,LEARNS]`, `qAnyOf=[meth,메스,암페타민,마약,제조]` | `predicateCodeAnyOf=[DISCOVERS,LEARNS]` | `HIDE_EXISTS_BEYOND_K` | `TBD` |
-| `Q05` | 월터가 처음 ‘범죄’ 결심한 순간? | `character_predicate_earliest` | `S1E1` | `subject=Walter`, `qAnyOf=[결심,동업,제조 시작,암 진단,DEA,단속,도주,제시]`, `predicateCodeAnyOf=[LEARNS,DISCOVERS]` | `qAnyOf=[가족,돈,치료비]` | `HIDE_EXISTS_BEYOND_K` | `2283` |
+| `Q05` | 월터가 처음 범죄를 결심한 순간은 언제지? | `character_keyword_earliest` | `S1E1` | `subject=Walter`, `qAnyOf=[직접 제조,메스암페타민,동업]` | `qAnyOf=[결심,범죄,제시,DEA,암 진단,가족,돈,치료비]` | `HIDE_EXISTS_BEYOND_K` | `2449` |
 | `Q06` | 월터와 제시가 처음 파트너가 된 계기? | `coevents_earliest` | `S1E1` | `with=[Walter,Jesse]`, `predicateCodeAnyOf=[ALLIES_WITH,JOINS,MEETS]` | `predicateCodeAnyOf=[DISCOVERS,LEARNS]` | `ALLOW_SPOILER_BLOCKED` | `2448` |
 | `Q07` | 월터가 처음 거짓말을 들키는 순간? | `character_predicate_earliest` | `S1E2` | `subject=Walter`, `qAnyOf=[거짓말,휴대폰,실종,추궁,의심,행동 이상,불신]` | `qAnyOf=[의심,불신]` | `HIDE_EXISTS_BEYOND_K` | `2343` |
 | `Q08` | 월터의 ‘가족 명분’이 처음 흔들리는 지점? | `character_keyword_earliest` | `S1E5` | `subject=Walter`, `predicateCodeAnyOf=[RECOVERS]`, `qAnyOf=[Elliott,전액을 지원,치료비 전액]` | `qAnyOf=[자존심,열등감,갈등]` | `HIDE_EXISTS_BEYOND_K` | `2428` |
@@ -70,6 +70,11 @@
 5. `prefer*` 계열은 Strict에서 금지
 - `strict_must`에는 `preferPredicateCodeAnyOf`를 두지 않는다.
 - 선호/가중치/정렬 힌트는 `approx_only`에서만 표현한다.
+
+6. Context Timeline 정렬 순서: `CAUSE → FOCUS → EFFECT`
+- 정렬 priority: `CAUSE(1) < FOCUS(2) < EFFECT(3)` — 같은 에피소드 내에서도 시간 순서 보장.
+- Dedup priority: `FOCUS`는 항상 최우선 — 동일 이벤트가 CAUSE/EFFECT와 FOCUS에 중복 시 FOCUS로 표시.
+- Depth는 BFS hop 수이며, 분기가 있으면 아이템 수는 `2×depth+1`을 초과할 수 있다.
 
 ---
 
