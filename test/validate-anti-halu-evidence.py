@@ -12,12 +12,13 @@ import json
 import sys
 import urllib.parse
 import urllib.request
+from typing import Optional
 
 BASE_URL = "http://localhost:8080"
 SAFE_UP_TO_EPISODE = 100
 
 
-def post_json(path: str, payload: dict, token: str | None = None) -> dict:
+def post_json(path: str, payload: dict, token: Optional[str] = None) -> dict:
     req = urllib.request.Request(
         BASE_URL + path,
         data=json.dumps(payload).encode("utf-8"),
@@ -30,7 +31,7 @@ def post_json(path: str, payload: dict, token: str | None = None) -> dict:
         return json.loads(resp.read().decode("utf-8"))
 
 
-def get_json(path: str, params: dict | None = None, token: str | None = None) -> dict:
+def get_json(path: str, params: Optional[dict] = None, token: Optional[str] = None) -> dict:
     query = ""
     if params:
         query = "?" + urllib.parse.urlencode(
@@ -53,7 +54,7 @@ def sort_key(event: dict) -> tuple[int, int]:
     return (event.get("episodeStart") or 10**9, event.get("id") or 0)
 
 
-def pick_earliest(events: list[dict]) -> dict | None:
+def pick_earliest(events: list[dict]) -> Optional[dict]:
     if not events:
         return None
     return sorted(events, key=sort_key)[0]
@@ -86,9 +87,9 @@ def run_character_predicate(
     subject_id: int,
     predicate_codes: list[str],
     q_any_of: list[str],
-    target_id: int | None = None,
-    exclude_codes: list[str] | None = None,
-) -> dict | None:
+    target_id: Optional[int] = None,
+    exclude_codes: Optional[list[str]] = None,
+) -> Optional[dict]:
     exclude = set(exclude_codes or [])
     if predicate_codes and q_any_of:
         pairs = [(code, q) for code in predicate_codes for q in q_any_of]
@@ -131,9 +132,9 @@ def run_character_keyword(
     token: str,
     subject_id: int,
     q_any_of: list[str],
-    predicate_codes: list[str] | None = None,
-    target_id: int | None = None,
-) -> dict | None:
+    predicate_codes: Optional[list[str]] = None,
+    target_id: Optional[int] = None,
+) -> Optional[dict]:
     selected: list[dict] = []
     character_cache: dict[int, set[int]] = {}
     codes = predicate_codes or []
@@ -171,7 +172,7 @@ def run_coevents(
     predicate_codes: list[str],
     q_any_of: list[str],
     prefer_codes: list[str],
-) -> dict | None:
+) -> Optional[dict]:
     events = unwrap_api_result(
         get_json(
             f"/api/event/v2/characters/{a_id}/coevents",

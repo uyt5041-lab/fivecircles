@@ -1,6 +1,6 @@
-# Production Q Templates + Intelligence QuerySpec (Plan)
+# Production Q Templates + Intelligence QuerySpec (Guidelines)
 
-기준 날짜: 2026-02-09
+기준 날짜: 2026-02-13
 
 목표
 - Production 질문(Q1~Q15)을 “프리셋 템플릿”으로 빠르게 실행한다.
@@ -14,13 +14,23 @@
   - `.../events?...&includeRevealPartner=false`
 - `api4`(coevents)는 `limit` optional 파라미터를 지원한다.
   - `GET /api/event/v2/characters/{aId}/coevents?with={bId}&safeUpToEpisode=K&limit=N`
-- Production Q1~Q15 프리셋 실행 레이어는 아직 없다(문서/플랜만 존재).
+- `api7/api8` 성격(원인/결과 맥락)은 PRECEDES 기반으로 제공된다.
+  - `GET /api/event/v2/events/{eventId}/causes?depth=D&safeUpToEpisode=K`
+  - `GET /api/event/v2/events/{eventId}/effects?depth=D&safeUpToEpisode=K`
+- 프리셋 템플릿 실행 레이어(MVP)는 FE에 존재한다.
+  - `front/common/productionQ/templates.ts`
+  - `front/common/productionQ/executor.ts`
+  - `front/features/qa/components/ProductionQSection.tsx`
+- Anti-halu의 “0건 판정”을 위해 probe endpoint가 존재한다.
+  - `POST /api/event/v2/probe`
+  - 관련 원칙: `fivecircles/architecture/specs/questions-anti-halus/03-implementation-plan.md`
 
 관련 문서
 - Production 질문 원문: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex16-production-Q15s.md`
 - Q1~Q15 라우팅(시범용): `fivecircles/architecture/specs/predicate/ex16-q1-q15-구현-라우팅-시범용.md`
 - 구현 현황: `fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md`
 - Event V2 API: `fivecircles/architecture/specs/event-v2-api.md`
+- Strict/Probe 기준표: `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`
 
 ---
 
@@ -32,39 +42,120 @@
 
 템플릿 최소 스키마(초안)
 ```ts
+type CharacterRef = { name: string; aliases?: string[] };
+
+type ProbeStrictFilters = {
+  dramaId?: number;
+  subjectCharacterId?: number;
+  withCharacterIds?: number[];
+  aboutCharacterId?: number;
+  targetCharacterId?: number;
+  predicateCodeAnyOf?: string[];
+  excludePredicateCodeAnyOf?: string[];
+  qAnyOf?: string[];
+};
+
 type QueryOp =
-  | { kind: "CHARACTER_EVENTS"; subjectCharacterId: number; safeUpToEpisode: number; predicateCode?: string; q?: string; limit?: number }
-  | { kind: "COEVENTS"; aCharacterId: number; bCharacterId: number; safeUpToEpisode: number; limit?: number }
-  | { kind: "CAUSES"; eventIdFromPrev: true; safeUpToEpisode: number; depth?: number }
-  | { kind: "EFFECTS"; eventIdFromPrev: true; safeUpToEpisode: number; depth?: number };
+  // Answer ops (Strict)
+  | { kind: "CHARACTER_PREDICATE_EARLIEST"; subjectCharacterRef: CharacterRef; predicateCodeAnyOf?: string[]; qAnyOf?: string[]; excludePredicateCodeAnyOf?: string[] }
+  | { kind: "CHARACTER_KEYWORD_EARLIEST"; subjectCharacterRef: CharacterRef; qAnyOf: string[]; predicateCodeAnyOf?: string[]; excludePredicateCodeAnyOf?: string[] }
+  | { kind: "COEVENTS_EARLIEST"; aCharacterRef: CharacterRef; bCharacterRef: CharacterRef; predicateCodeAnyOf?: string[]; qAnyOf?: string[]; preferPredicateCodeAnyOf?: string[] }
+  // Answerability gate (Probe)
+  | { kind: "PROBE"; queryKind: "character_predicate_earliest" | "character_keyword_earliest" | "coevents_earliest"; strictFilters: ProbeStrictFilters }
+  // Context ops (Explanation only)
+  | { kind: "CAUSES"; eventIdFromPrev: true; depth: number }
+  | { kind: "EFFECTS"; eventIdFromPrev: true; depth: number }
+  // Ordering helper (Explanation only)
+  | { kind: "PRECEDES_EDGES_BETWEEN"; eventIdsFromContext: true };
 
 type ProductionQuestionTemplate = {
-  id: "Q1" | "Q2" | "Q3" | string;
+  // Template registry id (stable; not the same as question_id)
+  id: string;
+  // Q1~Q15 question id (for docs alignment)
+  question_id: string;
   title: string;
-  // “first/earliest”는 별도 predicate가 아니라 실행 전략(earliest + limit=1)
+  question_text: string;
+  dramaId: number;
+  expectedMinEpisode?: number;
+
+  // “first/earliest”는 별도 predicate가 아니라 실행 전략(earliest + limit=1).
+  // Deterministic: episodeStart ASC, then id ASC.
   pick: "EARLIEST" | "LATEST";
-  ops: QueryOp[];
+
+  // Strict answer query spec (MUST) + optional approx candidates (NOT for answering)
+  strict: QueryOp;
+  approxCandidates?: QueryOp[];
+
+  // Answerability/0-result gate
+  probe: QueryOp;
+
+  // Context timeline (optional, explanation)
+  context?: {
+    causesDepth?: number;
+    effectsDepth?: number;
+  };
 };
 ```
 
-실행 규칙(초안)
-- `ops[0]` 실행 결과가 “이벤트 리스트”면 `pick` 기준으로 1개를 선택한다(earliest/largest).
-- `CAUSES/EFFECTS`는 직전 선택 이벤트의 `eventId`를 입력으로 사용한다.
-- 결과는 `primaryEvent + (optional) explanationEvents[]` 형태로 렌더링한다.
+실행 규칙(가이드라인)
+- 캐릭터 ref는 `CharacterRef(name, aliases[])`로 정의하고, 런타임에 “드라마 캐릭터 목록”에서 resolve한다.
+  - resolve가 모호하면 실행을 중단하고(운영 UI라면) 후보를 노출해 수동 선택을 받는다.
+- Strict Answer Query는 반드시 템플릿의 `strict`만 사용한다(정답 확정용).
+  - Strict가 0건이면 `ANSWERED` 금지(Approx 후보가 있어도 정답 라벨링 금지).
+  - 0건일 때만 `probe`를 호출해 `SPOILER_BLOCKED / NOT_ENOUGH_DATA`를 판정한다.
+- “earliest” 결정 규칙(Deterministic)
+  - 정렬: `episodeStart ASC`, tie-break: `id ASC`
+  - “latest”는 `episodeEnd DESC`, tie-break: `id DESC`를 권장(필요 시)
+- coevents에서 `MEETS` 우선 규칙
+  - `preferPredicateCodeAnyOf`가 존재하면, strict 후보 중 해당 predicate를 우선 pick한다.
+  - 없으면 strict 후보 전체에서 earliest를 pick한다.
+- causes/effects 체이닝(설명용)
+  - selected event가 있으면, causes/effects를 depth로 조회한다.
+  - **주의: causes/effects의 결과는 “집합”에 가까워 shortcut edge가 있으면 렌더 순서가 흔들릴 수 있다.**
+    - 예: `a->b`, `b->c`, `a->c`가 함께 있을 때 단순 episode 정렬은 `a,c,b` 같은 순서를 만들 수 있다.
+  - 순차 타임라인(= `a,b,c,d`)을 보장하려면 “관계(edge)”를 함께 가져와 위상 정렬해야 한다.
+    - FE는 context에 포함된 eventIds로 `PRECEDES edge between`을 조회한 뒤(아래 API),
+      Kahn topological sort + tie-break(episode/id)로 안정적으로 정렬한다.
+    - edge 정보가 부족하면(= DB에 `b->c` 같은 연결이 없으면) 위상정렬도 순서를 강제할 수 없다.
 
 예시(초안)
 - Q1 “월터의 첫 살인”
-  - `CHARACTER_EVENTS(subject=Walter, predicateCode=KILLS, limit=50)` -> pick EARLIEST -> (옵션) `CAUSES(depth=1)`
+  - strict: `{ kind:"CHARACTER_PREDICATE_EARLIEST", subjectCharacterRef: Walter, predicateCodeAnyOf:["KILLS"] }`
+  - pick: `EARLIEST`
+  - context: causesDepth=1 (옵션)
 - Q2 “첫 암페타민 제조”
-  - `CHARACTER_EVENTS(subject=Walter, q="암페타민", limit=200)` -> pick EARLIEST
-  - 주의: “암페타민”이 summary에 안 들어가면 실패. 이 경우 `q` 키워드 세트(동의어) 또는 데이터 보강이 필요.
+  - strict: `{ kind:"CHARACTER_KEYWORD_EARLIEST", subjectCharacterRef: Walter, qAnyOf:["암페타민","메스","meth",...] }`
+  - pick: `EARLIEST`
+  - 주의: 키워드가 summary/suggestion에 실제로 존재해야 한다. 없으면 데이터 보강 또는 동의어 세트 확장이 필요.
 - Q3 “투코를 처음 만남”
-  - `COEVENTS(a=Walter, b=Tuco, limit=200)` -> pick EARLIEST
-  - 강화: 결과 이벤트 중 `predicateCode=MEETS`가 있으면 그걸 우선 선택(없으면 earliest coevent 근사).
+  - strict: `{ kind:"COEVENTS_EARLIEST", aCharacterRef: Walter, bCharacterRef: Tuco, predicateCodeAnyOf:["MEETS"], preferPredicateCodeAnyOf:["MEETS"] }`
+  - pick: `EARLIEST`
+  - (Approx 후보는 별도 op로만 둔다: 정답 확정 금지)
 
 FE 배치(추천)
 - `/qa` 또는 별도 “Production Q” 섹션에 템플릿 목록을 노출.
 - “드라마 10(브베)”부터 시작하고, 점진적으로 다른 드라마로 확장.
+
+템플릿/정답 운영 워크플로우(중요)
+- 1) 정답을 먼저 고정한다.
+  - `fivecircles/architecture/specs/questions-anti-halus/06-answers-for-productionQs.md`에 “정답 앵커”를 확정.
+- 2) 정답 조회용 템플릿을 만든다(Strict MUST).
+  - `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md` 기준으로 strict 필터를 고정.
+  - `evidence_event_id`를 채운다(Strict + earliest + 정답 앵커 검증).
+- 3) 답변의 “맥락 체인”을 PRECEDES로 연결한다(event_relation).
+  - 정답 문서에서 설명한 선후관계(= 원인/결과)를 `event_relation(type=PRECEDES)`로 주입한다.
+  - 이벤트가 없으면 먼저 생성해서 넣는다(event + event_character + status=APPROVED).
+  - 이후 PRECEDES를 주입한다.
+- 4) 검증한다.
+  - Strict 결과 event id가 `evidence_event_id`와 동일해야 한다.
+  - Context timeline(causes/effects)에서 chain이 의도대로 따라오는지 확인한다.
+
+PRECEDES edge 조회(정렬 메타)
+- causes/effects 결과를 “순차 타임라인”으로 표시하려면 edge가 필요하다.
+- 이를 위해 eventIds 집합 내의 PRECEDES만 반환하는 endpoint를 사용한다.
+  - `POST /api/event/v2/relations/precedes/between`
+  - Request: `{ eventIds: number[], safeUpToEpisode?: number }`
+  - Response: `{ fromEventId, toEventId, type }[]` (type=PRECEDES)
 
 ---
 
@@ -109,10 +200,16 @@ QuerySpec 최소 스키마(초안)
 
 ## Implementation Plan (Phased)
 
-1) Template MVP (브베 dramaId=10)
-- FE에 `ProductionQuestionTemplate[]` 추가 + 실행기 구현
-- 최소 Q1/Q2/Q3만 먼저 제공(폐쇄집합 + q 검색)
-- 실행 결과 화면에 “사용한 파라미터(ops)”를 같이 표시(디버그/운영용)
+현황(2026-02-13)
+- FE 템플릿 실행기/템플릿 레지스트리/QA UI는 구현되어 있다.
+  - `front/common/productionQ/templates.ts`
+  - `front/common/productionQ/executor.ts`
+  - `front/features/qa/components/ProductionQSection.tsx`
+- Strict 0건 판정은 probe로 분기한다.
+  - `POST /api/event/v2/probe`
+- Context timeline의 “순차 타임라인” 표시를 위해 PRECEDES edge 조회 + 위상정렬을 사용한다.
+  - `POST /api/event/v2/relations/precedes/between`
+  - (edge가 없으면 순차 보장은 불가능하므로, 운영으로 PRECEDES를 채워야 한다)
 
 2) QuerySpec executor 공용화
 - FE 내부에서 ops 실행 로직을 모듈로 분리(템플릿/LLM 공용)
@@ -128,17 +225,18 @@ QuerySpec 최소 스키마(초안)
 
 ---
 
-## FE MVP Implementation Plan (Concrete)
+## FE Implementation Notes (Concrete)
 
 목표
-- dramaId=10(브베)에서 Q1/Q2/Q3를 “프리셋 버튼”으로 실행 가능하게 한다.
-- 백엔드 추가 변경 없이 진행하되(템플릿 레이어만), 정확도를 보장하기 위해 api3는 `includeRevealPartner=false`, api4는 `limit`을 사용한다.
+- Production Q 템플릿은 “정답 조회(Strict)”를 deterministic하게 실행하고, 0건일 때는 probe로 상태만 판정한다.
+- Context timeline은 PRECEDES 기반으로 제공하되, shortcut edge가 있어도 순차 타임라인이 깨지지 않게 edge 기반 위상정렬로 정렬한다.
 
 대상 파일(예시)
-- `front/features/qa/QaPage.tsx`: Production Q 섹션 UI 추가(드롭다운 + 실행 버튼 + 결과 패널)
-- `front/common/productionQ/templates.ts`: `ProductionQuestionTemplate` 타입 + 템플릿 레지스트리
+- `front/features/qa/components/ProductionQSection.tsx`: 템플릿 목록 + 실행 버튼 + 결과/맥락 패널
+- `front/common/productionQ/templates.ts`: 템플릿 레지스트리(드라마별 Q1~Q15 등)
 - `front/common/productionQ/executor.ts`: ops 실행기(api3/api4/api7/api8 호출 + pick 로직)
 - `front/common/productionQ/characterResolver.ts`: `CharacterRef(name/aliases)` -> id 해석(드라마 캐릭터 리스트 기반)
+- `front/common/services/eventV2Api.ts`: event-service API 클라이언트(`/probe`, `/relations/precedes/between` 포함)
 
 설계 원칙
 - 템플릿은 **ID를 하드코딩하지 않고** `CharacterRef{name, aliases[]}`로 정의한다.
@@ -151,20 +249,34 @@ QuerySpec 최소 스키마(초안)
   - `explanations[]` (옵션: causes depth=1)
   - `debug.executedOps[]` (운영/디버그)
 
+Context timeline 정렬(중요)
+- causes/effects endpoint가 주는 결과는 “집합”이라 shortcut PRECEDES가 있으면 순서가 흔들릴 수 있다.
+- 따라서 UI는 context eventIds를 모아 `/relations/precedes/between`으로 edge를 받은 뒤,
+  edge 기반 위상정렬(Kahn) + tie-break(episode/id)로 표시 순서를 고정한다.
+
 템플릿 초안(브베)
 - Q1: subject=월터, predicate=KILLS, pick=EARLIEST, explain=causes depth=1 (옵션)
 - Q2: subject=월터, qAnyOf=["암페타민","메스","meth","cook"], pick=EARLIEST
 - Q3: coevents(월터, 투코), pick=EARLIEST (강화: predicate=MEETS가 있으면 우선)
 
 템플릿 fallback(권장)
-- 템플릿 실행 결과가 0건이면, 아래 fallback을 허용한다(질문 레이어에서만).
-  - 1차: `predicateCode` 기반(있다면) 조회
-  - 2차: (있다면) group union/그룹 fallback
-  - 3차: `qAnyOf[]` 기반 재조회(텍스트 근사)
-- 예: Q1에서 `predicateCode=KILLS`가 0건이면
-  - `qAnyOf=["살해","죽임","killed","kills"]` 같은 보수 키워드로 api3 재조회(단, 오탐 가능성 있음)
-- 예: Q3에서 coevents 결과가 너무 크거나 모호하면
-  - coevents 결과에서 `predicateCode=MEETS` 우선 선택, 없으면 earliest coevent(근사 규칙)로 고정
+목표
+- 0건/애매함을 “한 번에 해결”하려고 하면 오답이 생긴다.
+- 그래서 템플릿은 **정답 확정(Strict)** 과 **후보 탐색(Approx)** 를 분리한다.
+
+Fallback Ladder (템플릿 가이드라인)
+- 1차: predicateCode 기반(Strict MUST)
+  - 질문 의미가 predicate로 고정되는 유형(Q1 kills, Q4 discovers 등)은 `predicateCodeAnyOf`를 우선으로 둔다.
+- 2차: group/fallback(Strict MUST의 “구체화된 union”)
+  - “단일 predicate로는 부족하지만 의미가 고정되는” 질문은 group을 정의해서 `predicateCodeAnyOf`로 확장한다.
+  - group은 런타임이 아니라 **템플릿 데이터(운영)** 로 관리한다(LLM이 임의로 생성 금지).
+- 3차: q 키워드(Approx candidates only)
+  - 텍스트 기반은 drift 위험이 커서, strict 0건이면 probe로 상태만 판정하고,
+    q 기반 결과는 “후보”로만 제시한다(정답 라벨링 금지).
+
+coevents에서 MEETS 우선(강화 규칙)
+- strict가 coevents 전체라면 “첫 만남” 류 질문에서 오답이 생길 수 있다.
+- 따라서 `preferPredicateCodeAnyOf=[MEETS]`를 두고, 있으면 그 안에서 earliest를 pick한다.
 
 수동 QA(최소)
 1. 로컬에서 FE `/qa` 진입, 드라마=브베 선택 후 Production Q 실행.
