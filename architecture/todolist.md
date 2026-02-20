@@ -258,6 +258,7 @@
     - [ ] 시나리오 검증: `ANSWERED / SPOILER_BLOCKED / NOT_ENOUGH_DATA` 3상태 분기
     - [ ] 민감 질문에서 사용자-facing `LOCKED` 마스킹 검증 (Q1,Q2,Q4,Q5,Q7,Q8,Q10~Q15 = `HIDE_EXISTS_BEYOND_K`)
     - [ ] 회귀 검증: Q1~Q4 기존 템플릿 오답/누락 케이스 재현 후 통과 확인
+    - [x] FE 로컬 Playwright: `/qa` 템플릿 실행(Q6 등) 후 Context Timeline `Depth=3`(3-hop) 로딩 결과 확인 (spec: `front/productionq_depth3.spec.js`)
     - [ ] 성능 검증: 성공 경로 1콜 유지, 실패 경로 2콜(Strict 0건 시) 확인
     - [ ] 05 최종 체크리스트 6개 항목 통과 확인
   - [ ] **Phase 6 / Contextual Answer Format (Level 1-3 진화형 응답)** (refs: `07-맥락적답변형식.md`, `08-맥락적답변형식-메타모델.md`)
@@ -340,4 +341,3 @@
 5) [x] Add dashboard QA entry points (global + character modal)
 
 ---
-

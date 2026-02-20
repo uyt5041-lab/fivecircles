@@ -877,3 +877,23 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ### Database
 - Fixed event_character for #2376: removed Hank(20), added Walter(17)+Jesse(18)+Tuco(25); fixed PRECEDES chain 2333→2306→2375→2376→2435→2452; removed reversed relations
+
+## Addendum (2026-02-17) - Q5/Q6 decision-flow 고정 + 2441 인코딩 복구
+### Docs
+- Q5 정답을 "결심 확정=제시 동업 제안(#2448), 실행 확정=첫 Cook(#2449)" 기준으로 재정리했다. (refs: fivecircles/architecture/specs/questions-anti-halus/06-answers-for-productionQs.md)
+- Q5/Q6 strict/evidence 기준을 문서 매트릭스와 required-db-values에 동기화했다. (refs: fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md, fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md)
+
+### Frontend
+- Q5 템플릿 앵커를 `#2449`에서 `#2448`로 변경하고 strict를 `predicateCode=MEETS + qAnyOf=[협박,제안,동업]`로 고정했다. (refs: front/common/productionQ/templates.ts)
+
+### Database
+- Q5/Q6 흐름용 PRECEDES를 순차 체인으로 정리했다: `2446 -> 2447 -> 2283 -> 2448 -> 2449` (Q6 확장: `-> 2440 -> 2441`). (refs: scripts/ops/seed_precedes_q6.py, scripts/ops/seed_production_q6_events_and_relations.sql)
+- 사실관계 불일치 이벤트 `#2442`(RV 시신 발견)와 연관 relation/character 행을 삭제했다.
+- `#2441` summary의 모지바케(인코딩 깨짐)를 UTF-8 바이트 강제 저장으로 복구하고, `2441 -> 2289` PRECEDES를 연결해 "사망 -> 시신 처리" 흐름을 명시했다.
+
+### Tests
+- Manual verify (DB/API):
+  - `GET /api/event/v1/2441`에서 한글 summary 정상 반환 확인
+  - Q5 strict(`MEETS + 협박/제안/동업`) 조회 시 earliest `#2448` 고정 확인
+- **QA Feature**: Fixed the QA 'Story Reminder' depth toggle bug (required 2 clicks due to stale closure state) by passing the explicit depth parameter to `onReloadContext`. Updated button labels to "간략히" and "맥락 더 보기". UI successfully verified via browser test. DONE by Antigravity.
+- **Ops/DB**: Dumped local databases (drama, character, event, etc.) using `mysqldump` and created `scripts/ops/server_full_sync.sql` along with `scripts/ops/README.md` for remote server migrations. DONE by Antigravity.

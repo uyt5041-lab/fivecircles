@@ -12,6 +12,8 @@
 - `Disclosure`: 사용자-facing 노출 정책
   - `ALLOW_SPOILER_BLOCKED`
   - `HIDE_EXISTS_BEYOND_K` (민감 질문, 사용자에게는 `LOCKED`)
+- `K/expectedMinEpisode`: 시즌코드(예: 202)가 아니라 누적(절대) 회차를 사용
+  - 예: `S1E7=7`, `S2E1=8`, `S2E2=9`, `S2E4=11`
 
 ---
 
@@ -29,23 +31,23 @@
 
 | question_id | question_text | queryKind | canonical_episode | strict_must | approx_only | sensitive_policy | evidence_event_id |
 |---|---|---|---|---|---|---|---|
-| `Q01` | 월터의 첫 살인은 언제지 | `character_predicate_earliest` | `S1E3` | `subject=Walter`, `predicateCodeAnyOf=[KILLS]` | Walter action broad(정답 확정 금지) | `HIDE_EXISTS_BEYOND_K` | `2292` |
+| `Q01` | 월터의 첫 직접살인이 언제인가? | `character_predicate_earliest` | `S1E3` | `subject=Walter`, `predicateCodeAnyOf=[KILLS]`, `qAnyOf=[Krazy-8,크레이지-8]` | Walter action broad(정답 확정 금지) | `HIDE_EXISTS_BEYOND_K` | `2292` |
 | `Q02` | 월터가 암페타민 제조시작한게 언제지? | `character_keyword_earliest` | `S1E1` | `subject=Walter`, `qAnyOf=[meth,메스,암페타민,PRODUCTION...]` | Walter keyword broad(정답 확정 금지) | `HIDE_EXISTS_BEYOND_K` | `2285` |
 | `Q03` | 투코를 처음 만나는 시점은 언제야? | `coevents_earliest` | `S1E6` | `with=[Walter,Tuco]`, `predicateCodeAnyOf=[MEETS]` | `predicateCodeAnyOf=[ALLIES_WITH,ATTACKS]`, `qAnyOf=[폭발,사무실,하이젠베르크]` | `ALLOW_SPOILER_BLOCKED` | `2376` |
 | `Q04` | 스카일러가 남편의 범죄사실을 알아차린 시점이언제냐? | `character_predicate_earliest` | `S3E2` | `subject=Skyler`, `predicateCodeAnyOf=[DISCOVERS,LEARNS]`, `qAnyOf=[meth,메스,암페타민,마약,제조]` | `predicateCodeAnyOf=[DISCOVERS,LEARNS]` | `HIDE_EXISTS_BEYOND_K` | `TBD` |
-| `Q05` | 월터가 처음 범죄를 결심한 순간은 언제지? | `character_keyword_earliest` | `S1E1` | `subject=Walter`, `qAnyOf=[직접 제조,메스암페타민,동업]` | `qAnyOf=[결심,범죄,제시,DEA,암 진단,가족,돈,치료비]` | `HIDE_EXISTS_BEYOND_K` | `2449` |
-| `Q06` | 월터와 제시가 처음 파트너가 된 계기? | `coevents_earliest` | `S1E1` | `with=[Walter,Jesse]`, `predicateCodeAnyOf=[ALLIES_WITH,JOINS,MEETS]` | `predicateCodeAnyOf=[DISCOVERS,LEARNS]` | `ALLOW_SPOILER_BLOCKED` | `2448` |
-| `Q07` | 월터가 처음 거짓말을 들키는 순간? | `character_predicate_earliest` | `S1E2` | `subject=Walter`, `qAnyOf=[거짓말,휴대폰,실종,추궁,의심,행동 이상,불신]` | `qAnyOf=[의심,불신]` | `HIDE_EXISTS_BEYOND_K` | `2343` |
-| `Q08` | 월터의 ‘가족 명분’이 처음 흔들리는 지점? | `character_keyword_earliest` | `S1E5` | `subject=Walter`, `predicateCodeAnyOf=[RECOVERS]`, `qAnyOf=[Elliott,전액을 지원,치료비 전액]` | `qAnyOf=[자존심,열등감,갈등]` | `HIDE_EXISTS_BEYOND_K` | `2428` |
-| `Q09` | 행크가 수사 방향을 크게 바꾸는 계기? | `character_predicate_earliest` | `S1E4` | `subject=Hank`, `predicateCodeAnyOf=[TRANSFORMS]`, `qAnyOf=[고순도]` | `qAnyOf=[수사,추적]` | `ALLOW_SPOILER_BLOCKED` | `2369` |
-| `Q10` | 월터가 처음 본격적인 조직적 위협을 받는 순간? | `character_predicate_earliest` | `S1E6~7` | `subject=Walter`, `predicateCodeAnyOf=[ATTACKS,CAPTURES,BETRAYS,KILLS]`, `excludePredicateCodeAnyOf=[DISCOVERS,LEARNS]`, `qAnyOf=[투코,공급 계약,보복]` | `predicateCodeAnyOf=[ATTACKS,CAPTURES]` | `HIDE_EXISTS_BEYOND_K` | `2306` |
-| `Q11` | 누가 월터를 의심하기 시작한 최초 시점? | `character_predicate_earliest` | `S1E2` | `subject=Skyler`, `targetCharacterId=Walter`, `qAnyOf=[의심,휴대폰,실종,행동 이상,불신]` | `qAnyOf=[행동 이상,불신]` | `HIDE_EXISTS_BEYOND_K` | `2343` |
-| `Q12` | 월터가 처음 통제권을 쥐는 순간? | `character_predicate_earliest` | `S1E6` | `subject=Walter`, `target=Tuco`, `qAnyOf=[폭발]` | `predicateCodeAnyOf=[ATTACKS,DEFEATS,MEETS,ALLIES_WITH]` | `HIDE_EXISTS_BEYOND_K` | `2450` |
+| `Q05` | 월터가 처음 범죄를 결심한 순간은 언제지? | `character_keyword_earliest` | `S1E1` | `subject=Walter`, `predicateCodeAnyOf=[MEETS]`, `qAnyOf=[협박,제안,동업]` | `qAnyOf=[결심,범죄,제시,DEA,단속,암 진단,가족,돈,치료비,직접 제조]` | `HIDE_EXISTS_BEYOND_K` | `2448` |
+| `Q06` | 월터와 제시가 처음 파트너가 된 계기? | `coevents_earliest` | `S1E1` | `with=[Walter,Jesse]`, `predicateCodeAnyOf=[ALLIES_WITH,JOINS,MEETS]`, `qAnyOf=[협박,제안,동업]` | `predicateCodeAnyOf=[DISCOVERS,LEARNS,MEETS]`, `qAnyOf=[DEA,도주,RV,거래]` | `ALLOW_SPOILER_BLOCKED` | `2448` |
+| `Q07` | 월터가 처음 거짓말을 들키는 순간? | `character_predicate_earliest` | `S2E2` | `subject=Walter`, `qAnyOf=[Which one,어느 폰,두 번째 폰]` | `qAnyOf=[거짓말,부정,변명,두 번째 폰]` | `HIDE_EXISTS_BEYOND_K` | `3001` |
+| `Q08` | 월터의 ‘가족 명분’이 처음 흔들리는 지점? | `character_keyword_earliest` | `S1E5` | `subject=Walter`, `predicateCodeAnyOf=[OTHER]`, `qAnyOf=[거절]` | `qAnyOf=[자존심,열등감,갈등,엘리엇,치료비 지원]` | `HIDE_EXISTS_BEYOND_K` | `3005` |
+| `Q09` | 행크가 수사 방향을 크게 바꾸는 계기? | `character_predicate_earliest` | `S1E2` | `subject=Hank`, `predicateCodeAnyOf=[DISCOVERS]`, `qAnyOf=[Property of J.P. Wynne High School,J.P. Wynne High School,Wynne High School]` | `qAnyOf=[가스마스크,학교,실험실,인벤토리,휴고]` | `ALLOW_SPOILER_BLOCKED` | `3007` |
+| `Q10` | 월터가 처음 본격적인 조직적 위협을 받는 순간? | `character_predicate_earliest` | `S1E6` | `subject=Walter`, `predicateCodeAnyOf=[ATTACKS,CAPTURES,BETRAYS,KILLS]`, `excludePredicateCodeAnyOf=[DISCOVERS,LEARNS]`, `qAnyOf=[투코,구타,폭력,위협]` | `predicateCodeAnyOf=[ATTACKS,CAPTURES]` | `HIDE_EXISTS_BEYOND_K` | `2306` |
+| `Q11` | 누가 월터를 의심하기 시작한 최초 시점? | `character_predicate_earliest` | `S1E2` | `subject=Skyler`, `targetCharacterId=Walter`, `qAnyOf=[마리화나,대마,딜러,커버 스토리,추궁]` | `qAnyOf=[의심,제시,행적 공백,거짓말,검증,대면,신뢰]` | `HIDE_EXISTS_BEYOND_K` | `3013` |
+| `Q12` | 월터가 처음 통제권을 쥐는 순간? | `character_predicate_earliest` | `S1E6` | `subject=Walter`, `target=Tuco`, `qAnyOf=[선지급,거래 조건,주도권,통제권]` | `qAnyOf=[폭발,투코,쇼다운,협상]` | `HIDE_EXISTS_BEYOND_K` | `3019` |
 | `Q13` | 월터가 처음 돈의 흐름을 만들기 시작한 사건? | `character_predicate_earliest` | `S1E7` | `subject=Walter`, `qAnyOf=[대량 공급,계약,정기 수익,주 단위]` | `qAnyOf=[돈,거래,유통]` | `HIDE_EXISTS_BEYOND_K` | `2307` |
-| `Q14` | 스카일러-월터 관계가 돌이키기 어려워지는 첫 균열? | `coevents_earliest` | `S2E13` | `with=[Walter,Skyler]`, `predicateCodeAnyOf=[BETRAYS,LEARNS,DISCOVERS]`, `qAnyOf=[별거,신뢰 붕괴,집에서 나가]` | `predicateCodeAnyOf=[MEETS]` | `HIDE_EXISTS_BEYOND_K` | `TBD` |
+| `Q14` | 스카일러-월터 관계가 돌이키기 어려워지는 첫 균열? | `coevents_earliest` | `S2E13` | `with=[Walter,Skyler]`, `predicateCodeAnyOf=[BETRAYS,LEARNS,DISCOVERS]`, `qAnyOf=[별거,신뢰 붕괴,집에서 나가]` | `predicateCodeAnyOf=[MEETS]` | `HIDE_EXISTS_BEYOND_K` | `2923` |
 | `Q15` | 월터가 본격적으로 은폐/도주를 시작하는 최초 지점? | `character_predicate_earliest` | `S1E2` | `subject=Walter`, `qAnyOf=[산성 용액,용해,시신 처리]` | `qAnyOf=[위기 대응,회피]` | `HIDE_EXISTS_BEYOND_K` | `2289` |
 
-`evidence_event_id`는 strict query + 06 정답회차 앵커 검증 기준으로 순차 채운다(`Q01,Q02,Q03,Q05,Q06,Q07,Q08,Q09,Q10,Q11,Q12,Q13,Q15` 반영 완료). 나머지는 `TBD`를 유지한다.
+`evidence_event_id`는 strict query + 06 정답회차 앵커 검증 기준으로 순차 채운다(`Q01,Q02,Q03,Q05,Q06,Q07,Q08,Q09,Q10,Q11,Q12,Q13,Q14,Q15` 반영 완료). 나머지는 `TBD`를 유지한다.
 `sensitive_policy`는 런타임의 `disclosurePolicy`에 1:1 매핑한다.
 
 ---

@@ -201,7 +201,9 @@ def main() -> int:
         {
             "qid": "Q01",
             "expected": 2292,
-            "runner": lambda: run_character_predicate(token, 17, ["KILLS"], []),
+            "runner": lambda: run_character_predicate(
+                token, 17, ["KILLS"], ["Krazy-8", "크레이지-8"]
+            ),
         },
         {
             "qid": "Q02",
@@ -229,43 +231,46 @@ def main() -> int:
         },
         {
             "qid": "Q05",
-            "expected": 2283,
-            "runner": lambda: run_character_predicate(
+            "expected": 2448,
+            "runner": lambda: run_character_keyword(
                 token,
                 17,
-                ["LEARNS", "DISCOVERS"],
-                ["결심", "동업", "제조 시작", "암 진단", "DEA", "단속", "도주", "제시"],
+                ["협박", "제안", "동업"],
+                ["MEETS"],
             ),
         },
         {
             "qid": "Q06",
             "expected": 2448,
             "runner": lambda: run_coevents(
-                token, 17, 18, ["ALLIES_WITH", "JOINS", "MEETS"], [], []
+                token, 17, 18, ["ALLIES_WITH", "JOINS", "MEETS"], ["협박", "제안", "동업"], []
             ),
         },
         {
             "qid": "Q07",
-            "expected": 2343,
+            "expected": 3001,
             "runner": lambda: run_character_predicate(
                 token,
                 17,
                 [],
-                ["거짓말", "휴대폰", "실종", "추궁", "의심", "행동 이상", "불신"],
+                ["Which one", "어느 폰", "두 번째 폰"],
             ),
         },
         {
             "qid": "Q08",
-            "expected": 2428,
+            "expected": 3005,
             "runner": lambda: run_character_keyword(
-                token, 17, ["Elliott", "전액을 지원", "치료비 전액"], ["RECOVERS"]
+                token, 17, ["거절"], ["OTHER"]
             ),
         },
         {
             "qid": "Q09",
-            "expected": 2369,
+            "expected": 3007,
             "runner": lambda: run_character_predicate(
-                token, 20, ["TRANSFORMS"], ["고순도"]
+                token,
+                20,
+                ["DISCOVERS"],
+                ["Property of J.P. Wynne High School", "J.P. Wynne High School", "Wynne High School"],
             ),
         },
         {
@@ -275,25 +280,31 @@ def main() -> int:
                 token,
                 17,
                 ["ATTACKS", "CAPTURES", "BETRAYS", "KILLS"],
-                ["투코", "공급 계약", "보복"],
+                ["투코", "구타", "폭력", "위협"],
                 exclude_codes=["DISCOVERS", "LEARNS"],
             ),
         },
         {
             "qid": "Q11",
-            "expected": 2343,
+            "expected": 3013,
             "runner": lambda: run_character_predicate(
                 token,
                 19,
                 [],
-                ["의심", "휴대폰", "실종", "행동 이상", "불신"],
+                ["마리화나", "대마", "딜러", "커버 스토리", "추궁"],
                 target_id=17,
             ),
         },
         {
             "qid": "Q12",
-            "expected": 2450,
-            "runner": lambda: run_character_predicate(token, 17, [], ["폭발"], target_id=25),
+            "expected": 3019,
+            "runner": lambda: run_character_predicate(
+                token,
+                17,
+                [],
+                ["선지급", "거래 조건", "주도권", "통제권"],
+                target_id=25,
+            ),
         },
         {
             "qid": "Q13",

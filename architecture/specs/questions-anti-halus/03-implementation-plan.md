@@ -72,6 +72,8 @@ SELECT ?event WHERE {
 ## 용어
 
 - `K`: 사용자 스포일러 안전 회차(`safeUpToEpisode`)
+  - 본 프로젝트 기본 규칙: 시즌별 번호가 아니라 **누적(절대) 회차**를 사용
+  - 예: Breaking Bad `S1E1=1`, `S1E7=7`, `S2E1=8`, `S2E2=9`
 - `existsSafeApproved`: 질문 의미(MUST 조건)를 만족하는 근거가 `episode_end <= K` 안에 존재하는지
 - `existsAnyApproved`: 질문 의미(MUST 조건)를 만족하는 근거가 DB 전체(승인된 범위) 어디엔가 존재하는지
 - `disclosurePolicy`: 사용자-facing에서 `existsAnyApproved`/`SPOILER_BLOCKED`를 노출할지 숨길지 결정하는 플래그
@@ -142,6 +144,63 @@ ASK {
 | O | O | `ANSWERED` |
 | X | O | `SPOILER_BLOCKED` |
 | X | X | `NOT_ENOUGH_DATA` |
+
+---
+
+## 실전 작업 예시 (Q6: "월터와 제시가 처음 파트너가 된 계기?")
+
+아래는 anti-halu 템플릿 작업 시 실제로 적용한 고정 절차 예시다.
+
+1. Q6 정답문서 재정리
+- `fivecircles/architecture/specs/questions-anti-halus/06-answers-for-productionQs.md`
+- 질문 6을 6단계 도미노 타임라인으로 교체하고 PRECEDES 체인을 명시한다.
+- 체인: `2446 -> 2447 -> 2283 -> 2448 -> 2449 -> 2440 -> 2441`
+
+2. 템플릿이 정답 의도("계기")를 고정 선택하도록 조정
+- `front/common/productionQ/templates.ts`
+- Q6 strict에 `qAnyOf=['협박','제안','동업']`를 추가한다.
+- 의미: coevents 중에서도 "동업 성립 계기" 이벤트(`#2448`)를 안정적으로 earliest 선택한다.
+
+3. 문서/검증 스펙 동기화
+- `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`
+- `fivecircles/architecture/specs/questions-anti-halus/06-1-required-db-values.md`
+- `fivecircles/test/validate-anti-halu-evidence.py`
+- 템플릿 strict, evidence_event_id, 검증 expected id를 반드시 1:1로 맞춘다.
+
+4. DB에 순차 PRECEDES 반영 + legacy 가지 정리
+- 순차 체인 edge를 idempotent insert로 반영한다.
+- 기존 의미를 흐리는 legacy edge(우회/지름길)는 삭제해 타임라인 분기를 줄인다.
+
+### 전 문항 공통 적용 워크플로우 (Q1~Q15)
+
+1. 정답문서(06)에서 질문 의도를 4~6개 도미노 타임라인으로 재정리한다.
+2. 템플릿 strict를 정답 의도 토큰으로 고정하고 `evidence_event_id`를 earliest 1건으로 확정한다.
+3. `04`/`06-1`/검증 스크립트의 strict, canonical, evidence 값을 1:1 동기화한다.
+4. DB에 선형 PRECEDES 체인을 idempotent insert로 반영한다.
+5. 우회/지름길 PRECEDES edge를 삭제해 단일 흐름만 남긴다.
+Q10 예시: `2305 -> 2307`, `2306 -> 2307` 삭제.
+6. `validate-anti-halu-evidence.py` PASS와 DB 조회로 최종 확인한다.
+
+### DB 언어코드(인코딩) 명시 규칙
+
+문자열 깨짐(모지바케) 재발 방지를 위해 DB 작업 시 문자셋을 명시한다.
+
+- MySQL CLI 실행 시 기본 옵션:
+`mysql --default-character-set=utf8mb4 ...`
+- 세션 명시:
+`SET NAMES utf8mb4;`
+- 스크립트/터미널 입력 경로에서 한글이 깨질 때는 UTF-8 바이트 기반 업데이트를 사용한다.
+
+```sql
+UPDATE event
+SET summary = CONVERT(UNHEX('<utf8_hex>') USING utf8mb4)
+WHERE id = 2441;
+```
+
+- 반영 후 검증:
+`SELECT id, summary, HEX(summary) FROM event WHERE id=<event_id>;`
+- API 검증:
+`GET /api/event/v1/{id}`에서 summary 한글이 정상인지 확인한다.
 
 ---
 

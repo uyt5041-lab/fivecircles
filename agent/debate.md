@@ -166,3 +166,12 @@
 - [Done]: 프롬프트의 `ATTRIBUTE target_id=0` 지시 제거 + event-service에서 `revealTargetId<=0` 거부(방어벽) + reveal 정렬을 CHARACTER 우선으로 변경 + PRECEDES revealBoost는 ATTRIBUTE도 포함.
 - [Note]: Intelligence Mock(`OpenAiLlmClient`)의 `ATTRIBUTE revealTargetId=0`은 아직 원래대로 유지(협의 후 변경 예정). 따라서 “OpenAI 호출 실패 → Mock fallback”이 발생하면 createEvent가 실패할 수 있음(합의 후 같이 해결).
 - [Note]: 기존 `ATTRIBUTE target_id=0` 레거시 데이터는 현재 쿼리에서 “무해하지만 무용” 상태로 자연스럽게 무시됨. 전환 정책(무시/백필/삭제)은 운영 결정으로 남김.
+
+---
+
+# [Review] QA Depth Toggle Bug Fix
+> Reviewer: antigravity | Date: 2026-02-20
+- [Status]: Implemented + Verified (Browser Subagent)
+- [Findings]: QA 페이지 스토리 리마인더 결과에서 "맥락 더 보기" 버튼이 클로저에 갇힌 पुरानी 상태(stale contextDepth)를 참조하여 2번 클릭해야 작동하는 버그 확인.
+- [Fix]: `onReloadContext`에 명시적인 `explicitDepth` 파라미터를 넘겨주어 상태 불일치 해결. 버튼 라벨을 상태에 맞게 "간략히"/"맥락 더 보기"로 업데이트.
+- [Verification]: 브라우저 서브에이전트를 통해 1회 클릭 시 정상 작동 확인 완료.
