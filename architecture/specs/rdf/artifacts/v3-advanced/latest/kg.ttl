@@ -1,0 +1,14 @@
+@prefix ns: <https://nospoiler.dev/ns#> .
+
+ns:event_1001 a ns:Event ;
+  ns:eventId 1001 ;
+  ns:episodeStart 3 ;
+  ns:episodeEnd 3 ;
+  ns:sourceStatus "APPROVED" ;
+  ns:hasCharacter ns:character_2001 .
+
+ns:character_2001 a ns:Character ;
+  ns:characterId 2001 .
+
+ns:eventCharacter_1001_2001 a ns:EventCharacter ;
+  ns:role "INVOLVED" .

@@ -868,6 +868,15 @@ This file summarizes recent updates so other agents can continue without re‑di
 - todolist에 Phase3 완료 상태와 로컬 Docker/MySQL/연관이벤트 표시 점검 TODO를 반영했다. (refs: fivecircles/architecture/todolist.md)
 ### Tests
 - PASS: `./gradlew :services:event-service:test --tests com.nospoiler.eventservice.service.EventQueryServiceImplTest`
+## Addendum (2026-02-18) - QA 페이지 버튼 시인성 개선
+### Frontend
+- 웹 환경에서 QA 페이지(QaPage.tsx)의 분석 버튼들이 배경색과 겹쳐 보이지 않는 문제 해결을 위해 `!important` 스타일 적용 (`!bg-white`, `!text-indigo-600`).
+- 대시보드 모드, 타임라인 모드, 캐릭터별 분석 버튼의 스타일을 강제 적용하여 항상 보이도록 수정.
+- 캐릭터별 분석 버튼의 `opacity-0` 호버 효과를 제거하여 직관성 향상.
+
+### Tests
+- `npm run build` 성공 확인. (refs: front/features/qa/QaPage.tsx)
+
 ## Addendum (2026-02-13) - Q3 data fix + timeline sort fix + updateEvent characterIds
 ### Frontend
 - Fixed contextTimeline sort priority: CAUSE(1)→FOCUS(2)→EFFECT(3) + separate dedupPriority (refs: ProductionQSection.tsx)
@@ -897,3 +906,11 @@ This file summarizes recent updates so other agents can continue without re‑di
   - Q5 strict(`MEETS + 협박/제안/동업`) 조회 시 earliest `#2448` 고정 확인
 - **QA Feature**: Fixed the QA 'Story Reminder' depth toggle bug (required 2 clicks due to stale closure state) by passing the explicit depth parameter to `onReloadContext`. Updated button labels to "간략히" and "맥락 더 보기". UI successfully verified via browser test. DONE by Antigravity.
 - **Ops/DB**: Dumped local databases (drama, character, event, etc.) using `mysqldump` and created `scripts/ops/server_full_sync.sql` along with `scripts/ops/README.md` for remote server migrations. DONE by Antigravity.
+
+## Addendum (2026-02-23) - V3-Advanced RDF/OWL 규정 + 재귀 TODO 정리
+### Docs
+- V3-Advanced RDF/OWL 규정 문서와 V3 plan/predicate 참조 체계를 정리했다. (refs: fivecircles/architecture/specs/event-v3-advanced-rdf-owl.md)
+- Team C todolist에 V3-Advanced 재귀 TODO(Phase 0~5) 트리를 추가했다. (refs: fivecircles/architecture/todolist.md)
+- RDF artifact `latest` 템플릿 4종을 생성했다. (refs: fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest)
+### Tests
+- Not run (docs/artifact scaffold changes only).

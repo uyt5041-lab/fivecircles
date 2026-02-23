@@ -98,8 +98,12 @@ Pattern C: PRECEDES 기반 원인/결과(설명 강화)
 승격(확장) 프로세스는 다음 문서에서 단일 소스로 유지한다.
 - `fivecircles/architecture/specs/predicate/promotion-process.md`
 
-RDF/OWL 확장 노트는 다음 문서에서 단일 소스로 유지한다.
+RDF/OWL의 V3-Advanced 규정은 다음 문서에서 단일 소스로 유지한다.
+- `fivecircles/architecture/specs/event-v3-advanced-rdf-owl.md`
+
+RDF/OWL 구현 노트는 다음 문서를 따른다.
 - `fivecircles/architecture/specs/predicate/rdf-owl-extension-notes.md`
+- 본 문서는 RDF/OWL 규범을 직접 정의하지 않고, 위 두 문서 참조만 유지한다.
 
 REVEALS 분류(통합 포인트 포함)는 다음 문서에서 단일 소스로 유지한다.
 - `fivecircles/architecture/specs/reveals/reveals-classification.md`

@@ -35,6 +35,6 @@ Implementation Notes
 - event_relation.type is PRECEDES only.
 - PRECEDES suggestions are cross-episode only; same-episode links require manual curation.
 - BFS with hop limit and visited dedup by event_id.
-- Apply spoiler policy / episode gate after traversal.
+- Apply spoiler policy / episode gate during traversal expansion (safe graph) and on final projection.
 - QueryType mapping and SQL patterns live in event-v2-plan-map.md.
 - API examples are captured in event-v2-api.md.

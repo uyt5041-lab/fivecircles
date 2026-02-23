@@ -1,0 +1,30 @@
+@prefix ns: <https://nospoiler.dev/ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns:EventShape a sh:NodeShape ;
+  sh:targetClass ns:Event ;
+  sh:property [
+    sh:path ns:episodeStart ;
+    sh:datatype xsd:int ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path ns:episodeEnd ;
+    sh:datatype xsd:int ;
+    sh:minCount 1
+  ] ;
+  sh:property [
+    sh:path ns:sourceStatus ;
+    sh:datatype xsd:string ;
+    sh:minCount 1
+  ] .
+
+ns:EventCharacterShape a sh:NodeShape ;
+  sh:targetClass ns:EventCharacter ;
+  sh:property [
+    sh:path ns:role ;
+    sh:in ("INVOLVED" "SUBJECT" "OBJECT") ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .

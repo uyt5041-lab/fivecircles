@@ -1,0 +1,12 @@
+{
+  "runDate": "2026-02-23",
+  "profile": "v3-advanced",
+  "validator": "shacl",
+  "conforms": true,
+  "summary": {
+    "focusNodes": 0,
+    "violations": 0,
+    "warnings": 0
+  },
+  "results": []
+}

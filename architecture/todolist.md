@@ -3,7 +3,7 @@
 > **Principle**: This file (`fivecircles/architecture/todolist.md`) is the **top-level source of truth** for work items.
 > - Each member updates their own section.
 > - `fivecircles/agent/queue.json` is kept as a **reference/backlog**, not the primary TODO list.
-> **Last Updated**: 2026-02-10 (by Codex)
+> **Last Updated**: 2026-02-23 (by Codex)
 
 ---
 
@@ -289,6 +289,30 @@
     - [x] Create V6 Flyway Migration for `event_character.role`
     - [x] Implement Q20 Narrative Distribution view on QA page
     - [x] Implement Extended QA Widgets (Q3, Q5, Q7, Q9, Q11)
+- [ ] **V3-Advanced (RDF/OWL) Recursive TODO (2026-02-23)**
+    - [x] **Phase 0 / Spec Lock**
+      - [x] `RDF/OWL = V3-Advanced` 규정 문서 생성 (`fivecircles/architecture/specs/event-v3-advanced-rdf-owl.md`)
+      - [x] `event-v3-plan.md`에 V3 코어/Advanced 분리 및 비차단 원칙 반영
+      - [x] predicate README/notes 참조 체계 정리 (규범 SoT vs 구현 노트)
+    - [x] **Phase 1 / Artifact Scaffold**
+      - [x] `.../rdf/artifacts/v3-advanced/latest/` 경로 생성
+      - [x] 템플릿 4종 생성: `ontology.ttl`, `shapes.ttl`, `kg.ttl`, `report.json`
+    - [ ] **Phase 2 / Exporter Wire-up (RDB -> RDF)**
+      - [ ] 로컬 Docker MySQL 기준 export 스크립트 초안 작성
+      - [ ] `event`, `event_character(role)`, `event_relation(PRECEDES)` 최소 매핑 구현
+      - [ ] export 결과를 `latest/kg.ttl`로 출력하는 실행 명령 고정
+    - [ ] **Phase 3 / SHACL Validation Wire-up**
+      - [ ] validator 실행 스크립트 추가 (`kg.ttl` -> `report.json`)
+      - [ ] fail/warn 기준 및 운영 확인 포인트 문서화
+      - [ ] 파이프라인 재현성 점검 (local/server-like)
+    - [ ] **Phase 4 / V3 Release Gate Proof**
+      - [ ] Q1~Q15/Q20 회귀 테스트 실행 및 결과 기록
+      - [ ] K+APPROVED + PRECEDES safe traversal 회귀 확인
+      - [ ] RDF 레인 실패 시 v1/v2 무영향(비차단) 검증 로그 추가
+    - [ ] **Phase 5 / Optional Promotion Decision**
+      - [ ] Export-only(+10) 유지 여부 결정
+      - [ ] Query-only(+30) 진입 조건 충족 여부 검토
+      - [ ] Dual-store(+80)는 운영 런북/복구 전략 확정 전 보류
 - [ ] **Verifying**: API JSON response spoiler hiding
 - [x] Event-service 전체 주석 추가
 
