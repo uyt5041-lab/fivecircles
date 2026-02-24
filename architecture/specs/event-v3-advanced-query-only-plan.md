@@ -204,3 +204,5 @@ Status update (2026-02-24)
   - refs: `scripts/ops/rdf/replay_v3_advanced_q16_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q16_parity.sh`
 - [x] Add unified replay runner for Q16/Q17/Q19 and markdown summary output.
   - refs: `scripts/ops/rdf/replay_v3_advanced_all.sh`, `.../v3-advanced/{run-date}/query-only-replay-summary.md`
+- [x] Extend event-service source mode flag to Q19 (`rdb|rdf-candidate|auto-fallback`) with RDB fallback on RDF read failure.
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
