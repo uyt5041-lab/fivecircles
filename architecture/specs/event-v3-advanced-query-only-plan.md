@@ -71,6 +71,7 @@ Out of scope
 - Config keys:
   - `EVENT_V3_FORCE_RDB` (default: `false`) - highest priority kill-switch
   - `EVENT_V3_Q17_SOURCE_MODE` (default: `rdb`) - `rdb | rdf-candidate | auto-fallback`
+  - `EVENT_V3_Q17_RDF_KG_PATH` (default: empty) - RDF candidate source path for `kg.ttl`
 - Config source and apply rule:
   - Source of truth: event-service runtime environment variables.
   - Flags are read at process start.
@@ -187,6 +188,7 @@ Status update (2026-02-24)
 - [x] Add source flag with fixed keys:
   - `EVENT_V3_Q17_SOURCE_MODE` (`rdb|rdf-candidate|auto-fallback`, default `rdb`)
   - `EVENT_V3_FORCE_RDB` (`true|false`, default `false`, highest priority)
+  - `EVENT_V3_Q17_RDF_KG_PATH` (runtime `kg.ttl` path, required for RDF path)
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
 - [x] Add replay harness for Q17 parity report (status + evidence IDs overlap).
   - refs: `scripts/ops/rdf/replay_v3_advanced_q17_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q17_parity.sh`

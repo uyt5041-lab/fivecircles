@@ -5,6 +5,7 @@
 - Runtime switches:
   - `EVENT_V3_Q17_SOURCE_MODE` = `rdb | rdf-candidate | auto-fallback`
   - `EVENT_V3_FORCE_RDB` = `true | false` (highest priority)
+  - `EVENT_V3_Q17_RDF_KG_PATH` = readable `kg.ttl` absolute path (required when source mode is `rdf-candidate` or `auto-fallback`)
 
 ## Important Runtime Rule
 - Flags are read at **process start**.
@@ -27,6 +28,7 @@ docker compose -f infra/docker-compose.yml --env-file .env \
 cd /Users/pio/IdeaProjects/nospoiler
 EVENT_V3_Q17_SOURCE_MODE=rdf-candidate \
 EVENT_V3_FORCE_RDB=false \
+EVENT_V3_Q17_RDF_KG_PATH=/absolute/path/to/kg.ttl \
 docker compose -f infra/docker-compose.yml --env-file .env \
   up -d --no-deps --force-recreate event-service
 ```
@@ -36,6 +38,7 @@ docker compose -f infra/docker-compose.yml --env-file .env \
 cd /Users/pio/IdeaProjects/nospoiler
 EVENT_V3_Q17_SOURCE_MODE=auto-fallback \
 EVENT_V3_FORCE_RDB=false \
+EVENT_V3_Q17_RDF_KG_PATH=/absolute/path/to/kg.ttl \
 docker compose -f infra/docker-compose.yml --env-file .env \
   up -d --no-deps --force-recreate event-service
 ```
