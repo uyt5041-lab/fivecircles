@@ -208,3 +208,5 @@ Status update (2026-02-24)
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
 - [x] Extend event-service source mode flag to Q16 (`rdb|rdf-candidate|auto-fallback`) with RDB fallback on RDF read failure.
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
+- [x] Add Q16/Q19 query-only ops runbook (fast restart, rollback, smoke, replay links).
+  - refs: `fivecircles/docs/ops/event-v3-q16-q19-query-only-runbook.md`
