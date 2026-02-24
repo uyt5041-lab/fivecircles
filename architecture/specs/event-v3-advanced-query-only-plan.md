@@ -29,19 +29,54 @@ Out of scope
 
 1. RDF query step
 - Query graph for candidate event IDs / edge groups.
-- Apply semantic filters in query stage where possible (dramaId, approved, K boundary hints).
+- Apply semantic filters as **soft filters only** (candidate reduction only; never used for final user-facing decision).
+- Candidate safety cap:
+  - `maxCandidateEventIds`: 200
+  - If RDF candidate count exceeds cap, skip RDF result and fallback to RDB-only path.
 
 2. RDB hydrate step
 - Hydrate candidate IDs via existing mapper/service queries.
 - Re-apply hard gate in runtime (`episode_end <= K`, `source_status='APPROVED'`) for parity safety.
+- Hard gate and final status decision are enforced exclusively after RDB hydration.
+- Hydration must be executed as a single batched query per request (no per-id/N+1 query).
 
 3. Response assembly
 - Return existing V3 contract fields unchanged.
 - Keep `evidenceEventIds` as always-array rule.
+- `answerabilityStatus` must follow the existing probe mapping contract exactly (no Query-only reinterpretation):
+  - `existsSafeApproved=false`, `existsAnyApproved=true` -> `SPOILER_BLOCKED`
+  - `existsSafeApproved=false`, `existsAnyApproved=false` -> `NOT_ENOUGH_DATA`
+  - `existsSafeApproved=true` -> `ANSWERED`
+  - Reference: `fivecircles/architecture/specs/event-v3-api-contract.md` section "Probe/Strict Integration Rule".
 
 4. Fallback
 - If RDF query fails/timeouts/no source, fallback to existing RDB-only path.
 - Log source (`rdf` vs `rdb-fallback`) for observability.
+- Runtime SLO (Q17 first rollout, timeout model fixed):
+  - `rdfCandidateSoftTimeoutMs`: 120 (soft timeout: start RDB fallback immediately)
+  - `rdfCandidateHardTimeoutMs`: 300 (hard timeout: stop waiting for RDF result)
+  - `rdfCandidateRetryCount`: 0
+  - `fallbackRequired`: true
+  - `fallbackMaxAdditionalLatencyMs`: 150 (measured after soft-timeout fallback starts)
+  - `endpointP95RegressionLimit`: +15% vs RDB baseline
+- Latency metric definition lock:
+  - `fallbackMaxAdditionalLatencyMs` is measured as
+    `(completion time of RDB fallback path) - (time when soft-timeout triggers and fallback starts)`.
+
+5. Emergency rollback switch (no deploy/image rebuild)
+- Scope: Q17 only (`/api/event/v3/dramas/{dramaId}/foreshadowed`)
+- Config keys:
+  - `EVENT_V3_FORCE_RDB` (default: `false`) - highest priority kill-switch
+  - `EVENT_V3_Q17_SOURCE_MODE` (default: `rdb`) - `rdb | rdf-candidate | auto-fallback`
+- Config source and apply rule:
+  - Source of truth: event-service runtime environment variables.
+  - Flags are read at process start.
+  - Rollback requires service restart only (no image rebuild/redeploy).
+  - Clarification: "no deploy" in this document means "restart-only with changed env vars."
+- Evaluation priority:
+  1. `EVENT_V3_FORCE_RDB=true` -> always `rdb`
+  2. else `EVENT_V3_Q17_SOURCE_MODE` value applies
+  3. invalid/missing value -> `rdb`
 
 ---
 
@@ -65,8 +100,18 @@ Out of scope
   - parallel RDF candidate run (non-user-facing)
   - compare candidate overlap and status parity in logs
 - Exit criteria:
-  - parity >= target threshold over replay set
-  - no latency regression above agreed budget
+  - sample size >= 500 requests (and >= 50 per top drama in replay set)
+  - status coverage minimum:
+    - `SPOILER_BLOCKED` samples >= 30
+    - `NOT_ENOUGH_DATA` samples >= 30
+  - `answerabilityStatus` exact-match rate >= 99.5%
+  - `evidenceEventIds` overlap (Jaccard) >= 0.85
+  - Jaccard definition lock:
+    - both empty -> `1.0`
+    - exactly one empty -> `0.0`
+    - both non-empty -> `|A∩B| / |A∪B|`
+  - Evidence parity evaluation applies only when `answerabilityStatus` exact-match is true.
+  - no latency regression above agreed budget (`endpointP95RegressionLimit`)
 
 ### M3: Opt-in Serve Mode (Next)
 - Add config flag for Q17 source selection:
@@ -86,25 +131,49 @@ Out of scope
 
 Gate A: Functional parity
 - `answerabilityStatus` parity with RDB baseline for target replay set.
+- Probe mapping equivalence is enforced (contract-locked, not heuristic).
 - `evidenceEventIds` shape and masking policy unchanged.
+- `NOT_ENOUGH_DATA` parity requires both paths to return `evidenceEventIds=[]` (not null, not omitted).
 
 Gate B: Safety
 - Runtime gate parity (`K + APPROVED`) proven in source=`rdf-candidate`.
 - Fallback success rate and error handling validated.
+- Candidate cap overflow handling verified (`maxCandidateEventIds` 초과 시 강제 fallback).
+- When candidate cap overflow triggers fallback, the request is counted as
+  `sourceUsed=rdb-fallback` and excluded from RDF-vs-RDB evidence overlap evaluation.
+- `candidateCapOverflowRate` must remain <= 5% on the replay/observation window
+  (overflow rate above threshold blocks promotion to `auto-fallback`).
 
 Gate C: Performance
 - P95 latency within budget vs current RDB path.
 - No sustained increase in DB load from hydration stage.
+- Budget values for Q17:
+  - RDF candidate soft timeout 120ms, hard timeout 300ms, retry 0
+  - endpoint P95 regression <= +15%
+  - fallback additional latency <= 150ms (post soft-timeout)
+- Baseline fix rule:
+  - Baseline environment: `staging` (same build/profile as rollout candidate).
+  - Baseline window: trailing 7 days before enabling `rdf-candidate`/`auto-fallback`.
+  - Baseline sample: Q17 requests only, minimum n=1000 (or keep collecting until n=1000).
 
 Gate D: Ops readiness
 - Alerting + runbook available for RDF query/validation failures.
-- On-call can force source to `rdb` without deploy.
+- On-call can force source to `rdb` without image rebuild/redeploy
+  using `EVENT_V3_FORCE_RDB=true` (service restart required).
+- Minimum observability fields (log/metric):
+  - `sourceMode` (`rdb|rdf-candidate|auto-fallback`)
+  - `sourceUsed` (`rdf|rdb-fallback`)
+  - `rdfCandidateCount`
+  - `rdfTimeMs`, `hydrateTimeMs`, `totalTimeMs`
+  - `answerabilityStatus`
 
 ---
 
 ## 5) Immediate Next Tasks
 
 1. Implement Q17 shadow-mode comparator in event-service (internal log only).
-2. Add source flag (`rdb`/`rdf-candidate`/`auto-fallback`) with default `rdb`.
+2. Add source flag with fixed keys:
+   - `EVENT_V3_Q17_SOURCE_MODE` (`rdb|rdf-candidate|auto-fallback`, default `rdb`)
+   - `EVENT_V3_FORCE_RDB` (`true|false`, default `false`, highest priority)
 3. Add replay harness for Q17 parity report (status + evidence IDs overlap).
 4. Document rollback command and runbook in ops docs.
