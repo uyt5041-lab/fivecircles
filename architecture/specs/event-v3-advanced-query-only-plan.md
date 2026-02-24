@@ -202,3 +202,5 @@ Status update (2026-02-24)
   - refs: `scripts/ops/rdf/replay_v3_advanced_q19_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q19_parity.sh`
 - [x] Add Q16 replay parity harness (status/anchor/context/evidence metrics).
   - refs: `scripts/ops/rdf/replay_v3_advanced_q16_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q16_parity.sh`
+- [x] Add unified replay runner for Q16/Q17/Q19 and markdown summary output.
+  - refs: `scripts/ops/rdf/replay_v3_advanced_all.sh`, `.../v3-advanced/{run-date}/query-only-replay-summary.md`

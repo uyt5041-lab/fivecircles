@@ -10,7 +10,7 @@
     }
   },
   "summary": {
-    "generatedAt": "2026-02-24T15:20:47",
+    "generatedAt": "2026-02-24T15:32:43",
     "queryKind": "Q19_CONFLICT_AXES",
     "sampleSize": 200,
     "statusCoverageRdbBaseline": {
