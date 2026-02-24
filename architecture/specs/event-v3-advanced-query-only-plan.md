@@ -194,3 +194,5 @@ Status update (2026-02-24)
   - refs: `scripts/ops/rdf/replay_v3_advanced_q17_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q17_parity.sh`
 - [x] Document rollback command and runbook in ops docs.
   - refs: `fivecircles/docs/ops/event-v3-q17-query-only-runbook.md`
+- [x] Add Q16 Query-only PoC script (RDF anchor candidate + RDB hydration/context) in ops lane.
+  - refs: `scripts/ops/rdf/query_v3_advanced_q16_poc.py`, `scripts/ops/rdf/query_v3_advanced_q16_poc.sh`

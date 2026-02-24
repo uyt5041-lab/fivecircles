@@ -1,0 +1,90 @@
+{
+  "profile": "v3-advanced-query-only-poc",
+  "queryKind": "Q16_RISE",
+  "candidateSource": "rdf-sparql",
+  "hydrationSource": "rdb-mysql",
+  "generatedAt": "2026-02-24T15:00:09",
+  "inputs": {
+    "characterId": 17,
+    "dramaId": 10,
+    "safeUpToEpisode": 6,
+    "limit": 10,
+    "kg": "/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl"
+  },
+  "response": {
+    "answerabilityStatus": "ANSWERED",
+    "evidenceEventIds": [
+      2282,
+      2284,
+      3019,
+      2453,
+      2452,
+      2451,
+      2450,
+      2397,
+      2396
+    ],
+    "explanation": "Rise is inferred from approved timeline anchors.",
+    "anchors": [
+      {
+        "eventId": 2282,
+        "episode": 1,
+        "summary": "월터 화이트가 생계 부족으로 세차장에서 투잡을 함"
+      },
+      {
+        "eventId": 2284,
+        "episode": 1,
+        "summary": "월터 화이트가 말기 폐암 진단을 받음"
+      },
+      {
+        "eventId": 3019,
+        "episode": 6,
+        "summary": "월터가 폭발 위협을 지렛대로 투코에게 선지급과 거래 조건을 강제해 판의 주도권을 가져온다."
+      },
+      {
+        "eventId": 2453,
+        "episode": 6,
+        "summary": "행크 슈레더가 투코와 고순도 메스의 연관성을 발견함"
+      },
+      {
+        "eventId": 2452,
+        "episode": 6,
+        "summary": "이때 월터는 ‘하이젠베르크’라는 이름을 처음 사용한다."
+      },
+      {
+        "eventId": 2451,
+        "episode": 6,
+        "summary": "행크가 투코 살라만카라는 폭력적인 마약상이 지역에서 활동하고 있음을 파악함"
+      },
+      {
+        "eventId": 2450,
+        "episode": 6,
+        "summary": "투코 살라만카가 월터 화이트의 폭발 사건에 경악하면서 그의 배짱과 고순도 마약 제조 실력을 인정함"
+      },
+      {
+        "eventId": 2397,
+        "episode": 6,
+        "summary": "마리 슈레이더가 행크의 직업적 스트레스와 월터의 상황을 분리해 인식함"
+      },
+      {
+        "eventId": 2396,
+        "episode": 6,
+        "summary": "마리가 월터의 태도 변화와 공격적인 반응을 목격함"
+      }
+    ],
+    "context": {
+      "depth": 1,
+      "eventIds": [
+        2435,
+        2332,
+        2395
+      ]
+    }
+  },
+  "debug": {
+    "safeEventCountRdf": 94,
+    "selectedAnchorCount": 9,
+    "hydratedAnchorCount": 9,
+    "contextEventCount": 3
+  }
+}
