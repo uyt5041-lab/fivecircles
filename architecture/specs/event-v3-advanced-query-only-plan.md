@@ -196,3 +196,5 @@ Status update (2026-02-24)
   - refs: `fivecircles/docs/ops/event-v3-q17-query-only-runbook.md`
 - [x] Add Q16 Query-only PoC script (RDF anchor candidate + RDB hydration/context) in ops lane.
   - refs: `scripts/ops/rdf/query_v3_advanced_q16_poc.py`, `scripts/ops/rdf/query_v3_advanced_q16_poc.sh`
+- [x] Add Q19 Query-only PoC script (RDF candidate events + conflict-axis grouping) in ops lane.
+  - refs: `scripts/ops/rdf/query_v3_advanced_q19_poc.py`, `scripts/ops/rdf/query_v3_advanced_q19_poc.sh`
