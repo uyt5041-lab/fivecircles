@@ -95,6 +95,11 @@ Consumption lane
 - Output is consumed by ops/review/quality workflow first.
 - User-facing runtime path remains independent from RDF lane.
 
+Reference scripts (local Docker MySQL baseline)
+- `scripts/ops/rdf/export_v3_advanced.sh`
+- `scripts/ops/rdf/validate_v3_advanced.sh`
+- `scripts/ops/rdf/run_v3_advanced_pipeline.sh`
+
 ---
 
 ## 6) Adoption Levels and Complexity
