@@ -214,3 +214,11 @@ Status update (2026-02-24)
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
 - [x] Add Q16/Q19 shadow parity logs (`status/evidence` + `anchor|context|axis` parity) when serving RDF path.
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
+- [x] Extend event-service source mode flag to Q18 (`rdb|rdf-candidate|auto-fallback`) with RDB fallback on RDF read failure.
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
+- [x] Extend event-service source mode flag to Q20 (`rdb|rdf-candidate|auto-fallback`) with RDB fallback on RDF read failure.
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
+- [x] Add Q18/Q20 runtime observability logs (`sourceMode/sourceUsed/fallbackTrigger/answerabilityStatus`).
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
+- [x] Add Q18/Q20 shadow parity logs (`status/evidence` + `perspective|distribution` parity) when serving RDF path.
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
