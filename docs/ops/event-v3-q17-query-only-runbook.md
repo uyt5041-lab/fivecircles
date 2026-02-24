@@ -11,8 +11,22 @@
 - Flags are read at **process start**.
 - Any mode change requires **event-service restart**.
 - "No deploy" means "restart-only" (no image rebuild required).
+- When running with Docker Compose, `EVENT_V3_Q17_RDF_KG_PATH` must be a **container-internal path** (host absolute path is not readable inside container).
 
 ## Local/Compose Rollout
+
+### 0) Fast path (cached image, no build)
+```bash
+cd /Users/pio/IdeaProjects/nospoiler
+EVENT_V3_Q17_SOURCE_MODE=auto-fallback \
+EVENT_V3_FORCE_RDB=false \
+EVENT_V3_Q17_RDF_KG_PATH=/tmp/v3-advanced-kg.ttl \
+docker compose -f infra/docker-compose.yml --env-file .env \
+  up -d --no-build --no-deps --force-recreate event-service
+
+docker cp /Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl \
+  nospoiler-event-service:/tmp/v3-advanced-kg.ttl
+```
 
 ### 1) Default-safe mode (RDB)
 ```bash
@@ -28,9 +42,12 @@ docker compose -f infra/docker-compose.yml --env-file .env \
 cd /Users/pio/IdeaProjects/nospoiler
 EVENT_V3_Q17_SOURCE_MODE=rdf-candidate \
 EVENT_V3_FORCE_RDB=false \
-EVENT_V3_Q17_RDF_KG_PATH=/absolute/path/to/kg.ttl \
+EVENT_V3_Q17_RDF_KG_PATH=/tmp/v3-advanced-kg.ttl \
 docker compose -f infra/docker-compose.yml --env-file .env \
   up -d --no-deps --force-recreate event-service
+
+docker cp /Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl \
+  nospoiler-event-service:/tmp/v3-advanced-kg.ttl
 ```
 
 ### 3) Recommended serve mode (with fallback)
@@ -38,9 +55,12 @@ docker compose -f infra/docker-compose.yml --env-file .env \
 cd /Users/pio/IdeaProjects/nospoiler
 EVENT_V3_Q17_SOURCE_MODE=auto-fallback \
 EVENT_V3_FORCE_RDB=false \
-EVENT_V3_Q17_RDF_KG_PATH=/absolute/path/to/kg.ttl \
+EVENT_V3_Q17_RDF_KG_PATH=/tmp/v3-advanced-kg.ttl \
 docker compose -f infra/docker-compose.yml --env-file .env \
   up -d --no-deps --force-recreate event-service
+
+docker cp /Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl \
+  nospoiler-event-service:/tmp/v3-advanced-kg.ttl
 ```
 
 ## Emergency Rollback (Immediate)
