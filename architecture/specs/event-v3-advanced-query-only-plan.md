@@ -210,3 +210,5 @@ Status update (2026-02-24)
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
 - [x] Add Q16/Q19 query-only ops runbook (fast restart, rollback, smoke, replay links).
   - refs: `fivecircles/docs/ops/event-v3-q16-q19-query-only-runbook.md`
+- [x] Add Q16/Q19 runtime observability logs (`sourceMode/sourceUsed/fallbackTrigger/answerabilityStatus`).
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
