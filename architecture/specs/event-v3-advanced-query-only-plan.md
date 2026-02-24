@@ -212,3 +212,5 @@ Status update (2026-02-24)
   - refs: `fivecircles/docs/ops/event-v3-q16-q19-query-only-runbook.md`
 - [x] Add Q16/Q19 runtime observability logs (`sourceMode/sourceUsed/fallbackTrigger/answerabilityStatus`).
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
+- [x] Add Q16/Q19 shadow parity logs (`status/evidence` + `anchor|context|axis` parity) when serving RDF path.
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
