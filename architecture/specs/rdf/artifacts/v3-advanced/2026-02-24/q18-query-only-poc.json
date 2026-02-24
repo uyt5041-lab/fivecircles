@@ -1,0 +1,74 @@
+{
+  "profile": "v3-advanced-query-only-poc",
+  "queryKind": "Q18_PERSPECTIVES",
+  "candidateSource": "rdf-sparql",
+  "hydrationSource": "rdb-mysql",
+  "generatedAt": "2026-02-24T16:17:36",
+  "inputs": {
+    "eventId": 1099,
+    "safeUpToEpisode": 6,
+    "kg": "/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl"
+  },
+  "response": {
+    "answerabilityStatus": "ANSWERED",
+    "evidenceEventIds": [
+      1099
+    ],
+    "explanation": "Perspective split by event_character.role.",
+    "baseEvent": {
+      "eventId": 1099,
+      "summary": "Chandler: What does she do?; Phoebe: She's a waitress.; Rachel: All right, you guys, I kinda gotta clean up now."
+    },
+    "perspectives": [
+      {
+        "characterId": 11,
+        "role": "INVOLVED",
+        "supportingEventIds": [
+          1038,
+          1039,
+          1041
+        ]
+      },
+      {
+        "characterId": 12,
+        "role": "INVOLVED",
+        "supportingEventIds": [
+          1038,
+          1039,
+          1040
+        ]
+      },
+      {
+        "characterId": 13,
+        "role": "INVOLVED",
+        "supportingEventIds": [
+          1045,
+          1046,
+          1047
+        ]
+      },
+      {
+        "characterId": 15,
+        "role": "INVOLVED",
+        "supportingEventIds": [
+          1032,
+          1036,
+          1040
+        ]
+      },
+      {
+        "characterId": 16,
+        "role": "INVOLVED",
+        "supportingEventIds": [
+          1042,
+          1043,
+          1044
+        ]
+      }
+    ]
+  },
+  "debug": {
+    "characterRowsRdf": 5,
+    "characterRowsHydrated": 5
+  }
+}

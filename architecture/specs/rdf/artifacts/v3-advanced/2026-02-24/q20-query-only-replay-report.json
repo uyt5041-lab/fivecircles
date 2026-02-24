@@ -1,0 +1,302 @@
+{
+  "profile": "v3-advanced-query-only-q20-replay",
+  "inputs": {
+    "kg": "/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl",
+    "maxSamples": 50,
+    "mysql": {
+      "container": "nospoiler-mysql",
+      "database": "nospoiler_event"
+    }
+  },
+  "summary": {
+    "generatedAt": "2026-02-24T16:16:23",
+    "queryKind": "Q20_NARRATIVE_DISTRIBUTION",
+    "sampleSize": 15,
+    "statusCoverageRdbBaseline": {
+      "ANSWERED": 15
+    },
+    "metrics": {
+      "statusExactMatchRate": 1.0,
+      "distributionExactMatchRate": 1.0,
+      "evidenceJaccardAvg": 1.0
+    },
+    "passChecks": {
+      "sampleSizeAtLeast500": false,
+      "statusExactMatchAtLeast99_5pct": true,
+      "distributionExactMatchAtLeast99_0pct": true,
+      "evidenceJaccardAvgAtLeast0_85": true
+    }
+  },
+  "rows": [
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1117,
+        1116
+      ],
+      "evidenceRdb": [
+        1117,
+        1116
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1194,
+        1193
+      ],
+      "evidenceRdb": [
+        1194,
+        1193
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1265,
+        1263
+      ],
+      "evidenceRdb": [
+        1265,
+        1263
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1326,
+        1325
+      ],
+      "evidenceRdb": [
+        1326,
+        1325
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1394,
+        1383
+      ],
+      "evidenceRdb": [
+        1394,
+        1383
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1117,
+        1111
+      ],
+      "evidenceRdb": [
+        1117,
+        1111
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1195,
+        1194
+      ],
+      "evidenceRdb": [
+        1195,
+        1194
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1265,
+        1263
+      ],
+      "evidenceRdb": [
+        1265,
+        1263
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1325,
+        1324
+      ],
+      "evidenceRdb": [
+        1325,
+        1324
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1393,
+        1392
+      ],
+      "evidenceRdb": [
+        1393,
+        1392
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1117,
+        1099
+      ],
+      "evidenceRdb": [
+        1117,
+        1099
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1193,
+        1190
+      ],
+      "evidenceRdb": [
+        1193,
+        1190
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1266,
+        1265
+      ],
+      "evidenceRdb": [
+        1266,
+        1265
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1325,
+        1324
+      ],
+      "evidenceRdb": [
+        1325,
+        1324
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "distributionExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1393,
+        1383
+      ],
+      "evidenceRdb": [
+        1393,
+        1383
+      ]
+    }
+  ]
+}

@@ -196,13 +196,21 @@ Status update (2026-02-24)
   - refs: `fivecircles/docs/ops/event-v3-q17-query-only-runbook.md`
 - [x] Add Q16 Query-only PoC script (RDF anchor candidate + RDB hydration/context) in ops lane.
   - refs: `scripts/ops/rdf/query_v3_advanced_q16_poc.py`, `scripts/ops/rdf/query_v3_advanced_q16_poc.sh`
+- [x] Add Q18 Query-only PoC script (RDF event_character(role) candidate + RDB supporting-event hydration) in ops lane.
+  - refs: `scripts/ops/rdf/query_v3_advanced_q18_poc.py`, `scripts/ops/rdf/query_v3_advanced_q18_poc.sh`
 - [x] Add Q19 Query-only PoC script (RDF candidate events + conflict-axis grouping) in ops lane.
   - refs: `scripts/ops/rdf/query_v3_advanced_q19_poc.py`, `scripts/ops/rdf/query_v3_advanced_q19_poc.sh`
+- [x] Add Q20 Query-only PoC script (RDF candidate events + narrative distribution aggregation) in ops lane.
+  - refs: `scripts/ops/rdf/query_v3_advanced_q20_poc.py`, `scripts/ops/rdf/query_v3_advanced_q20_poc.sh`
+- [x] Add Q18 replay parity harness (status/perspective/evidence metrics).
+  - refs: `scripts/ops/rdf/replay_v3_advanced_q18_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q18_parity.sh`
 - [x] Add Q19 replay parity harness (status/axis/evidence metrics).
   - refs: `scripts/ops/rdf/replay_v3_advanced_q19_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q19_parity.sh`
 - [x] Add Q16 replay parity harness (status/anchor/context/evidence metrics).
   - refs: `scripts/ops/rdf/replay_v3_advanced_q16_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q16_parity.sh`
-- [x] Add unified replay runner for Q16/Q17/Q19 and markdown summary output.
+- [x] Add Q20 replay parity harness (status/distribution/evidence metrics).
+  - refs: `scripts/ops/rdf/replay_v3_advanced_q20_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q20_parity.sh`
+- [x] Add unified replay runner for Q16/Q17/Q18/Q19/Q20 and markdown summary output.
   - refs: `scripts/ops/rdf/replay_v3_advanced_all.sh`, `.../v3-advanced/{run-date}/query-only-replay-summary.md`
 - [x] Extend event-service source mode flag to Q19 (`rdb|rdf-candidate|auto-fallback`) with RDB fallback on RDF read failure.
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`

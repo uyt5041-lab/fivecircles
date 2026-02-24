@@ -81,5 +81,7 @@ Expected fields:
 
 ## Replay Support
 - Q16 replay: `scripts/ops/rdf/replay_v3_advanced_q16_parity.sh`
+- Q18 replay: `scripts/ops/rdf/replay_v3_advanced_q18_parity.sh`
 - Q19 replay: `scripts/ops/rdf/replay_v3_advanced_q19_parity.sh`
+- Q20 replay: `scripts/ops/rdf/replay_v3_advanced_q20_parity.sh`
 - Unified replay: `scripts/ops/rdf/replay_v3_advanced_all.sh`
