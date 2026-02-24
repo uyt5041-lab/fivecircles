@@ -48,6 +48,21 @@ curl -sS "http://localhost:8080/api/event/v3/characters/17/rise?dramaId=10&safeU
 curl -sS "http://localhost:8080/api/event/v3/dramas/10/conflict-axes?safeUpToEpisode=6&limit=10"
 ```
 
+## Log Check
+```bash
+docker logs nospoiler-event-service --tail 300 \
+  | rg "eventV3.q16 sourceMode|eventV3.q16.shadow|eventV3.q19 sourceMode|eventV3.q19.shadow"
+```
+
+Expected fields:
+- `sourceMode`
+- `sourceUsed`
+- `fallbackTrigger`
+- `answerabilityStatus`
+- shadow parity line:
+  - Q16: `statusParity`, `anchorParity`, `contextParity`, `evidenceJaccard`
+  - Q19: `statusParity`, `axisParity`, `evidenceJaccard`
+
 ## Replay Support
 - Q16 replay: `scripts/ops/rdf/replay_v3_advanced_q16_parity.sh`
 - Q19 replay: `scripts/ops/rdf/replay_v3_advanced_q19_parity.sh`
