@@ -17151,16 +17151,6 @@ ns:eventCharacter_2223_112 a ns:EventCharacter ;
   ns:characterRef ns:character_112 ;
   ns:role "INVOLVED" .
 
-ns:eventCharacter_2230_112 a ns:EventCharacter ;
-  ns:eventRef ns:event_2230 ;
-  ns:characterRef ns:character_112 ;
-  ns:role "INVOLVED" .
-
-ns:eventCharacter_2232_107 a ns:EventCharacter ;
-  ns:eventRef ns:event_2232 ;
-  ns:characterRef ns:character_107 ;
-  ns:role "INVOLVED" .
-
 ns:eventCharacter_2235_107 a ns:EventCharacter ;
   ns:eventRef ns:event_2235 ;
   ns:characterRef ns:character_107 ;
@@ -17171,18 +17161,8 @@ ns:eventCharacter_2238_115 a ns:EventCharacter ;
   ns:characterRef ns:character_115 ;
   ns:role "INVOLVED" .
 
-ns:eventCharacter_2239_105 a ns:EventCharacter ;
-  ns:eventRef ns:event_2239 ;
-  ns:characterRef ns:character_105 ;
-  ns:role "INVOLVED" .
-
 ns:eventCharacter_2240_105 a ns:EventCharacter ;
   ns:eventRef ns:event_2240 ;
-  ns:characterRef ns:character_105 ;
-  ns:role "INVOLVED" .
-
-ns:eventCharacter_2243_105 a ns:EventCharacter ;
-  ns:eventRef ns:event_2243 ;
   ns:characterRef ns:character_105 ;
   ns:role "INVOLVED" .
 
@@ -17216,23 +17196,8 @@ ns:eventCharacter_2251_116 a ns:EventCharacter ;
   ns:characterRef ns:character_116 ;
   ns:role "INVOLVED" .
 
-ns:eventCharacter_2253_106 a ns:EventCharacter ;
-  ns:eventRef ns:event_2253 ;
-  ns:characterRef ns:character_106 ;
-  ns:role "INVOLVED" .
-
 ns:eventCharacter_2254_105 a ns:EventCharacter ;
   ns:eventRef ns:event_2254 ;
-  ns:characterRef ns:character_105 ;
-  ns:role "INVOLVED" .
-
-ns:eventCharacter_2258_106 a ns:EventCharacter ;
-  ns:eventRef ns:event_2258 ;
-  ns:characterRef ns:character_106 ;
-  ns:role "INVOLVED" .
-
-ns:eventCharacter_2259_105 a ns:EventCharacter ;
-  ns:eventRef ns:event_2259 ;
   ns:characterRef ns:character_105 ;
   ns:role "INVOLVED" .
 
@@ -17244,11 +17209,6 @@ ns:eventCharacter_2260_106 a ns:EventCharacter ;
 ns:eventCharacter_2261_105 a ns:EventCharacter ;
   ns:eventRef ns:event_2261 ;
   ns:characterRef ns:character_105 ;
-  ns:role "INVOLVED" .
-
-ns:eventCharacter_2262_106 a ns:EventCharacter ;
-  ns:eventRef ns:event_2262 ;
-  ns:characterRef ns:character_106 ;
   ns:role "INVOLVED" .
 
 ns:eventCharacter_2274_108 a ns:EventCharacter ;
