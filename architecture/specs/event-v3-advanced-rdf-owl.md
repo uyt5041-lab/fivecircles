@@ -14,6 +14,8 @@ Authority
 - This document is the normative spec for RDF/OWL positioning in V3.
 - Supporting implementation notes:
   - `fivecircles/architecture/specs/predicate/rdf-owl-extension-notes.md`
+  - Query-only promotion execution plan:
+    - `fivecircles/architecture/specs/event-v3-advanced-query-only-plan.md`
 
 ---
 

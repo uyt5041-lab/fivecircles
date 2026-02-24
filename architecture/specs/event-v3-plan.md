@@ -16,10 +16,11 @@ Invariants (Must Keep)
 
 ## 0) Current Baseline (Already Implemented)
 
-1) Triple-role DB foundation is already present.
-- Migration: `V6__event_v3_triple_roles.sql`
+1) SSOT schema baseline is full-sync dump.
+- Baseline schema (authoritative): `scripts/ops/2026-02-23-full-sync.sql`
 - `event_character.role` default: `INVOLVED`
 - Existing index: `idx_ec_role_character (character_id, role)`
+- Historical migration provenance: `V6__event_v3_triple_roles.sql` (reference only, not readiness baseline)
 
 2) Runtime is already role-aware through V2 APIs.
 - `GET /api/event/v2/events/{eventId}/characters` returns `{ characterId, role }`.
@@ -35,7 +36,8 @@ Invariants (Must Keep)
 ### 1-1. DB Layer
 
 Required
-- No new mandatory migration for role itself (already applied in V6 baseline).
+- No new mandatory role migration if target environment already matches full-sync baseline schema.
+- Migration scripts are treated as environment alignment/idempotent tools, not release-readiness source of truth.
 
 Optional (performance tuning only, with evidence)
 - Consider adding composite index `(event_id, role, character_id)` if role-filtered event-local queries become hot.
@@ -59,11 +61,19 @@ Principle: Minimal-change contract
 - Do not break existing v1/v2 responses.
 - Additive fields only where needed.
 - V3 API surface (`/api/event/v3/**`) should start as opt-in for Level 4 capability.
+- Normative contract for Q16~Q20: `fivecircles/architecture/specs/event-v3-api-contract.md`
+- Response boundary normalization for V3:
+  - `evidenceEventIds` MUST be serialized as array (`[]` allowed), never `null`.
+  - Internal service merge/default paths may use `null`, but controller/DTO boundary must normalize before response.
+- Release positioning:
+  - V3 core MVP: minimal Q16~Q20 endpoints + strict spoiler gate
+  - V3 full quality: richer explainability/modeling follows after MVP gate
 
 ### 1-4. Verification Checklist (Release Gate)
 
 1. Baseline role readiness
-- In all target environments, `event_character.role` exists and defaults to `INVOLVED`.
+- In all target environments, schema aligns with full-sync baseline (`2026-02-23-full-sync.sql`) for `event/event_character/event_relation`.
+- At minimum, `event_character.role` exists and defaults to `INVOLVED`.
 
 2. Safety gate integrity
 - EVENT_CHARACTERS never exposes rows outside `K` or non-APPROVED events.
@@ -85,6 +95,42 @@ Principle: Minimal-change contract
 - If RDF exporter/validator is unavailable, `/api/event/v1` and `/api/event/v2` behavior remains unchanged.
 - V3 core release gate must not be blocked by RDF lane failures.
 
+8. Spoiler masking integrity (Level 4 sensitive paths)
+- If `existsSafeApproved=false` and `existsAnyApproved=true`, response must be `SPOILER_BLOCKED`.
+- In `SPOILER_BLOCKED`, future event summary/title/details must not leak to user-facing payload.
+
+9. Level 4 endpoint contract integrity
+- Q16~Q20 endpoints must return `answerabilityStatus` and `evidenceEventIds` per V3 API contract.
+- `evidenceEventIds` shape is stable array in all states (`ANSWERED | SPOILER_BLOCKED | NOT_ENOUGH_DATA`), with `[]` when unavailable.
+
+10. DTO baseline governance
+- Q16~Q20 response shape must conform to baseline examples in `event-v3-api-contract.md`.
+- DTO evolution is allowed, but release requires spec update first (to keep FE/BE aligned).
+
+### 1-5. Q16~Q20 Endpoint Acceptance Map (MVP)
+
+- Q16 (Character Rise): `GET /api/event/v3/characters/{characterId}/rise`
+  - Required: anchors + evidence IDs under K+APPROVED gate.
+- Q17 (Foreshadowed): `GET /api/event/v3/dramas/{dramaId}/foreshadowed`
+  - Required: blocked-state masking with `SPOILER_BLOCKED`.
+- Q18 (Perspectives): `GET /api/event/v3/events/{eventId}/perspectives`
+  - Required: role-based perspective split (`INVOLVED|SUBJECT|OBJECT`).
+- Q19 (Conflict Axes): `GET /api/event/v3/dramas/{dramaId}/conflict-axes`
+  - Required: axis grouping payload with evidence IDs.
+- Q20 (Narrative Distribution): `GET /api/event/v3/characters/{characterId}/narrative-distribution`
+  - Required: distribution + explainability evidence.
+
+### 1-6. Regression Repro Procedure (Release Gate)
+
+Baseline dataset
+- Use fixed local dump baseline: `scripts/ops/2026-02-23-full-sync.sql`.
+
+Minimum execution checklist
+1. Verify v1/v2 regression set (Q1~Q15 + V2.5 Q20) remains stable.
+2. Verify V3 Q16~Q20 endpoints return contract fields (`answerabilityStatus`, `evidenceEventIds`).
+3. Verify sensitive-path probe mapping (`ANSWERED | SPOILER_BLOCKED | NOT_ENOUGH_DATA`) is deterministic.
+4. Record commands/results in `fivecircles/work/update.md` before release sign-off.
+
 ## 2) RDF/OWL Follow-up (Phase 4 Lane)
 
 Goal
@@ -92,6 +138,8 @@ Goal
 - Start without adding user-facing runtime dependency.
 - Classification: this lane is governed as **V3-Advanced**.
 - Normative spec: `fivecircles/architecture/specs/event-v3-advanced-rdf-owl.md`
+- V3-Advanced target goal: Query-only (`RDF query + RDB hydration`) for selected Level 4 read-paths.
+- Query-only execution plan: `fivecircles/architecture/specs/event-v3-advanced-query-only-plan.md`
 
 ### 2-1. Minimum Artifacts
 
@@ -120,7 +168,7 @@ Goal
   - schema governance
   - consistency validation
   - explainability artifacts
-- SPARQL-driven runtime path is optional later, not part of mandatory V3 release gate.
+- SPARQL-driven runtime path is a planned promotion target for V3-Advanced (Query-only), but not part of mandatory V3 core release gate.
 
 ### 2-4. Adoption Levels (Decision Aid)
 
@@ -134,6 +182,7 @@ Goal
 ## 3) Recommended Shortest Path
 
 1. Close V3 release gate with current role baseline + regression/safety/perf validation.
-2. Release minimal `/api/event/v3/**` contract for Level 4 entrypoints.
+2. Release V3 core MVP `/api/event/v3/**` contract for Level 4 entrypoints (Q16~Q20).
 3. Add RDF exporter + SHACL validator artifacts (`ontology.ttl`, `shapes.ttl`, `kg.ttl`, `report.json`).
-4. Keep RDF lane non-blocking to runtime until clear ROI for query-path adoption is proven.
+4. Promote selected V3 read-paths to Query-only (`RDF candidate query -> RDB hydration`) while keeping contract stable.
+5. Keep fallback and gate parity (`K + APPROVED`) to avoid runtime regression during Query-only adoption.
