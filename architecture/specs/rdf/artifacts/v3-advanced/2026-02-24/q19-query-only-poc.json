@@ -3,7 +3,7 @@
   "queryKind": "Q19_CONFLICT_AXES",
   "candidateSource": "rdf-sparql",
   "hydrationSource": "rdb-mysql",
-  "generatedAt": "2026-02-24T15:14:16",
+  "generatedAt": "2026-02-24T15:17:37",
   "inputs": {
     "dramaId": 10,
     "safeUpToEpisode": 6,
@@ -14,10 +14,20 @@
   "response": {
     "answerabilityStatus": "ANSWERED",
     "evidenceEventIds": [
+      2314,
+      2441,
+      2317,
+      2407,
+      2445,
+      2292,
+      2323,
+      2410,
+      2411,
+      2306,
+      2334,
       2282,
       2285,
       2312,
-      2314,
       2339,
       2360,
       2361,
@@ -36,7 +46,6 @@
       2288,
       2289,
       2290,
-      2317,
       2319,
       2320,
       2342,
@@ -91,19 +100,10 @@
       2303,
       2305,
       2331,
-      2334,
       2398,
       2434,
       2450,
       2451,
-      2441,
-      2407,
-      2445,
-      2292,
-      2323,
-      2410,
-      2411,
-      2306,
       2283,
       2315,
       2340,
@@ -178,12 +178,28 @@
     "explanation": "Grouped by conflict-axis scoring over approved events.",
     "axes": [
       {
+        "axisCode": "ADVERSARY",
+        "eventIds": [
+          2314,
+          2441,
+          2317,
+          2407,
+          2445,
+          2292,
+          2323,
+          2410,
+          2411,
+          2306,
+          2334
+        ],
+        "score": 88
+      },
+      {
         "axisCode": "OTHER",
         "eventIds": [
           2282,
           2285,
           2312,
-          2314,
           2339,
           2360,
           2361,
@@ -202,7 +218,6 @@
           2288,
           2289,
           2290,
-          2317,
           2319,
           2320,
           2342,
@@ -257,27 +272,12 @@
           2303,
           2305,
           2331,
-          2334,
           2398,
           2434,
           2450,
           2451
         ],
-        "score": 82
-      },
-      {
-        "axisCode": "ADVERSARY",
-        "eventIds": [
-          2441,
-          2407,
-          2445,
-          2292,
-          2323,
-          2410,
-          2411,
-          2306
-        ],
-        "score": 64
+        "score": 79
       },
       {
         "axisCode": "DISCOVERS",
@@ -405,6 +405,7 @@
   },
   "debug": {
     "safeEventCountRdf": 163,
+    "safeEventCountHydrated": 163,
     "axisCount": 10
   }
 }
