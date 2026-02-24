@@ -183,6 +183,9 @@ Gate D: Ops readiness
 ## 5) Immediate Next Tasks
 
 Status update (2026-02-24)
+- [ ] Predicate grouping SSOT 고정 (single source): RDF taxonomy 또는 RDB mapping table 중 하나로 표준화.
+- [ ] Q17/Q19 SPARQL 템플릿에서 그룹/계층 SSOT를 직접 참조하도록 반영 (코드 상수 분류 축소).
+- [ ] Reasoner 도입은 후순위로 유지: SSOT+SPARQL 반영 후 복잡도 증가 시점에만 제한 프로파일(RDFS/OWL RL)로 재검토.
 - [x] Implement Q17 shadow-mode comparator in event-service (internal log only).
   - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
 - [x] Add source flag with fixed keys:

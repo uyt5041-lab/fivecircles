@@ -16,6 +16,8 @@ Authority
   - `fivecircles/architecture/specs/predicate/rdf-owl-extension-notes.md`
   - Query-only promotion execution plan:
     - `fivecircles/architecture/specs/event-v3-advanced-query-only-plan.md`
+  - Manageability/reasoner priority review proposal:
+    - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex19-rdf-extension-manageability-review.md`
 
 ---
 
