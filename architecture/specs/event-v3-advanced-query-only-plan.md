@@ -52,6 +52,9 @@ Out of scope
 4. Fallback
 - If RDF query fails/timeouts/no source, fallback to existing RDB-only path.
 - Log source (`rdf` vs `rdb-fallback`) for observability.
+- Auto-fallback trigger set (closed):
+  - `SOFT_TIMEOUT`, `HARD_TIMEOUT`, `RDF_QUERY_ERROR`, `CANDIDATE_CAP_OVERFLOW`, `HYDRATION_ERROR`
+  - Any new trigger requires spec update before release.
 - Runtime SLO (Q17 first rollout, timeout model fixed):
   - `rdfCandidateSoftTimeoutMs`: 120 (soft timeout: start RDB fallback immediately)
   - `rdfCandidateHardTimeoutMs`: 300 (hard timeout: stop waiting for RDF result)
@@ -99,12 +102,16 @@ Out of scope
   - primary answer from existing RDB path
   - parallel RDF candidate run (non-user-facing)
   - compare candidate overlap and status parity in logs
+- Cohort tagging for parity analytics:
+  - `NORMAL`, `CAP_OVERFLOW`, `FALLBACK_OTHER` (`timeout/error`)
 - Exit criteria:
   - sample size >= 500 requests (and >= 50 per top drama in replay set)
   - status coverage minimum:
     - `SPOILER_BLOCKED` samples >= 30
     - `NOT_ENOUGH_DATA` samples >= 30
   - `answerabilityStatus` exact-match rate >= 99.5%
+  - Status parity metrics are computed on `NORMAL` cohort only.
+  - `CAP_OVERFLOW` cohort parity is reported separately as reference.
   - `evidenceEventIds` overlap (Jaccard) >= 0.85
   - Jaccard definition lock:
     - both empty -> `1.0`
@@ -155,6 +162,8 @@ Gate C: Performance
   - Baseline environment: `staging` (same build/profile as rollout candidate).
   - Baseline window: trailing 7 days before enabling `rdf-candidate`/`auto-fallback`.
   - Baseline sample: Q17 requests only, minimum n=1000 (or keep collecting until n=1000).
+  - Baseline aggregation must match rollout parameter distribution
+    (`drama_id`, `safeUpToEpisode` buckets, `limit` buckets).
 
 Gate D: Ops readiness
 - Alerting + runbook available for RDF query/validation failures.
@@ -163,6 +172,7 @@ Gate D: Ops readiness
 - Minimum observability fields (log/metric):
   - `sourceMode` (`rdb|rdf-candidate|auto-fallback`)
   - `sourceUsed` (`rdf|rdb-fallback`)
+  - `fallbackTrigger` (`NONE|SOFT_TIMEOUT|HARD_TIMEOUT|RDF_QUERY_ERROR|CANDIDATE_CAP_OVERFLOW|HYDRATION_ERROR`)
   - `rdfCandidateCount`
   - `rdfTimeMs`, `hydrateTimeMs`, `totalTimeMs`
   - `answerabilityStatus`
