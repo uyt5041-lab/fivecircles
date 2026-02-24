@@ -1,0 +1,316 @@
+{
+  "profile": "v3-advanced-query-only-q17-replay",
+  "inputs": {
+    "kg": "/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl",
+    "candidateCap": 200,
+    "maxSamples": 10,
+    "mysql": {
+      "container": "nospoiler-mysql",
+      "database": "nospoiler_event"
+    }
+  },
+  "summary": {
+    "generatedAt": "2026-02-24T13:14:25",
+    "queryKind": "Q17_FORESHADOWED",
+    "sampleSize": 10,
+    "cohortCounts": {
+      "NORMAL": 10
+    },
+    "statusCoverageRdbBaseline": {
+      "SPOILER_BLOCKED": 2,
+      "NOT_ENOUGH_DATA": 8
+    },
+    "metrics": {
+      "candidateCapOverflowRate": 0.0,
+      "normalStatusExactMatchRate": 0.4,
+      "normalEvidenceJaccardAvg": 0.6785714285714286,
+      "capOverflowStatusParityRefRate": null
+    },
+    "rules": {
+      "normalCohortOnlyForParity": true,
+      "jaccardDefinition": {
+        "bothEmpty": 1.0,
+        "oneEmpty": 0.0,
+        "nonEmpty": "|A∩B|/|A∪B|"
+      },
+      "fallbackTriggersClosedSet": [
+        "SOFT_TIMEOUT",
+        "HARD_TIMEOUT",
+        "RDF_QUERY_ERROR",
+        "CANDIDATE_CAP_OVERFLOW",
+        "HYDRATION_ERROR"
+      ]
+    },
+    "passChecks": {
+      "sampleSizeAtLeast500": false,
+      "statusCoverageSpoilerBlockedAtLeast30": false,
+      "statusCoverageNotEnoughDataAtLeast30": false,
+      "normalStatusExactMatchAtLeast99_5pct": false,
+      "normalEvidenceJaccardAvgAtLeast0_85": false,
+      "candidateCapOverflowRateAtMost5pct": true
+    }
+  },
+  "rows": [
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 7,
+      "rdfTimeMs": 56,
+      "hydrateTimeMs": 163,
+      "totalTimeMs": 220,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "statusParityRef": null,
+      "evidenceJaccard": 0.0,
+      "evidenceRdf": [
+        2288,
+        2406,
+        2344,
+        2363,
+        2384
+      ],
+      "evidenceRdb": [
+        2446,
+        2430
+      ]
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 7,
+      "rdfTimeMs": 37,
+      "hydrateTimeMs": 134,
+      "totalTimeMs": 171,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "statusParityRef": null,
+      "evidenceJaccard": 0.7142857142857143,
+      "evidenceRdf": [
+        2288,
+        2406,
+        2344,
+        2363,
+        2384,
+        2446,
+        2430
+      ],
+      "evidenceRdb": [
+        2288,
+        2344,
+        2363,
+        2446,
+        2430
+      ]
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 5,
+      "rdfTimeMs": 44,
+      "hydrateTimeMs": 126,
+      "totalTimeMs": 171,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": false,
+      "statusParityRef": null,
+      "evidenceJaccard": null,
+      "evidenceRdf": [
+        2296,
+        2297,
+        2390,
+        2350,
+        2431
+      ],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 5,
+      "rdfTimeMs": 34,
+      "hydrateTimeMs": 124,
+      "totalTimeMs": 159,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": false,
+      "statusParityRef": null,
+      "evidenceJaccard": null,
+      "evidenceRdf": [
+        2296,
+        2297,
+        2390,
+        2350,
+        2431
+      ],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 5,
+      "rdfTimeMs": 39,
+      "hydrateTimeMs": 121,
+      "totalTimeMs": 161,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": false,
+      "statusParityRef": null,
+      "evidenceJaccard": null,
+      "evidenceRdf": [
+        2435,
+        2331,
+        2354,
+        2396,
+        2432
+      ],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 5,
+      "rdfTimeMs": 47,
+      "hydrateTimeMs": 143,
+      "totalTimeMs": 191,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": false,
+      "statusParityRef": null,
+      "evidenceJaccard": null,
+      "evidenceRdf": [
+        2435,
+        2331,
+        2354,
+        2396,
+        2432
+      ],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 0,
+      "rdfTimeMs": 0,
+      "hydrateTimeMs": 131,
+      "totalTimeMs": 131,
+      "statusRdf": "NOT_ENOUGH_DATA",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "NOT_ENOUGH_DATA",
+      "statusExactMatch": true,
+      "statusParityRef": null,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 0,
+      "rdfTimeMs": 0,
+      "hydrateTimeMs": 134,
+      "totalTimeMs": 134,
+      "statusRdf": "NOT_ENOUGH_DATA",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "NOT_ENOUGH_DATA",
+      "statusExactMatch": true,
+      "statusParityRef": null,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 1,
+      "rdfTimeMs": 41,
+      "hydrateTimeMs": 159,
+      "totalTimeMs": 200,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": false,
+      "statusParityRef": null,
+      "evidenceJaccard": null,
+      "evidenceRdf": [
+        3003
+      ],
+      "evidenceRdb": []
+    },
+    {
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "sourceMode": "rdf-candidate",
+      "sourceUsed": "rdf",
+      "fallbackTrigger": "NONE",
+      "cohort": "NORMAL",
+      "rdfCandidateCount": 1,
+      "rdfTimeMs": 43,
+      "hydrateTimeMs": 149,
+      "totalTimeMs": 192,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "NOT_ENOUGH_DATA",
+      "statusServed": "SPOILER_BLOCKED",
+      "statusExactMatch": false,
+      "statusParityRef": null,
+      "evidenceJaccard": null,
+      "evidenceRdf": [
+        3003
+      ],
+      "evidenceRdb": []
+    }
+  ]
+}

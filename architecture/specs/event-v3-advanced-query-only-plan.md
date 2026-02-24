@@ -181,9 +181,14 @@ Gate D: Ops readiness
 
 ## 5) Immediate Next Tasks
 
-1. Implement Q17 shadow-mode comparator in event-service (internal log only).
-2. Add source flag with fixed keys:
-   - `EVENT_V3_Q17_SOURCE_MODE` (`rdb|rdf-candidate|auto-fallback`, default `rdb`)
-   - `EVENT_V3_FORCE_RDB` (`true|false`, default `false`, highest priority)
-3. Add replay harness for Q17 parity report (status + evidence IDs overlap).
-4. Document rollback command and runbook in ops docs.
+Status update (2026-02-24)
+- [x] Implement Q17 shadow-mode comparator in event-service (internal log only).
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`
+- [x] Add source flag with fixed keys:
+  - `EVENT_V3_Q17_SOURCE_MODE` (`rdb|rdf-candidate|auto-fallback`, default `rdb`)
+  - `EVENT_V3_FORCE_RDB` (`true|false`, default `false`, highest priority)
+  - refs: `services/event-service/src/main/java/com/nospoiler/eventservice/service/EventV3QueryServiceImpl.java`, `infra/docker-compose.yml`
+- [x] Add replay harness for Q17 parity report (status + evidence IDs overlap).
+  - refs: `scripts/ops/rdf/replay_v3_advanced_q17_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q17_parity.sh`
+- [x] Document rollback command and runbook in ops docs.
+  - refs: `fivecircles/docs/ops/event-v3-q17-query-only-runbook.md`
