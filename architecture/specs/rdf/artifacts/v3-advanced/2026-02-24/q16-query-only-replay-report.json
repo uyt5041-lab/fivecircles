@@ -1,0 +1,5531 @@
+{
+  "profile": "v3-advanced-query-only-q16-replay",
+  "inputs": {
+    "kg": "/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/kg.ttl",
+    "maxSamples": 200,
+    "mysql": {
+      "container": "nospoiler-mysql",
+      "database": "nospoiler_event"
+    }
+  },
+  "summary": {
+    "generatedAt": "2026-02-24T15:26:01",
+    "queryKind": "Q16_RISE",
+    "sampleSize": 200,
+    "statusCoverageRdbBaseline": {
+      "ANSWERED": 192,
+      "SPOILER_BLOCKED": 8
+    },
+    "metrics": {
+      "statusExactMatchRate": 1.0,
+      "anchorExactMatchRate": 1.0,
+      "contextExactMatchRate": 1.0,
+      "evidenceJaccardAvg": 1.0
+    },
+    "passChecks": {
+      "sampleSizeAtLeast500": false,
+      "statusExactMatchAtLeast99_5pct": true,
+      "anchorExactMatchAtLeast99_0pct": true,
+      "contextExactMatchAtLeast99_0pct": true,
+      "evidenceJaccardAvgAtLeast0_85": true
+    }
+  },
+  "rows": [
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2604,
+        2603
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2604,
+        2603
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2604,
+        2603,
+        2600,
+        2597,
+        2596,
+        2595,
+        2594
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2604,
+        2603,
+        2600,
+        2597,
+        2596,
+        2595,
+        2594
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2672,
+        2671
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2672,
+        2671
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2672,
+        2671,
+        2669,
+        2668,
+        2663,
+        2660,
+        2659
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2672,
+        2671,
+        2669,
+        2668,
+        2663,
+        2660,
+        2659
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2701,
+        2700
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2701,
+        2700
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2701,
+        2700,
+        2696,
+        2695,
+        2694,
+        2693,
+        2692
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2701,
+        2700,
+        2696,
+        2695,
+        2694,
+        2693,
+        2692
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2746,
+        2745
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2746,
+        2745
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2746,
+        2745,
+        2744,
+        2743,
+        2742,
+        2741,
+        2240
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2746,
+        2745,
+        2744,
+        2743,
+        2742,
+        2741,
+        2240
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2783,
+        2781
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2783,
+        2781
+      ]
+    },
+    {
+      "characterId": 105,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2005,
+        2023,
+        2783,
+        2781,
+        2780,
+        2779,
+        2778,
+        2775,
+        2773
+      ],
+      "evidenceRdb": [
+        2005,
+        2023,
+        2783,
+        2781,
+        2780,
+        2779,
+        2778,
+        2775,
+        2773
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2599,
+        2598
+      ],
+      "evidenceRdb": [
+        2042,
+        2599,
+        2598
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2599,
+        2598,
+        2588,
+        2584,
+        2583,
+        2578,
+        2574
+      ],
+      "evidenceRdb": [
+        2042,
+        2599,
+        2598,
+        2588,
+        2584,
+        2583,
+        2578,
+        2574
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2672,
+        2671
+      ],
+      "evidenceRdb": [
+        2042,
+        2672,
+        2671
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2672,
+        2671,
+        2668,
+        2659,
+        2628,
+        2624,
+        2623
+      ],
+      "evidenceRdb": [
+        2042,
+        2672,
+        2671,
+        2668,
+        2659,
+        2628,
+        2624,
+        2623
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2711,
+        2710
+      ],
+      "evidenceRdb": [
+        2042,
+        2711,
+        2710
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2711,
+        2710,
+        2709,
+        2708,
+        2707,
+        2706,
+        2705
+      ],
+      "evidenceRdb": [
+        2042,
+        2711,
+        2710,
+        2709,
+        2708,
+        2707,
+        2706,
+        2705
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2748,
+        2747
+      ],
+      "evidenceRdb": [
+        2042,
+        2748,
+        2747
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2748,
+        2747,
+        2746,
+        2745,
+        2742,
+        2741,
+        2246
+      ],
+      "evidenceRdb": [
+        2042,
+        2748,
+        2747,
+        2746,
+        2745,
+        2742,
+        2741,
+        2246
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2779,
+        2768
+      ],
+      "evidenceRdb": [
+        2042,
+        2779,
+        2768
+      ]
+    },
+    {
+      "characterId": 106,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2042,
+        2779,
+        2768,
+        2764,
+        2763,
+        2762,
+        2761,
+        2760
+      ],
+      "evidenceRdb": [
+        2042,
+        2779,
+        2768,
+        2764,
+        2763,
+        2762,
+        2761,
+        2760
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2600,
+        2585
+      ],
+      "evidenceRdb": [
+        2030,
+        2600,
+        2585
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2600,
+        2585,
+        2098,
+        2577,
+        2569,
+        2568,
+        2032
+      ],
+      "evidenceRdb": [
+        2030,
+        2600,
+        2585,
+        2098,
+        2577,
+        2569,
+        2568,
+        2032
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2671,
+        2668
+      ],
+      "evidenceRdb": [
+        2030,
+        2671,
+        2668
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2671,
+        2668,
+        2662,
+        2661,
+        2159,
+        2638,
+        2636
+      ],
+      "evidenceRdb": [
+        2030,
+        2671,
+        2668,
+        2662,
+        2661,
+        2159,
+        2638,
+        2636
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2702,
+        2701
+      ],
+      "evidenceRdb": [
+        2030,
+        2702,
+        2701
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2702,
+        2701,
+        2700,
+        2699,
+        2698,
+        2697,
+        2696
+      ],
+      "evidenceRdb": [
+        2030,
+        2702,
+        2701,
+        2700,
+        2699,
+        2698,
+        2697,
+        2696
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2702,
+        2701
+      ],
+      "evidenceRdb": [
+        2030,
+        2702,
+        2701
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2702,
+        2701,
+        2700,
+        2699,
+        2698,
+        2697,
+        2696
+      ],
+      "evidenceRdb": [
+        2030,
+        2702,
+        2701,
+        2700,
+        2699,
+        2698,
+        2697,
+        2696
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2777,
+        2776
+      ],
+      "evidenceRdb": [
+        2030,
+        2777,
+        2776
+      ]
+    },
+    {
+      "characterId": 108,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2030,
+        2777,
+        2776,
+        2775,
+        2774,
+        2773,
+        2274,
+        2084
+      ],
+      "evidenceRdb": [
+        2030,
+        2777,
+        2776,
+        2775,
+        2774,
+        2773,
+        2274,
+        2084
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2596,
+        2593
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2596,
+        2593
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2596,
+        2593,
+        2587,
+        2586,
+        2083,
+        2579,
+        2572
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2596,
+        2593,
+        2587,
+        2586,
+        2083,
+        2579,
+        2572
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2658,
+        2655
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2658,
+        2655
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2658,
+        2655,
+        2629,
+        2624,
+        2621,
+        2618,
+        2617
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2658,
+        2655,
+        2629,
+        2624,
+        2621,
+        2618,
+        2617
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2720,
+        2717
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2720,
+        2717
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2720,
+        2717,
+        2716,
+        2715,
+        2714,
+        2713,
+        2712
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2720,
+        2717,
+        2716,
+        2715,
+        2714,
+        2713,
+        2712
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2748,
+        2744
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2748,
+        2744
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2748,
+        2744,
+        2737,
+        2736,
+        2235,
+        2008,
+        2006
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2748,
+        2744,
+        2737,
+        2736,
+        2235,
+        2008,
+        2006
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2760,
+        2758
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2760,
+        2758
+      ]
+    },
+    {
+      "characterId": 107,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2052,
+        2570,
+        2760,
+        2758,
+        2757,
+        2748,
+        2744,
+        2737,
+        2736
+      ],
+      "evidenceRdb": [
+        2052,
+        2570,
+        2760,
+        2758,
+        2757,
+        2748,
+        2744,
+        2737,
+        2736
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2605,
+        2603,
+        2602
+      ],
+      "evidenceRdb": [
+        2101,
+        2605,
+        2603,
+        2602
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2605,
+        2603,
+        2602,
+        2601
+      ],
+      "evidenceRdb": [
+        2101,
+        2605,
+        2603,
+        2602,
+        2601
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2666,
+        2663
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2666,
+        2663
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2666,
+        2663,
+        2647,
+        2646,
+        2642,
+        2640,
+        2639
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2666,
+        2663,
+        2647,
+        2646,
+        2642,
+        2640,
+        2639
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2687,
+        2686
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2687,
+        2686
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2687,
+        2686,
+        2683,
+        2682,
+        2681,
+        2666,
+        2663
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2687,
+        2686,
+        2683,
+        2682,
+        2681,
+        2666,
+        2663
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2752,
+        2751
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2752,
+        2751
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2752,
+        2751,
+        2749,
+        2740,
+        2739,
+        2738,
+        2238
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2752,
+        2751,
+        2749,
+        2740,
+        2739,
+        2738,
+        2238
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2752,
+        2751
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2752,
+        2751
+      ]
+    },
+    {
+      "characterId": 115,
+      "dramaId": 1,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2101,
+        2608,
+        2752,
+        2751,
+        2749,
+        2740,
+        2739,
+        2738,
+        2238
+      ],
+      "evidenceRdb": [
+        2101,
+        2608,
+        2752,
+        2751,
+        2749,
+        2740,
+        2739,
+        2738,
+        2238
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1117,
+        1116,
+        1115
+      ],
+      "evidenceRdb": [
+        1028,
+        1117,
+        1116,
+        1115
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1117,
+        1116,
+        1115,
+        1114,
+        1113,
+        1112,
+        1111,
+        1107
+      ],
+      "evidenceRdb": [
+        1028,
+        1117,
+        1116,
+        1115,
+        1114,
+        1113,
+        1112,
+        1111,
+        1107
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1194,
+        1193,
+        1192
+      ],
+      "evidenceRdb": [
+        1028,
+        1194,
+        1193,
+        1192
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1194,
+        1193,
+        1192,
+        1187,
+        1186,
+        1185,
+        1177,
+        1175
+      ],
+      "evidenceRdb": [
+        1028,
+        1194,
+        1193,
+        1192,
+        1187,
+        1186,
+        1185,
+        1177,
+        1175
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1265,
+        1263,
+        1262
+      ],
+      "evidenceRdb": [
+        1028,
+        1265,
+        1263,
+        1262
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1265,
+        1263,
+        1262,
+        1253,
+        1251,
+        1250,
+        1246,
+        1245
+      ],
+      "evidenceRdb": [
+        1028,
+        1265,
+        1263,
+        1262,
+        1253,
+        1251,
+        1250,
+        1246,
+        1245
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1326,
+        1325,
+        1321
+      ],
+      "evidenceRdb": [
+        1028,
+        1326,
+        1325,
+        1321
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1326,
+        1325,
+        1321,
+        1320,
+        1319,
+        1318,
+        1317,
+        1316
+      ],
+      "evidenceRdb": [
+        1028,
+        1326,
+        1325,
+        1321,
+        1320,
+        1319,
+        1318,
+        1317,
+        1316
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1394,
+        1383,
+        1382
+      ],
+      "evidenceRdb": [
+        1028,
+        1394,
+        1383,
+        1382
+      ]
+    },
+    {
+      "characterId": 16,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1028,
+        1394,
+        1383,
+        1382,
+        1378,
+        1377,
+        1376,
+        1375,
+        1371
+      ],
+      "evidenceRdb": [
+        1028,
+        1394,
+        1383,
+        1382,
+        1378,
+        1377,
+        1376,
+        1375,
+        1371
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1117,
+        1111,
+        1109
+      ],
+      "evidenceRdb": [
+        1033,
+        1117,
+        1111,
+        1109
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1117,
+        1111,
+        1109,
+        1108,
+        1106,
+        1105,
+        1103,
+        1102
+      ],
+      "evidenceRdb": [
+        1033,
+        1117,
+        1111,
+        1109,
+        1108,
+        1106,
+        1105,
+        1103,
+        1102
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1195,
+        1194,
+        1189
+      ],
+      "evidenceRdb": [
+        1033,
+        1195,
+        1194,
+        1189
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1195,
+        1194,
+        1189,
+        1188,
+        1187,
+        1185,
+        1184,
+        1182
+      ],
+      "evidenceRdb": [
+        1033,
+        1195,
+        1194,
+        1189,
+        1188,
+        1187,
+        1185,
+        1184,
+        1182
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1265,
+        1263,
+        1255
+      ],
+      "evidenceRdb": [
+        1033,
+        1265,
+        1263,
+        1255
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1265,
+        1263,
+        1255,
+        1254,
+        1252,
+        1246,
+        1235,
+        1232
+      ],
+      "evidenceRdb": [
+        1033,
+        1265,
+        1263,
+        1255,
+        1254,
+        1252,
+        1246,
+        1235,
+        1232
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1325,
+        1324,
+        1321
+      ],
+      "evidenceRdb": [
+        1033,
+        1325,
+        1324,
+        1321
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1325,
+        1324,
+        1321,
+        1320,
+        1316,
+        1315,
+        1308,
+        1307
+      ],
+      "evidenceRdb": [
+        1033,
+        1325,
+        1324,
+        1321,
+        1320,
+        1316,
+        1315,
+        1308,
+        1307
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1393,
+        1392,
+        1385
+      ],
+      "evidenceRdb": [
+        1033,
+        1393,
+        1392,
+        1385
+      ]
+    },
+    {
+      "characterId": 11,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1033,
+        1393,
+        1392,
+        1385,
+        1384,
+        1383,
+        1376,
+        1375,
+        1366
+      ],
+      "evidenceRdb": [
+        1033,
+        1393,
+        1392,
+        1385,
+        1384,
+        1383,
+        1376,
+        1375,
+        1366
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1117,
+        1099,
+        1098
+      ],
+      "evidenceRdb": [
+        1025,
+        1117,
+        1099,
+        1098
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1117,
+        1099,
+        1098,
+        1097,
+        1096,
+        1095,
+        1094,
+        1093
+      ],
+      "evidenceRdb": [
+        1025,
+        1117,
+        1099,
+        1098,
+        1097,
+        1096,
+        1095,
+        1094,
+        1093
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1193,
+        1190,
+        1189
+      ],
+      "evidenceRdb": [
+        1025,
+        1193,
+        1190,
+        1189
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1193,
+        1190,
+        1189,
+        1188,
+        1184,
+        1182,
+        1180,
+        1179
+      ],
+      "evidenceRdb": [
+        1025,
+        1193,
+        1190,
+        1189,
+        1188,
+        1184,
+        1182,
+        1180,
+        1179
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1266,
+        1265,
+        1264
+      ],
+      "evidenceRdb": [
+        1025,
+        1266,
+        1265,
+        1264
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1266,
+        1265,
+        1264,
+        1254,
+        1253,
+        1250,
+        1247,
+        1246
+      ],
+      "evidenceRdb": [
+        1025,
+        1266,
+        1265,
+        1264,
+        1254,
+        1253,
+        1250,
+        1247,
+        1246
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1325,
+        1324,
+        1323
+      ],
+      "evidenceRdb": [
+        1025,
+        1325,
+        1324,
+        1323
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1325,
+        1324,
+        1323,
+        1322,
+        1319,
+        1316,
+        1315,
+        1310
+      ],
+      "evidenceRdb": [
+        1025,
+        1325,
+        1324,
+        1323,
+        1322,
+        1319,
+        1316,
+        1315,
+        1310
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1393,
+        1383,
+        1377
+      ],
+      "evidenceRdb": [
+        1025,
+        1393,
+        1383,
+        1377
+      ]
+    },
+    {
+      "characterId": 12,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1393,
+        1383,
+        1377,
+        1372,
+        1371,
+        1370,
+        1369,
+        1363
+      ],
+      "evidenceRdb": [
+        1025,
+        1393,
+        1383,
+        1377,
+        1372,
+        1371,
+        1370,
+        1369,
+        1363
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1099,
+        1091,
+        1090
+      ],
+      "evidenceRdb": [
+        1025,
+        1099,
+        1091,
+        1090
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1099,
+        1091,
+        1090,
+        1089,
+        1088,
+        1087,
+        1086,
+        1079
+      ],
+      "evidenceRdb": [
+        1025,
+        1099,
+        1091,
+        1090,
+        1089,
+        1088,
+        1087,
+        1086,
+        1079
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1195,
+        1194,
+        1192
+      ],
+      "evidenceRdb": [
+        1025,
+        1195,
+        1194,
+        1192
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1195,
+        1194,
+        1192,
+        1191,
+        1190,
+        1187,
+        1186,
+        1185
+      ],
+      "evidenceRdb": [
+        1025,
+        1195,
+        1194,
+        1192,
+        1191,
+        1190,
+        1187,
+        1186,
+        1185
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1264,
+        1263,
+        1262
+      ],
+      "evidenceRdb": [
+        1025,
+        1264,
+        1263,
+        1262
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1264,
+        1263,
+        1262,
+        1261,
+        1260,
+        1259,
+        1258,
+        1255
+      ],
+      "evidenceRdb": [
+        1025,
+        1264,
+        1263,
+        1262,
+        1261,
+        1260,
+        1259,
+        1258,
+        1255
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1327,
+        1326,
+        1325
+      ],
+      "evidenceRdb": [
+        1025,
+        1327,
+        1326,
+        1325
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1327,
+        1326,
+        1325,
+        1319,
+        1317,
+        1316,
+        1312,
+        1311
+      ],
+      "evidenceRdb": [
+        1025,
+        1327,
+        1326,
+        1325,
+        1319,
+        1317,
+        1316,
+        1312,
+        1311
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1392,
+        1391,
+        1388
+      ],
+      "evidenceRdb": [
+        1025,
+        1392,
+        1391,
+        1388
+      ]
+    },
+    {
+      "characterId": 15,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1392,
+        1391,
+        1388,
+        1387,
+        1386,
+        1382,
+        1381,
+        1378
+      ],
+      "evidenceRdb": [
+        1025,
+        1392,
+        1391,
+        1388,
+        1387,
+        1386,
+        1382,
+        1381,
+        1378
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1099,
+        1098,
+        1091
+      ],
+      "evidenceRdb": [
+        1025,
+        1099,
+        1098,
+        1091
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1099,
+        1098,
+        1091,
+        1090,
+        1088,
+        1087,
+        1086,
+        1084
+      ],
+      "evidenceRdb": [
+        1025,
+        1099,
+        1098,
+        1091,
+        1090,
+        1088,
+        1087,
+        1086,
+        1084
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1190,
+        1189,
+        1188
+      ],
+      "evidenceRdb": [
+        1025,
+        1190,
+        1189,
+        1188
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1190,
+        1189,
+        1188,
+        1183,
+        1182,
+        1181,
+        1180,
+        1178
+      ],
+      "evidenceRdb": [
+        1025,
+        1190,
+        1189,
+        1188,
+        1183,
+        1182,
+        1181,
+        1180,
+        1178
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1251,
+        1250,
+        1249
+      ],
+      "evidenceRdb": [
+        1025,
+        1251,
+        1250,
+        1249
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1251,
+        1250,
+        1249,
+        1248,
+        1247,
+        1244,
+        1240,
+        1239
+      ],
+      "evidenceRdb": [
+        1025,
+        1251,
+        1250,
+        1249,
+        1248,
+        1247,
+        1244,
+        1240,
+        1239
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1319,
+        1318,
+        1315
+      ],
+      "evidenceRdb": [
+        1025,
+        1319,
+        1318,
+        1315
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1319,
+        1318,
+        1315,
+        1307,
+        1306,
+        1305,
+        1300,
+        1299
+      ],
+      "evidenceRdb": [
+        1025,
+        1319,
+        1318,
+        1315,
+        1307,
+        1306,
+        1305,
+        1300,
+        1299
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1393,
+        1390,
+        1389
+      ],
+      "evidenceRdb": [
+        1025,
+        1393,
+        1390,
+        1389
+      ]
+    },
+    {
+      "characterId": 13,
+      "dramaId": 9,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        1025,
+        1393,
+        1390,
+        1389,
+        1388,
+        1384,
+        1381,
+        1380,
+        1379
+      ],
+      "evidenceRdb": [
+        1025,
+        1393,
+        1390,
+        1389,
+        1388,
+        1384,
+        1381,
+        1380,
+        1379
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        3018,
+        3016
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        3018,
+        3016
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        3018,
+        3016,
+        3015,
+        3013,
+        3012,
+        3009,
+        3008
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        3018,
+        3016,
+        3015,
+        3013,
+        3012,
+        3009,
+        3008
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        2431,
+        2390
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        2431,
+        2390
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        2431,
+        2390,
+        2370,
+        2350,
+        2348,
+        2326,
+        2325
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        2431,
+        2390,
+        2370,
+        2350,
+        2348,
+        2326,
+        2325
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        3019,
+        2453
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        3019,
+        2453
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        3019,
+        2453,
+        2452,
+        2451,
+        2450,
+        2397,
+        2396
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        3019,
+        2453,
+        2452,
+        2451,
+        2450,
+        2397,
+        2396
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        2436,
+        2399
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        2436,
+        2399
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        2436,
+        2399,
+        2380,
+        2378,
+        2359,
+        2358,
+        2357
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        2436,
+        2399,
+        2380,
+        2378,
+        2359,
+        2358,
+        2357
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        3003,
+        3002
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        3003,
+        3002
+      ]
+    },
+    {
+      "characterId": 17,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2282,
+        2284,
+        3003,
+        3002,
+        3001,
+        2436,
+        2399,
+        2380,
+        2378
+      ],
+      "evidenceRdb": [
+        2282,
+        2284,
+        3003,
+        3002,
+        3001,
+        2436,
+        2399,
+        2380,
+        2378
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3014,
+        3012,
+        2407
+      ],
+      "evidenceRdb": [
+        2283,
+        3014,
+        3012,
+        2407
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3014,
+        3012,
+        2407,
+        2406,
+        2320,
+        2319,
+        2317,
+        3021
+      ],
+      "evidenceRdb": [
+        2283,
+        3014,
+        3012,
+        2407,
+        2406,
+        2320,
+        2319,
+        2317,
+        3021
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2327,
+        2326,
+        2325
+      ],
+      "evidenceRdb": [
+        2283,
+        2327,
+        2326,
+        2325
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2327,
+        2326,
+        2325,
+        2324,
+        2323,
+        2322,
+        2321,
+        3014
+      ],
+      "evidenceRdb": [
+        2283,
+        2327,
+        2326,
+        2325,
+        2324,
+        2323,
+        2322,
+        2321,
+        3014
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2435,
+        3011,
+        2451
+      ],
+      "evidenceRdb": [
+        2283,
+        2435,
+        3011,
+        2451
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2435,
+        3011,
+        2451,
+        2434,
+        2376,
+        2334,
+        2332
+      ],
+      "evidenceRdb": [
+        2283,
+        2435,
+        3011,
+        2451,
+        2434,
+        2376,
+        2334,
+        2332
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2435,
+        2436,
+        2338
+      ],
+      "evidenceRdb": [
+        2283,
+        2435,
+        2436,
+        2338
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2435,
+        2436,
+        2338,
+        2337,
+        2336,
+        2311,
+        2309,
+        3011
+      ],
+      "evidenceRdb": [
+        2283,
+        2435,
+        2436,
+        2338,
+        2337,
+        2336,
+        2311,
+        2309,
+        3011
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2435,
+        2436,
+        2338
+      ],
+      "evidenceRdb": [
+        2283,
+        2435,
+        2436,
+        2338
+      ]
+    },
+    {
+      "characterId": 18,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        2435,
+        2436,
+        2338,
+        2337,
+        2336,
+        2311,
+        2309,
+        3011
+      ],
+      "evidenceRdb": [
+        2283,
+        2435,
+        2436,
+        2338,
+        2337,
+        2336,
+        2311,
+        2309,
+        3011
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        3018,
+        3017
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        3018,
+        3017
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        3018,
+        3017,
+        3016,
+        3015,
+        3014,
+        3013,
+        3012
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        3018,
+        3017,
+        3016,
+        3015,
+        3014,
+        3013,
+        3012
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        2392,
+        2350
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        2392,
+        2350
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        2392,
+        2350,
+        2349,
+        2348,
+        2296,
+        2388,
+        2347
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        2392,
+        2350,
+        2349,
+        2348,
+        2296,
+        2388,
+        2347
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        2356,
+        2355
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        2356,
+        2355
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        2356,
+        2355,
+        2354,
+        2353,
+        2352,
+        2351,
+        2392
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        2356,
+        2355,
+        2354,
+        2353,
+        2352,
+        2351,
+        2392
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        2399,
+        2359
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        2399,
+        2359
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        2399,
+        2359,
+        2358,
+        2357,
+        2356,
+        2355,
+        2354
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        2399,
+        2359,
+        2358,
+        2357,
+        2356,
+        2355,
+        2354
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        3003,
+        3002
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        3003,
+        3002
+      ]
+    },
+    {
+      "characterId": 19,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2339,
+        2341,
+        3003,
+        3002,
+        3001,
+        2399,
+        2359,
+        2358,
+        2357
+      ],
+      "evidenceRdb": [
+        2339,
+        2341,
+        3003,
+        3002,
+        3001,
+        2399,
+        2359,
+        2358,
+        2357
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        3009
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        3009
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        3009,
+        3008,
+        3007,
+        3006,
+        2365,
+        2364
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        3009,
+        3008,
+        3007,
+        3006,
+        2365,
+        2364
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2371,
+        2370
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2371,
+        2370
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2371,
+        2370,
+        2369,
+        2297,
+        2368,
+        2367
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2371,
+        2370,
+        2369,
+        2297,
+        2368,
+        2367
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2435,
+        2397
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2435,
+        2397
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2435,
+        2397,
+        2377,
+        2374,
+        2373,
+        2372,
+        2371
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2435,
+        2397,
+        2377,
+        2374,
+        2373,
+        2372,
+        2371
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2380,
+        2379
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2380,
+        2379
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2380,
+        2379,
+        2335,
+        2435,
+        2397,
+        2377,
+        2374
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2380,
+        2379,
+        2335,
+        2435,
+        2397,
+        2377,
+        2374
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2380,
+        2379
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2380,
+        2379
+      ]
+    },
+    {
+      "characterId": 20,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2283,
+        3010,
+        2380,
+        2379,
+        2335,
+        2435,
+        2397,
+        2377,
+        2374
+      ],
+      "evidenceRdb": [
+        2283,
+        3010,
+        2380,
+        2379,
+        2335,
+        2435,
+        2397,
+        2377,
+        2374
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2386,
+        2385,
+        2384
+      ],
+      "evidenceRdb": [
+        2381,
+        2386,
+        2385,
+        2384
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2386,
+        2385,
+        2384,
+        3025,
+        2383,
+        2382
+      ],
+      "evidenceRdb": [
+        2381,
+        2386,
+        2385,
+        2384,
+        3025,
+        2383,
+        2382
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2392,
+        2391
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2392,
+        2391
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2392,
+        2391,
+        2390,
+        2389,
+        2388,
+        2386
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2392,
+        2391,
+        2390,
+        2389,
+        2388,
+        2386
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2398,
+        2397
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2398,
+        2397
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2398,
+        2397,
+        2396,
+        2395,
+        2394,
+        2393,
+        2392
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2398,
+        2397,
+        2396,
+        2395,
+        2394,
+        2393,
+        2392
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2401,
+        2400
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2401,
+        2400
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2401,
+        2400,
+        2399,
+        2398,
+        2397,
+        2396,
+        2395
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2401,
+        2400,
+        2399,
+        2398,
+        2397,
+        2396,
+        2395
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2401,
+        2400
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2401,
+        2400
+      ]
+    },
+    {
+      "characterId": 21,
+      "dramaId": 10,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2381,
+        2387,
+        2401,
+        2400,
+        2399,
+        2398,
+        2397,
+        2396,
+        2395
+      ],
+      "evidenceRdb": [
+        2381,
+        2387,
+        2401,
+        2400,
+        2399,
+        2398,
+        2397,
+        2396,
+        2395
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2479,
+        2478,
+        2476
+      ],
+      "evidenceRdb": [
+        2475,
+        2479,
+        2478,
+        2476
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2479,
+        2478,
+        2476
+      ],
+      "evidenceRdb": [
+        2475,
+        2479,
+        2478,
+        2476
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2490,
+        2489
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2490,
+        2489
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2490,
+        2489,
+        2486,
+        2485,
+        2479,
+        2478
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2490,
+        2489,
+        2486,
+        2485,
+        2479,
+        2478
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2497,
+        2493
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2497,
+        2493
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2497,
+        2493,
+        2492,
+        2490,
+        2489,
+        2486,
+        2485
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2497,
+        2493,
+        2492,
+        2490,
+        2489,
+        2486,
+        2485
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2502,
+        2500
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2502,
+        2500
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2502,
+        2500,
+        2497,
+        2493,
+        2492,
+        2490,
+        2489
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2502,
+        2500,
+        2497,
+        2493,
+        2492,
+        2490,
+        2489
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2512,
+        2502
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2512,
+        2502
+      ]
+    },
+    {
+      "characterId": 202,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2475,
+        2484,
+        2512,
+        2502,
+        2500,
+        2497,
+        2493,
+        2492,
+        2490
+      ],
+      "evidenceRdb": [
+        2475,
+        2484,
+        2512,
+        2502,
+        2500,
+        2497,
+        2493,
+        2492,
+        2490
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2479,
+        2478
+      ],
+      "evidenceRdb": [
+        2472,
+        2479,
+        2478
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2479,
+        2478,
+        2477,
+        2476,
+        2474,
+        2473
+      ],
+      "evidenceRdb": [
+        2472,
+        2479,
+        2478,
+        2477,
+        2476,
+        2474,
+        2473
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2489,
+        2488
+      ],
+      "evidenceRdb": [
+        2472,
+        2489,
+        2488
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2489,
+        2488,
+        2484,
+        2479,
+        2478,
+        2477,
+        2476
+      ],
+      "evidenceRdb": [
+        2472,
+        2489,
+        2488,
+        2484,
+        2479,
+        2478,
+        2477,
+        2476
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2496,
+        2494
+      ],
+      "evidenceRdb": [
+        2472,
+        2496,
+        2494
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2496,
+        2494,
+        2493,
+        2492,
+        2489,
+        2488,
+        2484
+      ],
+      "evidenceRdb": [
+        2472,
+        2496,
+        2494,
+        2493,
+        2492,
+        2489,
+        2488,
+        2484
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2502,
+        2501
+      ],
+      "evidenceRdb": [
+        2472,
+        2502,
+        2501
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2502,
+        2501,
+        2500,
+        2496,
+        2494,
+        2493,
+        2492
+      ],
+      "evidenceRdb": [
+        2472,
+        2502,
+        2501,
+        2500,
+        2496,
+        2494,
+        2493,
+        2492
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2502,
+        2501
+      ],
+      "evidenceRdb": [
+        2472,
+        2502,
+        2501
+      ]
+    },
+    {
+      "characterId": 201,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2472,
+        2502,
+        2501,
+        2500,
+        2496,
+        2494,
+        2493,
+        2492
+      ],
+      "evidenceRdb": [
+        2472,
+        2502,
+        2501,
+        2500,
+        2496,
+        2494,
+        2493,
+        2492
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2483,
+        2482
+      ],
+      "evidenceRdb": [
+        2481,
+        2483,
+        2482
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2483,
+        2482
+      ],
+      "evidenceRdb": [
+        2481,
+        2483,
+        2482
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2490
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2490
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2490,
+        2488,
+        2487,
+        2483,
+        2482
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2490,
+        2488,
+        2487,
+        2483,
+        2482
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2499,
+        2498
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2499,
+        2498
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2499,
+        2498,
+        2496,
+        2495,
+        2494,
+        2490
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2499,
+        2498,
+        2496,
+        2495,
+        2494,
+        2490
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2503,
+        2501
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2503,
+        2501
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2503,
+        2501,
+        2499,
+        2498,
+        2496,
+        2495,
+        2494
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2503,
+        2501,
+        2499,
+        2498,
+        2496,
+        2495,
+        2494
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2503,
+        2501
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2503,
+        2501
+      ]
+    },
+    {
+      "characterId": 206,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2481,
+        2491,
+        2503,
+        2501,
+        2499,
+        2498,
+        2496,
+        2495,
+        2494
+      ],
+      "evidenceRdb": [
+        2481,
+        2491,
+        2503,
+        2501,
+        2499,
+        2498,
+        2496,
+        2495,
+        2494
+      ]
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2497
+      ],
+      "evidenceRdb": [
+        2497
+      ]
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2497
+      ],
+      "evidenceRdb": [
+        2497
+      ]
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2497,
+        2504,
+        2509,
+        2508
+      ],
+      "evidenceRdb": [
+        2497,
+        2504,
+        2509,
+        2508
+      ]
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2497,
+        2504,
+        2509,
+        2508,
+        2507,
+        2506,
+        2505
+      ],
+      "evidenceRdb": [
+        2497,
+        2504,
+        2509,
+        2508,
+        2507,
+        2506,
+        2505
+      ]
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2497,
+        2504,
+        2511,
+        2510
+      ],
+      "evidenceRdb": [
+        2497,
+        2504,
+        2511,
+        2510
+      ]
+    },
+    {
+      "characterId": 204,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2497,
+        2504,
+        2511,
+        2510,
+        2509,
+        2508,
+        2507,
+        2506,
+        2505
+      ],
+      "evidenceRdb": [
+        2497,
+        2504,
+        2511,
+        2510,
+        2509,
+        2508,
+        2507,
+        2506,
+        2505
+      ]
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 5,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 2,
+      "limit": 10,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 5,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 4,
+      "limit": 10,
+      "statusRdf": "SPOILER_BLOCKED",
+      "statusRdb": "SPOILER_BLOCKED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [],
+      "evidenceRdb": []
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2498,
+        2499
+      ],
+      "evidenceRdb": [
+        2498,
+        2499
+      ]
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 6,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2498,
+        2499
+      ],
+      "evidenceRdb": [
+        2498,
+        2499
+      ]
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2498,
+        2499
+      ],
+      "evidenceRdb": [
+        2498,
+        2499
+      ]
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 8,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2498,
+        2499
+      ],
+      "evidenceRdb": [
+        2498,
+        2499
+      ]
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 5,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2498,
+        2513,
+        2516,
+        2515
+      ],
+      "evidenceRdb": [
+        2498,
+        2513,
+        2516,
+        2515
+      ]
+    },
+    {
+      "characterId": 205,
+      "dramaId": 4,
+      "safeUpToEpisode": 10,
+      "limit": 10,
+      "statusRdf": "ANSWERED",
+      "statusRdb": "ANSWERED",
+      "statusExactMatch": true,
+      "anchorExactMatch": true,
+      "contextExactMatch": true,
+      "evidenceJaccard": 1.0,
+      "evidenceRdf": [
+        2498,
+        2513,
+        2516,
+        2515,
+        2514,
+        2512,
+        2499
+      ],
+      "evidenceRdb": [
+        2498,
+        2513,
+        2516,
+        2515,
+        2514,
+        2512,
+        2499
+      ]
+    }
+  ]
+}

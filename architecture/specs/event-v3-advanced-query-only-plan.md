@@ -200,3 +200,5 @@ Status update (2026-02-24)
   - refs: `scripts/ops/rdf/query_v3_advanced_q19_poc.py`, `scripts/ops/rdf/query_v3_advanced_q19_poc.sh`
 - [x] Add Q19 replay parity harness (status/axis/evidence metrics).
   - refs: `scripts/ops/rdf/replay_v3_advanced_q19_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q19_parity.sh`
+- [x] Add Q16 replay parity harness (status/anchor/context/evidence metrics).
+  - refs: `scripts/ops/rdf/replay_v3_advanced_q16_parity.py`, `scripts/ops/rdf/replay_v3_advanced_q16_parity.sh`
