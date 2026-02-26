@@ -113,3 +113,13 @@ Cross-Agent Change Guardrail
 - Mistake (원인): 로그 파일이나 임시 파일(`errorlogs/`) 등 `.gitignore`에 포함된 파일을 `read_file` 툴로 읽으려다 실패함.
 - Symptom: `File path ... is ignored by configured ignore patterns` 에러 발생.
 - Arrest (해결법): 로그, 빌드 아티팩트 등 gitignore 대상 파일을 읽어야 할 때는 `read_file` 대신 **`run_shell_command("cat <file>")`**를 사용하여 파일 시스템에 직접 접근할 것.
+
+## Incident (2026-02-25) - Event Rebuild Side Effect (Auth/Notification Down)
+- Mistake (원인): 이벤트 서비스 재빌드/재기동 작업 시 의존 서비스 상태를 함께 점검하지 않아 `auth-service`/`notification-service`가 내려간 상태를 놓침. 두 서비스 모두 `restart: no`라 자동 복구되지 않음.
+- Symptom: 로그인 요청(`POST /api/auth/v1/login`)이 gateway에서 500으로 실패하고, gateway 로그에 `UnknownHostException: nospoiler-auth-service`가 반복됨.
+- Detection: `docker compose ps -a`에서 `auth-service Exited (137)`, `notification-service Exited (137)` 확인. `notification-service`는 `OOMKilled=true`.
+- Arrest (해결법):
+  1) 단일 서비스 빌드 시 `docker compose up -d --build --no-deps event-service`를 기본으로 사용한다.
+  2) 핵심 서비스(`auth-service`, `notification-service`)에 `restart: unless-stopped`를 설정한다.
+  3) 재기동/재빌드 직후 `docker compose ps -a`로 `auth-service`, `notification-service`, `api-gateway` 상태를 즉시 확인한다.
+  4) 로그인 500 발생 시 gateway에서 `UnknownHostException` 여부를 먼저 확인하고, DNS/서비스 다운을 1순위로 진단한다.

@@ -3,7 +3,7 @@
 > **Principle**: This file (`fivecircles/architecture/todolist.md`) is the **top-level source of truth** for work items.
 > - Each member updates their own section.
 > - `fivecircles/agent/queue.json` is kept as a **reference/backlog**, not the primary TODO list.
-> **Last Updated**: 2026-02-23 (by Codex)
+> **Last Updated**: 2026-02-26 (by Codex)
 
 ---
 
@@ -210,13 +210,97 @@
 - [x] **ex14 백필(bit-ts)**: `nospoiler_event.event`/`nospoiler_wiki.wiki_submission`의 `predicate_code`를 `STATUS_CHANGE` -> `TRANSFORMS`로 일괄 변경
 - [ ] **정합성 갭 체크 (ex14, 협업)**: reveal 메타(event_reveal)가 wiki/intelligence→event 파이프라인에서 실제 전달/저장되는지 “현상 확인”만 하고, 결과를 문서에 상태로만 명시 (구현은 보류)
 - [x] **Reveal 입력 정합성(서버)**: `predicateCode=REVEALS` + `revealTargetId`가 있는 요청에서 `revealTargetType`이 없으면 **silent skip 금지**(BusinessException로 실패 처리). (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/ex14-consistency-checklist.md`)
-- [ ] **Reveal type 파이프라인**: `event_reveal.reveal_type(HINT|CONFIRM)`를 event 생성/수정 요청에서 받을 수 있게 DTO/API를 확장하고, 저장까지 end-to-end로 연결(미입력 시 정책: null 허용 vs 기본값 고정 결정 필요). (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/reveals/reveals-reuse-cases.md`, `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`)
+- [ ] **Reveal type 파이프라인**: `event_reveal.reveal_type(HINT|CONFIRM)`를 event 생성/수정 요청에서 받을 수 있게 DTO/API를 확장하고, 저장까지 end-to-end로 연결(기본값 정책은 질문 구현단계 정밀도 조정(QP1)에서 확정). (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/reveals/reveals-reuse-cases.md`, `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`)
 - [ ] **Q1~Q15 정합성(별도)**: UI/스펙의 predicateCode(`BATTLE`, `AFFILIATION_CHANGE`, `DEATH`, `EXIT` 등)와 `common/PredicateCode`의 폐쇄 집합을 정렬 (ex14 범위 밖이므로 별도 작업으로 분리)
+  - [ ] 게이트: Q1~Q15 템플릿에서 `strict_must.predicateCodeAnyOf` 및 `strict_must.excludePredicateCodeAnyOf`만 runtime `PredicateCode` 폐쇄집합 검사 대상으로 고정하고, group/label/qAnyOf는 검사 범위에서 제외
+- [ ] **ex20~22.1 정합화 실행 트랙 (2026-02-26, Q20 우선/DB 최소변경)** (refs: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`, `ex23-RDF-inheritance-appendix.md`, `ex20-axis.md`, `ex21-SPO-N-Y.md`, `ex22-axis-N-Y-scetch.md`, `ex22.1-ops.md`, `fivecircles/architecture/specs/predicate/groups.md`)
+  - [x] 1) Q20 기준 축/SPO/Predicate 운영원칙 문서 고정 (Quick20 커버리지 기준, role=`INVOLVED/SUBJECT/OBJECT`, predicate는 현행 `PredicateCode`+`PredicateGroup` 우선)
+  - [ ] 2) role 입력 계약+파이프라인 추가 (**보류**: Intelligence 개발자(B)와 `involvedCharacters[{characterId,role}]` 계약 확정 후 재개)
+    - [ ] 2-1) B 협의 체크: 응답 필드 추가 여부, `involvedCharacterIds` 호환 유지, role 허용값/기본값, 배포 순서(`intelligence -> wiki -> event`)
+  - [ ] 3) relation type 확장 RFC는 보류: 현행 PRECEDES+REVEALS/Group 조합으로 커버리지 검증 후 필요 시 재개
+- [ ] **axis/SPO/AND/WHY 구현 체크리스트 (2026-02-26, ex20~23 리뷰 반영)** (refs: `ex23-RDF-inheritance.md`, `ex23-RDF-inheritance-appendix.md`, `ex20-axis.md`, `ex21-SPO-N-Y.md`, `ex22-axis-N-Y-scetch.md`, `ex22.1-ops.md`, `ex22.2-expension-categorized-impl-plan.md`, `ex22.3-expension-expension-qs-imple2.md`, `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`, `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`)
+  - [ ] R0. RDF 승계(ex23) 선행 게이트 고정 (**최우선**)
+    - [ ] R0-1a) RDF lane SoT 범위 고정: `predicate_axis_taxonomy.json`은 **RDF query-only 경로**에서만 SoT로 참조
+    - [ ] R0-1b) Executor lane SoT 범위 고정: executor/classifier는 `StrictQuerySpec(04 매트릭스/템플릿)`만 SoT로 사용하고 taxonomy를 직접 읽지 않음
+    - [ ] R0-2) Axis(분류/신호) vs Group(필터/집계) 경계 문구를 ex23 기준으로 유지
+    - [ ] R0-3) Suggestion 가드(`OTHER` 저장/매칭, strict miss 후 fallback)를 구현 규칙과 동기화
+    - [ ] R0-4) planned/implemented 상태표 및 recursive TODO를 ex23 단일 기준으로 유지
+    - [ ] R0-5) ex23 참조를 관련 체크리스트/문서 refs 최상단에 고정
+    - [ ] R0-6) R0 완료 전 S1/N1/W1 계약 고정 금지(드리프트 방지)
+  - [ ] A-1. Answer-first 실험 세트(10문항) 고정 + 정답 데이터 입력 (**선행 게이트**: R0 완료 후, S1/N1/W1 고정 전에 완료) (refs: `fivecircles/architecture/specs/predicate/answer-first-backward-design.md`)
+    - [ ] A-1-1) `T01~T10 질문/axis/strictFilters` 스냅샷 파일 생성 (A4/B3/C3 구성, 파일: `artifacts/answerset-10.json`)
+    - [ ] A-1-2) 각 질문 `answer_event_id` 확정(기준: strict-first + earliest + approved, 증거 이벤트 링크 포함)
+    - [ ] A-1-3) WHY 문항(`T08~T10`) `because_chain(PRECEDES)` 2~3 hop 구축 (신규 relation type 추가 금지)
+    - [ ] A-1-4) REVEALS 문항(`T05~T07`) `reveal_hint(attribute 포함)` 최소 1~3개 입력
+    - [ ] A-1-5) 산출물 스냅샷 저장: `fivecircles/architecture/specs/predicate/artifacts/answerset-10.json`
+    - [ ] A-1-6) 실패/공백 기록: strict 0건 문항은 `SPOILER_BLOCKED/NOT_ENOUGH_DATA`로만 표기하고 TODO 백로그(`questions-anti-halus/06-1-required-db-values.md`)에 연결
+    - [ ] A-1-7) 앵커 승격 규칙 적용: 기존 `PredicateCode` 우선, 미충족은 `OTHER+predicate_suggestion` 후보로 수집 후 **answerset 통계(빈도/strict 정답 일치율)** 기준으로 enum 승격 RFC 작성
+      - [ ] A-1-7-a) 승격 지표 추가: strict miss 시 fallback Top1의 사람 검수 정답 일치율(`precision@1`) 기록
+  - [ ] A-2. 후속 6문항 Answer-set(확장 검증) (**A-1 완료 후**) (refs: `ex22.3-expension-expension-qs-imple2.md`)
+    - [ ] A-2-1) 후속 #1~#6에 대해 `answer_event_id` 1개씩 확정
+    - [ ] A-2-2) 문항별 `reveal_attribute` 1~3개 + 필요 시 `because_chain` 2 hop 입력
+    - [ ] A-2-3) 산출물 스냅샷 저장: `fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json`
+  - [x] A0. 기준 고정: Q20을 축/커버리지 기준으로 사용, strict는 `PredicateCode` 우선, group/fallback은 strict 0건 보정으로만 사용
+  - [ ] A1. axis 매핑표 고정: Q1~Q15(+Q1 확장)별 주축 `REVEALS/STATE/PRESSURE/PRECEDES` 1개를 결정하고 템플릿 id에 연결(설명/WHY/탐색 UI 레이어)
+    - [ ] A1-0) 레이어 경계 선언: **Axis는 탐색/설명 레이어 정책이며, strict 탐색 결과에는 영향을 주지 않는다.**
+    - [ ] A1-1) 입력 소스 동기화: `templates.ts`, `04-template-strict-must-matrix.md`, ex20 라벨 표를 동일 question_id 기준으로 정렬
+    - [ ] A1-2) 매핑표 작성: `template_id/question_id/axis/predicate anchor` 4컬럼으로 1차 테이블 확정
+    - [ ] A1-3) 충돌 검증: 축 다중할당 금지(1문항=주축 1개), Q6/Q7 `LEAVES` 중복은 컨텍스트 분리 태그 부여
+    - [ ] A1-4) 산출물 고정: axis 매핑표를 단일 문서로 승격하고 변경 owner 지정
+  - [ ] P1. Predicate 정합성 정리(선행, 정책 고정 전): 문서/UI의 `BATTLE/AFFILIATION_CHANGE/DEATH/EXIT`를 runtime `PredicateCode`+Group 레이어로 분리 명시
+    - [ ] P1-1) 용어 사전 작성: user label <-> runtime code <-> group/fallback 3계층 매핑표 확정
+    - [ ] P1-2) Q6/Q7 규칙 명시: `LEAVES` 중복 사용 원칙(소속변경/퇴장 컨텍스트 분리) 문서 고정
+    - [ ] P1-3) 금지 규칙: user-facing 필터에 `OTHER/UNKNOWN` 직접 노출 금지 재확인
+  - [ ] P2. 단일 매핑 소스화(선행): group 매핑 테이블 1곳에서 FE/BE/문서가 공통 참조하도록 정리(드리프트 방지)
+    - [ ] P2-1) SoT 위치 결정(선행): predicate group canonical 문서 1개를 먼저 지정
+    - [ ] P2-2) 참조 통일: FE 가이드/BE 상수/운영문서가 canonical 문서를 참조하도록 링크 정리
+    - [ ] P2-3) 변경 프로세스: 매핑 변경 시 영향영역(FE/BE/QA) 체크박스 템플릿 추가
+  - [ ] S1. SPO strict 필터 고정: `subject/target/with/predicateCodeAnyOf/qAnyOf` 조합을 04 매트릭스와 1:1 동기화(정답 이벤트 탐색 레이어)
+    - [ ] S1-1) strictFilters 키 정규화: `subject|target|with|predicateCodeAnyOf|qAnyOf|excludePredicateCodeAnyOf` allow-list 확정
+      - [ ] S1-1-0) `qAnyOf` 의미 고정: 키워드 OR(기본은 단일 쿼리 OR 조건), 불가한 경우에만 multi-query union 허용. predicate 집합과는 AND 결합
+      - [ ] S1-1-a) shorthand(`subject=Walter` 등) -> 런타임 필드 매핑표 고정
+      - [ ] S1-1-b) predicate 대소문자/legacy(`STATUS_CHANGE`) 정규화 규칙 명시
+    - [ ] S1-2) 템플릿 동기화: FE 템플릿과 문서 strict_must를 diff 기준으로 맞춤
+    - [ ] S1-3) drift 방지 검증: 템플릿-매트릭스 불일치 시 fail 규칙 추가
+  - [ ] S2. role 해석 규칙 고정: role 미입력 데이터는 `INVOLVED`로 처리하고, `SUBJECT/OBJECT`는 조회/설명 레이어에서 우선 노출
+    - [ ] S2-1) role 우선순위 표준화: `SUBJECT > OBJECT > INVOLVED`
+    - [ ] S2-2) 무역할 데이터 처리: role null/blank는 `INVOLVED`로 보정
+    - [ ] S2-3) 설명 노출 규칙: WHY 출력에서 SUBJECT/OBJECT가 있으면 해당 관점 문장을 우선 생성
+  - [ ] N1. AND 실행 규칙 고정: `predicateCodeAnyOf AND qAnyOf AND episode/K gate`를 deterministic 순서로 적용
+    - [ ] N1-1) 평가 순서 고정: `K gate -> source_status(APPROVED only) -> predicate -> keyword(qAnyOf) -> 정렬`
+    - [ ] N1-2) AND/OR 의미 고정: `predicateCodeAnyOf`는 OR, `qAnyOf`는 OR, 두 집합 사이는 AND
+    - [ ] N1-3) tie-break 고정: `episode asc -> event_id asc`로 earliest deterministic 보장
+  - [ ] N2. AND 회귀 테스트: Q6/Q7(`LEAVES` 중복), Q10(excludePredicate), Q14(coevents) 케이스를 스냅샷 검증
+    - [ ] N2-0) 스냅샷 기준 고정: canonical은 **BE executor 결과 JSON(정렬 포함)** 으로 통일
+    - [ ] N2-1) 최소 fixture 세트: Q6/Q7/Q10/Q14 증거 이벤트 id 고정(+ 검증용 summary 병행)
+    - [ ] N2-2) 케이스별 기대결과: strict hit/strict miss/probe status를 스냅샷화
+    - [ ] N2-3) 회귀 게이트: 템플릿 변경 시 스냅샷 재검증 체크리스트 의무화
+    - [ ] N2-4) `answerset-10.json`을 N2 fixture/expected의 근거 SoT로 사용
+  - [ ] W1. WHY 근거 포맷 고정: `strict evidence_event_id + PRECEDES cause/effect + REVEALS 힌트` 3단 구조로 설명문 생성
+    - [ ] W1-1) WHY 응답 스키마: `answer_event`, `because_chain`, `reveal_hint`, `confidence_note` 필드 정의
+    - [ ] W1-2) 체인 생성 규칙: PRECEDES는 max hop 제한, 분기는 Top1 path만 본문 노출
+    - [ ] W1-3) 텍스트 템플릿: “무엇-왜-근거” 3문장 기본형 고정
+  - [ ] W2. WHY 가드레일: strict 0건이면 `ANSWERED` 금지, probe 상태(`SPOILER_BLOCKED/NOT_ENOUGH_DATA`)만 반환
+    - [ ] W2-1) strict-first 강제: executor에서 strict miss 시 probe 선행, approx는 내부참고로만 유지
+    - [ ] W2-2) 상태 매핑 고정: `SPOILER_BLOCKED -> LOCKED`, `NOT_ENOUGH_DATA -> NO_DATA`
+    - [ ] W2-3) 금지 규칙: **strict miss + probe hit** 케이스에서도 ANSWERED 전환 금지 테스트 추가
+  - [ ] W3. WHY 출력 검증: FE `CAUSE/FOCUS/EFFECT` 정렬 우선순위와 문서 템플릿을 동일 규칙으로 통일
+    - [ ] W3-1) FE 정렬 규칙 점검: `CAUSE < FOCUS < EFFECT` 우선순위 스펙 문서화
+    - [ ] W3-2) 샘플 검증: Q1/Q10/Q14 3문항으로 WHY 출력 비교(문서 vs UI)
+    - [ ] W3-3) mismatch 처리: 태그/정렬 불일치 시 수정 주체(FE/BE) 결정 규칙 추가
+  - [ ] QP1. 질문 구현단계 정밀도 조정(후순위): reveal 축 정밀도/표현력 기준으로 `reveal_type` 기본값 정책 확정 (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/reveals/reveals-reuse-cases.md`)
+    - [ ] QP1-1) 옵션 비교: `NULL 유지` vs `HINT 자동 coalesce`를 질문 정밀도(오탐/미탐) 기준으로 평가
+    - [ ] QP1-2) WHY 영향 검증: `HINT/CONFIRM`에 따른 근거 문장 강도/확신도 차등 규칙 정의
+    - [ ] QP1-3) 확정 반영: DTO/쿼리/문서(reveals spec, ex23 연계) 동시 업데이트
 - [x] **검색 정책(OTHER/UNKNOWN)**: user-facing predicateCode 필터에서 `OTHER|UNKNOWN`은 필터 미적용(비-1급 필터)으로 처리
 - [ ] **품질향상 레이어(구조적 방어) 구현**: evidence-first 응답, group 매핑 단일 소스, suggestion 정규화/alias, 집계 엔드포인트 도입 (spec: `fivecircles/architecture/specs/predicate/data-quality-risks-and-structure.md`, `fivecircles/architecture/specs/predicate/related-characters-aggregate.md`)
 - [x] **related-characters/aggregate 롤아웃(서버 스모크 기준)**: /qa 노출(프론트는 Antigravity), 서버 배포 후 curl 스모크로 성공 판정 (spec: `fivecircles/architecture/specs/predicate/rollout-plan-aggregate-qa.md`)
 - [ ] **related-characters/aggregate 파인튜닝(데이터 기반)**: 실제 데이터에서 ADVERSARY/ALLY가 0점/빈 결과로 나오는 케이스를 수집하고, groupWeight/그룹 매핑을 조정 (예: 브레이킹 배드 행크 슈레이더 E5에서 ADVERSARY=0)
+  - [x] v1) suggestion fallback 토큰 파싱 규칙 통일 적용(`TOKEN|label`, `TOKEN:label`) + SQL 집계 반영
+  - [x] v1) 세분화 토큰 확장(ADVERSARY/ALLY/BATTLE fallback set + taxonomy 동기화)
+  - [ ] v2) mode별 groupWeight/minScore 재튜닝(실데이터 샘플 30건 기준)
 - [ ] **Predicate suggestion 운영(SoT=event)**: `event.predicate_suggestion` 도입(승인 시 snapshot 저장), 운영 편집/집계는 event 기준, wiki는 히스토리만 유지 (spec: `fivecircles/architecture/specs/predicate/suggestion-sot-event.md`)
+  - [ ] fallback group 매칭은 `event.predicate_suggestion`의 token(`extractToken`)만 사용
 - [x] **Predicate suggestion(코드/마이그레이션)**: event-service V8 컬럼 추가 + DTO/mapper + wiki 승인 publish payload 반영 (배포/DB 반영은 별도)
 - [ ] **ex16 Production Q1~Q15 프리셋 실행 레이어**: Q1~Q15를 QuerySpec으로 고정하고 FE/QA에서 버튼 1개로 실행(api3/api4/api7/api8 조합). (status doc: `fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md`)
 - [ ] **ex16 Anti-Halu 재귀 구현 TODO (Q1~Q15)** (refs: `questions-anti-halus/03-implementation-plan.md`, `04-template-strict-must-matrix.md`, `05-v2-v25-adoption-review.md`, `06-answers-for-productionQs.md`, `07-맥락적답변형식.md`, `08-맥락적답변형식-메타모델.md`)
@@ -277,6 +361,14 @@
     - [ ] **검증**
       - [ ] 06 정답 + 07 Level 1-3 데이터로 Q1~Q15 전체 응답 샘플 검증
       - [ ] JSON 응답 스키마(`qna.levels.v1`) 확정 및 FE 파싱 테스트
+  - [ ] **Phase 6-A / Q1 익스펜션 재귀 실행 (파일럿, 2026-02-25)** (refs: `questions-anti-halus/09-expension-questions.md`, `questions-anti-halus/10-q1-expansion-recursive-run.md`)
+    - [x] Cycle 1-1: Q1 후속 6문항에 대한 웹 근거/앵커 후보/도미노 후보를 문서화
+    - [x] Cycle 1-2: 현재 DB `event_relation(PRECEDES)` 갭 점검 + 기존 이벤트 기준 relation 시드 SQL 작성
+    - [x] Cycle 1-3: Q1 익스펜션 relation 시드 SQL 실행 및 반영 검증
+    - [x] Cycle 1-4: S3 이후 strategic-kill 구간 이벤트 신규 시드(없으면 생성) + PRECEDES 연결
+    - [x] Cycle 1-5: Story Reminder 템플릿/SPARQL 질의로 Q1-1~Q1-6 실행 경로 고정
+    - [x] Cycle 1-6: K gate(절대회차) 기준 `ANSWERED/SPOILER_BLOCKED/NOT_ENOUGH_DATA` 회귀 검증
+    - [ ] Follow-up: `/api/event/v2/probe`에서 `strictFilters.qAnyOf` 바인딩/검증 경로 점검 (keyword probe 400/무시 리스크)
   - [ ] **Ops / Local Runtime**
     - [ ] 로컬 Docker 전체 기동(`docker compose up -d --build`) 절차/체크리스트 정리
     - [ ] 로컬 MySQL 스키마 생성(init) 절차 정리 및 재현 스크립트 추가
@@ -310,6 +402,7 @@
       - [ ] K+APPROVED + PRECEDES safe traversal 회귀 확인
       - [ ] RDF 레인 실패 시 v1/v2 무영향(비차단) 검증 로그 추가
     - [ ] **Phase 5 / Optional Promotion Decision**
+      - [ ] Fuseki 도입 의사결정(추후): Query-only 운영에서 taxonomy/패턴 확장으로 `kg.ttl` 파일 기반 조회 한계가 확인될 때 SPARQL endpoint(Fuseki) 전환 여부를 결정한다.
       - [ ] Export-only(+10) 유지 여부 결정
       - [ ] Query-only(+30) 진입 조건 충족 여부 검토
       - [ ] Dual-store(+80)는 운영 런북/복구 전략 확정 전 보류

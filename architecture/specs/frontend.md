@@ -80,8 +80,8 @@ Page -> Questions
 - Q2_EventSearch: api1 (drama events search) - Dashboard/Timeline context
 - Q3_RelatedCharacters: api9 (related characters) - Character context
 - Q5_CoEvents: api4 (co-events) - Character context
-- Q7_EventCauses: api7 (event causes) - Timeline context (requires eventId)
-- Q9_EventEffects: api8 (event effects) - Timeline context (requires eventId)
+- Q7_EventCauses: api7 + api8 (event bidirectional context) - Timeline context (requires eventId)
+- Q9_EventEffects: api7 + api8 (event bidirectional context, depth 확장) - Timeline context (requires eventId)
 - Q11_CharacterPath: api10 (character path) - Character context
 - Q13_SpoilerCheck: policy check-text (assumed /api/policy/v1/check-text)
 - Q20_NarrativeDistribution: api3 (character events stats) - Character context

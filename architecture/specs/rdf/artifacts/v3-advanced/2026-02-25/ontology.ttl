@@ -1,0 +1,57 @@
+@prefix ns: <https://nospoiler.dev/ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns:Event a owl:Class .
+ns:Character a owl:Class .
+ns:EventCharacter a owl:Class .
+
+ns:eventId a owl:DatatypeProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range xsd:long .
+
+ns:dramaId a owl:DatatypeProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range xsd:long .
+
+ns:characterId a owl:DatatypeProperty ;
+  rdfs:domain ns:Character ;
+  rdfs:range xsd:long .
+
+ns:episodeStart a owl:DatatypeProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range xsd:int .
+
+ns:episodeEnd a owl:DatatypeProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range xsd:int .
+
+ns:sourceStatus a owl:DatatypeProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range xsd:string .
+
+ns:predicateCode a owl:DatatypeProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range xsd:string .
+
+ns:hasCharacter a owl:ObjectProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range ns:Character .
+
+ns:eventRef a owl:ObjectProperty ;
+  rdfs:domain ns:EventCharacter ;
+  rdfs:range ns:Event .
+
+ns:characterRef a owl:ObjectProperty ;
+  rdfs:domain ns:EventCharacter ;
+  rdfs:range ns:Character .
+
+ns:role a owl:DatatypeProperty ;
+  rdfs:domain ns:EventCharacter ;
+  rdfs:range xsd:string .
+
+ns:precedes a owl:ObjectProperty ;
+  rdfs:domain ns:Event ;
+  rdfs:range ns:Event .

@@ -1,0 +1,116 @@
+{
+  "version": "v1",
+  "description": "Answer-first T01~T10 snapshot (canonical: BE executor JSON)",
+  "items": [
+    {
+      "question_id": "T01",
+      "template_id": "BB_Q2_FIRST_AMPHETAMINE_COOK",
+      "axis": "PRECEDES",
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["OTHER", "TRANSFORMS"], "qAnyOf": ["meth", "cook", "RV"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T02",
+      "template_id": "BB_Q3_FIRST_MEET_TUCO",
+      "axis": "REVEALS",
+      "strict_filters": {"with": ["Walter", "Tuco"], "predicateCodeAnyOf": ["MEETS"], "qAnyOf": ["deal", "tuco"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T03",
+      "template_id": "CUSTOM_T03_RV_GAS",
+      "axis": "PRECEDES",
+      "strict_filters": {"subject": "Walter", "qAnyOf": ["gas", "RV", "phosphine"]},
+      "anchor_source": "OTHER_SUGGESTION_CANDIDATE",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T04",
+      "template_id": "BB_Q1_WALTER_FIRST_KILL",
+      "axis": "PRECEDES",
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["KILLS"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T05",
+      "template_id": "BB_Q11_FIRST_SUSPECT_WALTER",
+      "axis": "REVEALS",
+      "strict_filters": {"subject": "Skyler", "target": "Walter", "qAnyOf": ["suspicion", "lie", "disappear"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T06",
+      "template_id": "BB_Q9_HANK_INVESTIGATION_PIVOT",
+      "axis": "REVEALS",
+      "strict_filters": {"subject": "Hank", "qAnyOf": ["DEA", "clue", "Heisenberg", "suspect"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T07",
+      "template_id": "BB_Q7_WALTER_FIRST_LIE_EXPOSED",
+      "axis": "STATE",
+      "strict_filters": {"subject": "Walter", "qAnyOf": ["lie", "alibi", "cover", "story"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T08",
+      "template_id": "BB_Q1_WALTER_FIRST_KILL",
+      "axis": "PRECEDES",
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["KILLS"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T09",
+      "template_id": "BB_Q10_WALTER_FIRST_STRUCTURAL_THREAT",
+      "axis": "PRESSURE",
+      "strict_filters": {"with": ["Walter", "Tuco"], "qAnyOf": ["explosion", "prove", "threaten"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    },
+    {
+      "question_id": "T10",
+      "template_id": "BB_Q12_WALTER_FIRST_POWER_SHIFT",
+      "axis": "STATE",
+      "strict_filters": {"subject": "Walter", "with": ["Jesse"], "qAnyOf": ["control", "manipulate", "dependency"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": null,
+      "because_chain": [],
+      "reveal_hint": [],
+      "status": "TBD"
+    }
+  ]
+}

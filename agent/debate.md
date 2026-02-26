@@ -175,3 +175,38 @@
 - [Findings]: QA 페이지 스토리 리마인더 결과에서 "맥락 더 보기" 버튼이 클로저에 갇힌 पुरानी 상태(stale contextDepth)를 참조하여 2번 클릭해야 작동하는 버그 확인.
 - [Fix]: `onReloadContext`에 명시적인 `explicitDepth` 파라미터를 넘겨주어 상태 불일치 해결. 버튼 라벨을 상태에 맞게 "간략히"/"맥락 더 보기"로 업데이트.
 - [Verification]: 브라우저 서브에이전트를 통해 1회 클릭 시 정상 작동 확인 완료.
+
+---
+
+# [Review] ex20~ex22.1 Proposal vs Implementation
+> Reviewer: codex-ops | Date: 2026-02-26
+- [Status]: Changes Requested
+- [Comment]: 제안 문서 방향성은 유효하지만, 현재 코드와 핵심 계약이 다수 불일치함. 핵심 갭은 (1) role 용어 `PARTICIPANT` vs 실제 `INVOLVED`, (2) write path가 role을 `INVOLVED`로만 저장, (3) ex20 relation type 확장이 PRECEDES-only 런타임/스키마와 충돌, (4) ex21 predicate 예시 일부가 `PredicateCode` 폐쇄집합 밖.
+- [Comment]: 운영 관점(SQL SoT + RDF optional lane)은 V3-Advanced 스펙/구현과 대체로 정합. 다만 SPARQL reveal 근거는 현재 RDF export에 `event_reveal` 매핑이 없어 즉시 실행 불가.
+- [Comment]: 상세 근거/권고안은 `fivecircles/work/review/review-ex20-22.1-2026-02-26.md`에 기록.
+
+---
+
+# [Review] ex23 RDF Inheritance Plan + Example Artifacts
+> Reviewer: codex-ops | Date: 2026-02-26
+- [Status]: Changes Requested
+- [Comment]: 문서 방향(B안, strict-first, RDF compile)은 적절하나 SoT 문구가 `generated 또는 taxonomy`로 병기되어 단일 런타임 기준이 흐려짐. 런타임 참조 우선순위(예: generated 1순위)를 본문에 고정할 필요가 있음.
+- [Comment]: axis SoT(`predicate_axis_taxonomy.json`)와 query-layer groups(`groups.md`/example json)의 의미가 달라 ADVERSARY/ALLY 멤버셋이 다름. 의도된 이원 구조라면 axis=서사분류, group=질문레이어를 명시적으로 분리 선언해야 drift를 막을 수 있음.
+- [Comment]: compile 명세(`predicate_group_compile.py`, 정식 ttl/json 경로)는 아직 미구현 파일이므로, 문서에 planned vs implemented 상태를 분리 표기해야 실행 오해를 줄일 수 있음.
+- [Comment]: `LEAVES` 다중 소속(affiliation+death_exit) 케이스의 dedupe/tie-breaker가 본문 acceptance에 없음. 집계/랭킹 deterministic 규칙을 본문 규칙으로 승격 권장.
+- [Comment]: 상세 근거/액션은 `fivecircles/work/review/review-ex23-rdf-inheritance-2026-02-26.md`에 기록.
+
+### Re-Review by Codex (criteria update)
+> Reviewer: codex-ops | Date: 2026-02-26
+- [Status]: Changes Requested (minor)
+- [Comment]: SoT 단일화, axis/group 경계, planned/implemented 표기, deterministic 규칙, suggestion guard 반영은 적절함.
+- [Comment]: 다만 본문의 `Runtime query/executor는 axis taxonomy만 참조` 문구는 현재 event-service aggregate(SQL 하드코딩 그룹셋)와 범위가 충돌하므로, "RDF query-only 경로 기준"으로 스코프 한정 필요.
+- [Comment]: RDF-0 그룹 예시(`SUSPICION/CONCEALMENT/...`)가 현재 query-layer 그룹과 달라 실행 문서로 읽을 때 혼동 여지가 있음. 현재 운영 그룹키 예시로 교체 권장.
+- [Comment]: strict-first 문구는 aggregate 집계(합성 카운트 모델)와 구분되도록 "템플릿 정답 탐색 경로" 한정으로 명시 권장.
+- [Comment]: 상세 근거/수정 제안은 `fivecircles/work/review/review-ex23-rdf-inheritance-2026-02-26.md` Re-Review 섹션에 기록.
+
+### Re-Review by Codex (post-fix)
+> Reviewer: codex-ops | Date: 2026-02-26
+- [Status]: Approved
+- [Comment]: 지적한 3개 문구 이슈(런타임 범위, 그룹 예시, strict 스코프) 모두 반영되어 문서 기준과 구현 정합성이 맞춰짐.
+- [Comment]: 실행용 재귀 TODO가 ex23 본문에 추가되어 다음 작업 착수 기준도 명확해짐.

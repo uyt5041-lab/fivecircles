@@ -914,3 +914,75 @@ This file summarizes recent updates so other agents can continue without re‑di
 - RDF artifact `latest` 템플릿 4종을 생성했다. (refs: fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest)
 ### Tests
 - Not run (docs/artifact scaffold changes only).
+
+## Addendum (2026-02-25) - Q1 익스펜션 재귀 TODO + Cycle1 시딩 실행
+### Docs
+- Q1 후속 6문항 재귀 실행 로그 문서를 추가하고(웹근거/앵커/도미노/Cycle2 이월), 확장 워크플로우 문서에서 참조를 연결했다. (refs: fivecircles/architecture/specs/questions-anti-halus/10-q1-expansion-recursive-run.md, fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md)
+- Team C todolist에 `Phase 6-A / Q1 익스펜션 재귀 실행` 트리를 추가하고 Cycle1 완료 상태를 반영했다. (refs: fivecircles/architecture/todolist.md)
+
+### Backend/Ops
+- Q1 익스펜션용 relation 시드 SQL을 추가해 `2292` 후속 홉(내적 변화/2차 파장)과 외부압력 라인을 보강했다. (refs: scripts/ops/seed_q1_expansion_cycle1_relations.sql)
+- RDF export 인코딩 오류 대응으로 MySQL 클라이언트 charset을 `utf8mb4`로 고정했다. (refs: scripts/ops/rdf/export_v3_advanced.py)
+
+### Tests
+- PASS: `docker exec -i nospoiler-mysql mysql -uroot -proot < scripts/ops/seed_q1_expansion_cycle1_relations.sql`
+- PASS: relation 검증 쿼리에서 `2292->2293,2293->2294,2372->2306,2292->2322,2292->2345,2292->2297` 확인
+- PASS: `RUN_DATE=2026-02-25 scripts/ops/rdf/export_v3_advanced.sh`
+- PASS: `RUN_DATE=2026-02-25 scripts/ops/rdf/query_v3_advanced_q1_expansion_poc.sh 17 10 6 8` (`effectIdsNearestFirst=[2293,2294,2295]`)
+
+## Addendum (2026-02-25) - Q1 익스펜션 Cycle2 (S3 전략살인 이벤트 시드)
+### Backend/Ops
+- Q1 익스펜션 Cycle2 SQL을 추가해 S3 전략살인 이벤트 2건(absolute 32/33)을 idempotent로 시딩하고 `event_character`/`PRECEDES`를 연결했다. (refs: scripts/ops/seed_q1_expansion_cycle2_s3_events.sql)
+- 체인 연속성 보강으로 `2295 -> 2297` relation을 포함해 Q1 후속 홉이 S3 트리거까지 이어지도록 고정했다.
+
+### Docs
+- Q1 재귀 실행 로그 문서에 Cycle2 실행 결과/상태 갱신(Q1-3,Q1-6 READY)을 반영했다. (refs: fivecircles/architecture/specs/questions-anti-halus/10-q1-expansion-recursive-run.md)
+- todolist에서 `Phase 6-A`의 Cycle 1-4를 완료로 갱신했다. (refs: fivecircles/architecture/todolist.md)
+
+### Tests
+- PASS: `docker exec -i nospoiler-mysql mysql -uroot -proot < scripts/ops/seed_q1_expansion_cycle2_s3_events.sql`
+- PASS: 시드 결과 확인 `event#3031,#3032`, relation `2311->3031->3032`, `2295->2297`
+- PASS: `RUN_DATE=2026-02-25 scripts/ops/rdf/export_v3_advanced.sh`
+- PASS: `RUN_DATE=2026-02-25 scripts/ops/rdf/query_v3_advanced_q1_expansion_poc.sh 17 10 33 30` (`effectIdsNearestFirst`가 `3032`까지 도달)
+
+## Addendum (2026-02-25) - Q1 익스펜션 Cycle3 (템플릿 고정 + K게이트 회귀)
+### Frontend
+- Story Reminder 템플릿에 Q1 익스펜션 6종(`BB_Q1_EXP_01~06`)을 추가해 실행 경로를 고정했다. (refs: front/common/productionQ/templates.ts)
+
+### Docs
+- Q1 재귀 실행 문서에 Cycle3 결과(템플릿 ID, K게이트 3상태 회귀 결과)를 반영했다. (refs: fivecircles/architecture/specs/questions-anti-halus/10-q1-expansion-recursive-run.md)
+- todolist에서 Phase 6-A의 Cycle 1-5/1-6을 완료 처리하고 probe `qAnyOf` follow-up TODO를 추가했다. (refs: fivecircles/architecture/todolist.md)
+
+### Tests
+- PASS: `python3 fivecircles/test/validate-q1-expansion-gate.py` (DB truth 기준 tri-state 회귀)
+- PASS: `cd front && npm run build`
+
+## Addendum (2026-02-26) - ex20~22.1 Q20 우선/Predicate 정합 재고정
+### Docs
+- ex20/21/22/22.1 문서 상단에 `Q20 기준 + 기존 PredicateCode/PredicateGroup 우선 + DB 최소 변경` 운영 원칙을 명시했다. (refs: fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex21-SPO-N-Y.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22-axis-N-Y-scetch.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.1-ops.md)
+- ex20의 Q6/Q7을 신규 enum 없이 `JOINS/LEAVES`, `DIES/LEAVES` 기반으로 재정렬하고, `LEAVES` 중복은 질문 컨텍스트/strict 해석 규칙으로 분리한다고 명시했다. (refs: fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md, fivecircles/architecture/specs/predicate/groups.md)
+- Team C todolist 트랙을 `Q20 우선/DB 최소변경` 기준으로 갱신하고 relation type 확장은 보류로 조정했다. (refs: fivecircles/architecture/todolist.md)
+- role 입력 계약+파이프라인(2번)은 Intelligence 개발자(B) 협의 선행 이슈로 보류 처리하고, 협의 체크리스트 TODO를 추가했다. (refs: fivecircles/architecture/todolist.md)
+- ex20~22.1 리뷰 기반으로 `axis/SPO/AND/WHY` 구현 체크리스트를 Team C todolist에 추가했다. (refs: fivecircles/architecture/todolist.md)
+- `axis/SPO/AND/WHY` 체크리스트에 A/S/N/W/P 단계별 재귀 하위체크를 추가해 실행 단위를 세분화했다. (refs: fivecircles/architecture/todolist.md)
+- 체크리스트 순서를 `SoT 선행 -> strict/AND -> axis -> 회귀 -> WHY`로 재정렬하고, 축/strict 경계·qAnyOf·snapshot·probe 금지 규칙을 정의문으로 추가했다. (refs: fivecircles/architecture/todolist.md)
+- Answer-first 역설계 문서/아티팩트 초안을 추가하고, axis/SPO/AND/WHY 체크리스트에 A-1(10문항 실험 선행 게이트)를 반영했다. (refs: fivecircles/architecture/specs/predicate/answer-first-backward-design.md, fivecircles/architecture/specs/predicate/artifacts/answerset-10.json, fivecircles/architecture/todolist.md)
+- ex22.2/22.3 신규 문서 기준으로 A-1을 `T01~T10`/WHY 2~3hop/REVEALS 1~3hint로 구체화하고, `answerset-6-expansion.json` 아티팩트를 추가했다. (refs: fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md, fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json, fivecircles/architecture/todolist.md)
+- 앵커 규칙을 `enum 우선 -> OTHER/suggestion 후보 수집 -> 빈도/정확도 기준 승격`으로 명시하고, answerset 아티팩트에 `anchor_source` 필드를 추가했다. (refs: fivecircles/architecture/specs/predicate/answer-first-backward-design.md, fivecircles/architecture/specs/predicate/artifacts/answerset-10.json, fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json, fivecircles/architecture/todolist.md)
+### Tests
+- Not run (docs-only changes)
+
+## Addendum (2026-02-26) - Predicate 세분화 1차 (tokenized fallback + taxonomy 확장)
+### Backend/Ops
+- related-characters aggregate SQL fallback를 `TOKEN|label`/`TOKEN:label` 토큰 파싱 기준으로 통일해 suggestion 세분화 누락을 줄였다. (refs: services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml)
+- ADVERSARY/ALLY/BATTLE fallback 토큰 세트를 확장했다. (`THREATENS/INTIMIDATES/COERCES/...`, `PARTNERS_WITH/CO_CONSPIRATOR/...`, `CONFRONTS`) (refs: services/event-service/src/main/resources/mapper/event/EventCharacterMapper.xml, fivecircles/architecture/specs/predicate/groups.md)
+- RDF query-only taxonomy 분류기에서도 suggestion 토큰 파싱(`|`, `:`)을 동일 규칙으로 적용하고, taxonomy 축 매핑 토큰을 확장했다. (refs: scripts/ops/rdf/predicate_axis_taxonomy.py, scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json)
+- 공통 codebook에 세분화 토큰을 추가했다. (refs: common/src/main/java/com/nospoiler/common/PredicateSuggestionCode.java, services/intelligence-service/src/main/resources/prompts/refine-fact.txt)
+
+### Docs
+- 실제 DB 기준 OTHER suggestion 토큰 빈도 스냅샷을 남기고(`NEW/THREAT/BATTLE/PRODUCTION...`), `enum 유지 + suggestion 세분화` 결정을 아티팩트화했다. (refs: fivecircles/architecture/specs/predicate/artifacts/predicate-suggestion-token-frequency-2026-02-26.md)
+
+### Tests
+- PASS: `python3 -m py_compile scripts/ops/rdf/predicate_axis_taxonomy.py`
+- PASS: 분류 샘플 검증 (`THREAT|협박`, `THREATENED:위협받음`, `CO_CONSPIRATOR|공범` 등 토큰 파싱 후 축 분류 확인)
+- PASS: DB 비교 쿼리에서 THREAT 계열 매칭이 `old_exact=8 -> tokenized=30`으로 증가

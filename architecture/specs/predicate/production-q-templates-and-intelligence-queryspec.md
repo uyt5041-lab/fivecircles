@@ -109,8 +109,13 @@ type ProductionQuestionTemplate = {
 - coevents에서 `MEETS` 우선 규칙
   - `preferPredicateCodeAnyOf`가 존재하면, strict 후보 중 해당 predicate를 우선 pick한다.
   - 없으면 strict 후보 전체에서 earliest를 pick한다.
+- 이벤트 `summary` 문장 규칙
+  - 사용자 노출용 문장은 캐릭터 시점의 자연어로 작성한다.
+  - 내부 태그/개발용 토큰(`SUSPICION_SIGNAL_*`, `*_TRIGGER` 등)은 `summary`에 넣지 않는다.
+  - 검색 안정성은 `predicate_suggestion`에 별칭/토큰을 보강해 분리 보장한다.
 - causes/effects 체이닝(설명용)
-  - selected event가 있으면, causes/effects를 depth로 조회한다.
+  - selected event가 있으면, **causes/effects를 둘 다** depth로 조회한다(양방향 기본).
+  - 단방향 조회는 예외 케이스(명시적 UX 요구, 비용 제약)에서만 허용한다.
   - **주의: causes/effects의 결과는 “집합”에 가까워 shortcut edge가 있으면 렌더 순서가 흔들릴 수 있다.**
     - 예: `a->b`, `b->c`, `a->c`가 함께 있을 때 단순 episode 정렬은 `a,c,b` 같은 순서를 만들 수 있다.
   - 순차 타임라인(= `a,b,c,d`)을 보장하려면 “관계(edge)”를 함께 가져와 위상 정렬해야 한다.
@@ -149,6 +154,30 @@ FE 배치(추천)
 - 4) 검증한다.
   - Strict 결과 event id가 `evidence_event_id`와 동일해야 한다.
   - Context timeline(causes/effects)에서 chain이 의도대로 따라오는지 확인한다.
+
+확장 질문 작성 파이프라인(운영 표준)
+- 1) 질문 정의
+  - 질문 의도(무엇을 earliest/latest로 찾는지)와 노출 정책을 먼저 고정한다.
+- 2) 정답/맥락 도미노 작성
+  - 웹 검증(공식/신뢰 가능한 출처) 포함으로 사건 도미노를 작성하고, 출처 링크를 남긴다.
+- 3) 앵커 이벤트 확정
+  - `evidence_event_id`를 strict + earliest 기준으로 확정한다.
+- 4) 실행 설계 결정
+  - 템플릿 기반 실행인지, RDF/SPARQL 보조 실행인지(또는 병행) 결정한다.
+- 5) 데이터 반영
+  - `event`, `event_character`, `event_relation(PRECEDES)`를 idempotent하게 반영한다.
+  - `event.summary`는 사용자 문장으로 작성한다(캐릭터 시점, 개발용 토큰 금지).
+- 6) 질문/답변 구현
+  - UI/응답에서 컨텍스트는 기본적으로 양방향(`causes+effects`)으로 붙인다.
+- 7) 검증
+  - Strict 결과=앵커, Probe 분기, K gate, 체인 순서를 점검한다.
+- 8) 문서 동기화
+  - anti-halu 문서, 템플릿 가이드, 운영 스크립트/검증 SQL을 함께 갱신한다.
+
+핵심 고정 원칙(반드시 유지)
+- `strict-first`: strict 0건일 때만 probe로 상태 판정한다.
+- `K gate`: `safeUpToEpisode`는 절대회차 기준으로 강제한다.
+- `bidirectional context`: 컨텍스트는 기본 양방향(원인+결과)으로 조회한다.
 
 PRECEDES edge 조회(정렬 메타)
 - causes/effects 결과를 “순차 타임라인”으로 표시하려면 edge가 필요하다.
@@ -253,6 +282,16 @@ Context timeline 정렬(중요)
 - causes/effects endpoint가 주는 결과는 “집합”이라 shortcut PRECEDES가 있으면 순서가 흔들릴 수 있다.
 - 따라서 UI는 context eventIds를 모아 `/relations/precedes/between`으로 edge를 받은 뒤,
   edge 기반 위상정렬(Kahn) + tie-break(episode/id)로 표시 순서를 고정한다.
+
+Context 기본 정책(운영 가이드)
+- 템플릿 실행에서 selected event가 존재하면 기본적으로 아래 두 API를 모두 호출한다.
+  - `GET /api/event/v2/events/{eventId}/causes?depth=D&safeUpToEpisode=K`
+  - `GET /api/event/v2/events/{eventId}/effects?depth=D&safeUpToEpisode=K`
+- 기본 depth 권장값:
+  - 일반 템플릿: `2`
+  - 직접 전후관계만 필요한 템플릿: `1`
+  - 긴 도미노 체인(Q12 계열): `5`까지 허용
+- 화면 라벨이 "원인 질문" 또는 "결과 질문"이어도, 맥락 보강 목적이면 양방향 컨텍스트를 유지한다.
 
 템플릿 초안(브베)
 - Q1: subject=월터, predicate=KILLS, pick=EARLIEST, explain=causes depth=1 (옵션)

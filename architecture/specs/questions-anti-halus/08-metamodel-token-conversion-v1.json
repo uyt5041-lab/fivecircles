@@ -1,0 +1,216 @@
+{
+  "version": "doc08-token-conversion-v1",
+  "sourceDoc": "fivecircles/architecture/specs/questions-anti-halus/08-맥락적답변형식-메타모델.md",
+  "notes": [
+    "문서 08의 predicate_group_any_of(추상 라벨)를 운영 가능한 필터로 근사 변환한 매핑이다.",
+    "적용 순서: predicateCodeAnyOf -> predicateGroups -> qAnyOf",
+    "predicateCodeAnyOf는 common/PredicateCode 폐쇄집합만 사용한다.",
+    "predicateGroups는 groups.md의 질문 레이어 그룹명만 사용한다."
+  ],
+  "fallbackOrder": [
+    "predicateCodeAnyOf",
+    "predicateGroups",
+    "qAnyOf"
+  ],
+  "allowedPredicateGroups": [
+    "AFFILIATION_CHANGE",
+    "DEATH_EXIT",
+    "BATTLE",
+    "ADVERSARY",
+    "ALLY"
+  ],
+  "tokenMappings": {
+    "ADMITS_TRUE_SELF": {
+      "predicateCodeAnyOf": ["REVEALS", "LEARNS", "TRANSFORMS"],
+      "qAnyOf": ["i did it for me", "나를 위해", "자기 충족", "진짜 나"]
+    },
+    "ATTACKS": {
+      "predicateCodeAnyOf": ["ATTACKS"]
+    },
+    "BUILDS_EMPIRE": {
+      "predicateCodeAnyOf": ["TRANSFORMS", "ALLIES_WITH", "CAPTURES"],
+      "predicateGroups": ["ADVERSARY", "ALLY"],
+      "qAnyOf": ["제국", "유통망", "장악"]
+    },
+    "COERCES": {
+      "predicateCodeAnyOf": ["CAPTURES", "ATTACKS", "BETRAYS"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["강요", "협박", "압박"]
+    },
+    "COLLAPSES": {
+      "predicateCodeAnyOf": ["LEAVES", "DIES", "BETRAYS"],
+      "predicateGroups": ["DEATH_EXIT", "ADVERSARY"],
+      "qAnyOf": ["붕괴", "파국", "종료"]
+    },
+    "CONFESSES": {
+      "predicateCodeAnyOf": ["REVEALS", "LEARNS"],
+      "qAnyOf": ["고백", "시인"]
+    },
+    "CONFRONTS": {
+      "predicateCodeAnyOf": ["ATTACKS", "BETRAYS", "DISCOVERS"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["대면", "추궁", "맞대면"]
+    },
+    "CONTROLS": {
+      "predicateCodeAnyOf": ["CAPTURES", "DEFEATS", "TRANSFORMS"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["통제", "지배"]
+    },
+    "COVERS_UP": {
+      "qAnyOf": ["은폐", "증거 인멸", "시신 처리", "용해"]
+    },
+    "CO_CONSPIRATOR": {
+      "predicateCodeAnyOf": ["ALLIES_WITH", "JOINS", "BETRAYS"],
+      "predicateGroups": ["ALLY", "AFFILIATION_CHANGE"],
+      "qAnyOf": ["공범", "동업", "한패"]
+    },
+    "DEAL_COMPLETED": {
+      "predicateCodeAnyOf": ["ALLIES_WITH", "MEETS", "TRANSFORMS"],
+      "predicateGroups": ["ALLY"],
+      "qAnyOf": ["거래 성사", "대금", "수익"]
+    },
+    "DECIDES_TO_COOK": {
+      "predicateCodeAnyOf": ["TRANSFORMS", "MEETS"],
+      "qAnyOf": ["제조 결심", "cook", "직접 제조", "동업 제안"]
+    },
+    "DESTROYS_EVIDENCE": {
+      "qAnyOf": ["증거 인멸", "증거 제거", "시신 처리", "용해"]
+    },
+    "DIES": {
+      "predicateCodeAnyOf": ["DIES"]
+    },
+    "DISCOVERS_CLUE": {
+      "predicateCodeAnyOf": ["DISCOVERS", "LEARNS"],
+      "qAnyOf": ["단서", "증거 발견", "표식", "라벨"]
+    },
+    "DOMINATES": {
+      "predicateCodeAnyOf": ["DEFEATS", "CAPTURES", "TRANSFORMS"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["지배", "압도", "통제 구조"]
+    },
+    "ELIMINATES_RIVAL": {
+      "predicateCodeAnyOf": ["DEFEATS", "KILLS", "CAPTURES"],
+      "predicateGroups": ["ADVERSARY", "BATTLE"],
+      "qAnyOf": ["라이벌 제거", "경쟁자 제거", "상위 제거"]
+    },
+    "FRONTS_WITH_LEGAL_BUSINESS": {
+      "predicateCodeAnyOf": ["TRANSFORMS", "ALLIES_WITH"],
+      "qAnyOf": ["합법 외피", "사업체", "세탁", "front"]
+    },
+    "IDENTIFIES_TARGET": {
+      "predicateCodeAnyOf": ["DISCOVERS", "LEARNS", "REVEALS"],
+      "qAnyOf": ["정체 특정", "타깃 특정", "연결됨"]
+    },
+    "INDUSTRIAL_PRODUCTION": {
+      "predicateCodeAnyOf": ["TRANSFORMS"],
+      "qAnyOf": ["대량 생산", "산업화", "분업", "실험실"]
+    },
+    "INTIMIDATES": {
+      "predicateCodeAnyOf": ["ATTACKS", "CAPTURES"],
+      "predicateGroups": ["ADVERSARY", "BATTLE"],
+      "qAnyOf": ["위압", "겁박", "협상 주도"]
+    },
+    "INVESTIGATES": {
+      "predicateCodeAnyOf": ["DISCOVERS", "LEARNS"],
+      "qAnyOf": ["수사", "추적", "탐문"]
+    },
+    "INVESTIGATION_PIVOT": {
+      "predicateCodeAnyOf": ["DISCOVERS", "TRANSFORMS"],
+      "qAnyOf": ["수사 방향", "전환점", "피벗"]
+    },
+    "KILLS": {
+      "predicateCodeAnyOf": ["KILLS"]
+    },
+    "LAUNDERS_MONEY": {
+      "predicateCodeAnyOf": ["TRANSFORMS", "ALLIES_WITH"],
+      "qAnyOf": ["자금 세탁", "세탁", "돈 흐름 은폐"]
+    },
+    "LEARNS_ILLEGAL_ACTIVITY": {
+      "predicateCodeAnyOf": ["LEARNS", "DISCOVERS"],
+      "qAnyOf": ["불법 활동", "범죄 연루", "불법적인 일"]
+    },
+    "LEARNS_METH_PRODUCTION": {
+      "predicateCodeAnyOf": ["LEARNS", "DISCOVERS", "REVEALS"],
+      "qAnyOf": ["메스 제조", "i cook meth", "메스를 만든다"]
+    },
+    "LINKS_NETWORK": {
+      "predicateCodeAnyOf": ["DISCOVERS", "LEARNS", "ALLIES_WITH"],
+      "qAnyOf": ["연결고리", "라인", "조직 연결"]
+    },
+    "MANIPULATES": {
+      "predicateCodeAnyOf": ["BETRAYS", "CAPTURES", "ATTACKS"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["조종", "가스라이팅", "감정 조작"]
+    },
+    "MEETS": {
+      "predicateCodeAnyOf": ["MEETS"]
+    },
+    "PARTNERS_WITH": {
+      "predicateCodeAnyOf": ["ALLIES_WITH", "JOINS", "MEETS"],
+      "predicateGroups": ["ALLY", "AFFILIATION_CHANGE"],
+      "qAnyOf": ["동업", "파트너", "같이 하자"]
+    },
+    "POWER_SHIFT": {
+      "predicateCodeAnyOf": ["TRANSFORMS", "DEFEATS", "CAPTURES"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["권력 이동", "주도권", "권력 전환"]
+    },
+    "PRODUCES": {
+      "predicateCodeAnyOf": ["TRANSFORMS"],
+      "qAnyOf": ["제조", "생산", "cook", "메스"]
+    },
+    "RECURRING_DEAL": {
+      "predicateCodeAnyOf": ["ALLIES_WITH", "MEETS"],
+      "predicateGroups": ["ALLY"],
+      "qAnyOf": ["정기 계약", "반복 거래", "정기 수익"]
+    },
+    "REJECTS_HELP": {
+      "predicateCodeAnyOf": ["TRANSFORMS", "LEAVES"],
+      "qAnyOf": ["거절", "지원 거절", "도움 거절"]
+    },
+    "RELATIONSHIP_DAMAGE": {
+      "predicateCodeAnyOf": ["BETRAYS", "LEAVES"],
+      "predicateGroups": ["ADVERSARY", "DEATH_EXIT"],
+      "qAnyOf": ["관계 손상", "신뢰 붕괴", "별거"]
+    },
+    "SEIZES_CONTROL": {
+      "predicateCodeAnyOf": ["CAPTURES", "DEFEATS", "TRANSFORMS"],
+      "predicateGroups": ["ADVERSARY"],
+      "qAnyOf": ["통제권 장악", "권력 장악", "지배권"]
+    },
+    "SEPARATES": {
+      "predicateCodeAnyOf": ["LEAVES", "BETRAYS"],
+      "predicateGroups": ["DEATH_EXIT", "ADVERSARY"],
+      "qAnyOf": ["별거", "분리", "갈라섬"]
+    },
+    "STRUCTURED_DECEPTION": {
+      "predicateCodeAnyOf": ["BETRAYS", "TRANSFORMS"],
+      "qAnyOf": ["거짓말 체계", "은폐 전략", "커버 스토리"]
+    },
+    "SUPPLY_CONTRACT": {
+      "predicateCodeAnyOf": ["ALLIES_WITH", "MEETS"],
+      "predicateGroups": ["ALLY"],
+      "qAnyOf": ["공급 계약", "대량 공급", "주 단위"]
+    },
+    "SUSPECTS": {
+      "predicateCodeAnyOf": ["DISCOVERS", "LEARNS"],
+      "qAnyOf": ["의심", "수상", "행동 이상"]
+    },
+    "THREATENS": {
+      "predicateCodeAnyOf": ["ATTACKS", "CAPTURES"],
+      "predicateGroups": ["ADVERSARY", "BATTLE"],
+      "qAnyOf": ["위협", "협박", "급성 위기"]
+    },
+    "TRUST_COLLAPSE": {
+      "predicateCodeAnyOf": ["BETRAYS", "LEAVES"],
+      "predicateGroups": ["ADVERSARY", "DEATH_EXIT"],
+      "qAnyOf": ["신뢰 붕괴", "불신", "관계 파탄"]
+    },
+    "USES_AS_ASSET": {
+      "predicateCodeAnyOf": ["CAPTURES", "BETRAYS", "ALLIES_WITH"],
+      "predicateGroups": ["ADVERSARY", "ALLY"],
+      "qAnyOf": ["도구화", "자산처럼", "소모품"]
+    }
+  }
+}
+
