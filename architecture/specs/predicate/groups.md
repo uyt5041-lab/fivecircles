@@ -4,12 +4,16 @@
 - Q1~Q15 및 파생 질문에서 쓰는 "합성 필터"를 1급 개념으로 분리한다.
 - `PredicateCode` 폐쇄집합을 깨지 않으면서, 필요한 질문 의미를 그룹으로 표현한다.
 - `predicate_suggestion` fallback은 그룹 조회에서만 제한적으로 사용한다.
+- 용어 정규화 기준은 `p1-predicate-term-mapping.md`를 우선 참조한다.
 
 정의
 - `PredicateGroup`는 API 계약의 핵심 타입이 아니라, QA/FE 라우터 및 서버 집계 로직에서 사용하는 "질문 레이어" 개념이다.
 - 구현 선택지
   - FE union: 다중 `predicateCode` 호출 결과를 병합
   - BE group: 서버에 group 파라미터를 추가해 1회 호출로 처리
+- Canonical SoT 선언
+  - Query-layer group 매핑의 canonical source는 본 문서(`groups.md`)다.
+  - FE/BE/운영문서는 group 멤버/토큰 정의를 본 문서에서만 참조한다.
 
 ---
 
@@ -47,3 +51,8 @@ Rule D: 템플릿/라우터의 fallback ladder (권장)
 - 주의
   - `predicateCode=OTHER`를 user-facing 필터로 쓰는 fallback은 금지한다(정답 검색 품질 악화).
   - 3차(q)는 오탐 가능성이 높으므로, 템플릿은 `qAnyOf[]` 동의어 세트를 최소로 유지하고 "first" 질문은 보수적으로 적용한다.
+
+Rule E: `LEAVES` 문맥 분리 (Q6/Q7)
+- `LEAVES`가 사용돼도 질문 의도는 group으로 분리한다.
+  - 소속/파트너십 변화: `AFFILIATION_CHANGE`
+  - 퇴장/관계 단절 결과: `DEATH_EXIT`

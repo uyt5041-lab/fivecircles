@@ -6,111 +6,150 @@
       "question_id": "T01",
       "template_id": "BB_Q2_FIRST_AMPHETAMINE_COOK",
       "axis": "PRECEDES",
-      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["OTHER", "TRANSFORMS"], "qAnyOf": ["meth", "cook", "RV"]},
+      "strict_filters": {"subject": "Walter", "qAnyOf": ["처음으로 메스암페타민", "직접 제조"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
+      "answer_event_id": 2449,
       "because_chain": [],
-      "reveal_hint": [],
-      "status": "TBD"
+      "reveal_hint": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3013,
+          "key": "suspicion_trigger",
+          "value": "cover_story_jesse_dealer"
+        },
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3014,
+          "key": "verification_action",
+          "value": "skyler_direct_confrontation"
+        }
+      ],
+      "status": "ANSWERED"
     },
     {
       "question_id": "T02",
       "template_id": "BB_Q3_FIRST_MEET_TUCO",
       "axis": "REVEALS",
-      "strict_filters": {"with": ["Walter", "Tuco"], "predicateCodeAnyOf": ["MEETS"], "qAnyOf": ["deal", "tuco"]},
+      "strict_filters": {"with": ["Walter", "Tuco"], "predicateCodeAnyOf": ["MEETS"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
+      "answer_event_id": 2376,
       "because_chain": [],
-      "reveal_hint": [],
-      "status": "TBD"
+      "reveal_hint": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3007,
+          "key": "investigation_pivot",
+          "value": "gasmask_linked_to_school_asset"
+        },
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3009,
+          "key": "evidence_strength",
+          "value": "school_inventory_missing_items_confirmed"
+        }
+      ],
+      "status": "ANSWERED"
     },
     {
       "question_id": "T03",
       "template_id": "CUSTOM_T03_RV_GAS",
       "axis": "PRECEDES",
-      "strict_filters": {"subject": "Walter", "qAnyOf": ["gas", "RV", "phosphine"]},
-      "anchor_source": "OTHER_SUGGESTION_CANDIDATE",
-      "answer_event_id": null,
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["DIES"], "qAnyOf": ["RV", "gas", "독성"]},
+      "anchor_source": "ENUM",
+      "answer_event_id": 2441,
       "because_chain": [],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     },
     {
       "question_id": "T04",
       "template_id": "BB_Q1_WALTER_FIRST_KILL",
       "axis": "PRECEDES",
-      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["KILLS"]},
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["KILLS"], "qAnyOf": ["Krazy-8", "크레이지-8"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
+      "answer_event_id": 2292,
       "because_chain": [],
-      "reveal_hint": [],
-      "status": "TBD"
+      "reveal_hint": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3001,
+          "key": "lie_exposure_trigger",
+          "value": "which_one_second_phone_slip"
+        },
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3002,
+          "key": "trust_signal",
+          "value": "second_phone_suspicion_confirmed"
+        }
+      ],
+      "status": "ANSWERED"
     },
     {
       "question_id": "T05",
       "template_id": "BB_Q11_FIRST_SUSPECT_WALTER",
       "axis": "REVEALS",
-      "strict_filters": {"subject": "Skyler", "target": "Walter", "qAnyOf": ["suspicion", "lie", "disappear"]},
+      "strict_filters": {"subject": "Skyler", "target": "Walter", "qAnyOf": ["마리화나", "대마", "딜러", "커버 스토리", "추궁"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
-      "because_chain": [],
+      "answer_event_id": 3013,
+      "because_chain": [2409, 2410, 2292],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     },
     {
       "question_id": "T06",
       "template_id": "BB_Q9_HANK_INVESTIGATION_PIVOT",
       "axis": "REVEALS",
-      "strict_filters": {"subject": "Hank", "qAnyOf": ["DEA", "clue", "Heisenberg", "suspect"]},
+      "strict_filters": {"subject": "Hank", "predicateCodeAnyOf": ["DISCOVERS"], "qAnyOf": ["Property of J.P. Wynne High School", "J.P. Wynne High School", "Wynne High School"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
-      "because_chain": [],
+      "answer_event_id": 3007,
+      "because_chain": [2305, 3011, 2306],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     },
     {
       "question_id": "T07",
       "template_id": "BB_Q7_WALTER_FIRST_LIE_EXPOSED",
       "axis": "STATE",
-      "strict_filters": {"subject": "Walter", "qAnyOf": ["lie", "alibi", "cover", "story"]},
+      "strict_filters": {"subject": "Walter", "qAnyOf": ["Which one", "어느 폰", "두 번째 폰", "두 번째 휴대폰"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
-      "because_chain": [],
+      "answer_event_id": 3001,
+      "because_chain": [2306, 2435, 3019],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     },
     {
       "question_id": "T08",
       "template_id": "BB_Q1_WALTER_FIRST_KILL",
       "axis": "PRECEDES",
-      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["KILLS"]},
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["KILLS"], "qAnyOf": ["Krazy-8", "크레이지-8"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
+      "answer_event_id": 2292,
       "because_chain": [],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     },
     {
       "question_id": "T09",
       "template_id": "BB_Q10_WALTER_FIRST_STRUCTURAL_THREAT",
       "axis": "PRESSURE",
-      "strict_filters": {"with": ["Walter", "Tuco"], "qAnyOf": ["explosion", "prove", "threaten"]},
+      "strict_filters": {"subject": "Walter", "predicateCodeAnyOf": ["ATTACKS", "CAPTURES", "BETRAYS", "KILLS"], "excludePredicateCodeAnyOf": ["DISCOVERS", "LEARNS"], "qAnyOf": ["투코", "구타", "폭력", "위협"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
+      "answer_event_id": 2306,
       "because_chain": [],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     },
     {
       "question_id": "T10",
       "template_id": "BB_Q12_WALTER_FIRST_POWER_SHIFT",
       "axis": "STATE",
-      "strict_filters": {"subject": "Walter", "with": ["Jesse"], "qAnyOf": ["control", "manipulate", "dependency"]},
+      "strict_filters": {"subject": "Walter", "target": "Tuco", "qAnyOf": ["선지급", "거래 조건", "주도권", "통제권"]},
       "anchor_source": "ENUM",
-      "answer_event_id": null,
+      "answer_event_id": 3019,
       "because_chain": [],
       "reveal_hint": [],
-      "status": "TBD"
+      "status": "ANSWERED"
     }
   ]
 }

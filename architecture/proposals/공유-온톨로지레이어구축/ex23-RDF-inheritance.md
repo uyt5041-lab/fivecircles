@@ -120,6 +120,7 @@
 5. suggestion 저장 가드: `predicate_code=OTHER`일 때만 저장한다.
 6. suggestion 매칭 가드: `predicate_code=OTHER` 이벤트에서만 fallback 매칭에 사용한다.
 7. strict-first(템플릿 정답 탐색 경로 한정): strict(runtime PredicateCode) hit가 있으면 suggestion fallback을 실행하지 않는다.
+8. fallback 입력 소스 고정: group fallback 매칭은 `event.predicate_suggestion`의 token(`extractToken`)만 사용한다.
 
 ### Deterministic 집계/정렬 규칙 (MUST)
 - 다중 소속 leaf는 허용하되, query-layer 집계는 mode별 고정 버킷만 사용한다.

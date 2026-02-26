@@ -84,6 +84,7 @@ ns:PS_BATTLE a rdfs:Class ; rdfs:subClassOf ns:BATTLE ; ns:kind "SUGGESTION" ; n
 ## F) Suggestion 적용 가드 (구현 정합)
 - 저장 가드: `predicate_code=OTHER`일 때만 `predicate_suggestion` 저장.
 - 매칭 가드: group fallback 매칭은 `predicate_code=OTHER` 이벤트에서만 수행.
+- 입력 소스 고정: fallback 매칭은 `event.predicate_suggestion`의 token(`extractToken`)만 사용.
 - 실행 순서: strict hit가 있으면 fallback 미실행, strict miss에서만 suggestion fallback 수행.
 
 ## E) 확장 질문(Answer-first) 연결 메모

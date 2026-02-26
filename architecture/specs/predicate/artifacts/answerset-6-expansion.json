@@ -1,12 +1,108 @@
 {
-  "version": "v1",
-  "description": "Expansion #1~#6 answer-first snapshot",
+  "version": "v2",
+  "description": "Expansion #1~#6 answer-first snapshot (strict-first anchors)",
   "items": [
-    {"expansion_id": "Q1-1", "anchor_source": "TBD", "answer_event_id": null, "because_chain": [], "reveal_attribute": [], "axis": "STATE", "status": "TBD"},
-    {"expansion_id": "Q1-2", "anchor_source": "TBD", "answer_event_id": null, "because_chain": [], "reveal_attribute": [], "axis": "STATE", "status": "TBD"},
-    {"expansion_id": "Q1-3", "anchor_source": "TBD", "answer_event_id": null, "because_chain": [], "reveal_attribute": [], "axis": "PRESSURE", "status": "TBD"},
-    {"expansion_id": "Q1-4", "anchor_source": "TBD", "answer_event_id": null, "because_chain": [], "reveal_attribute": [], "axis": "STATE", "status": "TBD"},
-    {"expansion_id": "Q1-5", "anchor_source": "TBD", "answer_event_id": null, "because_chain": [], "reveal_attribute": [], "axis": "REVEALS", "status": "TBD"},
-    {"expansion_id": "Q1-6", "anchor_source": "TBD", "answer_event_id": null, "because_chain": [], "reveal_attribute": [], "axis": "PRECEDES", "status": "TBD"}
+    {
+      "expansion_id": "Q1-1",
+      "anchor_source": "ENUM",
+      "answer_event_id": 2293,
+      "because_chain": [2291, 2292, 2293],
+      "reveal_attribute": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 2293,
+          "key": "self_justification_start",
+          "value": "post_kill_mental_shock"
+        }
+      ],
+      "axis": "STATE",
+      "status": "ANSWERED"
+    },
+    {
+      "expansion_id": "Q1-2",
+      "anchor_source": "ENUM",
+      "answer_event_id": 2376,
+      "because_chain": [2306, 2376],
+      "reveal_attribute": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 2376,
+          "key": "violence_adaptation_sign",
+          "value": "direct_entry_to_tuco_office"
+        }
+      ],
+      "axis": "STATE",
+      "status": "ANSWERED"
+    },
+    {
+      "expansion_id": "Q1-3",
+      "anchor_source": "ENUM",
+      "answer_event_id": 2297,
+      "because_chain": [2441, 2297],
+      "reveal_attribute": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 2297,
+          "key": "external_pressure",
+          "value": "distribution_network_investigation_pressure"
+        }
+      ],
+      "axis": "PRESSURE",
+      "status": "ANSWERED"
+    },
+    {
+      "expansion_id": "Q1-4",
+      "anchor_source": "ENUM",
+      "answer_event_id": 2410,
+      "because_chain": [2409, 2410],
+      "reveal_attribute": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 2410,
+          "key": "calculated_kill_trigger",
+          "value": "hidden_weapon_attack_detected"
+        }
+      ],
+      "axis": "STATE",
+      "status": "ANSWERED"
+    },
+    {
+      "expansion_id": "Q1-5",
+      "anchor_source": "ENUM",
+      "answer_event_id": 2292,
+      "because_chain": [2292, 3001],
+      "reveal_attribute": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 2292,
+          "key": "secondary_ripple_seed",
+          "value": "first_direct_kill_anchor"
+        },
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3001,
+          "key": "secondary_ripple_example",
+          "value": "trust_and_coverstory_decay"
+        }
+      ],
+      "axis": "REVEALS",
+      "status": "ANSWERED"
+    },
+    {
+      "expansion_id": "Q1-6",
+      "anchor_source": "ENUM",
+      "answer_event_id": 3032,
+      "because_chain": [2410, 3019, 3032],
+      "reveal_attribute": [
+        {
+          "type": "ATTRIBUTE",
+          "event_id": 3032,
+          "key": "evolution_trigger_pack",
+          "value": "survival_to_strategic_kill_transition"
+        }
+      ],
+      "axis": "PRECEDES",
+      "status": "ANSWERED"
+    }
   ]
 }

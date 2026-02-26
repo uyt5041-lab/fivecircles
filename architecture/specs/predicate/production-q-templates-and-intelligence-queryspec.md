@@ -29,6 +29,8 @@
 - Production 질문 원문: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex16-production-Q15s.md`
 - Q1~Q15 라우팅(시범용): `fivecircles/architecture/specs/predicate/ex16-q1-q15-구현-라우팅-시범용.md`
 - 구현 현황: `fivecircles/architecture/specs/predicate/ex16-production-q1-q15-implementation-status.md`
+- Group 매핑 canonical SoT: `fivecircles/architecture/specs/predicate/groups.md`
+- 용어 정규화(3계층): `fivecircles/architecture/specs/predicate/p1-predicate-term-mapping.md`
 - Event V2 API: `fivecircles/architecture/specs/event-v2-api.md`
 - Strict/Probe 기준표: `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`
 

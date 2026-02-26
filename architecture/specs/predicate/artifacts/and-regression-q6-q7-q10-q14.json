@@ -1,0 +1,81 @@
+{
+  "version": "v1",
+  "canonical": "BE-style strict/probe result JSON",
+  "notes": [
+    "status resolution: strict safe hit => ANSWERED, safe miss + any hit => SPOILER_BLOCKED, else NOT_ENOUGH_DATA",
+    "ordering: episode_start ASC, event_id ASC"
+  ],
+  "sources": [
+    "fivecircles/architecture/specs/predicate/artifacts/answerset-10.json",
+    "front/common/productionQ/templates.ts"
+  ],
+  "cases": [
+    {
+      "case_id": "Q06_HIT_K1",
+      "template_id": "BB_Q6_WALTER_JESSE_FIRST_PARTNERSHIP",
+      "question_id": "Q06",
+      "query_kind": "coevents_earliest",
+      "safe_up_to_episode": 1,
+      "expected_status": "ANSWERED",
+      "expected_event_id": 2448,
+      "expected_summary_contains": "협박과 제안"
+    },
+    {
+      "case_id": "Q07_MISS_K8",
+      "template_id": "BB_Q7_WALTER_FIRST_LIE_EXPOSED",
+      "question_id": "Q07",
+      "query_kind": "character_predicate_earliest",
+      "safe_up_to_episode": 8,
+      "expected_status": "SPOILER_BLOCKED",
+      "expected_event_id": null
+    },
+    {
+      "case_id": "Q07_HIT_K9",
+      "template_id": "BB_Q7_WALTER_FIRST_LIE_EXPOSED",
+      "question_id": "Q07",
+      "query_kind": "character_predicate_earliest",
+      "safe_up_to_episode": 9,
+      "expected_status": "ANSWERED",
+      "expected_event_id": 3001,
+      "expected_summary_contains": "Which one"
+    },
+    {
+      "case_id": "Q10_MISS_K5",
+      "template_id": "BB_Q10_WALTER_FIRST_STRUCTURAL_THREAT",
+      "question_id": "Q10",
+      "query_kind": "character_predicate_earliest",
+      "safe_up_to_episode": 5,
+      "expected_status": "SPOILER_BLOCKED",
+      "expected_event_id": null
+    },
+    {
+      "case_id": "Q10_HIT_K6",
+      "template_id": "BB_Q10_WALTER_FIRST_STRUCTURAL_THREAT",
+      "question_id": "Q10",
+      "query_kind": "character_predicate_earliest",
+      "safe_up_to_episode": 6,
+      "expected_status": "ANSWERED",
+      "expected_event_id": 2306,
+      "expected_summary_contains": "구타"
+    },
+    {
+      "case_id": "Q14_MISS_K19",
+      "template_id": "BB_Q14_WALTER_SKYLER_RELATION_BREAK",
+      "question_id": "Q14",
+      "query_kind": "coevents_earliest",
+      "safe_up_to_episode": 19,
+      "expected_status": "SPOILER_BLOCKED",
+      "expected_event_id": null
+    },
+    {
+      "case_id": "Q14_HIT_K20",
+      "template_id": "BB_Q14_WALTER_SKYLER_RELATION_BREAK",
+      "question_id": "Q14",
+      "query_kind": "coevents_earliest",
+      "safe_up_to_episode": 20,
+      "expected_status": "ANSWERED",
+      "expected_event_id": 2923,
+      "expected_summary_contains": "신뢰가 붕괴"
+    }
+  ]
+}
