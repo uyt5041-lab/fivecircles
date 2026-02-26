@@ -1008,3 +1008,16 @@ This file summarizes recent updates so other agents can continue without re‑di
 - 링크 나열에 그치지 않도록, 정책/실행안에 `규칙 <- 플랜` 추적표(Traceability Matrix)를 추가하고 question-map 항목별 `source_basis`를 명시했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/expension100/expension100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/expension100/question-map.q01-expansion.phase1.json)
 ### Tests
 - Not run (docs/todo update only).
+
+## Addendum (2026-02-26) - Phase1 상속 실행기 구현 (AXIS lane)
+### Frontend
+- Phase1 상속 실행 유틸을 추가해 `question_id -> axis/combine_mode`, `expand(set)`, `P_* -> PredicateCode` 변환을 코드로 반영했다. (refs: front/common/productionQ/inheritancePhase1.ts)
+- ProductionQ executor에 axis lane 계산을 추가했다. (`B/C/BC`, `OR/AND`, `Q01_EXP_06=AND`, `K+APPROVED` 게이트, B 바인딩 미적재 시 `NOT_ENOUGH_DATA`) (refs: front/common/productionQ/executor.ts)
+- ProductionQ 결과 모델에 `axisLane`을 추가하고 ResultPanel에 AXIS lane 섹션(카운트/상태/후보 이벤트) 렌더링을 붙였다. (refs: front/common/productionQ/types.ts, front/features/qa/components/ProductionQSection/ResultPanel.tsx)
+
+### Docs
+- Team C todolist에서 Phase 6-B 구현 완료 항목(B2/B2.5/B3/B4 일부)을 실행 상태로 갱신했다. (refs: fivecircles/architecture/todolist.md)
+
+### Tests
+- PASS: `cd front && npm run build`
+- NOTE: dramaId=10의 `event_reveal(target_type=ATTRIBUTE)` 데이터가 현재 0건이라 B lane은 데이터 보강 전까지 `NOT_ENOUGH_DATA`가 정상 동작이다.
