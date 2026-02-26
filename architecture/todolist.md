@@ -375,6 +375,40 @@
     - [x] Cycle 1-5: Story Reminder 템플릿/SPARQL 질의로 Q1-1~Q1-6 실행 경로 고정
     - [x] Cycle 1-6: K gate(절대회차) 기준 `ANSWERED/SPOILER_BLOCKED/NOT_ENOUGH_DATA` 회귀 검증
     - [ ] Follow-up: `/api/event/v2/probe`에서 `strictFilters.qAnyOf` 바인딩/검증 경로 점검 (keyword probe 400/무시 리스크)
+  - [ ] **Phase 6-B / Expension100 3축 분류 + 4축 리마인더 UI 전환 (2026-02-26)** (refs: `expension100/expension-6of100-q1.md`, `expension100/expension100-3axis-4axis-reminder-plan-2026-02-26.md`, `expension100/question-map.q01-expansion.phase1.json`, `rdf/policy/inheritance-closure-policy.md`, `rdf/policy/inheritance-closure-taxonomy.phase1.json`)
+    - [ ] B1) Q1 확장 6개 strict 복구: 문서 서술형 토큰은 `approx_only`, DB hit 토큰은 `strict_must`로 분리
+      - [ ] B1-1) `Q01_EXP_01/02/04` strict 토큰을 DB 검증 통과 세트로 복원
+      - [ ] B1-2) `Q01_EXP_03/05/06`은 현 앵커 유지 + 동치 토큰만 보강
+      - [ ] B1-3) `validate-q1-expansion-gate.py` 케이스를 템플릿 값과 동기화
+    - [ ] B2) Expension100 질문 매핑 SoT 작성 (`question_id -> axis -> required_set`)
+      - [ ] B2-1) A축: `event_scope_set` 정의
+      - [ ] B2-2) B축: `attribute_set` 키를 closure taxonomy(Phase1 JSON) 기준으로 고정
+      - [ ] B2-2a) `A_* -> event_reveal.target_id` 바인딩 테이블 채움(미입력 시 해당 질문은 `NOT_ENOUGH_DATA`)
+      - [ ] B2-3) C축: `predicate_set`을 closure taxonomy leaf -> `PredicateCode` 매핑 기준으로 고정
+      - [ ] B2-3a) `P_*` 직접 조회 금지, `runtime_bindings -> PredicateCode` 변환 규칙 고정
+      - [ ] B2-4) Q1 확장 canonical SoT 파일 고정: `specs/expension100/question-map.q01-expansion.phase1.json`
+      - [ ] B2-5) closure taxonomy canonical SoT 파일 고정: `specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
+    - [ ] B2.5) 상속(승계) 확장 유틸 추가 (**PRECEDES 대체 금지**, policy: `rdf/policy/inheritance-closure-policy.md`)
+      - [ ] B2.5-1) Phase1 범위 고정(DB 무변경): 기존 `event.predicate_code` + `event_reveal`만 사용
+      - [ ] B2.5-2) `expand(set)` 구현: parent 입력 시 descendant 포함 집합 반환
+      - [ ] B2.5-3) B축 조회는 `expanded_attribute_set`만 사용
+      - [ ] B2.5-4) C축 조회는 `expanded_predicate_set`만 사용
+      - [ ] B2.5-5) BC축 결합 규칙 고정: 기본 `OR(B ∪ C)`, 질문별 `combine_mode=AND` 허용
+      - [ ] B2.5-5a) `Q01_EXP_06`은 `BC + AND`로 파일 기준 고정
+      - [ ] B2.5-6) 안전 게이트 유지 확인: `K + APPROVED` 이후 후보만 노출
+      - [ ] B2.5-7) Phase2 스키마 확장(`predicate`, `event_predicate`)은 보류 항목으로 분리
+    - [ ] B3) 조회 파이프라인 확장(기존 strict-first 유지)
+      - [ ] B3-1) `getEventsByRevealAttribute(K, attribute_set, scope)` 추가
+      - [ ] B3-2) `getEventsByPredicate(K, predicate_set, scope)` 추가
+      - [ ] B3-3) 축별 miss 정책 고정: A/B/C hit 0 -> `NOT_ENOUGH_DATA`
+    - [ ] B4) 리마인더 UI를 lane 구조로 전환
+      - [ ] B4-1) 결과 모델: `selected_event`, `axis_lane(A/B/C)`, `precedes_lane` 분리
+      - [ ] B4-2) ResultPanel에 REVEALS/ATTRIBUTE 섹션 추가
+      - [ ] B4-3) PRECEDES는 연결선/맥락 보조로만 표시(선정 기준 제외)
+    - [ ] B5) 회귀/드리프트 게이트
+      - [ ] B5-1) ex22.2/ex22.3 시험 페이지(`/#/qa-story-reminder-test`) 축별 샘플 검증
+      - [ ] B5-2) expansion strict hit 회귀 스냅샷(ANSWERED/BLOCKED/NO_DATA) 저장
+      - [ ] B5-3) 매핑 SoT와 템플릿 축 불일치 시 fail 게이트 추가
   - [ ] **Ops / Local Runtime**
     - [ ] 로컬 Docker 전체 기동(`docker compose up -d --build`) 절차/체크리스트 정리
     - [ ] 로컬 MySQL 스키마 생성(init) 절차 정리 및 재현 스크립트 추가

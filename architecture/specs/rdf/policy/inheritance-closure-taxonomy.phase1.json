@@ -1,0 +1,136 @@
+{
+  "version": "phase1-2026-02-26",
+  "policy_ref": "fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md",
+  "model": {
+    "event_inheritance": false,
+    "predicate_inheritance": true,
+    "attribute_inheritance": true
+  },
+  "domains": {
+    "PREDICATE": {
+      "roots": ["P_CORE_ACTION"],
+      "edges": [
+        ["P_CORE_ACTION", "P_VIOLENCE_OR_THREAT"],
+        ["P_CORE_ACTION", "P_CONSTRAINT_OR_CONTROL"],
+        ["P_CORE_ACTION", "P_CONCEALMENT"],
+        ["P_CORE_ACTION", "P_NEGOTIATION_OR_DEALING"],
+        ["P_CORE_ACTION", "P_INVESTIGATION_OR_ENFORCEMENT"],
+        ["P_CORE_ACTION", "P_PLANNING_OR_REASONING"],
+
+        ["P_VIOLENCE_OR_THREAT", "P_KILL"],
+        ["P_VIOLENCE_OR_THREAT", "P_PHYSICAL_ASSAULT"],
+        ["P_VIOLENCE_OR_THREAT", "P_THREATEN"],
+        ["P_VIOLENCE_OR_THREAT", "P_INTIMIDATE"],
+        ["P_VIOLENCE_OR_THREAT", "P_DEMONSTRATE_POWER"],
+
+        ["P_CONSTRAINT_OR_CONTROL", "P_CAPTURE"],
+        ["P_CONSTRAINT_OR_CONTROL", "P_IMPRISON"],
+        ["P_CONSTRAINT_OR_CONTROL", "P_RESTRAIN"],
+        ["P_CONSTRAINT_OR_CONTROL", "P_GUARD"],
+
+        ["P_CONCEALMENT", "P_LIE"],
+        ["P_CONCEALMENT", "P_ALIBI_MANIPULATION"],
+        ["P_CONCEALMENT", "P_HIDE_EVIDENCE"],
+        ["P_CONCEALMENT", "P_DESTROY_EVIDENCE"],
+        ["P_CONCEALMENT", "P_DISPOSE_BODY"],
+
+        ["P_NEGOTIATION_OR_DEALING", "P_NEGOTIATE"],
+        ["P_NEGOTIATION_OR_DEALING", "P_BARGAIN"],
+        ["P_NEGOTIATION_OR_DEALING", "P_DEMAND"],
+        ["P_NEGOTIATION_OR_DEALING", "P_TRANSACT"],
+
+        ["P_INVESTIGATION_OR_ENFORCEMENT", "P_INVESTIGATE"],
+        ["P_INVESTIGATION_OR_ENFORCEMENT", "P_SURVEIL"],
+        ["P_INVESTIGATION_OR_ENFORCEMENT", "P_RAID_OR_BUST"],
+
+        ["P_PLANNING_OR_REASONING", "P_RISK_ASSESS"],
+        ["P_PLANNING_OR_REASONING", "P_PROS_CONS_LIST"],
+        ["P_PLANNING_OR_REASONING", "P_DECISION_POINT"]
+      ],
+      "runtime_bindings": {
+        "P_KILL": ["KILLS", "DIES"],
+        "P_PHYSICAL_ASSAULT": ["ATTACKS", "INJURED", "DEFEATS"],
+        "P_THREATEN": ["ATTACKS", "OTHER"],
+        "P_INTIMIDATE": ["ATTACKS", "OTHER"],
+        "P_DEMONSTRATE_POWER": ["ATTACKS", "OTHER"],
+
+        "P_CAPTURE": ["CAPTURES"],
+        "P_IMPRISON": ["CAPTURES", "OTHER"],
+        "P_RESTRAIN": ["CAPTURES", "OTHER"],
+        "P_GUARD": ["OTHER"],
+
+        "P_LIE": ["OTHER", "BETRAYS"],
+        "P_ALIBI_MANIPULATION": ["OTHER", "BETRAYS"],
+        "P_HIDE_EVIDENCE": ["OTHER"],
+        "P_DESTROY_EVIDENCE": ["OTHER"],
+        "P_DISPOSE_BODY": ["OTHER"],
+
+        "P_NEGOTIATE": ["MEETS", "ALLIES_WITH", "OTHER"],
+        "P_BARGAIN": ["MEETS", "ALLIES_WITH", "OTHER"],
+        "P_DEMAND": ["MEETS", "ATTACKS", "OTHER"],
+        "P_TRANSACT": ["ALLIES_WITH", "MEETS", "OTHER"],
+
+        "P_INVESTIGATE": ["DISCOVERS", "LEARNS", "OTHER"],
+        "P_SURVEIL": ["DISCOVERS", "LEARNS", "OTHER"],
+        "P_RAID_OR_BUST": ["ATTACKS", "CAPTURES", "DISCOVERS", "OTHER"],
+
+        "P_RISK_ASSESS": ["OTHER"],
+        "P_PROS_CONS_LIST": ["OTHER"],
+        "P_DECISION_POINT": ["OTHER"]
+      }
+    },
+    "ATTRIBUTE": {
+      "roots": ["A_STATE_REVEAL"],
+      "edges": [
+        ["A_STATE_REVEAL", "A_MORAL_FRAME_SHIFT"],
+        ["A_STATE_REVEAL", "A_VIOLENCE_ADAPTATION"],
+        ["A_STATE_REVEAL", "A_RISK_OR_SURVIVAL_MODE"],
+        ["A_STATE_REVEAL", "A_RELATIONSHIP_SHIFT"],
+        ["A_STATE_REVEAL", "A_EXTERNAL_PRESSURE"],
+        ["A_STATE_REVEAL", "A_POINT_OF_NO_RETURN"],
+
+        ["A_MORAL_FRAME_SHIFT", "A_SELF_JUSTIFICATION_ON"],
+        ["A_MORAL_FRAME_SHIFT", "A_KILLING_AS_OPTION_ON"],
+        ["A_MORAL_FRAME_SHIFT", "A_GUILT_SUPPRESSED"],
+
+        ["A_VIOLENCE_ADAPTATION", "A_VIOLENCE_NORMALIZED"],
+        ["A_VIOLENCE_ADAPTATION", "A_INTIMIDATION_AS_TOOL"],
+        ["A_VIOLENCE_ADAPTATION", "A_FEAR_TO_CONTROL_SWITCH"],
+
+        ["A_RISK_OR_SURVIVAL_MODE", "A_SURVIVAL_MODE_ON"],
+        ["A_RISK_OR_SURVIVAL_MODE", "A_RISK_TOLERANCE_UP"],
+        ["A_RISK_OR_SURVIVAL_MODE", "A_PREEMPTIVE_ACTION_MODE"],
+
+        ["A_RELATIONSHIP_SHIFT", "A_ACCOMPLICE_BOND_LOCKED"],
+        ["A_RELATIONSHIP_SHIFT", "A_POWER_IMBALANCE_W_OVER_J"],
+        ["A_RELATIONSHIP_SHIFT", "A_TRUST_EROSION"],
+
+        ["A_EXTERNAL_PRESSURE", "A_THREAT_LEVEL_HIGH"],
+        ["A_EXTERNAL_PRESSURE", "A_ENFORCEMENT_HEAT_UP"],
+        ["A_EXTERNAL_PRESSURE", "A_ORG_RULES_IMPOSED"],
+
+        ["A_POINT_OF_NO_RETURN", "A_CROSSED_LINE_CONFIRMED"],
+        ["A_POINT_OF_NO_RETURN", "A_NO_GOING_BACK_ACCEPTED"]
+      ],
+      "reveal_target_bindings": {
+        "A_SELF_JUSTIFICATION_ON": [],
+        "A_KILLING_AS_OPTION_ON": [],
+        "A_GUILT_SUPPRESSED": [],
+        "A_VIOLENCE_NORMALIZED": [],
+        "A_INTIMIDATION_AS_TOOL": [],
+        "A_FEAR_TO_CONTROL_SWITCH": [],
+        "A_SURVIVAL_MODE_ON": [],
+        "A_RISK_TOLERANCE_UP": [],
+        "A_PREEMPTIVE_ACTION_MODE": [],
+        "A_ACCOMPLICE_BOND_LOCKED": [],
+        "A_POWER_IMBALANCE_W_OVER_J": [],
+        "A_TRUST_EROSION": [],
+        "A_THREAT_LEVEL_HIGH": [],
+        "A_ENFORCEMENT_HEAT_UP": [],
+        "A_ORG_RULES_IMPOSED": [],
+        "A_CROSSED_LINE_CONFIRMED": [],
+        "A_NO_GOING_BACK_ACCEPTED": []
+      }
+    }
+  }
+}
