@@ -45,10 +45,12 @@
 - 예: `revealsAttribute = threat_pressure_level:2`.
 8. WHY 출력용 `event_relation(PRECEDES)` 체인을 최소 입력해야 한다.
 - Answer-first 세트(10 + 확장 6) 중심으로 수동 구축.
+9. `event_reveal.reveal_type(HINT|CONFIRM)`는 WHY/근거 강도 표시에만 사용한다.
+- strict 정답 선택/승격에는 사용하지 않는다.
 
 ### RDB-3 옵션: RDF 고급 UI 지원
-9. subject/object role 입력 파이프라인(DTO/mapper/backfill) 확장.
-10. `event_reveal` 구조화(키/값/레벨 정규화).
+10. subject/object role 입력 파이프라인(DTO/mapper/backfill) 확장.
+11. `event_reveal` 구조화(키/값/레벨 정규화).
 - 초기에는 문자열 attribute로 시작 가능.
 
 ## 3) RDF 상속 레이어 구축에 필요한 것 (B안 핵심)
@@ -198,35 +200,46 @@ python3 scripts/ops/rdf/predicate_group_compile.py \
 - `fivecircles/architecture/specs/rdf/artifacts/v3-advanced/latest/ontology.ttl`
 - `front/common/productionQ/types.ts`
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance-appendix.md`
+- `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+- `fivecircles/architecture/specs/reveals/reveals-classification.md`
+- `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 
 ## 12) Recursive TODO (Execution)
-- [ ] T0. 범위 고정 및 기준선 동결
-- [ ] T0-1. ex23 본문 문구를 이번 합의 기준(SoT/경계/strict scope)으로 고정
-- [ ] T0-2. 변경 기준선을 `review-ex23-rdf-inheritance-2026-02-26.md` Re-Review와 동기화
+- [x] T0. 범위 고정 및 기준선 동결
+- [x] T0-1. ex23 본문 문구를 이번 합의 기준(SoT/경계/strict scope)으로 고정
+- [x] T0-2. 변경 기준선을 `review-ex23-rdf-inheritance-2026-02-26.md` Re-Review와 동기화
 - [ ] T1. RDF lane SoT 단일화 적용
-- [ ] T1-1. `predicate_axis_taxonomy.json`을 RDF lane SoT로 선언/참조 경로 고정
-- [ ] T1-2. query-only 스크립트에서 taxonomy loader 참조 경로 점검
-- [ ] T1-3. aggregate(SQL mapper) 경로는 Phase1 유지 범위로 명시
+- [x] T1-1. `predicate_axis_taxonomy.json`을 RDF lane SoT로 선언/참조 경로 고정
+- [x] T1-2. query-only 스크립트에서 taxonomy loader 참조 경로 점검
+- [x] T1-3. aggregate(SQL mapper) 경로는 Phase1 유지 범위로 명시
 - [ ] T1-3-1. Phase2 연동 후보 지점(aggregate mapper/score rule) 식별
-- [ ] T1-4. Executor lane SoT(`StrictQuerySpec`) 직접 참조 경로 점검(taxonomy 직접 참조 금지)
-- [ ] T2. Axis vs Group 경계 운영화
-- [ ] T2-1. axis(분류/신호)와 group(필터/집계) 역할 문구를 문서/예시에 동일 반영
-- [ ] T2-2. group 예시를 현재 운영 groupKey 기준으로 통일
-- [ ] T2-3. 멤버셋 비동일 허용 근거를 appendix 예시와 연결
-- [ ] T3. Suggestion 가드 정합성 잠금
-- [ ] T3-1. 저장 가드: `OTHER`일 때만 `predicate_suggestion` 저장 (BE 규칙 확인)
-- [ ] T3-2. 매칭 가드: `OTHER` 이벤트에서만 fallback 매칭 (SQL/Query 규칙 확인)
-- [ ] T3-3. strict-first scope를 템플릿 정답 탐색 경로로 한정
+- [x] T1-4. Executor lane SoT(`StrictQuerySpec`) 직접 참조 경로 점검(taxonomy 직접 참조 금지)
+- [x] T2. Axis vs Group 경계 운영화
+- [x] T2-1. axis(분류/신호)와 group(필터/집계) 역할 문구를 문서/예시에 동일 반영
+- [x] T2-2. group 예시를 현재 운영 groupKey 기준으로 통일
+- [x] T2-3. 멤버셋 비동일 허용 근거를 appendix 예시와 연결
+- [x] T3. Suggestion 가드 정합성 잠금
+- [x] T3-1. 저장 가드: `OTHER`일 때만 `predicate_suggestion` 저장 (BE 규칙 확인)
+- [x] T3-2. 매칭 가드: `OTHER` 이벤트에서만 fallback 매칭 (SQL/Query 규칙 확인)
+- [x] T3-3. strict-first scope를 템플릿 정답 탐색 경로로 한정
 - [ ] T4. Deterministic 집계/증거 규칙 잠금
-- [ ] T4-1. mode별 score 수식 문서와 서버 구현 일치 확인
-- [ ] T4-2. tie-breaker(`score DESC`, `otherCharacterId ASC`) 일치 확인
-- [ ] T4-3. evidence 정렬/cap(`episode_end DESC`, `event_id DESC`, cap) 일치 확인
+- [x] T4-1. mode별 score 수식 문서와 서버 구현 일치 확인
+- [x] T4-2. tie-breaker(`score DESC`, `otherCharacterId ASC`) 일치 확인
+- [x] T4-3. evidence 정렬/cap(`episode_end DESC`, `event_id DESC`, cap) 일치 확인
 - [ ] T4-4. 다중 소속 leaf 중복 카운트 리스크 점검 및 토큰셋 배타 유지
-- [ ] T5. Compile 파이프라인 단계화
-- [ ] T5-1. planned 아티팩트(`predicate_group_compile.py`, 정식 ttl/json) 구현 전제/출력 스키마 고정
-- [ ] T5-2. drift check 규칙(TTL 변경 대비 generated diff) 정의
-- [ ] T5-3. implemented/planned 상태표 최신화
+- [x] T5. Compile 파이프라인 단계화
+- [x] T5-1. planned 아티팩트(`predicate_group_compile.py`, 정식 ttl/json) 구현 전제/출력 스키마 고정
+- [x] T5-2. drift check 규칙(TTL 변경 대비 generated diff) 정의
+- [x] T5-3. implemented/planned 상태표 최신화
 - [ ] T6. 검증 및 승인
-- [ ] T6-1. ex23 자체 리뷰(문서-코드 정합성) 1회 수행
+- [x] T6-1. ex23 자체 리뷰(문서-코드 정합성) 1회 수행
 - [ ] T6-2. debate/review 로그 동기화
 - [ ] T6-3. Phase1 승인 조건 충족 여부 체크(SoT, 경계, 가드, deterministic)
+
+## 13) 상태 동기화 (2026-02-27)
+- 기준 체크리스트: `fivecircles/architecture/todolist.md` 9) BP0~BP8
+- 리뷰 문서: `fivecircles/work/review/review-blueprint-bp3-bp8-2026-02-27.md`
+- 완료(보류 제외 범위):
+  - BP3-4, BP4, BP5, BP6, BP7, BP8-1/2/4/5
+- 보류(팀 합의 후 재개):
+  - BP3-2(wiki), BP3-3/3-a/3-b(intelligence), BP3-5(wiki 포함 E2E), BP8-3(CI 연결)

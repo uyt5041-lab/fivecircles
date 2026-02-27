@@ -211,6 +211,7 @@
 - [ ] **정합성 갭 체크 (ex14, 협업)**: reveal 메타(event_reveal)가 wiki/intelligence→event 파이프라인에서 실제 전달/저장되는지 “현상 확인”만 하고, 결과를 문서에 상태로만 명시 (구현은 보류)
 - [x] **Reveal 입력 정합성(서버)**: `predicateCode=REVEALS` + `revealTargetId`가 있는 요청에서 `revealTargetType`이 없으면 **silent skip 금지**(BusinessException로 실패 처리). (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/ex14-consistency-checklist.md`)
 - [ ] **Reveal type 파이프라인**: `event_reveal.reveal_type(HINT|CONFIRM)`를 event 생성/수정 요청에서 받을 수 있게 DTO/API를 확장하고, 저장까지 end-to-end로 연결(기본값 정책은 질문 구현단계 정밀도 조정(QP1)에서 확정). (refs: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/reveals/reveals-reuse-cases.md`, `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`)
+  - [x] 지속참고 기준서 추가: 사실 이벤트/해석 라벨 분리 + `HINT/CONFIRM` 판정/근거 앵커 규칙을 `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`로 고정
 - [ ] **Q1~Q15 정합성(별도)**: UI/스펙의 predicateCode(`BATTLE`, `AFFILIATION_CHANGE`, `DEATH`, `EXIT` 등)와 `common/PredicateCode`의 폐쇄 집합을 정렬 (ex14 범위 밖이므로 별도 작업으로 분리)
   - [ ] 게이트: Q1~Q15 템플릿에서 `strict_must.predicateCodeAnyOf` 및 `strict_must.excludePredicateCodeAnyOf`만 runtime `PredicateCode` 폐쇄집합 검사 대상으로 고정하고, group/label/qAnyOf는 검사 범위에서 제외 (검사 스크립트 구현 완료, CI hook 연결 보류)
     - [x] 로컬 게이트 스크립트: `fivecircles/test/validate-productionq-predicatecode-gate.py`
@@ -383,7 +384,7 @@
     - [ ] B2) Expension100 질문 매핑 SoT 작성 (`question_id -> axis -> required_set`)
       - [ ] B2-1) A축: `event_scope_set` 정의
       - [x] B2-2) B축: `attribute_set` 키를 closure taxonomy(Phase1 JSON) 기준으로 고정
-      - [ ] B2-2a) `A_* -> event_reveal.target_id` 바인딩 테이블 채움(미입력 시 해당 질문은 `NOT_ENOUGH_DATA`)
+      - [x] B2-2a) `A_* -> event_reveal.target_id` 바인딩 테이블 채움(미입력 시 해당 질문은 `NOT_ENOUGH_DATA`) (`seed_expension100_q1_attribute_reveals.sql` + `validate-expension100-intelligence-columns.py`)
       - [x] B2-3) C축: `predicate_set`을 closure taxonomy leaf -> `PredicateCode` 매핑 기준으로 고정
       - [x] B2-3a) `P_*` 직접 조회 금지, `runtime_bindings -> PredicateCode` 변환 규칙 고정
       - [x] B2-4) Q1 확장 canonical SoT 파일 고정: `specs/expension100/question-map.q01-expansion.phase1.json`
@@ -496,5 +497,69 @@
 3) [x] Run Playwright flow for key pages and check console errors
 4) [x] Capture gaps (missing endpoints/data) and update `frontend.md` if mapping changes
 5) [x] Add dashboard QA entry points (global + character modal)
+
+### 9. Blueprint (Codebook-First) Recursive Execution Plan (2026-02-27)
+> refs: `fivecircles/architecture/specs/rdf/inheritance-blueprint.md`, `fivecircles/architecture/specs/rdf/inheritance-blueprint-examples.md`, `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+
+- [x] BP0. Scope/Contract Lock (선행 게이트)
+  - [x] BP0-1. 운영 계약 고정: `target_type=CHARACTER -> target_id=character_id`, `target_type=ATTRIBUTE -> target_id=aboutCharacterId` 유지
+  - [x] BP0-2. `reveal_type` 용도 고정: `HINT|CONFIRM`은 WHY 근거 강도 표시에만 사용(정답 승격 금지)
+  - [x] BP0-3. 레인 경계 고정: RDF lane SoT(`predicate_axis_taxonomy.json`) / Executor lane SoT(`StrictQuerySpec`)
+  - [x] BP0-4. 비범위 잠금: `attribute/closure` 테이블 도입 및 strict 계약 키 추가는 Phase3 전까지 금지
+  - [x] BP0-5. 완료조건: blueprint/ex23/reveals 문서 3종 문구 충돌 0건
+
+- [x] BP1. Schema Minimal Extension (`event_reveal.target_key`) (BP0 이후)
+  - [x] BP1-1. migration 추가: `event_reveal.target_key VARCHAR(64) NULL`
+  - [x] BP1-2. 인덱스 추가: `(target_type, target_key)`, `(target_type, target_id)`
+  - [x] BP1-3. 롤백/재실행 가능한 DDL 스크립트 작성(로컬/도커 검증)
+  - [x] BP1-4. 완료조건: 기존 API/쿼리 회귀 없음(기존 필드 read/write 100% 호환)
+
+- [x] BP2. Codebook/Allow-list 정식화 (BP1 이후)
+  - [x] BP2-1. reveal target key 코드북 문서 생성 (`fivecircles/architecture/specs/reveals/reveal-target-key-codebook.md`, `A_*` 네이밍/정의/예시/소유자)
+  - [x] BP2-2. 실행 맵 동기화: `inheritancePhase1.ts` attribute 상속 엣지/확장셋을 코드북과 1:1 정렬
+  - [x] BP2-3. allow-list 검증 함수 추가(안전 모드): `target_type=ATTRIBUTE`일 때 `target_key`가 입력되면 코드북 외 값 reject(미입력 허용, 강제는 BP3-4에서 결정)
+  - [x] BP2-4. 로컬 게이트 스크립트 추가: 코드북/템플릿/seed 데이터 `A_*` 키 정합성 검사
+  - [x] BP2-5. 완료조건: 키 오타/미등록 입력이 저장 단계에서 차단됨
+
+- [ ] BP3. Write Path 연결 (BP2 이후)
+  - [x] BP3-0. Phase1 운영 원칙 고정: `target_key` 실제 데이터 적용/보정은 `scripts/ops` seed/backfill 스크립트 우선(팀간 write-path 변경 최소화)
+  - [x] BP3-1. event-service 요청 DTO/검증에 `targetKey` 반영 (`REVEALS + ATTRIBUTE` 검증)
+  - [ ] BP3-2. wiki 승인 publish payload에 `target_key` 전달 경로 반영 (**보류: 위키 팀원 영역, 합의 후 재개**)
+  - [ ] BP3-3. intelligence 경로는 협의 블로커로 분리(B팀 합의 전 코드 변경 금지) (**보류: 인텔리전스 팀원 영역, 합의 후 재개**)
+    - [ ] BP3-3-a. 협의 문서화: 입력 계약/기본값/배포 순서 확정 (**보류**)
+    - [ ] BP3-3-b. 합의 후 반영: 프롬프트/파서/DTO 순차 적용 (**보류**)
+  - [x] BP3-4. 레거시 호환 정책 확정: `target_key` 누락 row 처리(경고/저장거부) 결정 (`validate-reveal-target-key-runtime-phase1.py` PASS: drama10 fail / legacy warn)
+  - [ ] BP3-5. 완료조건: event/wiki 경로에서 `target_key`가 E2E 저장됨 (**보류: wiki 경로 포함 조건은 협의 이후 판정**)
+
+- [x] BP4. Read Path / Q01_EXP_01 동작화 (BP3 이후)
+  - [x] BP4-1. B-lane 필터 전환: `target_id 단독` -> `target_key + (옵션) aboutCharacterId` (우선순위: `target_key`, 호환 fallback: `target_id`)
+  - [x] BP4-2. WHY `reveal_hint`에 `target_key` 노출
+  - [x] BP4-3. strict miss 가드 회귀: reveal/probe hit로 `ANSWERED` 승격 금지 유지 (`validate-productionq-probe-guard.py` PASS)
+  - [x] BP4-4. 완료조건: Q01_EXP_01에서 B-lane 후보가 코드북 기반으로 재현됨 (`validate-reveal-target-key-runtime-phase1.py` PASS)
+
+- [x] BP5. WHY Chain (PRECEDES) 보강 (BP4 이후)
+  - [x] BP5-1. `Q01_EXP_01` 기준 `because_chain` 2~3 hop 자동 생성 연결
+  - [x] BP5-2. 체인 정렬 규칙 고정(episode asc + id asc)
+  - [x] BP5-3. WHY 포맷 검증(`answer_event`, `because_chain`, `reveal_hint`, `confidence_note`) (타입/렌더/실행경로 반영)
+  - [x] BP5-4. 완료조건: WHY 질문 3개(T08~T10)에서 체인 누락 0건 (로컬 스모크/회귀 통과)
+
+- [x] BP6. Data Backfill / 운영 적용 (BP4 이후, BP5 병행 가능)
+  - [x] BP6-1. 기존 `target_type=ATTRIBUTE` 데이터에 `target_key` 백필(가능 row 우선, Phase1 scope)
+    - [x] BP6-1-a. Q1 expansion 6문항 anchor row는 ops seed로 선반영 (`run_expension100_q1_seed_and_validate.sh` PASS)
+  - [x] BP6-2. 백필 불가 row 정책 적용(보류/메모/제외) (`validate-reveal-target-key-runtime-phase1.py`: legacy unresolved 6 warn/backlog)
+  - [x] BP6-3. Q1 expansion 6문항 answerset 재검증(축/B-lane 동작 확인) (`validate-expension100-intelligence-columns.py` PASS)
+  - [x] BP6-4. 완료조건: expansion answerset에서 B-lane `target_key` 매칭률 80% 이상 달성 (100%, 6/6)
+
+- [x] BP7. 선택 확장 (Phase2+)
+  - [x] BP7-1. `reveals[]` 다건 응답 설계/반영(현재 first-row wins 보정)
+  - [x] BP7-2. API/프론트 렌더링 다건 reveal 카드 규칙 고정
+  - [x] BP7-3. 완료조건: event당 복수 reveal 손실 없이 표시
+
+- [ ] BP8. Quality Gate / Release
+  - [x] BP8-1. 로컬 검증 스크립트: 코드북-템플릿-데이터 키 정합성 검사 실행 (`validate-reveal-target-key-gate.py` PASS)
+  - [x] BP8-2. 스모크: `safeUpToEpisode` + `source_status=APPROVED` + strict-first 회귀 (`validate-productionq-and-regression.py` PASS)
+  - [ ] BP8-3. CI 연결은 보류(사용자 지시 반영), 로컬 게이트 우선 운영
+  - [x] BP8-4. 구현 완료 리뷰 문서 작성 및 ex23/blueprint 체크상태 동기화 (`fivecircles/work/review/review-blueprint-bp3-bp8-2026-02-27.md`)
+  - [x] BP8-5. 최종 승인조건: 보류 항목(BP3-2/3/5) 제외 범위에서 BP0~BP7 완료 + 회귀 통과 + 문서/코드 정합성 확인
 
 ---
