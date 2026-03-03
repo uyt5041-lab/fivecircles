@@ -7,7 +7,8 @@
 - Fallback = `PredicateSuggestionCode`를 사용한다 (`predicate_code=OTHER`, strict miss 후, ops/QA 레이어 한정).
 - 상속/분류 선언은 RDF(또는 RDF 전개 taxonomy)에서 관리한다.
 - 런타임은 reasoner/SPARQL 상속 전개를 수행하지 않는다.
-- RDF lane SoT는 단일 파일(`predicate_axis_taxonomy.json`)로 고정한다(Phase1).
+- RDF lane preview/filter SoT는 `predicate_axis_taxonomy.json`으로 고정한다(Phase1).
+- taxonomy dashboard tree SoT는 `predicate_inheritance.json` 초안으로 분리한다.
 - Executor lane SoT는 `StrictQuerySpec(04 매트릭스/템플릿)`로 고정하고 taxonomy를 직접 읽지 않는다.
 - SoT 경로/namespace는 현재 운영 기준(`scripts/ops/rdf/taxonomy/...`, `ns:`)을 유지한다.
 - FE `strictFilters` 계약 키는 이번 페이즈에서 변경하지 않는다.
@@ -86,7 +87,8 @@
 10. Event SPO(subject/object/participant) 트리플 export.
 
 ## 4) SoT/경로/네임스페이스 통일
-- taxonomy SoT: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- taxonomy group SoT: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- taxonomy tree SoT(draft): `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
 - taxonomy loader/classifier: `scripts/ops/rdf/predicate_axis_taxonomy.py`
 - inheritance TTL: `scripts/ops/rdf/taxonomy/predicate_inheritance.ttl`
 - generated output: `scripts/ops/rdf/taxonomy/predicate_group.generated.json` (옵션)

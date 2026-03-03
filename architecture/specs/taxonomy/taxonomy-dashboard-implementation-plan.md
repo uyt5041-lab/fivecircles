@@ -11,7 +11,7 @@
 범위
 - Admin 프론트: taxonomy dashboard page
 - Event service: taxonomy tree / preview / drift API
-- Taxonomy loader/service: `predicate_axis_taxonomy.json` 기반 전개
+- Taxonomy loader/service: group SoT(`predicate_axis_taxonomy.json`) + tree SoT(`predicate_inheritance.json`) 기반 전개
 - QA/운영 검증: API 스모크 + 기본 drift 확인
 
 비범위
@@ -21,12 +21,13 @@
 - taxonomy compile 스크립트 신규 도입
 
 관련 문서
-- 메인 스펙: `fivecircles/architecture/specs/predicate/taxonomy-dashboard.md`
-- Query axis 확장 초안: `fivecircles/architecture/specs/predicate/query-axis-reveal-combined-design.md`
+- 메인 스펙: `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard.md`
+- Query axis 확장 초안: `fivecircles/architecture/specs/taxonomy/query-axis-reveal-combined-design.md`
 - Predicate README: `fivecircles/architecture/specs/predicate/README.md`
 - RDF/OWL 상위 포지셔닝: `fivecircles/architecture/specs/event-v3-advanced-rdf-owl.md`
 - 상속/분류 운영 기준: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
-- 현재 taxonomy SoT: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- 현재 predicate group SoT: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- predicate tree SoT(draft): `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
 - 현재 loader: `scripts/ops/rdf/predicate_axis_taxonomy.py`
 
 ---
@@ -39,25 +40,27 @@
    - `GET /api/event/taxonomy/tree`
    - `POST /api/event/taxonomy/preview`
    - `GET /api/event/taxonomy/drift`
-4. Phase 1 SoT는 `predicate_axis_taxonomy.json`이다.
-5. Phase 1에서는 별도 `generated.json` compile step을 도입하지 않는다.
-6. preview 결과는 최종적으로 RDB 쿼리 결과를 사용한다.
-7. dashboard는 운영/검수 도구이며 user-facing runtime과 분리한다.
-8. query axis는 `REVEAL`, `PREDICATE`, `COMBINED`, `PRECEDES` 4종을 표시한다.
-9. Phase 1 taxonomy category source는 `PREDICATE` axis에만 직접 연결한다.
+4. preview/filter SoT는 `predicate_axis_taxonomy.json`이다.
+5. tree/visualization SoT는 `predicate_inheritance.json`이다.
+6. Phase 1에서는 별도 `generated.json` compile step을 도입하지 않는다.
+7. preview 결과는 최종적으로 RDB 쿼리 결과를 사용한다.
+8. dashboard는 운영/검수 도구이며 user-facing runtime과 분리한다.
+9. query axis는 `REVEAL`, `PREDICATE`, `COMBINED`, `PRECEDES` 4종을 표시한다.
+10. 현재 구현 기준으로 `PREDICATE`, `REVEAL`, `COMBINED` axis preview를 지원하고 `PRECEDES`는 placeholder로 유지한다.
 
 ## 2) 구현 전략
 
 ### 2.1 Phase 1 전략
-- `event-service`가 `predicate_axis_taxonomy.json`을 로드한다.
+- `event-service`가 `predicate_axis_taxonomy.json`과 `predicate_inheritance.json`을 로드한다.
 - admin 프론트는 상단 query axis를 별도 UI 레이어로 가진다.
 - server 메모리에서 axis/leaf/implies 관계를 전개한다.
 - 전개 결과를 tree/preview/drift endpoint에서 재사용한다.
 - admin 프론트는 API 응답을 렌더링만 하고 taxonomy 추론은 최소화한다.
 
 ### 2.2 왜 compile을 미루는가
-- 현재 SoT JSON이 이미 axis별 `predicateCodes`, `predicateSuggestions`, `impliesAxes`를 가진 전개형 구조다.
-- dashboard Phase 1의 핵심 기능(tree/preview/drift)에 별도 build step이 필수는 아니다.
+- 현재 group SoT JSON이 이미 axis별 `predicateCodes`, `predicateSuggestions`, `impliesAxes`를 가진 전개형 구조다.
+- tree SoT는 별도 draft JSON으로 두고, dashboard tree 응답만 이 구조를 읽어 구성한다.
+- dashboard Phase 1.5의 핵심 기능(tree/preview/drift)에 별도 build step이 필수는 아니다.
 - 먼저 런타임 로더로 기능을 검증하고, taxonomy 깊이/입력원이 늘어날 때 compile 산출물을 도입한다.
 
 ## 3) 서버 설계
@@ -71,7 +74,8 @@
   - preview 전용 SQL mapper 추가
 
 ### 3.2 입력 SoT
-- 파일: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- 그룹 파일: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- 트리 파일: `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
 - 로딩 규칙
   - 앱 기동 시 1회 로드 또는 lazy load
   - invalid JSON / missing file은 dashboard API 실패로만 한정
@@ -94,15 +98,18 @@
 - `axisCode`
 - `label`
 - `kind`
+- `parentAxisCodes`
+- `childAxisCodes`
 - `impliesAxes`
 - `resolvedPredicateCodes`
 - `resolvedPredicateSuggestions`
+- `memberValueCode`
 - `descendantLeafCount`
 
 주의
-- 현재 SoT JSON은 엄격한 parent-child tree보다 axis set 구조에 가깝다.
-- 따라서 Phase 1 tree는 “계층 시뮬레이션 트리” 또는 “axis graph list” 형태를 허용한다.
-- UI가 꼭 진짜 트리여야 하는 것은 아니다. 초기엔 left rail list + detail pane도 허용한다.
+- group SoT JSON은 엄격한 parent-child tree보다 axis set 구조에 가깝다.
+- tree panel은 `predicate_inheritance.json`을 읽어 root group + leaf 관계를 직접 반환한다.
+- `impliesAxes`는 group implication edge로 유지하고, `childAxisCodes`는 실제 tree child edge로 구분한다.
 
 ### 3.5 Preview API
 목표
@@ -160,6 +167,8 @@ Phase 1 원칙
    - preview table
 5. 하단 또는 별도 tab
    - drift diagnostics
+6. 보조 info box
+   - taxonomy page가 현재 참조하는 SoT/source 문서 경로 표시
 
 ### 4.3 상태 관리
 - selected axis
@@ -208,10 +217,11 @@ Phase 1 원칙
 
 ## 6) 위험과 대응
 
-### 위험 1. taxonomy JSON이 query axis 전체가 아니라 predicate group set에 가까움
+### 위험 1. predicate group SoT와 tree SoT가 분리되면서 drift가 생길 수 있음
 - 대응
-  - Phase 1 UI를 `query axis` + `predicate category browser`로 분리
-  - `REVEAL/COMBINED/PRECEDES`는 상단 축으로 먼저 노출하고 데이터 source는 후속 연결
+  - `predicate_axis_taxonomy.json`은 preview/filter SoT로 고정
+  - `predicate_inheritance.json`은 tree SoT로 고정
+  - 문서/드리프트 항목에서 두 파일의 동기화 체크를 추가
 
 ### 위험 2. preview에서 suggestion fallback까지 넣으면 의미가 갑자기 넓어짐
 - 대응
@@ -247,5 +257,6 @@ Phase 1 원칙
 - taxonomy JSON이 더 복잡해지면 compile 산출물(`generated.json`) 도입 검토
 - fallback preview(suggestion lane)는 분리 tab + `FALLBACK MATCH` 라벨 정책으로 고정
 - tree UI를 graph/tree로 승격할지 여부 결정
+- predicate group SoT와 tree SoT의 동기화 방식을 스크립트화할지 여부 결정
 - `REVEAL` axis용 source(codebook/taxonomy)를 어디에 둘지 결정
 - REVEAL/COMBINED axis 연결 시 source 경계와 request contract는 `query-axis-reveal-combined-design.md`를 기준으로 진행

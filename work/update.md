@@ -1080,3 +1080,11 @@ This file summarizes recent updates so other agents can continue without re‑di
 - 시즌형 드라마 공통 episode gate/util과 로컬 dev proxy 정리를 추가해 로컬/모바일 동시 확인 경로를 안정화했다. (refs: front/common/utils/dramaSeason.ts, front/common/utils/episodeGate.ts, front/features/drama/EpisodeSelectionPage.tsx, front/vite.config.ts)
 ### Tests
 - PASS: `./gradlew :services:event-service:compileJava`, `cd front && npm run build`, taxonomy/phase2/q1 validation 스크립트, taxonomy preview/tree curl smoke
+
+## Addendum (2026-03-03) - Taxonomy overview modal scroll arrest
+### Frontend
+- `Overview` 모달 스크롤 실패 원인을 preview API가 아니라 Tailwind 높이 상속/scroll container 구조로 정정하고, `flex-1 min-h-0 overflow-y-auto` 패턴으로 고정했다. (refs: front/features/admin/components/TaxonomyOverviewModal.tsx, fivecircles/test/errorlogs/frontend/2026-03-03-taxonomy-overview-modal-scroll-lock-layout.md)
+### Docs
+- 재발 방지를 위해 learn-from-log에 “모달 스크롤은 API보다 레이아웃 체인부터 점검” 규칙을 추가했다. (refs: fivecircles/test/learn-from-log.md)
+### Tests
+- PASS: `cd front && npm run build`

@@ -181,3 +181,9 @@ Cause:
 
 Preventive rule:
 - If a Spring resource comes from outside `src/main/resources`, Dockerfile must copy that path and Gradle should fail fast when the file is missing (refs: fivecircles/test/errorlogs/backend/2026-03-03-taxonomy-dashboard-docker-resource-missing.md)
+### Taxonomy overview modal scroll failures are usually layout, not preview API
+Cause:
+- Taxonomy dashboard opens preview requests on node/axis change by design; the actual modal scroll failure came from broken height inheritance in the Tailwind container chain.
+
+Preventive rule:
+- For modal scroll bugs, check `body overflow lock` and inner `flex-1 / min-h-0 / overflow-y-auto` layout before blaming preview/event API calls. (refs: fivecircles/test/errorlogs/frontend/2026-03-03-taxonomy-overview-modal-scroll-lock-layout.md)

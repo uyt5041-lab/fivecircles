@@ -137,20 +137,20 @@
 
 ### 단일 진실(SoT)
 
-* **Phase 1 기준 SoT는 `predicate_axis_taxonomy.json`**
+* **preview/filter SoT는 `predicate_axis_taxonomy.json`**
+* **tree/visualization SoT는 `predicate_inheritance.json`**
 
-* 경로: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
-
-* axis별 `predicateCodes`, `predicateSuggestions`, `impliesAxes`를 포함
+* 경로:
+  * `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+  * `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
 
 ### Phase 1 동작 방식
 
-* 빌드 산출물 없이 서비스 런타임이 `predicate_axis_taxonomy.json`을 직접 읽음
-
-* `impliesAxes`를 재귀 전개해 closure를 계산함
-
-* 대시보드는 이 taxonomy JSON 기반 전개 결과를 읽어서 트리를 그림
-
+* 빌드 산출물 없이 서비스 런타임이 두 JSON을 직접 읽음
+* `predicate_axis_taxonomy.json`
+  * preview/filter용 closure 계산
+* `predicate_inheritance.json`
+  * 트리 패널용 root/leaf 구조 제공
 * “필터 결과”는 전개된 `predicate_code` 리스트를 SQL에 넣어 preview함
 
 ### Phase 2 옵션(추후)

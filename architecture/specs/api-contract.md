@@ -269,6 +269,142 @@ Example
 
 ---
 
+## Event Taxonomy API
+
+Base URL: `/api/event/taxonomy`
+
+Note
+- This section documents admin/ops taxonomy dashboard endpoints.
+- These endpoints are owned by `event-service`, but are outside the user-facing `/api/event/v2` query contract.
+- Query axis and taxonomy category are different layers.
+  - `queryAxis`: `REVEAL | PREDICATE | COMBINED | PRECEDES`
+  - `axisCode`: legacy response/request field name; in taxonomy context this means `category code`
+
+### GET /tree
+
+- **Description**: Return taxonomy category tree/meta for the selected query axis.
+- **URL Params**:
+  - `queryAxis` (optional, default `PREDICATE`)
+- **Response**: `ApiResponse<TaxonomyTreeResponse>`
+
+TaxonomyTreeResponse
+- `version: string`
+- `source: string`
+  - examples:
+    - `predicate_axis_taxonomy.json`
+    - `reveal-target-key-codebook.phase1.json + inheritance-closure-taxonomy.phase1.json`
+- `queryAxis: string`
+- `nodes: TaxonomyTreeNodeResponse[]`
+
+TaxonomyTreeNodeResponse
+- `axisCode: string`
+  - legacy field name; meaning is taxonomy `category code`
+- `label: string`
+- `kind: string`
+- `impliesAxes: string[]`
+- `resolvedPredicateCodes: string[]`
+- `resolvedPredicateSuggestions: string[]`
+- `resolvedRevealKeys: string[]`
+- `descendantLeafCount: int`
+
+Rules
+- `queryAxis=PREDICATE`
+  - source: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+  - server recursively expands `impliesAxes`
+- `queryAxis=REVEAL`
+  - source: reveal codebook + closure taxonomy
+  - runtime preview lane uses `event_reveal`
+- `queryAxis=PRECEDES`
+  - axis is shown in admin UI, but taxonomy tree/preview is not implemented as a real relation graph view yet
+
+### POST /preview
+
+- **Description**: Preview matching events for a selected query axis/category.
+- **Request**: `TaxonomyPreviewRequest`
+- **Response**: `ApiResponse<TaxonomyPreviewResponse>`
+
+TaxonomyPreviewRequest
+- `queryAxis?: string`
+  - supported: `PREDICATE | REVEAL | COMBINED | PRECEDES`
+- `axisCode?: string`
+  - used by single-axis preview (`PREDICATE`, `REVEAL`)
+- `revealAxisCode?: string`
+  - used by `COMBINED`
+- `predicateAxisCode?: string`
+  - used by `COMBINED`
+- `previewMode?: string`
+  - supported: `RUNTIME | FALLBACK`
+- `dramaId?: long`
+- `characterId?: long`
+- `episodeEndMax?: int`
+- `sourceStatus?: string`
+  - default: `APPROVED`
+- `limit?: int`
+
+TaxonomyPreviewResponse
+- `queryAxis: string`
+- `axisCode?: string`
+- `revealAxisCode?: string`
+- `predicateAxisCode?: string`
+- `previewMode: string`
+- `sourceStatus: string`
+- `resolvedPredicateCodes: string[]`
+- `resolvedPredicateSuggestions: string[]`
+- `resolvedRevealKeys: string[]`
+- `total: int`
+- `items: TaxonomyPreviewItemResponse[]`
+
+TaxonomyPreviewItemResponse
+- `eventId: long`
+- `episodeEnd: int`
+- `predicateCode: string`
+- `predicateSuggestion?: string`
+- `matchedRevealKey?: string`
+- `matchedRevealType?: string`
+- `summary: string`
+- `characters: string[]`
+- `fallbackMatch?: boolean`
+- `matchLabel?: string`
+- `matchedSuggestionToken?: string`
+
+Rules
+- `queryAxis=PREDICATE`
+  - `previewMode=RUNTIME`: `predicate_code`-based preview
+  - `previewMode=FALLBACK`: `predicate_suggestion` token fallback preview
+- `queryAxis=REVEAL`
+  - preview is based on `event_reveal`
+  - reveal key expansion is resolved before query
+- `queryAxis=COMBINED`
+  - preview is same-event intersection of reveal lane and predicate lane
+  - `previewMode=FALLBACK` applies only to the predicate side before intersection
+- `queryAxis=PRECEDES`
+  - currently returns invalid input / not implemented for taxonomy dashboard preview
+- Fallback preview must be separated from runtime preview in UI, and fallback rows must be labeled.
+
+### GET /drift
+
+- **Description**: Return taxonomy/runtime drift diagnostics.
+- **Response**: `ApiResponse<TaxonomyDriftResponse>`
+
+TaxonomyDriftResponse
+- `version: string`
+- `source: string`
+- `missingPredicateCodesInEnum: string[]`
+- `unclassifiedPredicateCodesInTaxonomy: string[]`
+- `missingPredicateSuggestionsInEnum: string[]`
+- `unclassifiedPredicateSuggestionsInTaxonomy: string[]`
+- `emptyAxes: string[]`
+- `duplicateResolvedPredicateCodes: string[]`
+- `duplicateResolvedPredicateSuggestions: string[]`
+- `invalidImpliedAxes: string[]`
+- `cycles: string[]`
+
+Scope
+- Current drift diagnostics are predicate-taxonomy focused.
+- Reveal/codebook drift is a later extension and is not yet part of this endpoint's guaranteed response shape.
+
+---
+
 ## Wiki Service
 
 Base URL: `/api/wiki/v1`

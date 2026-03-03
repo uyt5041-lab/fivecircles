@@ -77,6 +77,15 @@ Cross-Agent Change Guardrail
   3) 근거(로그/큐)가 없으면: 사용자에게 포함/제외/원복 중 무엇을 원하는지 질문한다.
   4) 절대 임의로 삭제/원복하지 않는다(특히 다른 에이전트 공지/큐).
 
+UI Scroll Diagnosis Guardrail
+- Trigger: 모달/드로어/오버뷰에서 "스크롤이 안 된다"는 제보가 들어왔을 때.
+- Mistake: 선택 변경 시 자동으로 일어나는 preview/API 호출을 원인으로 단정하고, 레이아웃 scroll container 문제를 늦게 본다.
+- Arrest:
+  1) 먼저 해당 UI가 설계상 자동 preview 호출을 하는지 확인하고, 호출 자체를 오류 원인으로 취급하지 않는다.
+  2) `body overflow lock`과 별도로, 실제 내부 컨테이너에 `flex-1 / min-h-0 / overflow-y-auto` 체인이 있는지 확인한다.
+  3) Tailwind 모달은 `max-h`만으로 끝내지 말고, 본문 래퍼와 좌우 패널의 스크롤 책임을 명시적으로 분리한다.
+  4) 원인 확정 전에는 "API가 문제"라고 단정하지 않는다.
+
 ## Incident (2026-01-22) - Gemini 필독
 - Mistake (원인): auth-service는 `UserValidationResponse.userId`를 기대하지만 user-service는 `UserAuthResponse.id`로 응답해 JWT에 userId 클레임이 비어짐.
 - Symptom: 로그인 직후 `/api/user/v1/me`가 500, user-service 로그에 `MissingRequestHeaderException: X-User-Id`.

@@ -17,9 +17,9 @@
 - Group 변경 체크 템플릿: `fivecircles/architecture/specs/predicate/predicate-group-change-checklist.md`
 - Strict filters 계약(S1-1): `fivecircles/architecture/specs/predicate/strict-filters-contract.md`
 - Axis 매핑 SoT(Q1~Q15 + 확장): `fivecircles/architecture/specs/predicate/axis-mapping-q1-q15.md`
-- Taxonomy Dashboard 스펙(event API + admin page): `fivecircles/architecture/specs/predicate/taxonomy-dashboard.md`
-- Taxonomy Dashboard 구현 플랜: `fivecircles/architecture/specs/predicate/taxonomy-dashboard-implementation-plan.md`
-- Query Axis 확장 초안(REVEAL/COMBINED): `fivecircles/architecture/specs/predicate/query-axis-reveal-combined-design.md`
+- Taxonomy Dashboard 스펙(event API + admin page): `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard.md`
+- Taxonomy Dashboard 구현 플랜: `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard-implementation-plan.md`
+- Query Axis 확장 초안(REVEAL/COMBINED): `fivecircles/architecture/specs/taxonomy/query-axis-reveal-combined-design.md`
 - WHY 출력 계약(W1/W2/W3): `fivecircles/architecture/specs/predicate/why-output-contract.md`
 - 템플릿-매트릭스 동기화 gate(S1-2/S1-3): `fivecircles/test/validate-productionq-matrix-sync-gate.py`
 - ex14 정합성(TRANSFORMS/REVEALS): `fivecircles/architecture/specs/ex14-consistency-checklist.md`

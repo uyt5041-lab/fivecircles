@@ -5,7 +5,7 @@
 ## 1) 목적
 
 - taxonomy dashboard의 상단 query axis(`REVEAL`, `PREDICATE`, `COMBINED`, `PRECEDES`) 중, 아직 source가 직접 연결되지 않은 `REVEAL`/`COMBINED` 축의 설계 초안을 고정한다.
-- `query axis`와 `taxonomy category source`를 분리해, Phase 1의 predicate taxonomy dashboard와 향후 reveal/codebook 레인이 섞이지 않게 한다.
+- `query axis`와 `taxonomy category source`를 분리해, Phase 1의 taxonomy dashboard와 향후 reveal/codebook 레인이 섞이지 않게 한다.
 - reveal 축의 SoT, runtime preview source, combined preview 조합 규칙을 문서 기준으로 먼저 고정한다.
 
 비범위
@@ -19,8 +19,8 @@
 - 축 스케치: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`
 - 축/커버리지 스케치: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22-axis-N-Y-scetch.md`
 - RDF/taxonomy 레인 경계: `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
-- 현재 대시보드 스펙: `fivecircles/architecture/specs/predicate/taxonomy-dashboard.md`
-- 현재 대시보드 플랜: `fivecircles/architecture/specs/predicate/taxonomy-dashboard-implementation-plan.md`
+- 현재 대시보드 스펙: `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard.md`
+- 현재 대시보드 플랜: `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard-implementation-plan.md`
 - reveal 지속 기준서: `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 - reveal routing 기준: `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 - reveal 분류 초안: `fivecircles/architecture/specs/reveals/reveals-classification.md`
@@ -36,12 +36,15 @@
 - 상단 query axis(`REVEAL`, `PREDICATE`, `COMBINED`, `PRECEDES`)는 질문 실행 레이어다.
 - 각 axis 내부에서 쓰는 category source는 축마다 다를 수 있다.
 - 따라서 현재 `predicate_axis_taxonomy.json`에 있는 상위 분류(`BATTLE`, `ADVERSARY`, `ALLY` 등)는 query axis가 아니라 `PREDICATE axis` 내부 category다.
+- 현재 구현/API에서 쓰는 `axisCode`는 legacy 필드명으로 유지되지만, 의미상으로는 `predicate category code`로 읽는다.
 
-### 3.2 `PREDICATE` axis SoT는 그대로 유지한다
+### 3.2 `PREDICATE` axis는 group SoT와 tree SoT를 분리한다
 
-- semantic/source SoT: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- group/filter SoT: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+- tree/visualization SoT(draft): `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
 - runtime preview source: `event.predicate_code`, `event.predicate_suggestion`
-- 현재 구현된 taxonomy dashboard는 이 축을 먼저 지원하는 상태로 유지한다.
+- 현재 구현된 taxonomy dashboard preview는 group/filter SoT를 기준으로 유지한다.
+- tree panel은 후속 cutover에서 tree SoT를 읽는 방향으로 전환한다.
 
 ### 3.3 `REVEAL` axis는 codebook-first가 맞다
 
@@ -74,7 +77,7 @@
 | Query Axis | Semantic SoT | Runtime Preview Source | Phase 상태 |
 |---|---|---|---|
 | `REVEAL` | `reveal-target-key-codebook.md`, `inheritance-closure-taxonomy.phase1.json` | `event_reveal` + `event` + `event_character` | Draft |
-| `PREDICATE` | `predicate_axis_taxonomy.json` | `event.predicate_code`, `event.predicate_suggestion` | Implemented |
+| `PREDICATE` | group closure: `predicate_axis_taxonomy.json`, tree: `predicate_inheritance.json` | `event.predicate_code`, `event.predicate_suggestion` | Implemented |
 | `COMBINED` | REVEAL SoT + PREDICATE SoT | `event_reveal` join `event` | Draft |
 | `PRECEDES` | 별도 taxonomy 없음 | `event_relation(type=PRECEDES)` + `event` | Placeholder |
 

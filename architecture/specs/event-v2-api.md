@@ -6,6 +6,16 @@ Source
 Base URL
 - /api/event/v2
 
+Scope Note
+- This document covers user-facing event query endpoints under `/api/event/v2`.
+- Admin/ops taxonomy dashboard endpoints live outside v2 under:
+  - `GET /api/event/taxonomy/tree`
+  - `POST /api/event/taxonomy/preview`
+  - `GET /api/event/taxonomy/drift`
+- Taxonomy contract details are documented in:
+  - `fivecircles/architecture/specs/api-contract.md`
+  - `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard.md`
+
 Common Rule
 - Always apply: episode_end <= K (spoiler gate).
 - Character lists are also filtered via event join with K gate.

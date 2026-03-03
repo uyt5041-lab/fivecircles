@@ -416,7 +416,7 @@
     - [ ] Production 질문 화면에서 “연관 이벤트(맥락)” 표시가 PRECEDES 기준으로 맞게 나오는지 점검/보정 (depth 1/2)
 - [x] **Production Q 템플릿(MVP)**: 브베(dramaId=10) 기준 Q1/Q2/Q3 템플릿 + 실행기(FE) 구현. `api3.q`로 텍스트 object 근사. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [ ] **Intelligence QuerySpec(옵션)**: intelligence-service가 “존재하는 API로만 실행 가능한 QuerySpec” 생성 엔드포인트(`/queryspec`) 제공 + executor 가드레일 추가. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
-- [x] **Taxonomy Dashboard (event API + admin page)**: taxonomy SoT(`predicate_axis_taxonomy.json`)를 기반으로 admin 검수 화면과 event taxonomy API를 구현한다. (spec: `fivecircles/architecture/specs/predicate/taxonomy-dashboard.md`, plan: `fivecircles/architecture/specs/predicate/taxonomy-dashboard-implementation-plan.md`)
+- [x] **Taxonomy Dashboard (event API + admin page)**: taxonomy SoT(`predicate_axis_taxonomy.json`)를 기반으로 admin 검수 화면과 event taxonomy API를 구현한다. (spec: `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard.md`, plan: `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard-implementation-plan.md`)
     - [x] TD0. 범위/계약 고정
       - [x] TD0-1. 페이지 위치는 admin 프론트로 고정
       - [x] TD0-2. API 위치는 event-service로 고정
@@ -477,10 +477,18 @@
     - [ ] TD9. Taxonomy evolution follow-up
       - [ ] TD9-1. taxonomy JSON 복잡도 증가 시 compile 산출물 도입 조건 정리
       - [ ] TD9-2. tree UI를 graph/tree 시각화로 승격할지 여부 결정
+      - [ ] TD9-2a. production build 전 `front/index.html`의 `cdn.tailwindcss.com` 제거 및 Tailwind 정식 빌드(PostCSS/CLI)로 전환
       - [x] TD9-3. query axis(`REVEAL/PREDICATE/COMBINED/PRECEDES`)와 predicate taxonomy category의 source 경계 정리
-        - [x] 기준 문서 생성: `fivecircles/architecture/specs/predicate/query-axis-reveal-combined-design.md`
-      - [ ] TD9-4. `REVEAL` axis tree/preview source를 codebook + `event_reveal` 기반으로 구현
-      - [ ] TD9-5. `COMBINED` axis intersection preview를 `event_reveal` + `event.predicate_code` 조합으로 구현
+        - [x] 기준 문서 생성: `fivecircles/architecture/specs/taxonomy/query-axis-reveal-combined-design.md`
+      - [x] TD9-4. `REVEAL` axis tree/preview source를 codebook + `event_reveal` 기반으로 구현
+      - [x] TD9-5. `COMBINED` axis intersection preview를 `event_reveal` + `event.predicate_code` 조합으로 구현
+      - [ ] TD9-6. 레거시 taxonomy 응답 필드 `axisCode`를 `categoryCode`로 전환
+      - [x] TD9-7. PREDICATE axis tree SoT를 `predicate_inheritance.json` 기준으로 cutover
+        - [x] TD9-7a. tree/visualization SoT 초안 파일 생성: `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
+        - [x] TD9-7b. taxonomy 스펙/플랜/제안 문서에 group SoT vs tree SoT 역할 분리 반영
+        - [x] TD9-7c. `/api/event/taxonomy/tree?queryAxis=PREDICATE`를 tree SoT 응답 shape로 전환
+        - [ ] DTO/API/프론트 타입에서 `axisCode -> categoryCode` rename 계획 수립
+        - [ ] 하위호환 기간 동안 alias 응답 또는 dual field 유지 여부 결정
 - [x] **Ontology V2.5 (Q20)**:
     - [x] Update V2.5 Plan (v2.5-def-plan.md)
     - [x] Correct EventServiceImpl role string (`PARTICIPANT` -> `INVOLVED`)

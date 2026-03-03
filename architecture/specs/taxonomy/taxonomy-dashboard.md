@@ -9,6 +9,7 @@
 - 현재 taxonomy JSON이 직접 커버하는 범위는 `PREDICATE` axis 내부 category임을 명시한다.
 - taxonomy 선택 결과가 실제 event 필터 결과로 어떻게 펼쳐지는지 preview할 수 있어야 한다.
 - taxonomy 정의, runtime 전개 결과, 런타임 enum/RDB 사이의 drift를 점검할 수 있어야 한다.
+- taxonomy page에서 참조하는 SoT/source 문서를 함께 노출할 수 있어야 한다.
 
 ## 2) 위치와 경계
 
@@ -31,11 +32,15 @@
 ## 3) 운영 원칙
 
 ### 3.1 SoT
-- Phase 1 taxonomy lane SoT는 `predicate_axis_taxonomy.json`이다.
+- `PREDICATE` axis는 SoT를 2개로 분리한다.
+- preview/filter SoT는 `predicate_axis_taxonomy.json`이다.
+- tree/visualization SoT는 `predicate_inheritance.json` 초안을 사용한다.
 - 대시보드는 원본 TTL/OWL을 직접 해석하지 않는다.
 - 대시보드의 기본 입력은 다음 파일을 사용한다.
   - `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
-- 이 파일은 현재 `predicateCode/predicateSuggestion` 상속/분류 체계만 표현한다.
+  - `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
+- `predicate_axis_taxonomy.json`은 현재 preview/filter용 group 체계만 표현한다.
+- `predicate_inheritance.json`은 dashboard tree용 root/leaf 상속 노드를 표현한다.
 - 즉 Phase 1 taxonomy source는 `REVEAL` axis 전체를 직접 다루지 않는다.
 - 추후 필요하면 generated taxonomy map을 추가할 수 있지만, 현재 구현 기본값은 direct load다.
 
@@ -43,7 +48,7 @@
 - 이 대시보드는 QA 정답 탐색 런타임의 strict-first 경로를 대체하지 않는다.
 - 실제 preview 결과는 최종적으로 RDB 필터 결과를 보여준다.
 - triple store, reasoner, SPARQL endpoint 가용성은 본 대시보드의 필수 의존성이 아니다.
-- `REVEAL`/`COMBINED` axis의 SoT/source 경계는 `fivecircles/architecture/specs/predicate/query-axis-reveal-combined-design.md`를 따른다.
+- `REVEAL`/`COMBINED` axis의 SoT/source 경계는 `fivecircles/architecture/specs/taxonomy/query-axis-reveal-combined-design.md`를 따른다.
 
 ### 3.3 운영 가드
 - preview는 운영 검수용이므로 user-facing spoiler gate와 별도 경계에 둔다.
@@ -54,8 +59,8 @@
 ## 4) 핵심 사용자 시나리오
 
 1. 운영자가 상단 query axis(`REVEAL`, `PREDICATE`, `COMBINED`, `PRECEDES`) 중 하나를 선택한다.
-2. `PREDICATE` axis를 선택한 경우, 시스템은 predicate taxonomy category 목록을 보여준다.
-3. 시스템은 선택 category의 closure leaf 목록을 계산해서 보여준다.
+2. `PREDICATE` axis를 선택한 경우, 시스템은 predicate tree(root group + leaf)를 보여준다.
+3. 시스템은 선택 group 또는 leaf의 closure/filter members를 계산해서 보여준다.
 4. 운영자가 drama, character, episode 범위를 추가 선택한다.
 5. 시스템은 해당 leaf 목록을 `predicate_code IN (...)` 형태로 RDB preview 질의로 변환한다.
 6. 운영자는 매칭 이벤트와 개수를 보고 taxonomy 분류가 기대대로 동작하는지 검수한다.
@@ -70,15 +75,21 @@
   - `PREDICATE`
   - `COMBINED`
   - `PRECEDES`
-- Phase 1에서 실제 taxonomy category/preview가 연결되는 축은 `PREDICATE`다.
+- 현재 구현 기준으로 실제 preview가 연결된 축은 `PREDICATE`, `REVEAL`, `COMBINED`다.
 
 ### 5.2 Category Panel
-- `PREDICATE` axis 선택 시 taxonomy/inheritance category 목록을 표시한다.
-- 각 category 노드는 다음 정보를 가진다.
-  - `axisCode` (category code)
+- `PREDICATE` axis 선택 시 taxonomy/inheritance tree를 표시한다.
+- 최소 노드 종류:
+  - root group (`GROUP`)
+  - runtime leaf (`PREDICATE_CODE`)
+  - fallback leaf (`SUGGESTION`)
+- 각 노드는 다음 정보를 가진다.
+  - `axisCode` (legacy response field, 현재 tree 응답에서도 유지)
   - label
-  - kind(axis/category)
-  - descendant leaf count
+  - kind
+  - `childAxisCodes`
+  - `parentAxisCodes`
+  - `memberValueCode` (leaf일 때만)
   - optional matched event count
 
 ### 5.3 Preview Filter Panel
@@ -106,8 +117,9 @@
   - reveal 요약이 있으면 함께 표시
 - fallback preview를 도입할 경우 기본 preview와 분리된 tab으로 노출한다.
 - fallback으로 매칭된 결과에는 `FALLBACK MATCH` 라벨을 명시한다.
-- `REVEAL`, `COMBINED`, `PRECEDES` axis는 Phase 1에서 placeholder/info panel로 먼저 노출할 수 있다.
-- `REVEAL` axis용 category source와 `COMBINED` intersection preview는 후속 Phase에서 `query-axis-reveal-combined-design.md` 기준으로 연결한다.
+- `REVEAL` axis는 reveal codebook/closure category를 표시하고 `event_reveal` preview를 수행한다.
+- `COMBINED` axis는 predicate category + reveal category를 함께 선택해 same-event intersection preview를 수행한다.
+- `PRECEDES` axis는 query axis로만 노출하고 taxonomy preview는 아직 연결하지 않는다.
 
 ### 5.5 Drift Panel
 - 진단 항목:
@@ -122,38 +134,57 @@
 ### 6.1 `GET /api/event/taxonomy/tree`
 
 목적
-- admin 페이지가 `PREDICATE` axis용 taxonomy category와 기본 메타를 렌더링할 수 있도록 한다.
+- admin 페이지가 query axis별 taxonomy/reveal category와 기본 메타를 렌더링할 수 있도록 한다.
 
 response 초안
 ```json
 {
   "version": "2026-03-03",
-  "source": "predicate_axis_taxonomy.json",
+  "source": "predicate_inheritance.json",
+  "queryAxis": "PREDICATE",
   "nodes": [
     {
       "axisCode": "BATTLE",
-      "label": "Moral Frame Shift",
-      "kind": "AXIS",
+      "label": "Battle",
+      "kind": "GROUP",
+      "parentAxisCodes": [],
+      "childAxisCodes": ["PC_ATTACKS", "PC_DEFEATS", "PC_KILLS", "PS_BATTLE", "PS_CONFRONTS"],
       "impliesAxes": ["ADVERSARY"],
-      "resolvedPredicateCodes": ["KILLS", "ATTACKS"],
-      "resolvedPredicateSuggestions": ["BATTLE"],
-      "descendantLeafCount": 2
+      "resolvedPredicateCodes": ["ATTACKS", "DEFEATS", "KILLS", "CAPTURES", "BETRAYS", "DIES", "LEAVES"],
+      "resolvedPredicateSuggestions": ["BATTLE", "CONFRONTS", "THREAT"],
+      "resolvedRevealKeys": [],
+      "memberValueCode": null,
+      "descendantLeafCount": 21
+    },
+    {
+      "axisCode": "PC_ATTACKS",
+      "label": "ATTACKS",
+      "kind": "PREDICATE_CODE",
+      "parentAxisCodes": ["BATTLE"],
+      "childAxisCodes": [],
+      "impliesAxes": [],
+      "resolvedPredicateCodes": ["ATTACKS"],
+      "resolvedPredicateSuggestions": [],
+      "resolvedRevealKeys": [],
+      "memberValueCode": "ATTACKS",
+      "descendantLeafCount": 0
     }
   ]
 }
 ```
 
 규칙
-- server는 `predicate_axis_taxonomy.json`을 직접 읽고 `impliesAxes`를 재귀 전개한다.
-- leaf는 runtime filter에 바로 사용할 수 있는 `predicateCode` 집합으로 반환한다.
+- `queryAxis=PREDICATE`면 server는 tree panel 기준으로 `predicate_inheritance.json`을 읽는다.
+- preview/filter expansion은 `predicate_axis_taxonomy.json`을 읽고 `impliesAxes`를 재귀 전개한다.
+- `queryAxis=REVEAL`이면 server는 reveal codebook + closure taxonomy를 읽어 reveal category를 전개한다.
+- leaf는 runtime filter에 바로 사용할 수 있는 `predicateCode` 또는 `reveal key` 집합으로 반환한다.
 - generated taxonomy map은 future option이며 Phase 1 필수 입력이 아니다.
-- 이 endpoint는 Phase 1에서 `PREDICATE` query axis의 category source를 제공한다.
 
 ### 6.2 `POST /api/event/taxonomy/preview`
 
 목적
 - 선택한 axis/leaf가 실제 event 결과로 어떻게 매칭되는지 preview한다.
-- Phase 1에서는 `PREDICATE` query axis 아래 category preview에 한정한다.
+- 현재 구현은 `PREDICATE`, `REVEAL`, `COMBINED` query axis preview를 지원한다.
 
 request 초안
 ```json
@@ -230,9 +261,10 @@ response 초안
 - preview SQL은 event query mapper/repository 계층에서 담당한다.
 
 ### 7.2 데이터 소스 우선순위
-1. `predicate_axis_taxonomy.json`
-2. runtime enum/closed set
-3. RDB event data
+1. `predicate_inheritance.json` (tree/visualization)
+2. `predicate_axis_taxonomy.json` (preview/filter expansion)
+3. runtime enum/closed set
+4. RDB event data
 
 - 원본 TTL/OWL은 build/ops 입력이며 dashboard runtime 입력이 아니다.
 
@@ -275,3 +307,12 @@ response 초안
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex19-rdf-extension-manageability-review.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/event-v3-advanced-rdf-owl.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/inheritance-blueprint.md`
+
+### 5.6 SoT Reference Panel
+- taxonomy page는 별도 panel 또는 info box로 SoT/source 문서를 함께 표시하는 것을 권장한다.
+- 최소 표시는 아래 4개다.
+  - `PREDICATE group/filter SoT`: `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`
+  - `PREDICATE tree SoT`: `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
+  - `REVEAL semantic SoT`: `fivecircles/architecture/specs/reveals/reveal-target-key-codebook.md`
+  - `REVEAL closure SoT`: `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
+  - `Axis boundary/design`: `fivecircles/architecture/specs/taxonomy/query-axis-reveal-combined-design.md`
