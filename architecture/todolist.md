@@ -416,6 +416,71 @@
     - [ ] Production 질문 화면에서 “연관 이벤트(맥락)” 표시가 PRECEDES 기준으로 맞게 나오는지 점검/보정 (depth 1/2)
 - [x] **Production Q 템플릿(MVP)**: 브베(dramaId=10) 기준 Q1/Q2/Q3 템플릿 + 실행기(FE) 구현. `api3.q`로 텍스트 object 근사. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
 - [ ] **Intelligence QuerySpec(옵션)**: intelligence-service가 “존재하는 API로만 실행 가능한 QuerySpec” 생성 엔드포인트(`/queryspec`) 제공 + executor 가드레일 추가. (spec: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`)
+- [x] **Taxonomy Dashboard (event API + admin page)**: taxonomy SoT(`predicate_axis_taxonomy.json`)를 기반으로 admin 검수 화면과 event taxonomy API를 구현한다. (spec: `fivecircles/architecture/specs/predicate/taxonomy-dashboard.md`, plan: `fivecircles/architecture/specs/predicate/taxonomy-dashboard-implementation-plan.md`)
+    - [x] TD0. 범위/계약 고정
+      - [x] TD0-1. 페이지 위치는 admin 프론트로 고정
+      - [x] TD0-2. API 위치는 event-service로 고정
+      - [x] TD0-3. API 경로는 `/api/event/taxonomy/tree`, `/api/event/taxonomy/preview`, `/api/event/taxonomy/drift`로 고정
+      - [x] TD0-4. Phase 1 SoT는 `scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json`으로 고정
+      - [x] TD0-5. Phase 1은 compile/generated 산출물 없이 runtime load 방식으로 고정
+    - [x] TD1. Event-service taxonomy read lane
+      - [x] TD1-1. taxonomy JSON 로더 진입 경로 확정(classpath/file path)
+      - [x] TD1-2. axis resolver 구현(`predicateCodes`, `predicateSuggestions`, `impliesAxes` 재귀 전개)
+      - [x] TD1-3. dedupe/cycle/empty-axis 진단 유틸 구현
+      - [x] TD1-4. 실패 범위 고정: dashboard API만 실패하고 user-facing event API는 무영향
+    - [x] TD2. Taxonomy tree API
+      - [x] TD2-1. request/response DTO 정의
+      - [x] TD2-2. `GET /api/event/taxonomy/tree` controller/service 구현
+      - [x] TD2-3. resolved code/suggestion/count 필드 계약 고정
+      - [x] TD2-4. 로컬 스모크 응답 캡처
+    - [x] TD3. Taxonomy preview API
+      - [x] TD3-1. `POST /api/event/taxonomy/preview` request/response DTO 정의
+      - [x] TD3-2. preview SQL mapper 추가(`predicate_code IN (...)`, `APPROVED`, optional drama/character/episode)
+      - [x] TD3-3. 1차 구현은 runtime `predicate_code` preview만 지원
+      - [x] TD3-4. 잘못된 axis/빈 결과/limit 처리 규칙 고정
+      - [x] TD3-5. 로컬 스모크 응답 캡처
+    - [x] TD4. Taxonomy drift API
+      - [x] TD4-1. taxonomy vs enum missing/unclassified 진단 구현
+      - [x] TD4-2. duplicate resolved code / cycle / empty axis 진단 구현
+      - [x] TD4-3. `GET /api/event/taxonomy/drift` controller/service 구현
+      - [x] TD4-4. 로컬 스모크 응답 캡처
+    - [x] TD5. Admin 프론트 페이지
+      - [x] TD5-1. taxonomy dashboard route 추가
+      - [x] TD5-2. axis list/tree panel 구현
+      - [x] TD5-3. preview filter form 구현
+      - [x] TD5-4. preview table 구현
+      - [x] TD5-5. drift tab/panel 구현
+    - [x] TD6. 검증/운영화
+      - [x] TD6-1. tree/preview/drift API 수동 스모크
+      - [x] TD6-2. admin 렌더/오류/빈 상태 확인 (build 기준)
+      - [x] TD6-3. taxonomy 파일 누락/파손 시 장애 범위 확인 (taxonomy API만 ERROR, 일반 event API는 SUCCESS)
+      - [x] TD6-4. 추후 compile 도입 조건 문서화 (`taxonomy-dashboard-implementation-plan.md` §9)
+    - [x] TD7. Admin UX polish
+      - [x] TD7-1. 실제 운영 접속 기준으로 레이아웃/필터/가독성 점검
+        - [x] TD7-1a. preview 모드/필터 상태를 한눈에 보이는 상단 요약 바 추가
+        - [x] TD7-1b. 빈 상태/로딩 상태 문구를 preview 모드별로 분리
+      - [x] TD7-2. axis 검색/선택/상세 정보 패널의 사용성 보정
+        - [x] TD7-2a. axis 상세 카드에 code/suggestion/implies 카운트 요약 추가
+        - [x] TD7-2b. preview/fallback 전환 시 선택 axis 맥락이 유지되도록 탭 구조 정리
+      - [x] TD7-3. preview 결과 테이블의 밀도/정렬/복사/내보내기 UX 검토
+        - [x] TD7-3a. preview 결과 복사(copy ids) 액션 추가
+        - [x] TD7-3b. preview 결과 CSV export 액션 추가
+    - [x] TD8. Suggestion fallback preview 정책/구현
+      - [x] TD8-1. preview에 `predicateSuggestions` fallback을 노출할지 정책 결정 (노출)
+      - [x] TD8-2. fallback ON/OFF 또는 별도 탭 방식 중 UI 계약 결정 (별도 탭)
+      - [x] TD8-2a. fallback 결과에는 `FALLBACK MATCH` 라벨을 붙이는 정책 고정
+      - [x] TD8-3. fallback preview SQL/응답/설명문구 구현 여부 결정
+        - [x] TD8-3a. event-service preview request에 `previewMode` 계약 추가
+        - [x] TD8-3b. fallback suggestion token SQL/count 쿼리 추가
+        - [x] TD8-3c. admin preview에 runtime/fallback 분리 탭 추가
+        - [x] TD8-3d. fallback 행에 `FALLBACK MATCH` 라벨/매치 토큰 표시
+    - [ ] TD9. Taxonomy evolution follow-up
+      - [ ] TD9-1. taxonomy JSON 복잡도 증가 시 compile 산출물 도입 조건 정리
+      - [ ] TD9-2. tree UI를 graph/tree 시각화로 승격할지 여부 결정
+      - [x] TD9-3. query axis(`REVEAL/PREDICATE/COMBINED/PRECEDES`)와 predicate taxonomy category의 source 경계 정리
+        - [x] 기준 문서 생성: `fivecircles/architecture/specs/predicate/query-axis-reveal-combined-design.md`
+      - [ ] TD9-4. `REVEAL` axis tree/preview source를 codebook + `event_reveal` 기반으로 구현
+      - [ ] TD9-5. `COMBINED` axis intersection preview를 `event_reveal` + `event.predicate_code` 조합으로 구현
 - [x] **Ontology V2.5 (Q20)**:
     - [x] Update V2.5 Plan (v2.5-def-plan.md)
     - [x] Correct EventServiceImpl role string (`PARTICIPANT` -> `INVOLVED`)
@@ -561,5 +626,43 @@
   - [ ] BP8-3. CI 연결은 보류(사용자 지시 반영), 로컬 게이트 우선 운영
   - [x] BP8-4. 구현 완료 리뷰 문서 작성 및 ex23/blueprint 체크상태 동기화 (`fivecircles/work/review/review-blueprint-bp3-bp8-2026-02-27.md`)
   - [x] BP8-5. 최종 승인조건: 보류 항목(BP3-2/3/5) 제외 범위에서 BP0~BP7 완료 + 회귀 통과 + 문서/코드 정합성 확인
+
+### 10. Phase2 ATTRIBUTE ID/Closure 전환 실행 (2026-02-27)
+> refs: `fivecircles/architecture/specs/rdf/inheritance-blueprint.md`, `fivecircles/architecture/specs/reveals/reveal-target-key-codebook.md`
+
+- [x] P0. 계약/범위 고정 (선행)
+  - [x] P0-1. 목표 고정: `target_type=ATTRIBUTE`의 최종 의미를 `target_id=attribute.id`로 전환
+  - [x] P0-2. dual-read 전환 원칙 고정: Phase2 동안 `target_key` 우선 + legacy fallback 허용
+  - [x] P0-3. 보류 범위 고정: wiki/intelligence write-path는 팀 합의 전 변경 금지
+
+- [x] P1. 스키마 기초 도입 (실행 완료)
+  - [x] P1-1. Flyway migration 추가: `V11__create_attribute_taxonomy_tables.sql`
+  - [x] P1-2. ops apply/rollback/verify 스크립트 추가
+  - [x] P1-3. 로컬 도커 mysql apply 검증 PASS (`run_attribute_taxonomy_migration.sh apply`)
+
+- [x] P2. 코드북-DB 연결
+  - [x] P2-1. `attribute(code)` seed 스크립트 추가 (`A_*` 코드북 기준)
+  - [x] P2-2. `attribute_closure` seed 스크립트 추가 (ancestor/descendant/depth)
+  - [x] P2-3. 검증 스크립트: 코드북 key 100% resolve 게이트 (`validate-attribute-taxonomy-phase2.py` PASS)
+
+- [x] P3. Read-path dual lane
+  - [x] P3-1. B-lane 매칭 우선순위: `target_key` -> `attribute.id(target_id)` -> legacy fallback
+  - [x] P3-2. 플래그 도입: `useAttributeIdLane` (기본 OFF, `VITE_USE_ATTRIBUTE_ID_LANE`)
+  - [x] P3-3. Q01_EXP_01~06 회귀 PASS (`validate-reveal-target-key-runtime-phase1.py` PASS)
+
+- [x] P4. 백필
+  - [x] P4-1. `event_reveal(target_type=ATTRIBUTE)` 대상 `target_id=attribute.id` 백필 (`backfill_event_reveal_target_id_attribute_phase2.sql`: updated_rows=7)
+  - [x] P4-2. 백필 불가 row backlog 분리(자동추정 금지) (`validate-event-reveal-attribute-id-phase2.py`: legacy missing target_key 6 warn)
+  - [x] P4-3. drama10 누락 0건 확인 (`validate-event-reveal-attribute-id-phase2.py` PASS)
+
+- [x] P5. WHY 의미 분리
+  - [x] P5-1. `selection_why` / `causal_why` 구조 분리 (`front/common/productionQ/types.ts`, `executor.ts`)
+  - [x] P5-2. `causal_why`를 PRECEDES + reveal evidence로 생성 (`useProductionQ.ts` because_chain 반영)
+  - [x] P5-3. Q01_EXP_01 출력 검증 (`fivecircles/test/validate-q01-exp-01-why-output-phase2.py` PASS)
+
+- [x] P6. 전환 완료
+  - [x] P6-1. 플래그 ON 스모크 (`VITE_USE_ATTRIBUTE_ID_LANE=true npm run build` PASS)
+  - [x] P6-2. legacy fallback 제거 계획 확정 (`fivecircles/architecture/specs/rdf/attribute-id-lane-cutover-plan.md`)
+  - [x] P6-3. 최종 승인(보류 항목 제외) (`validate-attribute-taxonomy-phase2.py`, `validate-event-reveal-attribute-id-phase2.py`, `validate-q01-exp-01-why-output-phase2.py`, `validate-productionq-and-regression.py` PASS; legacy missing target_key 6건은 warning backlog 유지)
 
 ---
