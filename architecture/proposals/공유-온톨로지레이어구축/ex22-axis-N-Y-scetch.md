@@ -23,6 +23,17 @@
 3. **predicate 정합은 현재 `PredicateCode` + `PredicateGroup` 운영 스펙 기준**  
 4. **DB 최소 변경 원칙**: 신규 enum/컬럼/relation type 추가는 보류하고, 기존 code/group/query 조합으로 먼저 커버리지 확보  
 
+## 정합성 고정(필수, REVEALS 문서 기준)
+
+- strict 정답 선택은 사실 이벤트(`event`) strict-first만 사용한다.
+- `event_reveal`/`reveal_type(HINT|CONFIRM)`는 WHY/근거 강도 표시에만 사용한다.
+- strict miss 상태에서 reveal/probe hit만으로 `ANSWERED` 승격을 허용하지 않는다.
+- `STATE/PRESSURE`는 relation type 확장 대신 `event_reveal(ATTRIBUTE)`로 우회한다.
+- canonical 기준:
+  - `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+  - `fivecircles/architecture/specs/reveals/reveals-classification.md`
+  - `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
+
 ---
 
 ## 왜 Quick20이 1번이어야 하냐

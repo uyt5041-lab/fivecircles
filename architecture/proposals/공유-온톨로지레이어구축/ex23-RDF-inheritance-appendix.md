@@ -93,3 +93,7 @@ ns:PS_BATTLE a rdfs:Class ; rdfs:subClassOf ns:BATTLE ; ns:kind "SUGGESTION" ; n
   - `fivecircles/architecture/specs/predicate/answer-first-backward-design.md`
   - `fivecircles/architecture/specs/predicate/artifacts/answerset-10.json`
   - `fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json`
+- reveal 경계/판정은 아래 canonical 기준을 따른다.
+  - `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+  - `fivecircles/architecture/specs/reveals/reveals-classification.md`
+  - `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`

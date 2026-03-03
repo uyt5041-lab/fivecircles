@@ -9,6 +9,16 @@
 3. **predicate 정합성은 현재 코드북(`PredicateCode`) + 현재 그룹 정책(`PredicateGroup`) 기준**으로 맞춘다.
 4. **DB 최소 변경**을 원칙으로 하며, 새 enum/컬럼 추가보다 기존 코드/그룹/키워드 조합을 우선 사용한다.
 
+## 정합성 고정(필수, REVEALS 문서 기준)
+
+- strict 정답 선택은 사실 이벤트(`event`) 기준 strict-first로만 수행한다.
+- `event_reveal` 및 `reveal_type(HINT|CONFIRM)`는 WHY/근거 강도 표시에만 사용한다.
+- strict miss 상태에서 reveal/probe hit만으로 `ANSWERED` 승격을 허용하지 않는다.
+- canonical 기준:
+  - `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+  - `fivecircles/architecture/specs/reveals/reveals-classification.md` (Rule C/C.1/C.2)
+  - `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
+
 ## 추천 축: 4축 도미노 (PRECEDES 단독은 버리고, “도미노 타입”을 섞는다)
 
 ### 1) 시간축 PRECEDES (물리적 순서)
@@ -44,7 +54,7 @@
 1. **타겟 상태/정보/사건**을 하나 잡는다 (질문이 묻는 핵심)
 2. 그 타겟을 만드는 **직전 도미노**를 1~3개 고른다
 
-   * 우선순위: REVEALS → STATE_CHANGE → PRESSURE → PRECEDES
+   * 우선순위(설명/WHY 경로 한정): REVEALS → STATE_CHANGE → PRESSURE → PRECEDES
 3. 각 도미노는 “관계 타입”을 반드시 달고, **혼합 가능**
 4. 체인은 최대 depth=6, 분기 허용하되 화면은 Top1 경로만 노출 (나머지는 “더보기”)
 
@@ -85,7 +95,7 @@ PRECEDES만으로는 이걸 못 해. 그래서 “MVP 밖이니까 해도 돼”
 그리고 체인 추출 알고리즘:
 
 * 기본은 그래프 탐색인데
-* **가중치**를 둔다: REVEALS(3) > PRECEDES(1)
+* **가중치(설명/랭킹 경로 한정)**를 둔다: REVEALS(3) > PRECEDES(1)
 * STATE_CHANGE/PRESSURE는 relation 신설이 아니라 reveal/keyword/group 신호로 보조 점수화
 * 질문 타입별로 시작 노드를 다르게 잡으면 끝.
 

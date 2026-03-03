@@ -5,6 +5,17 @@
 이 문서의 SPO 예시는 `Q20 기준 + 기존 PredicateCode 우선 + DB 최소 변경` 원칙으로 해석한다.
 즉, 새 predicate를 만들기보다 현재 코드북(`common/PredicateCode`)과 strict/query 템플릿을 우선 사용한다.
 
+## 정합성 고정(필수, REVEALS 문서 기준)
+
+- strict 정답 선택은 사실 이벤트(`event`) strict-first만 사용한다.
+- `event_reveal`/`reveal_type(HINT|CONFIRM)`는 WHY/근거 표현 레이어로만 사용한다.
+- 본문에서 언급되는 `STATE_CHANGE/PRESSURE` relation은 현재 런타임의 공식 relation 추가를 뜻하지 않는다.
+  - 현행 구현은 `event_relation=PRECEDES` 유지 + `event_reveal(ATTRIBUTE)`로 우회한다.
+- canonical 기준:
+  - `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+  - `fivecircles/architecture/specs/reveals/reveals-classification.md`
+  - `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
+
 ---
 
 ## 1) 시스템 검색에서 바뀌는 것

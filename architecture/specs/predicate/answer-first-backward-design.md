@@ -10,6 +10,10 @@
 - 금지: 실험 단계에서 신규 relation type/메타 컬럼 추가
 - 상태 규칙: strict miss는 `SPOILER_BLOCKED` 또는 `NOT_ENOUGH_DATA`만 허용 (`ANSWERED` 금지)
 - 정답 탐색은 strict-first(SQL+코드), RDF/SPARQL은 근거 렌더링 보조로 제한
+- 사건(사실)과 해석(라벨)을 분리한다:
+  - `event`: 관측 가능한 사실만 저장
+  - `event_reveal.reveal_type`: 근거 강도(`HINT|CONFIRM`)만 저장
+  - 근거 없는 해석 문구는 reveal로 저장하지 않고 문서/ops 메모로 유지
 
 ## Anchor 선정/승격 규칙
 - 기준: anchor는 문서 선호가 아니라 **answerset 실행 결과 데이터**로 결정
@@ -68,3 +72,5 @@
 ## 참조
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+- `fivecircles/architecture/specs/reveals/reveals-classification.md` (Rule C: 사실/해석 분리 + HINT/CONFIRM 판정)
+- `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md` (지속 참고 기준서)
