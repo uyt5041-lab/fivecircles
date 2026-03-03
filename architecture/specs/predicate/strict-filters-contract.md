@@ -18,6 +18,15 @@
   - `excludePredicateCodeAnyOf`
   - `qAnyOf`
 
+## 1.1) Boundary with taxonomy/closure
+- strict 필터는 runtime exact filter 계약이다.
+- taxonomy/closure key(`A_*`, `P_*`, group key)는 `strict_must` 허용 키가 아니다.
+- 상속/closure는 별도 lane 확장 레이어에서만 사용한다.
+  - `ATT_REVL`: `target_key` 또는 `attribute.id` 집합 확장
+  - `PRED`: 상위 predicate key를 runtime `PredicateCode` 집합으로 전개
+- 따라서 strict는 “무엇을 정확히 찾는가”를 고정하고,
+  taxonomy/closure는 “어떤 보조 후보를 함께 볼 것인가”를 확장한다.
+
 ## 2) AND/OR semantics (S1-1-0)
 - `predicateCodeAnyOf` 내부는 OR
 - `qAnyOf` 내부는 OR
@@ -61,6 +70,15 @@
 정책:
 - 템플릿(`strict_must`)에는 canonical code만 작성한다.
 - 런타임 입력 파라미터에서는 legacy alias를 허용하되 저장/조회 전에 canonical로 정규화한다.
+
+## 4.1) Reveal/attribute note
+- `target_key`
+  - 문서/코드북/템플릿에서 쓰는 의미 코드
+  - 예: `A_MORAL_FRAME_SHIFT`
+- `attribute.id`
+  - DB/closure 전개 후 최종 조회에 쓰는 내부 식별자
+- strict 필터는 이 둘을 직접 받지 않는다.
+  - reveal/attribute 경로는 axis lane/B-lane에서 별도로 해석한다.
 
 ## 5) 구현/검증 포인트
 - FE executor: `front/common/productionQ/executor.ts`

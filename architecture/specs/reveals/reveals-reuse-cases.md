@@ -11,12 +11,17 @@
 - `reveal_type`은 현재 문서 기준 `HINT|CONFIRM`(강도)
 - MVP에서는 비인물 object를 1급 엔티티로 만들지 않는다.
   - 대신 `target_type=ATTRIBUTE`도 조인/랭킹 신호로 쓰려면, `target_id`를 `aboutCharacterId`로 채우는 정책(0 금지)이 필요하다(Option 1).
-  - `ATTRIBUTE`의 “무슨 사실인지”까지 엄밀히 하려면 `target_key` 같은 확장이 필요할 수 있다(향후, Option 2).
+- `ATTRIBUTE`의 “무슨 사실인지”까지 엄밀히 하려면 `target_key` 같은 확장이 필요할 수 있다(향후, Option 2).
+- 사실/해석 분리 원칙: 사건 사실은 `event`, 해석 라벨은 `reveal`로 관리한다.
+  - 근거 없는 해석 라벨은 `event_reveal`에 저장하지 않는다.
+  - 기준 문서: `reveals-classification.md` Rule C/C.1/C.2
 
 관련 문서
 - 분류/정합성: `fivecircles/architecture/specs/reveals/reveals-classification.md`
+- 지속 기준서: `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 - 라우팅(MVP vs V3): `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 - DB 스키마: `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`
+- 축/확장 연계(ex20~ex23): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ---
 
@@ -43,6 +48,7 @@
 예시(메타 없는 기간)
 1. 정답 찾기: `DISCOVERS/LEARNS` 계열(또는 질문 그룹)로 이벤트 E를 찾는다.
 2. 근거 제시: E에 연결된 `event_reveal`이 있다면 "근거" 영역에만 표시한다.
+3. `reveal_type(HINT/CONFIRM)`는 근거 강도 표현용이며 정답 판정(ANSWERED) 승격 조건으로 쓰지 않는다.
 
 예시(메타 있는 기간)
 - "스카일러가 월터의 범죄를 알아차린 시점" 질문에서:
@@ -79,6 +85,7 @@
 아이디어
 - REVEALS 메타는 PRECEDES 추천 후보를 "더 그럴듯한 것" 위로 올리는 정렬 신호로 쓸 수 있다.
 - 이건 relation을 자동 저장하는 게 아니라 ranking이므로 스펙 철학과 충돌이 적다.
+- `reveal_type` 기반 가중치는 "추천 정렬"에만 사용하고, 질문 정답 선택(strict-first)에는 사용하지 않는다.
 
 예시(규칙)
 - A 이벤트가 `REVEALS` + `CONFIRM`이고, B 이벤트가 `CAPTURES/ESCAPES/ATTACKS` 계열이면 A->B 후보 점수를 가산

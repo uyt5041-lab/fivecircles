@@ -5,9 +5,20 @@
 - MVP(V2.5, 현 스키마/파이프라인 중심)에서는 **비인물 object를 1급 엔티티로 만들지 않는다.**
 - 다만 “조인/랭킹 신호”가 필요한 최소 수준의 구조화를 위해, ATTRIBUTE reveal의 `target_id`를 `aboutCharacterId`로 채우는 옵션(Option 1)의 정합성을 정리한다.
 
+정합성 고정(필수)
+- 사건 사실(`event`)과 해석 라벨(`reveal`)을 분리한다.
+- strict 정답 선택은 사실 이벤트로만 수행하고, `reveal_type(HINT|CONFIRM)`는 WHY/근거 강도 표시로만 사용한다.
+- 상세 판정 규칙은 `reveals-classification.md` Rule C/C.1/C.2를 canonical로 따른다.
+- 지속 참고 기준서는 `reveal-evidence-label-policy.md`를 canonical로 따른다.
+- 축/확장 문서 정합성은 ex20~ex23을 함께 본다.
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
+
 전제(현재 구현)
 - 이벤트는 `PredicateCode.REVEALS`를 사용하고, 메타는 `event_reveal(event_id, target_type, target_id, reveal_type)`에 저장한다.
-- Event V2 응답(EventResponseDTO)은 reveal 메타를 포함할 수 있다. (예: `revealTargetType`, `revealTargetId`, `revealType`)
+- Event V2 응답(EventResponseDTO)은 reveal 메타를 포함할 수 있다. (예: `reveals[]`, 하위호환 `revealTargetType`, `revealTargetId`, `revealType`)
 - `event_reveal.target_type`은 스키마상 `CHARACTER|ATTRIBUTE`.
 - 현재 Intelligence mock/프롬프트는 `ATTRIBUTE -> target_id=0`을 사용하고 있어(정합성 갭), Option 1 적용 전 수정이 필요하다.
   - 프롬프트: `services/intelligence-service/src/main/resources/prompts/refine-fact.txt`
@@ -54,6 +65,7 @@ Option 1 (MVP 최단거리)
   - Identity: `target_type=CHARACTER`이면 “정체 공개(캐릭터)”로 표시
   - Fact: `target_type=ATTRIBUTE`이면 “사실 공개(about=캐릭터)”로 표시
 - MVP에서는 ATTRIBUTE의 “무슨 사실인지”는 요약 텍스트로만 표현한다.
+- `reveal_type`는 근거 강도(`HINT|CONFIRM`) 표시에만 사용하며, strict 정답 승격/강등 조건으로 사용하지 않는다.
 
 ---
 
@@ -167,17 +179,16 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
 - `event_reveal.target_id`(about) 캐릭터는 해당 이벤트의 `event_character`에도 포함하는 것을 원칙으로 한다.
 - 이유: V2.5에서 조인/랭킹 신호는 `event_character`를 기반으로 계산하는 것이 비용/일관성 측면에서 가장 단순하다.
 
-3) 다중 reveal row 정책(중요)
-- 스키마는 `(event_id, target_type, target_id)` 복수 row를 허용하지만,
-  - 조회 응답이 reveal 메타를 “대표 1건”만 노출한다면 about 필터가 흔들릴 수 있다.
-- MVP 선택지(택1):
-  - A안(데이터 규칙): “Q4/라우팅에 쓰는 REVEALS 이벤트는 reveal row를 1개만 둔다”를 검증 UI에서 강제
-  - B안(API 확장): Event V2 응답에 `reveals: []` 리스트를 내려서 클라이언트가 about 필터를 정확히 수행
+3) 다중 reveal row 정책(최종, BP7)
+- 스키마는 `(event_id, target_type, target_id)` 복수 row를 허용한다.
+- 조회/필터/근거 계산은 `reveals[]` 리스트를 우선 사용한다.
+- 단건 레거시 필드는 하위호환 읽기용으로만 유지한다.
+- 렌더링 규칙:
+  - WHY 영역은 `reveals[]`를 최대 5건 노출(`event_id | reveal_type | target_type | target_key | target_id`)
+  - 카드 요약에는 대표 1건(CHARACTER 우선)만 보조 배지로 노출 가능
 
 정합성 메모(현재 코드 기준)
-- 조회 응답이 reveal 메타를 "대표 1건"만 노출하는 경우가 있어(예: `reveals.get(0)` 또는 `first wins`),
-  다중 reveal row가 존재하면 about 필터/정답 품질이 흔들릴 수 있다.
-- MVP에서는 A안(1 event = 1 reveal row)을 우선 권장하고, 리스트 노출은 V3로 미룬다.
+- `first wins` 단건 의존은 회귀로 간주한다.
 
 ### 7.2 파이프라인 반영(구현)
 0) (BLOCKER) 프롬프트/Mock 정합성 수정
@@ -202,6 +213,7 @@ Option 2 = `target_key`(또는 object 1급 엔티티화)
   - `target_type` 선택(CHARACTER/ATTRIBUTE)
   - `target_id(about/identity)` 선택 강제(0 불가)
   - (선택) `reveal_type(HINT/CONFIRM)` 입력은 당장은 null 허용
+  - `reveal_type`를 입력하는 경우 최소 1개 근거 앵커(`evidence_event`)를 문서 레이어(answerset/question-map)에 함께 남긴다.
 - `target_type=ATTRIBUTE`의 `target_id`는 “about 캐릭터”로 라벨링해 혼동을 줄인다.
 
 3) Wiki publish -> event-service

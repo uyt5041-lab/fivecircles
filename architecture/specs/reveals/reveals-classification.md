@@ -16,11 +16,13 @@
 
 관련 문서
 - 표준 기준(ex14): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex14-reveal-implementation.md`
+- 지속 기준서: `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 - REVEALS(관계로 취급하는 초기 논의): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex11-reveals.md`
 - REVEALS type 제안(설명력 강화): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex11.2-reveals2.md`
 - 트리플스토어 예시(note 포함): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex04-triplestore.md`
 - predicate 전략: `fivecircles/architecture/specs/predicate/README.md`
 - ex14 정합성 갭: `fivecircles/architecture/specs/ex14-consistency-checklist.md`
+- 축/확장 스케치(ex20~ex23): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ---
 
@@ -50,6 +52,9 @@
 - `CHARACTER`: 정체/동일인/가면 뒤 인물 공개(Identity Reveal)
 - `ATTRIBUTE`: 특정 인물의 속성/상태/사실 공개(Fact Reveal)
 - `RELATION` (옵션): 관계/혈연/소속/동맹 등의 "관계 사실" 공개(Relation Reveal)
+- 판정 기준(핵심):
+  - A=B 동일인 판명은 `CHARACTER`
+  - 동일인 판명이 아닌 사실 공개는 `ATTRIBUTE`(about 캐릭터 기준)
 
 ### 2.2 RevealType
 - `HINT`: 암시/단서
@@ -60,6 +65,9 @@
 - 반면 일부 스펙에서는 HINT/CONFIRM을 `reveal_type`으로 쓰는 형태가 등장한다.
 - 현재 DB(`event_reveal.reveal_type` 단일 컬럼)는 두 축(강도 vs 의미 분류)을 동시에 담기 어렵다.
 - 그래서 본 문서는 일단 "강도(HINT/CONFIRM)"를 `reveal_type`의 의미로 두고, 의미 분류가 필요해지면 컬럼 추가(예: `reveal_semantic_type`)로 분리하는 것을 통합 포인트로 남긴다(구현 보류).
+- 즉 현재 모델은 다음 2축으로 본다.
+  - 축1: `target_type` (`CHARACTER|ATTRIBUTE`)
+  - 축2: `reveal_type` (`HINT|CONFIRM`)
 
 ### 2.3 Trigger(질문 레이어의 사용)
 - Q4 같은 "알아차린 시점" 질문:
@@ -103,6 +111,23 @@ Rule A.1: revealType 미입력(null) 허용 (현 운영)
 Rule B: labelDraft.eventType과 저장 predicate 분리
 - `REVEAL_HINT/REVEAL_CONFIRM` 같은 내부 라벨은 저장 predicate가 아니라, 최종 저장은 `PredicateCode.REVEALS`로 정렬한다.
 - HINT/CONFIRM은 메타(`event_reveal.reveal_type`)로 내려간다(통합 시).
+
+Rule C: 사실 이벤트와 해석 라벨을 분리한다 (Answer-first)
+- 도미노 답변의 "사건 줄(EP/행동 요약)"은 관측 가능한 사실만 `event`로 저장한다.
+- 도미노 답변의 "슬래시 뒤 메모(의미/해석)"는 기본적으로 분석 라벨로 취급한다.
+- 분석 라벨은 아래 기준으로만 `event_reveal`에 승격한다.
+  - `CONFIRM`: 장면/대사/소품으로 직접 확인 가능한 근거가 있는 경우
+  - `HINT`: 행동 연쇄로 합리적 추론은 가능하지만 직접 근거가 약한 경우
+  - 근거가 없는 해석 라벨은 `event_reveal`에 넣지 않고 문서/ops 메모로만 유지
+
+Rule C.1: reveal 입력 최소 근거
+- `event_reveal.reveal_type`를 채울 때는 최소 1개의 근거 앵커(`evidence event`)를 같이 남긴다.
+- 현재 DB 스키마에는 근거 note 컬럼이 없으므로, 근거 문장은 `answerset`/질문맵 문서 필드에서 관리한다.
+- 권장 필드(문서 레이어): `evidence_event_id`, `evidence_note`
+
+Rule C.2: 질문 실행과의 경계
+- 정답 선택(strict-first)은 사실 이벤트(`event`)만으로 수행한다.
+- `reveal_type(HINT/CONFIRM)`는 WHY/근거 카드 강도 표시용으로만 사용한다(정답 승격 금지).
 
 ---
 

@@ -15,7 +15,7 @@
   "items": {
     "Q01_EXP_01": {
       "source_basis": ["ex22.3#Q1-followup-1", "ex22.2#answer-first"],
-      "axis": "B",
+      "axis": "ATT_REVL",
       "required_set": {
         "attribute_set": ["A_MORAL_FRAME_SHIFT"],
         "predicate_set_hint": ["P_PLANNING_OR_REASONING"],
@@ -24,7 +24,7 @@
     },
     "Q01_EXP_02": {
       "source_basis": ["ex22.3#Q1-followup-2", "ex22.2#answer-first"],
-      "axis": "B",
+      "axis": "ATT_REVL",
       "required_set": {
         "attribute_set": ["A_VIOLENCE_ADAPTATION"],
         "predicate_set_hint": ["P_VIOLENCE_OR_THREAT"],
@@ -33,7 +33,7 @@
     },
     "Q01_EXP_03": {
       "source_basis": ["ex22.3#Q1-followup-3", "ex23#closure-expansion"],
-      "axis": "BC",
+      "axis": "ATT_REVL_PRED",
       "combine_mode": "OR",
       "required_set": {
         "attribute_set": ["A_EXTERNAL_PRESSURE", "A_RISK_OR_SURVIVAL_MODE"],
@@ -43,7 +43,7 @@
     },
     "Q01_EXP_04": {
       "source_basis": ["ex22.3#Q1-followup-4", "ex22.2#answer-first"],
-      "axis": "B",
+      "axis": "ATT_REVL",
       "required_set": {
         "attribute_set": ["A_MORAL_FRAME_SHIFT"],
         "predicate_set_hint": ["P_PLANNING_OR_REASONING"],
@@ -52,7 +52,7 @@
     },
     "Q01_EXP_05": {
       "source_basis": ["ex22.3#Q1-followup-5", "ex20#reveals-axis"],
-      "axis": "B",
+      "axis": "ATT_REVL",
       "required_set": {
         "attribute_set": ["A_RELATIONSHIP_SHIFT", "A_EXTERNAL_PRESSURE"],
         "predicate_set": [],
@@ -61,7 +61,7 @@
     },
     "Q01_EXP_06": {
       "source_basis": ["ex22.3#Q1-followup-6", "ex21#and-policy", "ex23#closure-expansion"],
-      "axis": "BC",
+      "axis": "ATT_REVL_PRED",
       "combine_mode": "AND",
       "required_set": {
         "attribute_set": ["A_POINT_OF_NO_RETURN", "A_VIOLENCE_ADAPTATION", "A_EXTERNAL_PRESSURE"],
@@ -71,10 +71,10 @@
     }
   },
   "defaults": {
-    "when_axis_B": "getEventsByRevealAttribute",
-    "when_axis_C": "getEventsByPredicate",
-    "when_axis_BC": "combine(B,C,mode)",
-    "default_combine_mode_BC": "OR",
+    "when_axis_ATT_REVL": "getEventsByRevealAttribute",
+    "when_axis_PRED": "getEventsByPredicate",
+    "when_axis_ATT_REVL_PRED": "combine(ATT_REVL,PRED,mode)",
+    "default_combine_mode_ATT_REVL_PRED": "OR",
     "on_empty_result": "NOT_ENOUGH_DATA"
   }
 }

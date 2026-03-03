@@ -116,9 +116,9 @@ def main() -> int:
             "subjectId": 17,
             "safeUpToEpisode": 6,
             "predicateCodeAnyOf": ["OTHER"],
-            "qAnyOf": ["살인을 저지른 이후", "정신적 동요"],
+            "qAnyOf": ["접시 조각", "Why?"],
             "expectStatus": "ANSWERED",
-            "expectEventId": 2293,
+            "expectEventId": 3033,
         },
         {
             "id": "Q1E2_K6",

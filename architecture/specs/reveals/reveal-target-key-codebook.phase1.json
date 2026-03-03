@@ -1,0 +1,25 @@
+{
+  "version": "phase1-2026-02-27",
+  "owner": "qa-predicate-reveal",
+  "policy_ref": [
+    "fivecircles/architecture/specs/reveals/reveal-target-key-codebook.md",
+    "fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json",
+    "fivecircles/architecture/specs/expension100/question-map.q01-expansion.phase1.json"
+  ],
+  "allow_list": [
+    "A_MORAL_FRAME_SHIFT",
+    "A_VIOLENCE_ADAPTATION",
+    "A_RISK_OR_SURVIVAL_MODE",
+    "A_RELATIONSHIP_SHIFT",
+    "A_EXTERNAL_PRESSURE",
+    "A_POINT_OF_NO_RETURN"
+  ],
+  "labels": {
+    "A_MORAL_FRAME_SHIFT": "정당화/도덕 프레임 전환",
+    "A_VIOLENCE_ADAPTATION": "폭력 적응/위협 도구화",
+    "A_RISK_OR_SURVIVAL_MODE": "생존/리스크 허용 모드",
+    "A_RELATIONSHIP_SHIFT": "관계 권력/신뢰 변화",
+    "A_EXTERNAL_PRESSURE": "외부 압력(수사/조직/위협)",
+    "A_POINT_OF_NO_RETURN": "되돌릴 수 없음 전환"
+  }
+}

@@ -7,6 +7,220 @@
 - 동시에 자유 질문(자연어)은 intelligence-service가 **존재하는 API로만 실행 가능한 QuerySpec**을 생성하게 한다.
 - `PredicateCode` 폐쇄집합은 유지하고, 텍스트 대상(object)이 필요한 경우는 `q`(keyword) 필터로 근사한다.
 
+## Quickstart: 처음 보는 개발자를 위한 템플릿 작성 순서
+
+이 문서는 “새 질문 템플릿 1개를 추가하고, 화면에서 실행되게 만드는 최소 절차”를 설명한다.
+
+### 1) 질문 종류를 먼저 고른다
+- `strict로 정답 이벤트를 정확히 찾는 질문`인지 확인한다.
+- 아래 3종 중 하나를 고른다.
+  - `character_predicate_earliest`
+  - `character_keyword_earliest`
+  - `coevents_earliest`
+
+판단 기준
+- 특정 인물의 특정 행동/사건을 찾는 질문
+  - `character_predicate_earliest`
+- 특정 인물의 요약 텍스트/키워드로 찾는 질문
+  - `character_keyword_earliest`
+- 두 인물이 함께 등장한 사건을 찾는 질문
+  - `coevents_earliest`
+
+### 2) strict 정답 조건을 먼저 적는다
+- 이 단계에서는 taxonomy/closure를 생각하지 않는다.
+- 먼저 아래 3개만 채운다.
+  - `predicateCodeAnyOf`
+  - `excludePredicateCodeAnyOf`
+  - `qAnyOf`
+
+규칙
+- strict는 닫힌 필터다.
+- strict 0건이면 `ANSWERED` 금지다.
+- `HINT/CONFIRM`, `A_*`, `P_*`, group key는 strict 필드에 직접 넣지 않는다.
+
+### 3) 앵커 이벤트를 정한다
+- “이 질문의 정답이 되는 이벤트 id”를 하나 고른다.
+- 그 값을 `evidence_event_id`에 넣는다.
+- 정답 선정 기준은 아래를 모두 만족해야 한다.
+  - `episode_end <= K`
+  - `source_status = APPROVED`
+  - strict hit
+  - deterministic earliest
+
+### 4) 템플릿 파일을 수정한다
+- 런타임 템플릿 등록:
+  - [templates.ts](/Users/pio/IdeaProjects/nospoiler/front/common/productionQ/templates.ts)
+- 타입/필드 규칙 참고:
+  - [types.ts](/Users/pio/IdeaProjects/nospoiler/front/common/productionQ/types.ts)
+
+새 템플릿에 최소로 들어갈 것
+- `id`
+- `question_id`
+- `question_text`
+- `queryKind`
+- `strict_must`
+- `approx_only`(선택)
+- `sensitive_policy`
+- `evidence_event_id`
+
+### 5) 문서 SoT를 같이 갱신한다
+- strict 기준표:
+  - [04-template-strict-must-matrix.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md)
+- strict 계약:
+  - [strict-filters-contract.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/predicate/strict-filters-contract.md)
+
+질문이 expansion 계열이면 추가로 갱신
+- question-map:
+  - [question-map.q01-expansion.phase1.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expension100/question-map.q01-expansion.phase1.json)
+- answerset:
+  - [answerset-6-expansion.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json)
+
+### 6) WHY/맥락이 필요한 질문이면 reveal/PRECEDES를 붙인다
+- reveal은 정답 선택용이 아니라 WHY 근거용이다.
+- PRECEDES는 정답 선정용이 아니라 because_chain/context용이다.
+
+reveal이 필요한 경우
+- `event_reveal.target_key`에 의미 코드(`A_*`)를 연결한다.
+- 사람이 쓰는 의미 코드는 `target_key`
+- DB 확장/closure 조회는 필요 시 `attribute.id`로 resolve한다.
+
+참고 문서
+- [inheritance-blueprint.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/inheritance-blueprint.md)
+- [reveals-classification.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveals-classification.md)
+- [reveal-evidence-label-policy.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md)
+
+### 7) 검증한다
+- 프론트 빌드:
+```bash
+cd /Users/pio/IdeaProjects/nospoiler/front
+npm run build
+```
+
+- strict predicate gate:
+```bash
+cd /Users/pio/IdeaProjects/nospoiler
+python3 fivecircles/test/validate-productionq-predicatecode-gate.py
+```
+
+- expansion/reveal 계열이면 추가 검증
+```bash
+cd /Users/pio/IdeaProjects/nospoiler
+python3 fivecircles/test/validate-q1-expansion-gate.py
+python3 fivecircles/test/validate-q01-exp-01-why-output-phase2.py
+```
+
+### 8) 화면에서 확인한다
+- 사용자 모드
+  - 사람 읽기 WHY 문구가 자연스러운지 확인
+- 관리자 모드
+  - `answer_event`, `because_chain`, `target_key`, `reveal_type` raw 디버그가 정합한지 확인
+
+### Quick checklist
+- strict 필터만으로 정답을 고를 수 있는가
+- `evidence_event_id`가 실제 strict earliest 결과와 일치하는가
+- reveal은 WHY 근거로만 쓰고 있는가
+- PRECEDES는 context용으로만 쓰고 있는가
+- 문서 SoT와 템플릿 코드가 같이 갱신됐는가
+
+## Quickstart Example: `Q01_EXP_01`
+
+아래는 지금 운영 중인 Q1 확장 1번을 기준으로, 처음 보는 개발자가 그대로 따라갈 수 있게 줄인 실전 예시다.
+
+질문
+- `Q01_EXP_01`
+- `크레이지-8 살해 직전 월터 정당화가 완성되는 지점은?`
+
+의도 판단
+- strict 정답은 한 사건을 earliest로 찾는다.
+- 질문 의미상 WHY/reveal이 필요하므로:
+  - strict core + `ATT_REVL` lane
+  - PRECEDES context
+  구조를 같이 쓴다.
+
+템플릿 종류
+- `character_keyword_earliest`
+- 이유:
+  - 이 질문은 `KILLS` 자체가 아니라
+  - “접시 조각”, `Why?` 같은 앵커 장면 텍스트로 찾는 편이 안정적이다.
+
+strict 초안
+```ts
+{
+  question_id: 'Q01_EXP_01',
+  queryKind: 'character_keyword_earliest',
+  strict_must: {
+    qAnyOf: ['접시 조각', 'Why?'],
+    predicateCodeAnyOf: ['OTHER'],
+  },
+  sensitive_policy: 'HIDE_EXISTS_BEYOND_K',
+  evidence_event_id: 3033,
+}
+```
+
+앵커 이벤트
+- `3033`
+- summary:
+  - `월터가 깨진 접시 조각 하나가 없다는 걸 보고 "Why?"라며 Krazy-8이 다시 자신을 죽이려 한다고 확신함`
+
+reveal/WHY 연결
+- 이 질문의 의미 축:
+  - `A_MORAL_FRAME_SHIFT`
+- event_reveal 예시:
+```sql
+event_id=3033
+target_type='ATTRIBUTE'
+target_id=2
+target_key='A_MORAL_FRAME_SHIFT'
+reveal_type='HINT'
+```
+
+PRECEDES 체인 예시
+```text
+2409 -> 2410 -> 3033
+```
+
+의미
+- `2409`: 풀려날 가능성이 생김
+- `2410`: 숨겨둔 무기로 다시 공격하려 한 사실이 드러남
+- `3033`: 접시 조각 누락을 보고 월터가 재공격을 확신함
+
+문서 SoT 갱신 위치
+- 템플릿 가이드:
+  - 이 문서
+- strict 매트릭스:
+  - [04-template-strict-must-matrix.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md)
+- question-map:
+  - [question-map.q01-expansion.phase1.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expension100/question-map.q01-expansion.phase1.json)
+- answerset:
+  - [answerset-6-expansion.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json)
+
+기대 WHY 출력
+- `selection_why`
+  - strict 조건을 만족하는 earliest APPROVED 이벤트를 선택했습니다.
+- `causal_why`
+  - 월터가 깨진 접시 조각 하나가 없다는 걸 보고 크레이지-8의 재공격 가능성을 확신하면서, 살해를 "선택"이 아니라 "생존/가족 보호" 프레임으로 정당화한 흐름입니다.
+- `context`
+  - PRECEDES 연쇄와 선행 사건 요약
+
+검증 명령
+```bash
+cd /Users/pio/IdeaProjects/nospoiler/front
+npm run build
+
+cd /Users/pio/IdeaProjects/nospoiler
+python3 fivecircles/test/validate-q1-expansion-gate.py
+python3 fivecircles/test/validate-q01-exp-01-why-output-phase2.py
+```
+
+화면 확인 포인트
+- 사용자 모드:
+  - `서사 이유`가 접시 조각 -> 재공격 확신 -> 정당화 흐름으로 읽히는지
+- 관리자 모드:
+  - `answer_event=3033`
+  - `because_chain=[2409, 2410, 3033]`
+  - `target_key=A_MORAL_FRAME_SHIFT`
+  - `reveal_type=HINT`
+
 전제(현재 구현 상태)
 - `api3`(character events)에 `q` 키워드 필터가 추가되어 `summary`/`predicate_suggestion` 검색이 가능하다.
   - `GET /api/event/v2/characters/{characterId}/events?safeUpToEpisode=K&q=...&predicateCode=...&limit=N`
@@ -33,8 +247,45 @@
 - 용어 정규화(3계층): `fivecircles/architecture/specs/predicate/p1-predicate-term-mapping.md`
 - Event V2 API: `fivecircles/architecture/specs/event-v2-api.md`
 - Strict/Probe 기준표: `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`
+- RDF/상속 경계: `fivecircles/architecture/specs/rdf/inheritance-blueprint.md`
+- Closure 정책: `fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md`
+- Reveal 기준: `fivecircles/architecture/specs/reveals/reveals-classification.md`, `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 
 ---
+
+## 0. Template Authoring Boundary (MUST)
+
+- 템플릿 작성 시 `strict`는 닫힌 실행 필터로 본다.
+  - `predicateCodeAnyOf`, `excludePredicateCodeAnyOf`, `qAnyOf`, `episode_end <= K`, `source_status=APPROVED`
+- taxonomy/closure는 strict 정답 선정을 대체하지 않는다.
+  - 상속은 lane 확장(`ATT_REVL`, `PRED`)과 WHY/맥락 보조에만 사용한다.
+- executor의 strict core는 taxonomy를 직접 읽지 않는다.
+  - strict 정답은 `StrictQuerySpec(templates + 04 matrix)` 기준으로만 고정한다.
+  - taxonomy/closure는 질문 축 확장, 후보 묶기, 코드북 정합성 확인에 사용한다.
+- PRECEDES는 정답 선정 기준이 아니라 설명/맥락 체인용이다.
+
+### 0.1) Reveal/Attribute authoring rule
+
+- `target_key`
+  - 문서/템플릿/코드북에서 사용하는 의미 코드다.
+  - 예: `A_MORAL_FRAME_SHIFT`
+- `attribute.id`
+  - DB 정규화/closure 확장용 내부 식별자다.
+  - 최종 조회에서는 `event_reveal.target_id = attribute.id`로 매칭할 수 있다.
+- 따라서 템플릿 저자는 질문/문서에는 `A_* target_key`를 쓰고,
+  실행 레이어는 필요 시 이를 `attribute.id` 집합으로 resolve해서 조회한다.
+
+### 0.2) WHY rendering rule
+
+- `selection_why`
+  - 왜 이 이벤트를 정답으로 선택했는지 설명한다.
+- `causal_why`
+  - 왜 이 사건이 질문의 서사적 이유/정당화 의미를 갖는지 설명한다.
+- `context`
+  - PRECEDES 체인, 선행 사건 요약, reveal evidence 카운트 등 맥락 보조 정보만 담는다.
+- 사용자 모드와 관리자 모드는 분리한다.
+  - 사용자 모드: 사람 읽기 문장/라벨
+  - 관리자 모드: raw debug(`event_id`, `target_key`, `reveal_type`, `because_chain`)
 
 ## A. 프리셋 템플릿(Deterministic)
 
@@ -98,6 +349,18 @@ type ProductionQuestionTemplate = {
   };
 };
 ```
+
+용어 매핑표(코드 SoT)
+- 기준: 실제 런타임/타입은 `front/common/productionQ/types.ts`를 SoT로 본다.
+
+| 문서(개념) 용어 | 코드(런타임) 용어 | 비고 |
+|---|---|---|
+| `strict` | `strict_must` | 정답 확정용 필터 |
+| `approxCandidates` | `approx_only` | 정답 확정 금지, 후보/보조용 |
+| `probe` | `queryKind + eventV2Api.probe(strictFilters)` | strict miss 시 상태 판정 전용 |
+| `kind`(문서 `QueryOp`) | `kind`(템플릿 union) | `character_predicate_earliest`, `character_keyword_earliest`, `coevents_earliest` |
+| `CharacterRef` | `subject` / `target` / `a` / `b` | 템플릿 종류별 캐릭터 참조 필드 |
+| `Answerability` | `AnswerabilityStatus` | `ANSWERED`, `SPOILER_BLOCKED`, `NOT_ENOUGH_DATA` |
 
 실행 규칙(가이드라인)
 - 캐릭터 ref는 `CharacterRef(name, aliases[])`로 정의하고, 런타임에 “드라마 캐릭터 목록”에서 resolve한다.

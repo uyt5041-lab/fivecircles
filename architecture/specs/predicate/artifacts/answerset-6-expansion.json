@@ -5,14 +5,14 @@
     {
       "expansion_id": "Q1-1",
       "anchor_source": "ENUM",
-      "answer_event_id": 2293,
-      "because_chain": [2291, 2292, 2293],
+      "answer_event_id": 3033,
+      "because_chain": [2409, 2410, 3033],
       "reveal_attribute": [
         {
           "type": "ATTRIBUTE",
-          "event_id": 2293,
-          "key": "self_justification_start",
-          "value": "post_kill_mental_shock"
+          "event_id": 3033,
+          "key": "self_justification_lock",
+          "value": "plate_shard_threat_reassessment"
         }
       ],
       "axis": "STATE",
@@ -22,7 +22,7 @@
       "expansion_id": "Q1-2",
       "anchor_source": "ENUM",
       "answer_event_id": 2376,
-      "because_chain": [2306, 2376],
+      "because_chain": [2306, 2375, 2376],
       "reveal_attribute": [
         {
           "type": "ATTRIBUTE",

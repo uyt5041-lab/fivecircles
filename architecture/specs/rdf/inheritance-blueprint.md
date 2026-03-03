@@ -20,6 +20,7 @@
 참조:
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 - `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
+- `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`
 
 ## 2) 운영 모델 (지금 기준)
 
@@ -32,12 +33,21 @@
 - 스키마 기본: `event_reveal(event_id, target_type, target_id, reveal_type)`
 - 운영 의미:
   - `target_type=CHARACTER` -> `target_id=character_id`
-  - `target_type=ATTRIBUTE` -> `target_id=aboutCharacterId` (현행)
+  - `target_type=ATTRIBUTE` -> `target_id=aboutCharacterId` (Phase1 현행)
 - `reveal_type`: `HINT|CONFIRM`만 허용
 
 주의:
 - 현행은 ATTRIBUTE 의미를 `target_id`만으로 구분하기 어렵다.
 - 따라서 Phase1 확장은 `target_key` 코드북 방식을 사용한다.
+
+### 2.3 Phase2 전환 계약 (추가)
+- 목표: `target_type=ATTRIBUTE`의 최종 의미를 `target_id=attribute.id`로 전환한다.
+- 전환 원칙:
+  - Read path는 단계적으로 `target_key` 우선 + `target_id(attribute.id)` 병행 검증 후 전환한다.
+  - wiki/intelligence write path 변경은 팀 합의 전까지 보류한다(ops seed/backfill 우선).
+- 기초 스키마:
+  - `attribute(id, code, display_name, parent_id, is_active)`
+  - `attribute_closure(ancestor_id, descendant_id, depth)`
 
 ## 3) Phase1 확장안 (테이블 추가 최소)
 
@@ -51,6 +61,7 @@
 - 운영 데이터 반영(초기)은 API write 경로보다 `scripts/ops` seed/backfill 스크립트를 우선 사용한다.
 - 권장 SoT:
   - 문서: `fivecircles/architecture/specs/reveals/` 하위 코드북 문서
+  - 템플릿 작성 가이드: `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`
   - 실행 맵: `front/common/productionQ/inheritancePhase1.ts` 또는 동등 JSON
 - 네이밍: `A_*` UPPER_SNAKE
 
@@ -128,3 +139,31 @@
   - BP3-4, BP4, BP5, BP6, BP7, BP8-1/2/4/5
 - 보류(팀 합의 후 재개):
   - BP3-2(wiki), BP3-3/3-a/3-b(intelligence), BP3-5(wiki 포함 E2E), BP8-3(CI 연결)
+
+## 11) Phase2 착수 상태 (2026-02-27)
+- P0 완료: 전환 계약 고정(`ATTRIBUTE target_id -> attribute.id`, dual-read 원칙)
+- P1 완료: 스키마 기초 도입
+  - migration: `services/event-service/src/main/resources/db/migration/V11__create_attribute_taxonomy_tables.sql`
+  - ops: `scripts/ops/run_attribute_taxonomy_migration.sh` apply PASS
+- P2 완료: 코드북/트리 seed + resolve 검증
+  - seed: `scripts/ops/seed_attribute_taxonomy_phase2.sql`
+  - gate: `fivecircles/test/validate-attribute-taxonomy-phase2.py` PASS
+- P3 완료: Read-path dual lane
+  - API: `/api/event/v2/attributes/closure-ids` (A_* -> descendant attribute ids)
+  - Front flag: `VITE_USE_ATTRIBUTE_ID_LANE` (기본 OFF)
+  - B-lane 우선순위: `target_key` -> `attribute.id(target_id)` -> legacy about fallback
+- P4 완료: ATTRIBUTE target_id 백필
+  - script: `scripts/ops/backfill_event_reveal_target_id_attribute_phase2.sql` (updated_rows=7)
+  - gate: `fivecircles/test/validate-event-reveal-attribute-id-phase2.py` PASS
+  - note: legacy `target_key` 누락 row 6건은 drama10 외 범위로 warning backlog 유지
+- P5 완료: WHY 의미 분리
+  - `selection_why`(선택 이유) / `causal_why`(서사 이유) 필드 분리 반영
+  - `causal_why`는 PRECEDES chain + reveal evidence 합산으로 갱신
+- P5-3 완료: Q01_EXP_01 WHY 출력 준비 검증
+  - gate: `fivecircles/test/validate-q01-exp-01-why-output-phase2.py` PASS
+- P6-1 완료: `VITE_USE_ATTRIBUTE_ID_LANE=true` 빌드 스모크 PASS
+- P6-2 완료: legacy fallback 제거 계획 확정
+  - plan: `fivecircles/architecture/specs/rdf/attribute-id-lane-cutover-plan.md`
+- P6-3 완료: 최종 승인(보류 항목 제외 범위)
+  - gates PASS: `validate-attribute-taxonomy-phase2.py`, `validate-event-reveal-attribute-id-phase2.py`, `validate-q01-exp-01-why-output-phase2.py`, `validate-productionq-and-regression.py`
+  - note: legacy `target_key` 누락 6건은 drama10 외 범위 warning backlog 유지

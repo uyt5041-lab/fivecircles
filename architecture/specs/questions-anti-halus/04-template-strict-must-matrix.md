@@ -15,6 +15,13 @@
 - `K/expectedMinEpisode`: 시즌코드(예: 202)가 아니라 누적(절대) 회차를 사용
   - 예: `S1E7=7`, `S2E1=8`, `S2E2=9`, `S2E4=11`
 
+추가 고정 원칙
+- strict 정답 선정은 `StrictQuerySpec`만 기준으로 한다.
+- taxonomy/closure는 `strict_must`를 자동 확장하지 않는다.
+  - 상속은 lane 확장(`ATT_REVL`, `PRED`)과 WHY/맥락 보조 레이어에서만 사용한다.
+- `evidence_event_id`는 정답 앵커 검증용이며, PRECEDES/reveal 근거와 구분한다.
+- reveal 강도(`HINT|CONFIRM`)는 strict 승격에 사용할 수 없다.
+
 ---
 
 ## Q1~Q15 실행 입력 기준표
