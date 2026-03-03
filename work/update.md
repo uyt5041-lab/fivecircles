@@ -1070,3 +1070,13 @@ This file summarizes recent updates so other agents can continue without re‑di
 - 스펙/플랜 문서에 `query axis`와 `predicate taxonomy category` 경계를 명시하고, reveal/combine/precedes는 Phase 1에 상단 축만 노출한다고 정리했다. (refs: fivecircles/architecture/specs/predicate/taxonomy-dashboard.md, fivecircles/architecture/specs/predicate/taxonomy-dashboard-implementation-plan.md, fivecircles/architecture/todolist.md)
 ### Tests
 - PASS: `cd front && npm run build`
+## Addendum (2026-03-03) - Develop diff summary (feature grouped)
+### Docs
+- 기능1: ProductionQ Q1 expansion/Story Reminder에 ATT_REVL/PRED lane, WHY 분리, answerset 앵커 정합화를 반영했다. (refs: front/common/productionQ/executor.ts, front/features/qa/StoryReminderTestPage.tsx, fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json)
+- 기능2: reveal attribute-id lane/closure를 도입하고 `target_key -> attribute.id` 전환 경로와 검증을 고정했다. (refs: services/event-service/src/main/resources/db/migration/V11__create_attribute_taxonomy_tables.sql, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java, fivecircles/architecture/specs/rdf/inheritance-blueprint.md)
+- 기능3: taxonomy dashboard/runtime-fallback preview, Docker taxonomy resource 보강, query axis 정렬을 완료했다. (refs: front/features/admin/AdminTaxonomyPage.tsx, services/event-service/src/main/java/com/nospoiler/eventservice/service/TaxonomyService.java, services/event-service/Dockerfile)
+- 기능4: 템플릿 Quickstart/Q01 예시, ex20~ex25, BP3~BP8 리뷰, full-sync 백업을 추가해 후속 작업 기준선을 문서화했다. (refs: fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/, fivecircles/work/review/review-blueprint-bp3-bp8-2026-02-27.md, scripts/ops/full-sync/)
+### Frontend
+- 시즌형 드라마 공통 episode gate/util과 로컬 dev proxy 정리를 추가해 로컬/모바일 동시 확인 경로를 안정화했다. (refs: front/common/utils/dramaSeason.ts, front/common/utils/episodeGate.ts, front/features/drama/EpisodeSelectionPage.tsx, front/vite.config.ts)
+### Tests
+- PASS: `./gradlew :services:event-service:compileJava`, `cd front && npm run build`, taxonomy/phase2/q1 validation 스크립트, taxonomy preview/tree curl smoke
