@@ -2,6 +2,23 @@
 
 This file summarizes recent updates so other agents can continue without re‑discovering changes.
 
+## Addendum (2026-02-27) - Phase2 P4 + WHY split(P5-1/2)
+### Backend/DB
+- Applied ATTRIBUTE target_id backfill to `attribute.id` lane (refs: `scripts/ops/backfill_event_reveal_target_id_attribute_phase2.sql`)
+- Validation PASS: target_id mismatch 0 / drama10 missing key 0 (refs: `fivecircles/test/validate-event-reveal-attribute-id-phase2.py`)
+### Frontend
+- Split WHY semantics into `selection_why` and `causal_why` (refs: `front/common/productionQ/types.ts`, `front/common/productionQ/executor.ts`)
+- `causal_why` now updates from PRECEDES chain + reveal evidence aggregation (refs: `front/features/qa/components/ProductionQSection/useProductionQ.ts`)
+- Updated WHY panel to display selection/causal reasons separately (refs: `front/features/qa/components/ProductionQSection/ResultPanel.tsx`)
+### Tests
+- `cd front && npm run build` PASS
+- `python3 fivecircles/test/validate-q01-exp-01-why-output-phase2.py` PASS
+- `python3 fivecircles/test/validate-attribute-taxonomy-phase2.py` PASS
+- `python3 fivecircles/test/validate-event-reveal-attribute-id-phase2.py` PASS (legacy missing target_key 6 warn)
+- `python3 fivecircles/test/validate-productionq-and-regression.py` PASS
+### Docs
+- Added legacy fallback cutover plan for ATTRIBUTE id lane (refs: `fivecircles/architecture/specs/rdf/attribute-id-lane-cutover-plan.md`)
+
 ## 2026-01-15: Sprint 1 Service Implementation (Team Member C)
 - **Service Deployment**:
     - `event-service`: Implemented Repository (MyBatis), Service, and Controller layers.
@@ -1021,3 +1038,35 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Tests
 - PASS: `cd front && npm run build`
 - NOTE: dramaId=10의 `event_reveal(target_type=ATTRIBUTE)` 데이터가 현재 0건이라 B lane은 데이터 보강 전까지 `NOT_ENOUGH_DATA`가 정상 동작이다.
+
+## Addendum (2026-02-27) - Phase2 ATTRIBUTE ID/Closure 착수(P0~P3)
+### Frontend
+- 축 코드 가독성 단축(`EV_SEQ/ATT_REVL/PRED/ATT_REVL_PRED`) 반영, lane 카운트 표기를 ATT/PRED로 정렬. (refs: front/common/productionQ/inheritancePhase1.ts, front/common/productionQ/executor.ts, front/features/qa/components/ProductionQSection/ResultPanel.tsx)
+- P3 dual lane를 추가했다. `target_key -> attribute.id -> legacy` 순서로 ATT_REVL 매칭하며, `VITE_USE_ATTRIBUTE_ID_LANE` 플래그(기본 OFF)로 attribute.id lane을 토글한다. (refs: front/common/productionQ/executor.ts, front/common/productionQ/featureFlags.ts, front/common/services/eventV2Api.ts)
+### Backend
+- Phase2 기초 스키마를 추가했다(`attribute`, `attribute_closure`, FK/인덱스 포함). (refs: services/event-service/src/main/resources/db/migration/V11__create_attribute_taxonomy_tables.sql, scripts/ops/ddl_attribute_taxonomy_apply.sql, scripts/ops/run_attribute_taxonomy_migration.sh)
+- ATTRIBUTE closure id 해석 API를 추가했다(`/api/event/v2/attributes/closure-ids`). (refs: services/event-service/src/main/java/com/nospoiler/eventservice/controller/EventQueryController.java, services/event-service/src/main/java/com/nospoiler/eventservice/service/EventQueryServiceImpl.java, services/event-service/src/main/resources/mapper/event/AttributeMapper.xml)
+### Tests
+- PASS: `scripts/ops/run_attribute_taxonomy_migration.sh apply`, `python3 fivecircles/test/validate-attribute-taxonomy-phase2.py`, `python3 fivecircles/test/validate-reveal-target-key-runtime-phase1.py`, `./gradlew :services:event-service:compileJava`, `cd front && npm run build`
+
+## Addendum (2026-03-03) - Taxonomy dashboard fallback preview + UI polish
+### Frontend
+- taxonomy admin page에 runtime/fallback 분리 탭, 상단 요약 바, axis 요약 카드, copy ids/CSV export 액션을 추가했다. (refs: front/features/admin/AdminTaxonomyPage.tsx, front/features/admin/services/taxonomyApi.ts)
+### Backend
+- taxonomy preview 계약에 `previewMode`와 fallback 매치 메타를 추가하고, suggestion token fallback SQL/count lane을 구현했다. (refs: services/event-service/src/main/java/com/nospoiler/eventservice/service/TaxonomyService.java, services/event-service/src/main/resources/mapper/event/EventMapper.xml)
+### Tests
+- PASS: `./gradlew :services:event-service:compileJava`, `cd front && npm run build`, `curl /api/event/taxonomy/preview` runtime/fallback smoke
+
+## Addendum (2026-03-03) - Taxonomy docker 500 fix
+### Backend
+- event-service Docker build에 taxonomy JSON 복사를 추가하고, missing resource 시 `processResources`가 즉시 실패하도록 보강했다. (refs: services/event-service/Dockerfile, services/event-service/build.gradle)
+### Tests
+- PASS: `docker compose up -d --build --no-deps event-service`, `curl /api/event/taxonomy/tree`, `curl /api/event/taxonomy/preview`
+
+## Addendum (2026-03-03) - Query axis vs taxonomy category 정렬
+### Frontend
+- taxonomy dashboard 상단에 query axis(`REVEAL/PREDICATE/COMBINED/PRECEDES`)를 추가하고, 기존 axis list는 predicate taxonomy category로 재명명했다. (refs: front/features/admin/AdminTaxonomyPage.tsx)
+### Docs
+- 스펙/플랜 문서에 `query axis`와 `predicate taxonomy category` 경계를 명시하고, reveal/combine/precedes는 Phase 1에 상단 축만 노출한다고 정리했다. (refs: fivecircles/architecture/specs/predicate/taxonomy-dashboard.md, fivecircles/architecture/specs/predicate/taxonomy-dashboard-implementation-plan.md, fivecircles/architecture/todolist.md)
+### Tests
+- PASS: `cd front && npm run build`

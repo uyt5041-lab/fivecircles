@@ -175,3 +175,9 @@ Cause:
 
 Preventive rule:
 - When sorting tagged timeline items, assign distinct sort priorities per tag (CAUSE<FOCUS<EFFECT) and keep dedup priority separate (FOCUS always wins)
+### Docker build context must include runtime taxonomy resources
+Cause:
+- `processResources` loaded taxonomy JSON from `scripts/ops/...`, but docker build copied only service/common sources so the resource was silently omitted from `app.jar`
+
+Preventive rule:
+- If a Spring resource comes from outside `src/main/resources`, Dockerfile must copy that path and Gradle should fail fast when the file is missing (refs: fivecircles/test/errorlogs/backend/2026-03-03-taxonomy-dashboard-docker-resource-missing.md)
