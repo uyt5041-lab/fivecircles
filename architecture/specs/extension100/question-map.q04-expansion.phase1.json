@@ -1,0 +1,101 @@
+{
+  "version": "phase1-2026-03-04",
+  "source_docs": [
+    "fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md",
+    "fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md",
+    "fivecircles/architecture/specs/extension100/reveal-inheritance-sketch-for-r-questions.md",
+    "fivecircles/architecture/specs/reveals/reveals-classification.md",
+    "fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md"
+  ],
+  "items": {
+    "Q04_EXP_19": {
+      "source_basis": ["09-expension-questions#Q4-19", "question-axis-tagging-v3#Q4"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_SUSPICION_OR_DISCOVERY",
+        "RK_CLUE_ACCUMULATION"
+      ],
+      "required_set": {
+        "attribute_set": ["A_EXTERNAL_PRESSURE"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["SKYLER_TIMELINE"]
+      }
+    },
+    "Q04_EXP_20": {
+      "source_basis": ["09-expension-questions#Q4-20", "reveal-inheritance-sketch#Q4"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_SUSPICION_OR_DISCOVERY",
+        "RK_FACT_CONFIRMED"
+      ],
+      "required_set": {
+        "attribute_set": ["A_EXTERNAL_PRESSURE", "A_MORAL_FRAME_SHIFT"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["SKYLER_TIMELINE"]
+      }
+    },
+    "Q04_EXP_21": {
+      "source_basis": ["09-expension-questions#Q4-21", "reveal-inheritance-sketch#Q4"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_SUSPICION_OR_DISCOVERY",
+        "RK_DECEPTION_PATTERN_RECOGNIZED"
+      ],
+      "required_set": {
+        "attribute_set": ["A_EXTERNAL_PRESSURE"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["SKYLER_TIMELINE"]
+      }
+    },
+    "Q04_EXP_22": {
+      "source_basis": ["09-expension-questions#Q4-22", "reveal-inheritance-sketch#Q4"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_TRUST_OR_RELATION_CHANGE",
+        "RK_TRUST_EROSION"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["SKYLER_TIMELINE"]
+      }
+    },
+    "Q04_EXP_23": {
+      "source_basis": ["09-expension-questions#Q4-23", "question-axis-tagging-v3#Q4"],
+      "axis": "ATT_REVL_PRED",
+      "combine_mode": "AND",
+      "reveal_family_candidates": [
+        "R_SUSPICION_OR_DISCOVERY",
+        "R_PRESSURE_OR_RISK_STATE",
+        "RK_CLUE_ACCUMULATION"
+      ],
+      "required_set": {
+        "attribute_set": ["A_EXTERNAL_PRESSURE"],
+        "predicate_set": ["P_CONCEALMENT_OR_COVERUP", "P_PLANNING_OR_REASONING"],
+        "event_scope_set": ["SKYLER_TIMELINE", "WALTER_TIMELINE"]
+      }
+    },
+    "Q04_EXP_24": {
+      "source_basis": ["09-expension-questions#Q4-24", "reveal-inheritance-sketch#Q4"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_SUSPICION_OR_DISCOVERY",
+        "R_TRUST_OR_RELATION_CHANGE",
+        "RK_TRUST_EROSION",
+        "RK_FACT_CONFIRMED"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT", "A_EXTERNAL_PRESSURE"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["SKYLER_TIMELINE"]
+      }
+    }
+  },
+  "defaults": {
+    "when_axis_ATT_REVL": "getEventsByRevealAttribute",
+    "when_axis_PRED": "getEventsByPredicate",
+    "when_axis_ATT_REVL_PRED": "combine(ATT_REVL,PRED,mode)",
+    "default_combine_mode_ATT_REVL_PRED": "OR",
+    "on_empty_result": "NOT_ENOUGH_DATA"
+  }
+}

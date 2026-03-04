@@ -1,7 +1,7 @@
 {
   "version": "phase1-2026-02-26",
   "source_docs": [
-    "fivecircles/architecture/specs/expension100/expension-6of100-q1.md",
+    "fivecircles/architecture/specs/extension100/extension-6of100-q1.md",
     "fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md",
     "fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json",
     "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md",
@@ -16,6 +16,10 @@
     "Q01_EXP_01": {
       "source_basis": ["ex22.3#Q1-followup-1", "ex22.2#answer-first"],
       "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_SELF_NARRATIVE_SHIFT",
+        "RK_SELF_JUSTIFICATION"
+      ],
       "required_set": {
         "attribute_set": ["A_MORAL_FRAME_SHIFT"],
         "predicate_set_hint": ["P_PLANNING_OR_REASONING"],
@@ -25,6 +29,11 @@
     "Q01_EXP_02": {
       "source_basis": ["ex22.3#Q1-followup-2", "ex22.2#answer-first"],
       "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_POWER_OR_CONTROL_SHIFT",
+        "R_SELF_NARRATIVE_SHIFT",
+        "RK_KILLING_AS_OPTION"
+      ],
       "required_set": {
         "attribute_set": ["A_VIOLENCE_ADAPTATION"],
         "predicate_set_hint": ["P_VIOLENCE_OR_THREAT"],
@@ -35,6 +44,12 @@
       "source_basis": ["ex22.3#Q1-followup-3", "ex23#closure-expansion"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "OR",
+      "reveal_family_candidates": [
+        "R_PRESSURE_OR_RISK_STATE",
+        "RK_THREAT_ESCALATION",
+        "RK_ENFORCEMENT_HEAT",
+        "RK_SURVIVAL_MODE"
+      ],
       "required_set": {
         "attribute_set": ["A_EXTERNAL_PRESSURE", "A_RISK_OR_SURVIVAL_MODE"],
         "predicate_set": ["P_INVESTIGATION_OR_ENFORCEMENT", "P_NEGOTIATION_OR_DEALING"],
@@ -44,6 +59,11 @@
     "Q01_EXP_04": {
       "source_basis": ["ex22.3#Q1-followup-4", "ex22.2#answer-first"],
       "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_SELF_NARRATIVE_SHIFT",
+        "RK_KILLING_AS_OPTION",
+        "RK_SELF_JUSTIFICATION"
+      ],
       "required_set": {
         "attribute_set": ["A_MORAL_FRAME_SHIFT"],
         "predicate_set_hint": ["P_PLANNING_OR_REASONING"],
@@ -53,6 +73,12 @@
     "Q01_EXP_05": {
       "source_basis": ["ex22.3#Q1-followup-5", "ex20#reveals-axis"],
       "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_TRUST_OR_RELATION_CHANGE",
+        "R_PRESSURE_OR_RISK_STATE",
+        "RK_TRUST_EROSION",
+        "RK_RELATION_REFRAMED"
+      ],
       "required_set": {
         "attribute_set": ["A_RELATIONSHIP_SHIFT", "A_EXTERNAL_PRESSURE"],
         "predicate_set": [],
@@ -63,6 +89,12 @@
       "source_basis": ["ex22.3#Q1-followup-6", "ex21#and-policy", "ex23#closure-expansion"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "AND",
+      "reveal_family_candidates": [
+        "R_SELF_NARRATIVE_SHIFT",
+        "R_PRESSURE_OR_RISK_STATE",
+        "R_POWER_OR_CONTROL_SHIFT",
+        "RK_POINT_OF_NO_RETURN"
+      ],
       "required_set": {
         "attribute_set": ["A_POINT_OF_NO_RETURN", "A_VIOLENCE_ADAPTATION", "A_EXTERNAL_PRESSURE"],
         "predicate_set": ["P_VIOLENCE_OR_THREAT"],

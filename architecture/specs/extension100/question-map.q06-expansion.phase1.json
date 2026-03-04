@@ -1,0 +1,115 @@
+{
+  "version": "phase1-2026-03-04",
+  "source_docs": [
+    "fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md",
+    "fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md",
+    "fivecircles/architecture/specs/extension100/reveal-inheritance-sketch-for-r-questions.md",
+    "fivecircles/architecture/specs/reveals/reveals-classification.md"
+  ],
+  "items": {
+    "Q06_EXP_32": {
+      "source_basis": ["09-expension-questions#Q6-32", "question-axis-tagging-v3#Q6"],
+      "axis": "ATT_REVL_PRED",
+      "combine_mode": "OR",
+      "reveal_family_candidates": [
+        "R_TRUST_OR_RELATION_CHANGE",
+        "RK_ACCOMPLICE_BOND"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT"],
+        "predicate_set": ["P_NEGOTIATION_OR_DEALING", "P_ALLIANCE_OR_PARTNERSHIP"],
+        "event_scope_set": ["WALTER_JESSE_SCOPE"]
+      }
+    },
+    "Q06_EXP_33": {
+      "source_basis": ["09-expension-questions#Q6-33", "reveal-inheritance-sketch#Q6"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_TRUST_OR_RELATION_CHANGE",
+        "R_POWER_OR_CONTROL_SHIFT",
+        "RK_MANIPULATION_PATTERN"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["JESSE_TIMELINE"]
+      }
+    },
+    "Q06_EXP_34": {
+      "source_basis": ["09-expension-questions#Q6-34", "reveal-inheritance-sketch#Q6"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_TRUST_OR_RELATION_CHANGE",
+        "RK_ACCOMPLICE_BOND"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT"],
+        "predicate_set_hint": ["P_ALLIANCE_OR_PARTNERSHIP"],
+        "event_scope_set": ["WALTER_JESSE_SCOPE"]
+      }
+    },
+    "Q06_EXP_35": {
+      "source_basis": ["09-expension-questions#Q6-35", "reveal-inheritance-sketch#Q6"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_POWER_OR_CONTROL_SHIFT",
+        "RK_MANIPULATION_PATTERN",
+        "RK_POWER_IMBALANCE"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT", "A_VIOLENCE_ADAPTATION"],
+        "predicate_set_hint": ["P_VIOLENCE_OR_THREAT", "P_ALLIANCE_OR_PARTNERSHIP"],
+        "event_scope_set": ["WALTER_JESSE_SCOPE"]
+      }
+    },
+    "Q06_EXP_36": {
+      "source_basis": ["09-expension-questions#Q6-36", "question-axis-tagging-v3#Q6"],
+      "axis": "ATT_REVL_PRED",
+      "combine_mode": "AND",
+      "reveal_family_candidates": [
+        "R_POWER_OR_CONTROL_SHIFT",
+        "R_PRESSURE_OR_RISK_STATE",
+        "RK_POWER_IMBALANCE"
+      ],
+      "required_set": {
+        "attribute_set": ["A_EXTERNAL_PRESSURE", "A_RELATIONSHIP_SHIFT"],
+        "predicate_set": ["P_CONFLICT_OR_BREAK", "P_CONCEALMENT_OR_COVERUP"],
+        "event_scope_set": ["WALTER_JESSE_SCOPE"]
+      }
+    },
+    "Q06_EXP_37": {
+      "source_basis": ["09-expension-questions#Q6-37", "reveal-inheritance-sketch#Q6"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_POWER_OR_CONTROL_SHIFT",
+        "R_TRUST_OR_RELATION_CHANGE",
+        "RK_POWER_IMBALANCE"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT", "A_VIOLENCE_ADAPTATION"],
+        "predicate_set_hint": ["P_ALLIANCE_OR_PARTNERSHIP"],
+        "event_scope_set": ["WALTER_JESSE_SCOPE"]
+      }
+    },
+    "Q06_EXP_38": {
+      "source_basis": ["09-expension-questions#Q6-38", "reveal-inheritance-sketch#Q6"],
+      "axis": "ATT_REVL",
+      "reveal_family_candidates": [
+        "R_TRUST_OR_RELATION_CHANGE",
+        "RK_TRUST_EROSION"
+      ],
+      "required_set": {
+        "attribute_set": ["A_RELATIONSHIP_SHIFT"],
+        "predicate_set_hint": ["P_DISCOVERY_OR_REALIZATION"],
+        "event_scope_set": ["JESSE_TIMELINE"]
+      }
+    }
+  },
+  "defaults": {
+    "when_axis_ATT_REVL": "getEventsByRevealAttribute",
+    "when_axis_PRED": "getEventsByPredicate",
+    "when_axis_ATT_REVL_PRED": "combine(ATT_REVL,PRED,mode)",
+    "default_combine_mode_ATT_REVL_PRED": "OR",
+    "on_empty_result": "NOT_ENOUGH_DATA"
+  }
+}
