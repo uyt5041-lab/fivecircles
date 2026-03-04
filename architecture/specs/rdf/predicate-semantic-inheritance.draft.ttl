@@ -1,0 +1,267 @@
+@prefix ns: <https://nospoiler.dev/ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns:PredicateSemanticInheritanceDraft a owl:Ontology ;
+  rdfs:label "Predicate Semantic Inheritance Draft"@en ;
+  rdfs:comment "Predicate group/member semantic lane draft generated from predicate_inheritance.json"@en .
+
+ns:PredicateSemanticGroup a owl:Class ;
+  rdfs:label "Predicate Semantic Group"@en .
+
+ns:PredicateSemanticMember a owl:Class ;
+  rdfs:label "Predicate Semantic Member"@en .
+
+ns:hasPredicateMember a owl:ObjectProperty ;
+  rdfs:domain ns:PredicateSemanticGroup ;
+  rdfs:range ns:PredicateSemanticMember .
+
+ns:impliesPredicateGroup a owl:ObjectProperty ;
+  rdfs:domain ns:PredicateSemanticGroup ;
+  rdfs:range ns:PredicateSemanticGroup .
+
+ns:memberKind a owl:DatatypeProperty ;
+  rdfs:domain ns:PredicateSemanticMember ;
+  rdfs:range xsd:string .
+
+ns:valueCode a owl:DatatypeProperty ;
+  rdfs:domain ns:PredicateSemanticMember ;
+  rdfs:range xsd:string .
+
+ns:predicateSemanticCode a owl:DatatypeProperty ;
+  rdfs:domain ns:PredicateSemanticGroup ;
+  rdfs:range xsd:string .
+
+ns:p_semantic_predicate a ns:PredicateSemanticGroup ;
+  rdfs:label "P_SEMANTIC_PREDICATE"@en ;
+  ns:predicateSemanticCode "P_SEMANTIC_PREDICATE" .
+
+ns:pg_affiliation_change a ns:PredicateSemanticGroup ;
+  rdfs:label "Affiliation Change" ;
+  ns:predicateSemanticCode "AFFILIATION_CHANGE" ;
+  ns:impliesPredicateGroup ns:p_semantic_predicate ;
+  ns:hasPredicateMember ns:pm_pc_joins ;
+  ns:hasPredicateMember ns:pm_pc_leaves ;
+  ns:hasPredicateMember ns:pm_ps_affiliation_change .
+
+ns:pg_death_exit a ns:PredicateSemanticGroup ;
+  rdfs:label "Death/Exit" ;
+  ns:predicateSemanticCode "DEATH_EXIT" ;
+  ns:impliesPredicateGroup ns:p_semantic_predicate ;
+  ns:hasPredicateMember ns:pm_pc_dies ;
+  ns:hasPredicateMember ns:pm_pc_leaves ;
+  ns:hasPredicateMember ns:pm_ps_death ;
+  ns:hasPredicateMember ns:pm_ps_exit ;
+  ns:hasPredicateMember ns:pm_ps_death_exit .
+
+ns:pg_battle a ns:PredicateSemanticGroup ;
+  rdfs:label "Battle" ;
+  ns:predicateSemanticCode "BATTLE" ;
+  ns:impliesPredicateGroup ns:p_semantic_predicate ;
+  ns:impliesPredicateGroup ns:pg_adversary ;
+  ns:hasPredicateMember ns:pm_pc_attacks ;
+  ns:hasPredicateMember ns:pm_pc_defeats ;
+  ns:hasPredicateMember ns:pm_pc_kills ;
+  ns:hasPredicateMember ns:pm_ps_battle ;
+  ns:hasPredicateMember ns:pm_ps_confronts .
+
+ns:pg_adversary a ns:PredicateSemanticGroup ;
+  rdfs:label "Adversary" ;
+  ns:predicateSemanticCode "ADVERSARY" ;
+  ns:impliesPredicateGroup ns:p_semantic_predicate ;
+  ns:impliesPredicateGroup ns:pg_death_exit ;
+  ns:hasPredicateMember ns:pm_pc_captures ;
+  ns:hasPredicateMember ns:pm_pc_betrays ;
+  ns:hasPredicateMember ns:pm_ps_threat ;
+  ns:hasPredicateMember ns:pm_ps_threatens ;
+  ns:hasPredicateMember ns:pm_ps_threatened ;
+  ns:hasPredicateMember ns:pm_ps_intimidates ;
+  ns:hasPredicateMember ns:pm_ps_coerces ;
+  ns:hasPredicateMember ns:pm_ps_blackmail ;
+  ns:hasPredicateMember ns:pm_ps_manipulates ;
+  ns:hasPredicateMember ns:pm_ps_seizes_control ;
+  ns:hasPredicateMember ns:pm_ps_dominates ;
+  ns:hasPredicateMember ns:pm_ps_power_shift ;
+  ns:hasPredicateMember ns:pm_ps_trust_collapse ;
+  ns:hasPredicateMember ns:pm_ps_relationship_damage .
+
+ns:pg_ally a ns:PredicateSemanticGroup ;
+  rdfs:label "Ally" ;
+  ns:predicateSemanticCode "ALLY" ;
+  ns:impliesPredicateGroup ns:p_semantic_predicate ;
+  ns:hasPredicateMember ns:pm_pc_allies_with ;
+  ns:hasPredicateMember ns:pm_pc_joins ;
+  ns:hasPredicateMember ns:pm_ps_ally ;
+  ns:hasPredicateMember ns:pm_ps_allies_with ;
+  ns:hasPredicateMember ns:pm_ps_affiliation_change ;
+  ns:hasPredicateMember ns:pm_ps_partners_with ;
+  ns:hasPredicateMember ns:pm_ps_co_conspirator ;
+  ns:hasPredicateMember ns:pm_ps_supply_contract ;
+  ns:hasPredicateMember ns:pm_ps_recurring_deal .
+
+ns:pm_pc_joins a ns:PredicateSemanticMember ;
+  rdfs:label "JOINS" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "JOINS" .
+
+ns:pm_pc_leaves a ns:PredicateSemanticMember ;
+  rdfs:label "LEAVES" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "LEAVES" .
+
+ns:pm_pc_dies a ns:PredicateSemanticMember ;
+  rdfs:label "DIES" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "DIES" .
+
+ns:pm_pc_attacks a ns:PredicateSemanticMember ;
+  rdfs:label "ATTACKS" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "ATTACKS" .
+
+ns:pm_pc_defeats a ns:PredicateSemanticMember ;
+  rdfs:label "DEFEATS" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "DEFEATS" .
+
+ns:pm_pc_kills a ns:PredicateSemanticMember ;
+  rdfs:label "KILLS" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "KILLS" .
+
+ns:pm_pc_captures a ns:PredicateSemanticMember ;
+  rdfs:label "CAPTURES" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "CAPTURES" .
+
+ns:pm_pc_betrays a ns:PredicateSemanticMember ;
+  rdfs:label "BETRAYS" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "BETRAYS" .
+
+ns:pm_pc_allies_with a ns:PredicateSemanticMember ;
+  rdfs:label "ALLIES_WITH" ;
+  ns:memberKind "PREDICATE_CODE" ;
+  ns:valueCode "ALLIES_WITH" .
+
+ns:pm_ps_affiliation_change a ns:PredicateSemanticMember ;
+  rdfs:label "AFFILIATION_CHANGE" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "AFFILIATION_CHANGE" .
+
+ns:pm_ps_death a ns:PredicateSemanticMember ;
+  rdfs:label "DEATH" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "DEATH" .
+
+ns:pm_ps_exit a ns:PredicateSemanticMember ;
+  rdfs:label "EXIT" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "EXIT" .
+
+ns:pm_ps_death_exit a ns:PredicateSemanticMember ;
+  rdfs:label "DEATH_EXIT" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "DEATH_EXIT" .
+
+ns:pm_ps_battle a ns:PredicateSemanticMember ;
+  rdfs:label "BATTLE" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "BATTLE" .
+
+ns:pm_ps_confronts a ns:PredicateSemanticMember ;
+  rdfs:label "CONFRONTS" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "CONFRONTS" .
+
+ns:pm_ps_threat a ns:PredicateSemanticMember ;
+  rdfs:label "THREAT" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "THREAT" .
+
+ns:pm_ps_threatens a ns:PredicateSemanticMember ;
+  rdfs:label "THREATENS" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "THREATENS" .
+
+ns:pm_ps_threatened a ns:PredicateSemanticMember ;
+  rdfs:label "THREATENED" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "THREATENED" .
+
+ns:pm_ps_intimidates a ns:PredicateSemanticMember ;
+  rdfs:label "INTIMIDATES" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "INTIMIDATES" .
+
+ns:pm_ps_coerces a ns:PredicateSemanticMember ;
+  rdfs:label "COERCES" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "COERCES" .
+
+ns:pm_ps_blackmail a ns:PredicateSemanticMember ;
+  rdfs:label "BLACKMAIL" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "BLACKMAIL" .
+
+ns:pm_ps_manipulates a ns:PredicateSemanticMember ;
+  rdfs:label "MANIPULATES" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "MANIPULATES" .
+
+ns:pm_ps_seizes_control a ns:PredicateSemanticMember ;
+  rdfs:label "SEIZES_CONTROL" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "SEIZES_CONTROL" .
+
+ns:pm_ps_dominates a ns:PredicateSemanticMember ;
+  rdfs:label "DOMINATES" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "DOMINATES" .
+
+ns:pm_ps_power_shift a ns:PredicateSemanticMember ;
+  rdfs:label "POWER_SHIFT" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "POWER_SHIFT" .
+
+ns:pm_ps_trust_collapse a ns:PredicateSemanticMember ;
+  rdfs:label "TRUST_COLLAPSE" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "TRUST_COLLAPSE" .
+
+ns:pm_ps_relationship_damage a ns:PredicateSemanticMember ;
+  rdfs:label "RELATIONSHIP_DAMAGE" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "RELATIONSHIP_DAMAGE" .
+
+ns:pm_ps_ally a ns:PredicateSemanticMember ;
+  rdfs:label "ALLY" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "ALLY" .
+
+ns:pm_ps_allies_with a ns:PredicateSemanticMember ;
+  rdfs:label "ALLIES_WITH" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "ALLIES_WITH" .
+
+ns:pm_ps_partners_with a ns:PredicateSemanticMember ;
+  rdfs:label "PARTNERS_WITH" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "PARTNERS_WITH" .
+
+ns:pm_ps_co_conspirator a ns:PredicateSemanticMember ;
+  rdfs:label "CO_CONSPIRATOR" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "CO_CONSPIRATOR" .
+
+ns:pm_ps_supply_contract a ns:PredicateSemanticMember ;
+  rdfs:label "SUPPLY_CONTRACT" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "SUPPLY_CONTRACT" .
+
+ns:pm_ps_recurring_deal a ns:PredicateSemanticMember ;
+  rdfs:label "RECURRING_DEAL" ;
+  ns:memberKind "SUGGESTION" ;
+  ns:valueCode "RECURRING_DEAL" .
