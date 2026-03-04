@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 CODEBOOK_JSON = ROOT / "fivecircles/architecture/specs/reveals/reveal-target-key-codebook.phase1.json"
-QUESTION_MAP = ROOT / "fivecircles/architecture/specs/expension100/question-map.q01-expansion.phase1.json"
+QUESTION_MAP = ROOT / "fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json"
 TAXONOMY_JSON = ROOT / "fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json"
 PHASE1_TS = ROOT / "front/common/productionQ/inheritancePhase1.ts"
 SEED_SQL = ROOT / "scripts/ops/seed_expension100_q1_attribute_reveals.sql"

@@ -376,18 +376,18 @@
     - [x] Cycle 1-5: Story Reminder 템플릿/SPARQL 질의로 Q1-1~Q1-6 실행 경로 고정
     - [x] Cycle 1-6: K gate(절대회차) 기준 `ANSWERED/SPOILER_BLOCKED/NOT_ENOUGH_DATA` 회귀 검증
     - [ ] Follow-up: `/api/event/v2/probe`에서 `strictFilters.qAnyOf` 바인딩/검증 경로 점검 (keyword probe 400/무시 리스크)
-  - [ ] **Phase 6-B / Expension100 3축 분류 + 4축 리마인더 UI 전환 (2026-02-26)** (refs: `expension100/expension-6of100-q1.md`, `expension100/expension100-3axis-4axis-reminder-plan-2026-02-26.md`, `expension100/question-map.q01-expansion.phase1.json`, `rdf/policy/inheritance-closure-policy.md`, `rdf/policy/inheritance-closure-taxonomy.phase1.json`)
+  - [ ] **Phase 6-B / Extension100 3축 분류 + 4축 리마인더 UI 전환 (2026-02-26)** (refs: `extension100/extension-6of100-q1.md`, `extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md`, `extension100/question-map.q01-expansion.phase1.json`, `rdf/policy/inheritance-closure-policy.md`, `rdf/policy/inheritance-closure-taxonomy.phase1.json`)
     - [ ] B1) Q1 확장 6개 strict 복구: 문서 서술형 토큰은 `approx_only`, DB hit 토큰은 `strict_must`로 분리
       - [ ] B1-1) `Q01_EXP_01/02/04` strict 토큰을 DB 검증 통과 세트로 복원
       - [ ] B1-2) `Q01_EXP_03/05/06`은 현 앵커 유지 + 동치 토큰만 보강
       - [ ] B1-3) `validate-q1-expansion-gate.py` 케이스를 템플릿 값과 동기화
-    - [ ] B2) Expension100 질문 매핑 SoT 작성 (`question_id -> axis -> required_set`)
+    - [ ] B2) Extension100 질문 매핑 SoT 작성 (`question_id -> axis -> required_set`)
       - [ ] B2-1) A축: `event_scope_set` 정의
       - [x] B2-2) B축: `attribute_set` 키를 closure taxonomy(Phase1 JSON) 기준으로 고정
       - [x] B2-2a) `A_* -> event_reveal.target_id` 바인딩 테이블 채움(미입력 시 해당 질문은 `NOT_ENOUGH_DATA`) (`seed_expension100_q1_attribute_reveals.sql` + `validate-expension100-intelligence-columns.py`)
       - [x] B2-3) C축: `predicate_set`을 closure taxonomy leaf -> `PredicateCode` 매핑 기준으로 고정
       - [x] B2-3a) `P_*` 직접 조회 금지, `runtime_bindings -> PredicateCode` 변환 규칙 고정
-      - [x] B2-4) Q1 확장 canonical SoT 파일 고정: `specs/expension100/question-map.q01-expansion.phase1.json`
+      - [x] B2-4) Q1 확장 canonical SoT 파일 고정: `specs/extension100/question-map.q01-expansion.phase1.json`
       - [x] B2-5) closure taxonomy canonical SoT 파일 고정: `specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
     - [ ] B2.5) 상속(승계) 확장 유틸 추가 (**PRECEDES 대체 금지**, policy: `rdf/policy/inheritance-closure-policy.md`)
       - [x] B2.5-1) Phase1 범위 고정(DB 무변경): 기존 `event.predicate_code` + `event_reveal`만 사용

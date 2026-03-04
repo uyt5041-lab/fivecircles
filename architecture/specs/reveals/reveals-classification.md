@@ -19,6 +19,7 @@
 - 지속 기준서: `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 - REVEALS(관계로 취급하는 초기 논의): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex11-reveals.md`
 - REVEALS type 제안(설명력 강화): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex11.2-reveals2.md`
+- semantic inheritance draft: `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-semantic-inheritance-draft.md`
 - 트리플스토어 예시(note 포함): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex04-triplestore.md`
 - predicate 전략: `fivecircles/architecture/specs/predicate/README.md`
 - ex14 정합성 갭: `fivecircles/architecture/specs/ex14-consistency-checklist.md`

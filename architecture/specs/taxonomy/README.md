@@ -21,6 +21,8 @@
   - `scripts/ops/rdf/taxonomy/predicate_inheritance.json`
 - `REVEAL semantic SoT`
   - `fivecircles/architecture/specs/reveals/reveal-target-key-codebook.md`
+- `REVEAL semantic inheritance draft`
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-semantic-inheritance-draft.md`
 - `REVEAL closure SoT`
   - `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
 - `REVEAL read-path blueprint`

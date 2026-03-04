@@ -103,7 +103,7 @@
 - Closure taxonomy SoT:
   - `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
 - Q1 확장 질문 매핑 SoT:
-  - `fivecircles/architecture/specs/expension100/question-map.q01-expansion.phase1.json`
+  - `fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json`
 
 ## 11) Rollout
 1. Q1 확장 6개 strict 복구
