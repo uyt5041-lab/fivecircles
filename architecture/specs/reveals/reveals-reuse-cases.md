@@ -21,7 +21,7 @@
 - 지속 기준서: `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 - 라우팅(MVP vs V3): `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 - DB 스키마: `services/event-service/src/main/resources/db/migration/V2__fix_event_reveal_schema.sql`
-- 축/확장 연계(ex20~ex23): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
+- 축/확장 연계(ex20~ex23): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ---
 

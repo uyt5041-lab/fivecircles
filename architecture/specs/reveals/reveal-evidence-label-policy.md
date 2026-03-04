@@ -5,8 +5,8 @@
 
 연결 문서(20번대)
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`
-- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
-- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`
+- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ## 1) 핵심 원칙

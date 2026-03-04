@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Dict, List, Set
 
 ROOT = Path(__file__).resolve().parents[2]
-QUESTION_MAP_PATH = ROOT / "fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json"
+QUESTION_MAP_PATH = ROOT / "fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json"
 TAXONOMY_PATH = ROOT / "scripts/ops/rdf/taxonomy/predicate_axis_taxonomy.json"
 
 MYSQL_CONTAINER = "nospoiler-mysql"

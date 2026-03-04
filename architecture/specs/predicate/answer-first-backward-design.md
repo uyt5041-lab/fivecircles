@@ -70,7 +70,7 @@
   - `axis/SPO/AND/WHY 구현 체크리스트 > A-2`
 
 ## 참조
-- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
-- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`
+- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`
 - `fivecircles/architecture/specs/reveals/reveals-classification.md` (Rule C: 사실/해석 분리 + HINT/CONFIRM 판정)
 - `fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md` (지속 참고 기준서)

@@ -1,15 +1,15 @@
 {
   "version": "phase1-2026-02-26",
   "source_docs": [
-    "fivecircles/architecture/specs/extension100/extension-6of100-q1.md",
+    "fivecircles/architecture/specs/expansion100/expansion-6of100-q1.md",
     "fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md",
     "fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json",
     "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md",
     "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex21-SPO-N-Y.md",
     "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22-axis-N-Y-scetch.md",
     "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.1-ops.md",
-    "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md",
-    "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md",
+    "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md",
+    "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md",
     "fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md"
   ],
   "items": {

@@ -23,7 +23,7 @@ MYSQL_PASSWORD = "root"
 MYSQL_DATABASE = "nospoiler_event"
 
 ROOT = Path(__file__).resolve().parents[2]
-QUESTION_MAP_PATH = ROOT / "fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json"
+QUESTION_MAP_PATH = ROOT / "fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json"
 TAXONOMY_PATH = ROOT / "fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json"
 ANSWERSET_PATH = ROOT / "fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json"
 PHASE1_TS_PATH = ROOT / "front/common/productionQ/inheritancePhase1.ts"

@@ -12,8 +12,8 @@
 - 지속 참고 기준서는 `reveal-evidence-label-policy.md`를 canonical로 따른다.
 - 축/확장 문서 정합성은 ex20~ex23을 함께 본다.
   - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`
-  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
-  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`
   - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 전제(현재 구현)

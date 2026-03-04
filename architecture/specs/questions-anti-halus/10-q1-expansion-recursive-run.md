@@ -1,7 +1,7 @@
 # Q1 익스펜션 재귀 실행 로그 (Cycle 1)
 
 기준 문서
-- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md`
+- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expansion100/09-expansion-questions.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/questions-anti-halus/06-answers-for-productionQs.md`
 
 실행일

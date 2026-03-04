@@ -1,4 +1,4 @@
-# Extension100 3축 분류 + 4축 리마인더 UI 실행안 (2026-02-26)
+# Expansion100 3축 분류 + 4축 리마인더 UI 실행안 (2026-02-26)
 
 ## 1) 대화 기준 고정안
 - 사용자 제안 분류(100문항):
@@ -15,7 +15,7 @@
   - ex22.2 `T01~T10` 템플릿 추가
   - 시험용 리마인더 페이지(`/qa-story-reminder-test`) 추가
   - 시험 페이지에서 ex22.2/ex22.3 세트 전환 모드 추가
-  - ex22.3 `Q01_EXP_01~06` 템플릿을 `extension-6of100-q1.md` 기준으로 재정렬
+  - ex22.3 `Q01_EXP_01~06` 템플릿을 `expansion-6of100-q1.md` 기준으로 재정렬
   - 상속 정책을 `specs/rdf/policy`로 분리 고정
 - 확인된 갭:
   - 일부 확장 질문은 strict `qAnyOf`가 DB 텍스트와 어긋나 `NOT_ENOUGH_DATA`가 발생 가능
@@ -55,12 +55,12 @@
 ## 5) 권장 실행순서 (합의안)
 1. Q1 확장 6개 strict 토큰 복구(문서 서술형 토큰은 approx로 분리)
 2. `question_id -> axis -> required_set(attribute/predicate/scope)` SoT JSON 작성
- - `fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json`
-  - `fivecircles/architecture/specs/extension100/question-map.q04-expansion.phase1.json`
-  - `fivecircles/architecture/specs/extension100/question-map.q06-expansion.phase1.json`
-  - `fivecircles/architecture/specs/extension100/question-map.q07-expansion.phase1.json`
-  - `fivecircles/architecture/specs/extension100/question-map.q11-expansion.phase1.json`
-  - `fivecircles/architecture/specs/extension100/question-map.q14-expansion.phase1.json`
+ - `fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q04-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q06-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q07-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q11-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q14-expansion.phase1.json`
 3. 상속 closure 레이어 추가: taxonomy JSON + `expand(set)` 유틸
    - `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
 4. 조회 레이어 추가: `getEventsByRevealAttribute`, `getEventsByPredicate` (expanded set 사용)
@@ -76,8 +76,8 @@
   - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex21-SPO-N-Y.md`
   - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22-axis-N-Y-scetch.md`
   - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.1-ops.md`
-  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
-  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`
+  - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`
   - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ## 6.1) 실행 규칙 연결표 (Spec <- Plan)
@@ -86,25 +86,25 @@
 | A/B/C 축 기반 조회 분기 | ex20, ex22 | 본 문서 3), question-map |
 | strict-first 유지 + WHY 가드 | ex21, ex22.1 | executor + todolist gates |
 | Q1 확장 6개를 canonical 질문셋으로 고정 | ex22.2, ex22.3 | `question-map.q01-expansion.phase1.json` |
-| reveal-first 질문군(Q4/Q6/Q7/Q11/Q14) draft map 추가 | extension100 tagging, reveal sketch | `question-map.q04-expansion.phase1.json`, `question-map.q06-expansion.phase1.json`, `question-map.q07-expansion.phase1.json`, `question-map.q11-expansion.phase1.json`, `question-map.q14-expansion.phase1.json` |
+| reveal-first 질문군(Q4/Q6/Q7/Q11/Q14) draft map 추가 | expansion100 tagging, reveal sketch | `question-map.q04-expansion.phase1.json`, `question-map.q06-expansion.phase1.json`, `question-map.q07-expansion.phase1.json`, `question-map.q11-expansion.phase1.json`, `question-map.q14-expansion.phase1.json` |
 | RDF 상속은 closure 확장만 사용 | ex23 | `inheritance-closure-policy.md`, taxonomy JSON |
 | PRECEDES는 보조 lane | ex22.3, ex23 | 본 문서 3), UI lane 계획 |
 | Phase1 DB 무변경 / Phase2 보류 | ex22.1 | 본 문서 4), todolist B2.5 |
 
 - 분류 예시 원문:
-  - `fivecircles/architecture/specs/extension100/extension-6of100-q1.md`
+  - `fivecircles/architecture/specs/expansion100/expansion-6of100-q1.md`
 - V3+ 축 태깅표:
-  - `fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md`
+  - `fivecircles/architecture/specs/expansion100/question-axis-tagging-v3-reveal-predicate-precedes.md`
 - R 질문군용 reveal 상속계 스케치:
-  - `fivecircles/architecture/specs/extension100/reveal-inheritance-sketch-for-r-questions.md`
+  - `fivecircles/architecture/specs/expansion100/reveal-inheritance-sketch-for-r-questions.md`
 - question-map draft 인덱스:
-  - `fivecircles/architecture/specs/extension100/question-map-drafts-index.md`
+  - `fivecircles/architecture/specs/expansion100/question-map-drafts-index.md`
 - 상속 정책(정식):
   - `fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md`
 - 상속 taxonomy SoT(Phase1):
   - `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
 - Q1 확장 질문 매핑 SoT(Phase1):
-  - `fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json`
 - 관련 아티팩트:
   - `fivecircles/architecture/specs/predicate/artifacts/answerset-10.json`
   - `fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json`

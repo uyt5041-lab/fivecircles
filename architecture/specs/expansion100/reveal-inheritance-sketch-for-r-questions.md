@@ -7,7 +7,7 @@
 - 일반 semantic reveal draft를 실전 질문 관점으로 재배열해서, 어떤 reveal family가 어떤 질문군에 잘 맞는지 먼저 고정한다.
 
 기준 문서
-- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md`
+- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expansion100/question-axis-tagging-v3-reveal-predicate-precedes.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-semantic-inheritance-draft.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveals-classification.md`

@@ -1,14 +1,14 @@
 {
   "version": "phase1-2026-03-04",
   "source_docs": [
-    "fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md",
-    "fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md",
-    "fivecircles/architecture/specs/extension100/reveal-inheritance-sketch-for-r-questions.md",
+    "fivecircles/architecture/specs/expansion100/09-expansion-questions.md",
+    "fivecircles/architecture/specs/expansion100/question-axis-tagging-v3-reveal-predicate-precedes.md",
+    "fivecircles/architecture/specs/expansion100/reveal-inheritance-sketch-for-r-questions.md",
     "fivecircles/architecture/specs/reveals/reveals-classification.md"
   ],
   "items": {
     "Q06_EXP_32": {
-      "source_basis": ["09-expension-questions#Q6-32", "question-axis-tagging-v3#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-32", "question-axis-tagging-v3#Q6"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "OR",
       "reveal_family_candidates": [
@@ -22,7 +22,7 @@
       }
     },
     "Q06_EXP_33": {
-      "source_basis": ["09-expension-questions#Q6-33", "reveal-inheritance-sketch#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-33", "reveal-inheritance-sketch#Q6"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",
@@ -36,7 +36,7 @@
       }
     },
     "Q06_EXP_34": {
-      "source_basis": ["09-expension-questions#Q6-34", "reveal-inheritance-sketch#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-34", "reveal-inheritance-sketch#Q6"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",
@@ -49,7 +49,7 @@
       }
     },
     "Q06_EXP_35": {
-      "source_basis": ["09-expension-questions#Q6-35", "reveal-inheritance-sketch#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-35", "reveal-inheritance-sketch#Q6"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_POWER_OR_CONTROL_SHIFT",
@@ -63,7 +63,7 @@
       }
     },
     "Q06_EXP_36": {
-      "source_basis": ["09-expension-questions#Q6-36", "question-axis-tagging-v3#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-36", "question-axis-tagging-v3#Q6"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "AND",
       "reveal_family_candidates": [
@@ -78,7 +78,7 @@
       }
     },
     "Q06_EXP_37": {
-      "source_basis": ["09-expension-questions#Q6-37", "reveal-inheritance-sketch#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-37", "reveal-inheritance-sketch#Q6"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_POWER_OR_CONTROL_SHIFT",
@@ -92,7 +92,7 @@
       }
     },
     "Q06_EXP_38": {
-      "source_basis": ["09-expension-questions#Q6-38", "reveal-inheritance-sketch#Q6"],
+      "source_basis": ["09-expansion-questions#Q6-38", "reveal-inheritance-sketch#Q6"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",

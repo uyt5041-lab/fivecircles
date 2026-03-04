@@ -23,7 +23,7 @@
 - 트리플스토어 예시(note 포함): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex04-triplestore.md`
 - predicate 전략: `fivecircles/architecture/specs/predicate/README.md`
 - ex14 정합성 갭: `fivecircles/architecture/specs/ex14-consistency-checklist.md`
-- 축/확장 스케치(ex20~ex23): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
+- 축/확장 스케치(ex20~ex23): `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex20-axis.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`, `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ---
 

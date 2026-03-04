@@ -2,7 +2,7 @@
 
 ## 1) Purpose
 - 상속(승계)은 질문 매칭 범위 확장(closure) 레이어로만 사용한다.
-- 대상은 Expension100의 B/C 축 질문(`REVEALS/ATTRIBUTE`, `predicate_code`)이다.
+- 대상은 Expansion100의 B/C 축 질문(`REVEALS/ATTRIBUTE`, `predicate_code`)이다.
 - Event 인스턴스 상속은 하지 않고, `Predicate`/`Attribute` 계층만 상속한다.
 
 ## 1.1) Origin References (Shared Ontology Layer, ex20+)
@@ -10,8 +10,8 @@
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex21-SPO-N-Y.md`
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22-axis-N-Y-scetch.md`
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.1-ops.md`
-- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md`
-- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md`
+- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md`
+- `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md`
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex23-RDF-inheritance.md`
 
 ## 1.2) Traceability Matrix (Policy <- Plan)
@@ -103,7 +103,7 @@
 - Closure taxonomy SoT:
   - `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
 - Q1 확장 질문 매핑 SoT:
-  - `fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json`
+  - `fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json`
 
 ## 11) Rollout
 1. Q1 확장 6개 strict 복구

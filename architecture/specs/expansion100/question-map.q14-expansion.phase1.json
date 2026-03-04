@@ -1,14 +1,14 @@
 {
   "version": "phase1-2026-03-04",
   "source_docs": [
-    "fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md",
-    "fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md",
-    "fivecircles/architecture/specs/extension100/reveal-inheritance-sketch-for-r-questions.md",
+    "fivecircles/architecture/specs/expansion100/09-expansion-questions.md",
+    "fivecircles/architecture/specs/expansion100/question-axis-tagging-v3-reveal-predicate-precedes.md",
+    "fivecircles/architecture/specs/expansion100/reveal-inheritance-sketch-for-r-questions.md",
     "fivecircles/architecture/specs/reveals/reveals-classification.md"
   ],
   "items": {
     "Q14_EXP_88": {
-      "source_basis": ["09-expension-questions#Q14-88", "reveal-inheritance-sketch#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-88", "reveal-inheritance-sketch#Q14"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",
@@ -21,7 +21,7 @@
       }
     },
     "Q14_EXP_89": {
-      "source_basis": ["09-expension-questions#Q14-89", "question-axis-tagging-v3#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-89", "question-axis-tagging-v3#Q14"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "OR",
       "reveal_family_candidates": [
@@ -37,7 +37,7 @@
       }
     },
     "Q14_EXP_90": {
-      "source_basis": ["09-expension-questions#Q14-90", "question-axis-tagging-v3#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-90", "question-axis-tagging-v3#Q14"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "OR",
       "reveal_family_candidates": [
@@ -51,7 +51,7 @@
       }
     },
     "Q14_EXP_91": {
-      "source_basis": ["09-expension-questions#Q14-91", "reveal-inheritance-sketch#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-91", "reveal-inheritance-sketch#Q14"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",
@@ -65,7 +65,7 @@
       }
     },
     "Q14_EXP_92": {
-      "source_basis": ["09-expension-questions#Q14-92", "question-axis-tagging-v3#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-92", "question-axis-tagging-v3#Q14"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "AND",
       "reveal_family_candidates": [
@@ -79,7 +79,7 @@
       }
     },
     "Q14_EXP_93": {
-      "source_basis": ["09-expension-questions#Q14-93", "reveal-inheritance-sketch#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-93", "reveal-inheritance-sketch#Q14"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",
@@ -92,7 +92,7 @@
       }
     },
     "Q14_EXP_94": {
-      "source_basis": ["09-expension-questions#Q14-94", "reveal-inheritance-sketch#Q14"],
+      "source_basis": ["09-expansion-questions#Q14-94", "reveal-inheritance-sketch#Q14"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",

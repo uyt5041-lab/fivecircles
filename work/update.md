@@ -934,7 +934,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 
 ## Addendum (2026-02-25) - Q1 익스펜션 재귀 TODO + Cycle1 시딩 실행
 ### Docs
-- Q1 후속 6문항 재귀 실행 로그 문서를 추가하고(웹근거/앵커/도미노/Cycle2 이월), 확장 워크플로우 문서에서 참조를 연결했다. (refs: fivecircles/architecture/specs/questions-anti-halus/10-q1-expansion-recursive-run.md, fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md)
+- Q1 후속 6문항 재귀 실행 로그 문서를 추가하고(웹근거/앵커/도미노/Cycle2 이월), 확장 워크플로우 문서에서 참조를 연결했다. (refs: fivecircles/architecture/specs/questions-anti-halus/10-q1-expansion-recursive-run.md, fivecircles/architecture/specs/expansion100/09-expansion-questions.md)
 - Team C todolist에 `Phase 6-A / Q1 익스펜션 재귀 실행` 트리를 추가하고 Cycle1 완료 상태를 반영했다. (refs: fivecircles/architecture/todolist.md)
 
 ### Backend/Ops
@@ -984,7 +984,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 - `axis/SPO/AND/WHY` 체크리스트에 A/S/N/W/P 단계별 재귀 하위체크를 추가해 실행 단위를 세분화했다. (refs: fivecircles/architecture/todolist.md)
 - 체크리스트 순서를 `SoT 선행 -> strict/AND -> axis -> 회귀 -> WHY`로 재정렬하고, 축/strict 경계·qAnyOf·snapshot·probe 금지 규칙을 정의문으로 추가했다. (refs: fivecircles/architecture/todolist.md)
 - Answer-first 역설계 문서/아티팩트 초안을 추가하고, axis/SPO/AND/WHY 체크리스트에 A-1(10문항 실험 선행 게이트)를 반영했다. (refs: fivecircles/architecture/specs/predicate/answer-first-backward-design.md, fivecircles/architecture/specs/predicate/artifacts/answerset-10.json, fivecircles/architecture/todolist.md)
-- ex22.2/22.3 신규 문서 기준으로 A-1을 `T01~T10`/WHY 2~3hop/REVEALS 1~3hint로 구체화하고, `answerset-6-expansion.json` 아티팩트를 추가했다. (refs: fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expension-categorized-impl-plan.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expension-expension-qs-imple2.md, fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json, fivecircles/architecture/todolist.md)
+- ex22.2/22.3 신규 문서 기준으로 A-1을 `T01~T10`/WHY 2~3hop/REVEALS 1~3hint로 구체화하고, `answerset-6-expansion.json` 아티팩트를 추가했다. (refs: fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.2-expansion-categorized-impl-plan.md, fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex22.3-expansion-expansion-qs-imple2.md, fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json, fivecircles/architecture/todolist.md)
 - 앵커 규칙을 `enum 우선 -> OTHER/suggestion 후보 수집 -> 빈도/정확도 기준 승격`으로 명시하고, answerset 아티팩트에 `anchor_source` 필드를 추가했다. (refs: fivecircles/architecture/specs/predicate/answer-first-backward-design.md, fivecircles/architecture/specs/predicate/artifacts/answerset-10.json, fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json, fivecircles/architecture/todolist.md)
 ### Tests
 - Not run (docs-only changes)
@@ -1004,12 +1004,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 - PASS: 분류 샘플 검증 (`THREAT|협박`, `THREATENED:위협받음`, `CO_CONSPIRATOR|공범` 등 토큰 파싱 후 축 분류 확인)
 - PASS: DB 비교 쿼리에서 THREAT 계열 매칭이 `old_exact=8 -> tokenized=30`으로 증가
 
-## Addendum (2026-02-26) - Expension100 분류/실행순서 문서화 + TODO 반영
+## Addendum (2026-02-26) - Expansion100 분류/실행순서 문서화 + TODO 반영
 ### Docs
-- 대화 합의사항(사용자 3축 분류 예시 + 4축 리마인더 계획 + 권장 실행순서)을 단일 문서로 고정했다. (refs: fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md)
+- 대화 합의사항(사용자 3축 분류 예시 + 4축 리마인더 계획 + 권장 실행순서)을 단일 문서로 고정했다. (refs: fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md)
 - Team C todolist에 `Phase 6-B` 재귀 실행 트리(Strict 복구→매핑 SoT→조회 파이프라인→UI lane→게이트)를 추가했다. (refs: fivecircles/architecture/todolist.md)
-- 상속(승계)은 PRECEDES 대체가 아니라 B/C 축 매칭 확장(closure) 레이어로만 사용하도록 원칙/체크리스트를 보강했다. (refs: fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/todolist.md)
-- 상속 정책을 분리 문서로 고정하고(`specs/rdf/policy`), 계획/투두에서 해당 정책을 canonical 참조로 연결했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/todolist.md)
+- 상속(승계)은 PRECEDES 대체가 아니라 B/C 축 매칭 확장(closure) 레이어로만 사용하도록 원칙/체크리스트를 보강했다. (refs: fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/todolist.md)
+- 상속 정책을 분리 문서로 고정하고(`specs/rdf/policy`), 계획/투두에서 해당 정책을 canonical 참조로 연결했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/todolist.md)
 ### Tests
 - Not run (docs/todo update only).
 
@@ -1017,12 +1017,12 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Docs
 - RDF 상속 정책 문서를 v2로 갱신해 `Event 상속 금지 + Predicate/Attribute 상속만 허용`, `Phase1(기존 DB 재사용) / Phase2(스키마 확장 보류)` 경계를 고정했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md)
 - closure taxonomy SoT(Phase1)를 신설해 PREDICATE/ATTRIBUTE 20+ 노드 트리와 runtime 바인딩 기준을 추가했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json)
-- Q1 확장 6개용 질문 매핑 SoT(`Q01_EXP_01~06`)를 신설해 `axis + required_set(attribute/predicate/scope)`를 파일로 고정했다. (refs: fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json)
-- Expension100 실행안 문서에 Phase1 SoT 파일 참조와 실행 순서를 반영했다. (refs: fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md)
+- Q1 확장 6개용 질문 매핑 SoT(`Q01_EXP_01~06`)를 신설해 `axis + required_set(attribute/predicate/scope)`를 파일로 고정했다. (refs: fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json)
+- Expansion100 실행안 문서에 Phase1 SoT 파일 참조와 실행 순서를 반영했다. (refs: fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md)
 - Team C todolist의 Phase 6-B를 Phase1 파일 기준으로 재정렬하고, BC 합집합 규칙/Phase2 보류 경계를 체크리스트에 반영했다. (refs: fivecircles/architecture/todolist.md)
-- 후속 리뷰 반영으로 `A_*`/`P_*` 실행 바인딩 규칙(`A_* -> reveal target_id`, `P_* -> runtime PredicateCode`)과 BC 결합 모드(`OR/AND`)를 정책/계획/질문맵에 명시했다. (`Q01_EXP_06=BC+AND`) (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json, fivecircles/architecture/todolist.md)
-- 상속 정책/실행안/question-map에 `공유-온톨로지레이어구축` ex20~ex23 플랜 출처 참조를 추가했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json)
-- 링크 나열에 그치지 않도록, 정책/실행안에 `규칙 <- 플랜` 추적표(Traceability Matrix)를 추가하고 question-map 항목별 `source_basis`를 명시했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json)
+- 후속 리뷰 반영으로 `A_*`/`P_*` 실행 바인딩 규칙(`A_* -> reveal target_id`, `P_* -> runtime PredicateCode`)과 BC 결합 모드(`OR/AND`)를 정책/계획/질문맵에 명시했다. (`Q01_EXP_06=BC+AND`) (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json, fivecircles/architecture/todolist.md)
+- 상속 정책/실행안/question-map에 `공유-온톨로지레이어구축` ex20~ex23 플랜 출처 참조를 추가했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json)
+- 링크 나열에 그치지 않도록, 정책/실행안에 `규칙 <- 플랜` 추적표(Traceability Matrix)를 추가하고 question-map 항목별 `source_basis`를 명시했다. (refs: fivecircles/architecture/specs/rdf/policy/inheritance-closure-policy.md, fivecircles/architecture/specs/expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md, fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json)
 ### Tests
 - Not run (docs/todo update only).
 

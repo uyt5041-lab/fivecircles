@@ -39,11 +39,11 @@
 
 ## 5) 참조 SoT
 - 상속 트리: `fivecircles/architecture/specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
-- 질문 매핑: `fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json`
+- 질문 매핑: `fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json`
 - 실행 맵: `front/common/productionQ/inheritancePhase1.ts`
 - 검증 스크립트: `fivecircles/test/validate-reveal-target-key-gate.py`
 - 런타임 검증 스크립트: `fivecircles/test/validate-reveal-target-key-runtime-phase1.py`
-- 운영 입력 스크립트: `scripts/ops/seed_expension100_q1_attribute_reveals.sql`, `scripts/ops/run_expension100_q1_seed_and_validate.sh`
+- 운영 입력 스크립트: `scripts/ops/seed_expansion100_q1_attribute_reveals.sql`, `scripts/ops/run_expansion100_q1_seed_and_validate.sh`
 - 운영 백필 스크립트: `scripts/ops/backfill_event_reveal_target_key_phase1.sql`
 
 ## 6) 변경 규칙

@@ -36,7 +36,7 @@
 
 7. BP8 스모크
 - `validate-reveal-target-key-gate.py` PASS
-- `run_expension100_q1_seed_and_validate.sh` PASS
+- `run_expansion100_q1_seed_and_validate.sh` PASS
 - `npm run build` PASS
 
 ## 잔여 리스크

@@ -71,7 +71,7 @@
 
 질문이 expansion 계열이면 추가로 갱신
 - question-map:
-  - [question-map.q01-expansion.phase1.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json)
+  - [question-map.q01-expansion.phase1.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json)
 - answerset:
   - [answerset-6-expansion.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json)
 
@@ -190,7 +190,7 @@ PRECEDES 체인 예시
 - strict 매트릭스:
   - [04-template-strict-must-matrix.md](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md)
 - question-map:
-  - [question-map.q01-expansion.phase1.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/extension100/question-map.q01-expansion.phase1.json)
+  - [question-map.q01-expansion.phase1.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expansion100/question-map.q01-expansion.phase1.json)
 - answerset:
   - [answerset-6-expansion.json](/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json)
 

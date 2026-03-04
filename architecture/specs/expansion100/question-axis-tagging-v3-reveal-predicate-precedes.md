@@ -1,4 +1,4 @@
-# Extension100 Question Axis Tagging (V3+)
+# Expansion100 Question Axis Tagging (V3+)
 
 기준일: 2026-03-03
 
@@ -7,7 +7,7 @@
 - 기존 `A/B/C` 분류(이벤트/리빌/프레디켓)보다 한 단계 구체적으로, `predicate`와 `precedes`를 분리한다.
 
 기준 문서
-- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md`
+- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/expansion100/09-expansion-questions.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-evidence-label-policy.md`
 - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveals-classification.md`

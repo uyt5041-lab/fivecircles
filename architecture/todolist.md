@@ -221,7 +221,7 @@
   - [ ] 2) role 입력 계약+파이프라인 추가 (**보류**: Intelligence 개발자(B)와 `involvedCharacters[{characterId,role}]` 계약 확정 후 재개)
     - [ ] 2-1) B 협의 체크: 응답 필드 추가 여부, `involvedCharacterIds` 호환 유지, role 허용값/기본값, 배포 순서(`intelligence -> wiki -> event`)
   - [ ] 3) relation type 확장 RFC는 보류: 현행 PRECEDES+REVEALS/Group 조합으로 커버리지 검증 후 필요 시 재개
-- [ ] **axis/SPO/AND/WHY 구현 체크리스트 (2026-02-26, ex20~23 리뷰 반영)** (refs: `ex23-RDF-inheritance.md`, `ex23-RDF-inheritance-appendix.md`, `ex20-axis.md`, `ex21-SPO-N-Y.md`, `ex22-axis-N-Y-scetch.md`, `ex22.1-ops.md`, `ex22.2-expension-categorized-impl-plan.md`, `ex22.3-expension-expension-qs-imple2.md`, `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`, `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`)
+- [ ] **axis/SPO/AND/WHY 구현 체크리스트 (2026-02-26, ex20~23 리뷰 반영)** (refs: `ex23-RDF-inheritance.md`, `ex23-RDF-inheritance-appendix.md`, `ex20-axis.md`, `ex21-SPO-N-Y.md`, `ex22-axis-N-Y-scetch.md`, `ex22.1-ops.md`, `ex22.2-expansion-categorized-impl-plan.md`, `ex22.3-expansion-expansion-qs-imple2.md`, `fivecircles/architecture/specs/predicate/production-q-templates-and-intelligence-queryspec.md`, `fivecircles/architecture/specs/questions-anti-halus/04-template-strict-must-matrix.md`)
   - [x] R0. RDF 승계(ex23) 선행 게이트 고정 (**최우선**)
     - [x] R0-1a) RDF lane SoT 범위 고정: `predicate_axis_taxonomy.json`은 **RDF query-only 경로**에서만 SoT로 참조
     - [x] R0-1b) Executor lane SoT 범위 고정: executor/classifier는 `StrictQuerySpec(04 매트릭스/템플릿)`만 SoT로 사용하고 taxonomy를 직접 읽지 않음
@@ -241,7 +241,7 @@
     - [x] A-1-6) 실패/공백 기록: strict 0건 문항은 `SPOILER_BLOCKED/NOT_ENOUGH_DATA`로만 표기하고 TODO 백로그(`questions-anti-halus/06-1-required-db-values.md`)에 연결 (현재 answerset-10 기준 strict miss 0건)
     - [x] A-1-7) 앵커 승격 규칙 적용: 기존 `PredicateCode` 우선, 미충족은 `OTHER+predicate_suggestion` 후보로 수집 후 **answerset 통계(빈도/strict 정답 일치율)** 기준으로 enum 승격 RFC 작성 (`answerset-10-anchor-promotion-metrics-2026-02-26.md`: 후보 0건)
       - [x] A-1-7-a) 승격 지표 추가: strict miss 시 fallback Top1의 사람 검수 정답 일치율(`precision@1`) 기록 (`N/A`, 표본 0)
-  - [x] A-2. 후속 6문항 Answer-set(확장 검증) (**A-1 완료 후**) (refs: `ex22.3-expension-expension-qs-imple2.md`)
+  - [x] A-2. 후속 6문항 Answer-set(확장 검증) (**A-1 완료 후**) (refs: `ex22.3-expansion-expansion-qs-imple2.md`)
     - [x] A-2-1) 후속 #1~#6에 대해 `answer_event_id` 1개씩 확정
     - [x] A-2-2) 문항별 `reveal_attribute` 1~3개 + 필요 시 `because_chain` 2 hop 입력
     - [x] A-2-3) 산출물 스냅샷 저장: `fivecircles/architecture/specs/predicate/artifacts/answerset-6-expansion.json`
@@ -368,7 +368,7 @@
     - [ ] **검증**
       - [ ] 06 정답 + 07 Level 1-3 데이터로 Q1~Q15 전체 응답 샘플 검증
       - [ ] JSON 응답 스키마(`qna.levels.v1`) 확정 및 FE 파싱 테스트
-  - [ ] **Phase 6-A / Q1 익스펜션 재귀 실행 (파일럿, 2026-02-25)** (refs: `questions-anti-halus/09-expension-questions.md`, `questions-anti-halus/10-q1-expansion-recursive-run.md`)
+  - [ ] **Phase 6-A / Q1 익스펜션 재귀 실행 (파일럿, 2026-02-25)** (refs: `expansion100/09-expansion-questions.md`, `questions-anti-halus/10-q1-expansion-recursive-run.md`)
     - [x] Cycle 1-1: Q1 후속 6문항에 대한 웹 근거/앵커 후보/도미노 후보를 문서화
     - [x] Cycle 1-2: 현재 DB `event_relation(PRECEDES)` 갭 점검 + 기존 이벤트 기준 relation 시드 SQL 작성
     - [x] Cycle 1-3: Q1 익스펜션 relation 시드 SQL 실행 및 반영 검증
@@ -376,19 +376,20 @@
     - [x] Cycle 1-5: Story Reminder 템플릿/SPARQL 질의로 Q1-1~Q1-6 실행 경로 고정
     - [x] Cycle 1-6: K gate(절대회차) 기준 `ANSWERED/SPOILER_BLOCKED/NOT_ENOUGH_DATA` 회귀 검증
     - [ ] Follow-up: `/api/event/v2/probe`에서 `strictFilters.qAnyOf` 바인딩/검증 경로 점검 (keyword probe 400/무시 리스크)
-  - [ ] **Phase 6-B / Extension100 3축 분류 + 4축 리마인더 UI 전환 (2026-02-26)** (refs: `extension100/extension-6of100-q1.md`, `extension100/extension100-3axis-4axis-reminder-plan-2026-02-26.md`, `extension100/question-map.q01-expansion.phase1.json`, `rdf/policy/inheritance-closure-policy.md`, `rdf/policy/inheritance-closure-taxonomy.phase1.json`)
+  - [ ] **Phase 6-B / Expansion100 3축 분류 + 4축 리마인더 UI 전환 (2026-02-26)** (refs: `expansion100/expansion-6of100-q1.md`, `expansion100/expansion100-3axis-4axis-reminder-plan-2026-02-26.md`, `expansion100/question-map.q01-expansion.phase1.json`, `rdf/policy/inheritance-closure-policy.md`, `rdf/policy/inheritance-closure-taxonomy.phase1.json`)
     - [ ] B1) Q1 확장 6개 strict 복구: 문서 서술형 토큰은 `approx_only`, DB hit 토큰은 `strict_must`로 분리
       - [ ] B1-1) `Q01_EXP_01/02/04` strict 토큰을 DB 검증 통과 세트로 복원
       - [ ] B1-2) `Q01_EXP_03/05/06`은 현 앵커 유지 + 동치 토큰만 보강
       - [ ] B1-3) `validate-q1-expansion-gate.py` 케이스를 템플릿 값과 동기화
-    - [ ] B2) Extension100 질문 매핑 SoT 작성 (`question_id -> axis -> required_set`)
+    - [ ] B2) Expansion100 질문 매핑 SoT 작성 (`question_id -> axis -> required_set`)
       - [ ] B2-1) A축: `event_scope_set` 정의
       - [x] B2-2) B축: `attribute_set` 키를 closure taxonomy(Phase1 JSON) 기준으로 고정
-      - [x] B2-2a) `A_* -> event_reveal.target_id` 바인딩 테이블 채움(미입력 시 해당 질문은 `NOT_ENOUGH_DATA`) (`seed_expension100_q1_attribute_reveals.sql` + `validate-expension100-intelligence-columns.py`)
+      - [x] B2-2a) `A_* -> event_reveal.target_id` 바인딩 테이블 채움(미입력 시 해당 질문은 `NOT_ENOUGH_DATA`) (`seed_expansion100_q1_attribute_reveals.sql` + `validate-expansion100-intelligence-columns.py`)
       - [x] B2-3) C축: `predicate_set`을 closure taxonomy leaf -> `PredicateCode` 매핑 기준으로 고정
       - [x] B2-3a) `P_*` 직접 조회 금지, `runtime_bindings -> PredicateCode` 변환 규칙 고정
-      - [x] B2-4) Q1 확장 canonical SoT 파일 고정: `specs/extension100/question-map.q01-expansion.phase1.json`
+      - [x] B2-4) Q1 확장 canonical SoT 파일 고정: `specs/expansion100/question-map.q01-expansion.phase1.json`
       - [x] B2-5) closure taxonomy canonical SoT 파일 고정: `specs/rdf/policy/inheritance-closure-taxonomy.phase1.json`
+      - [ ] B2-6) 후순위 draft map 추가: `Q05/Q08/Q10/Q12` (`specs/expansion100/question-map.q05|q08|q10|q12-expansion.phase1.json`)
     - [ ] B2.5) 상속(승계) 확장 유틸 추가 (**PRECEDES 대체 금지**, policy: `rdf/policy/inheritance-closure-policy.md`)
       - [x] B2.5-1) Phase1 범위 고정(DB 무변경): 기존 `event.predicate_code` + `event_reveal`만 사용
       - [x] B2.5-2) `expand(set)` 구현: parent 입력 시 descendant 포함 집합 반환
@@ -618,9 +619,9 @@
 
 - [x] BP6. Data Backfill / 운영 적용 (BP4 이후, BP5 병행 가능)
   - [x] BP6-1. 기존 `target_type=ATTRIBUTE` 데이터에 `target_key` 백필(가능 row 우선, Phase1 scope)
-    - [x] BP6-1-a. Q1 expansion 6문항 anchor row는 ops seed로 선반영 (`run_expension100_q1_seed_and_validate.sh` PASS)
+    - [x] BP6-1-a. Q1 expansion 6문항 anchor row는 ops seed로 선반영 (`run_expansion100_q1_seed_and_validate.sh` PASS)
   - [x] BP6-2. 백필 불가 row 정책 적용(보류/메모/제외) (`validate-reveal-target-key-runtime-phase1.py`: legacy unresolved 6 warn/backlog)
-  - [x] BP6-3. Q1 expansion 6문항 answerset 재검증(축/B-lane 동작 확인) (`validate-expension100-intelligence-columns.py` PASS)
+  - [x] BP6-3. Q1 expansion 6문항 answerset 재검증(축/B-lane 동작 확인) (`validate-expansion100-intelligence-columns.py` PASS)
   - [x] BP6-4. 완료조건: expansion answerset에서 B-lane `target_key` 매칭률 80% 이상 달성 (100%, 6/6)
 
 - [x] BP7. 선택 확장 (Phase2+)

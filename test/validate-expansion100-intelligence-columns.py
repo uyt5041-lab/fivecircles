@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Validate Expension100 Q1 ATTRIBUTE injection and intelligence-column contracts.
+Validate Expansion100 Q1 ATTRIBUTE injection and intelligence-column contracts.
 
 Checks:
 - event exists and APPROVED

@@ -1,15 +1,15 @@
 {
   "version": "phase1-2026-03-04",
   "source_docs": [
-    "fivecircles/architecture/specs/questions-anti-halus/09-expension-questions.md",
-    "fivecircles/architecture/specs/extension100/question-axis-tagging-v3-reveal-predicate-precedes.md",
-    "fivecircles/architecture/specs/extension100/reveal-inheritance-sketch-for-r-questions.md",
+    "fivecircles/architecture/specs/expansion100/09-expansion-questions.md",
+    "fivecircles/architecture/specs/expansion100/question-axis-tagging-v3-reveal-predicate-precedes.md",
+    "fivecircles/architecture/specs/expansion100/reveal-inheritance-sketch-for-r-questions.md",
     "fivecircles/architecture/specs/reveals/reveals-classification.md",
     "fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md"
   ],
   "items": {
     "Q04_EXP_19": {
-      "source_basis": ["09-expension-questions#Q4-19", "question-axis-tagging-v3#Q4"],
+      "source_basis": ["09-expansion-questions#Q4-19", "question-axis-tagging-v3#Q4"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_SUSPICION_OR_DISCOVERY",
@@ -22,7 +22,7 @@
       }
     },
     "Q04_EXP_20": {
-      "source_basis": ["09-expension-questions#Q4-20", "reveal-inheritance-sketch#Q4"],
+      "source_basis": ["09-expansion-questions#Q4-20", "reveal-inheritance-sketch#Q4"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_SUSPICION_OR_DISCOVERY",
@@ -35,7 +35,7 @@
       }
     },
     "Q04_EXP_21": {
-      "source_basis": ["09-expension-questions#Q4-21", "reveal-inheritance-sketch#Q4"],
+      "source_basis": ["09-expansion-questions#Q4-21", "reveal-inheritance-sketch#Q4"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_SUSPICION_OR_DISCOVERY",
@@ -48,7 +48,7 @@
       }
     },
     "Q04_EXP_22": {
-      "source_basis": ["09-expension-questions#Q4-22", "reveal-inheritance-sketch#Q4"],
+      "source_basis": ["09-expansion-questions#Q4-22", "reveal-inheritance-sketch#Q4"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_TRUST_OR_RELATION_CHANGE",
@@ -61,7 +61,7 @@
       }
     },
     "Q04_EXP_23": {
-      "source_basis": ["09-expension-questions#Q4-23", "question-axis-tagging-v3#Q4"],
+      "source_basis": ["09-expansion-questions#Q4-23", "question-axis-tagging-v3#Q4"],
       "axis": "ATT_REVL_PRED",
       "combine_mode": "AND",
       "reveal_family_candidates": [
@@ -76,7 +76,7 @@
       }
     },
     "Q04_EXP_24": {
-      "source_basis": ["09-expension-questions#Q4-24", "reveal-inheritance-sketch#Q4"],
+      "source_basis": ["09-expansion-questions#Q4-24", "reveal-inheritance-sketch#Q4"],
       "axis": "ATT_REVL",
       "reveal_family_candidates": [
         "R_SUSPICION_OR_DISCOVERY",
