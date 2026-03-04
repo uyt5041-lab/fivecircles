@@ -210,3 +210,14 @@
 - [Status]: Approved
 - [Comment]: 지적한 3개 문구 이슈(런타임 범위, 그룹 예시, strict 스코프) 모두 반영되어 문서 기준과 구현 정합성이 맞춰짐.
 - [Comment]: 실행용 재귀 TODO가 ex23 본문에 추가되어 다음 작업 착수 기준도 명확해짐.
+
+---
+
+# [Review] PR #130 `fix/aws-final-deployment`
+> Reviewer: codex-ops | Date: 2026-03-04
+- [Status]: Changes Requested
+- [Comment]: Docker profile의 서비스 URL 기본값이 `*.nospoiler.local`로 바뀌었지만 현재 `infra/docker-compose.yml`에는 해당 DNS alias가 없어 기존 compose 환경에서 서비스 간 통신이 깨집니다. 특히 gateway/auth/wiki 경로가 직접 영향 받습니다.
+- [Comment]: gateway notification route가 `/api/notification/**`(singular)로 변경되어 프론트/notification-service가 사용하는 `/api/notifications/**`와 계약 불일치가 발생합니다.
+- [Comment]: auth-service RedisConfig가 단일 Redis에도 cluster connection factory를 강제하여 현재 compose의 `redis:alpine`(standalone)와 충돌할 가능성이 높습니다.
+- [Comment]: OAuth2 redirect handler에 access token raw log가 추가되어 브라우저 콘솔/세션 기록으로 토큰이 노출됩니다.
+- [Comment]: 상세 근거와 권고안은 `fivecircles/work/review/review-pr130-aws-final-deployment-2026-03-04.md`에 기록.
