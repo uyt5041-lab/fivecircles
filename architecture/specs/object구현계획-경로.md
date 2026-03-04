@@ -2,6 +2,9 @@
 
 ## 관련 파일 인덱스
 
+### SPO 인덱스
+- `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/SPO/INDEX.md` — 일반화된 SPO / 현재 SPO-lite / Fuseki semantic lane 관련 문서 인덱스
+
 ### 스펙 (구현 계획)
 - `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md` — V3 `target_key`/object 1급 엔티티화 로드맵 (섹션 5~7)
 - `fivecircles/architecture/specs/reveals/semantic-lane-object-schema-draft.md` — semantic 보조 레인 object type 초안 (`CHARACTER|ATTRIBUTE|RELATION|ALIAS|LOCATION|ORG|ITEM`)

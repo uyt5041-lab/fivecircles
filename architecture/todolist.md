@@ -517,7 +517,10 @@
       - [ ] K+APPROVED + PRECEDES safe traversal 회귀 확인
       - [ ] RDF 레인 실패 시 v1/v2 무영향(비차단) 검증 로그 추가
     - [ ] **Phase 5 / Optional Promotion Decision**
-      - [ ] Fuseki 도입 의사결정(추후): Query-only 운영에서 taxonomy/패턴 확장으로 `kg.ttl` 파일 기반 조회 한계가 확인될 때 SPARQL endpoint(Fuseki) 전환 여부를 결정한다.
+      - [x] Fuseki 런타임 semantic lane Phase 3 기동 (docker-compose + loader + healthcheck)
+      - [ ] Fuseki refresh 경로에 기존 exporter(`scripts/ops/rdf/export_v3_advanced.sh`) 재사용 연결
+      - [ ] loader가 semantic schema TTL + exported `latest/kg.ttl`를 함께 적재하도록 연결
+      - [ ] event-service semantic endpoint에 실제 `S/P/O expand` 추가
       - [ ] Export-only(+10) 유지 여부 결정
       - [ ] Query-only(+30) 진입 조건 충족 여부 검토
       - [ ] Dual-store(+80)는 운영 런북/복구 전략 확정 전 보류

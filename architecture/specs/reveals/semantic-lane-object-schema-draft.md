@@ -21,15 +21,15 @@
 
 ## 2) Object Type 초안
 
-| object type | 상태 | 의미 | 현재 RDB 대응 |
+| object type | 상태 | 의미 | 현재 RDB / runtime 대응 |
 | --- | --- | --- | --- |
-| `CHARACTER` | implemented | 특정 인물/정체 | `event_reveal.target_type='CHARACTER'`, `target_id=character.id` |
-| `ATTRIBUTE` | implemented | 사실/속성/상태/압력/관계 변화 등 | `event_reveal.target_type='ATTRIBUTE'`, `target_key` 또는 phase1 `aboutCharacterId` |
-| `RELATION` | draft | 인물 간 관계 자체(부부, 혈연, 동맹, 배신, 소속) | 현재는 `ATTRIBUTE` 또는 relation predicate로 우회 |
-| `ALIAS` | draft | 동일 인물의 가명/코드네임/마스크 정체 | 현재는 `CHARACTER reveal` + `RK_ALIAS_IDENTITY` semantic leaf로 우회 |
-| `LOCATION` | draft | 장소/거점/은신처/행선지 | 현재는 `ATTRIBUTE` semantic key 후보 |
-| `ORG` | draft | 조직/소속/집단 | 현재는 `ATTRIBUTE` 또는 `RELATIONSHIP/AFFILIATION` 의미로 우회 |
-| `ITEM` | draft | 물건/증거물/소지품 | 현재는 `ATTRIBUTE` 또는 event summary로 우회 |
+| `CHARACTER` | runtime-supported | 특정 인물/정체 | `event_reveal.target_type='CHARACTER'`, `target_id=character.id` |
+| `ATTRIBUTE` | runtime-supported | 사실/속성/상태/압력/관계 변화 등 | `event_reveal.target_type='ATTRIBUTE'`, `target_key` 또는 phase1 `aboutCharacterId` |
+| `RELATION` | partially runtime-supported / semantic-expandable | 인물 간 관계 자체(부부, 혈연, 동맹, 배신, 소속) | 운영 relation은 `event_relation(PRECEDES)`에 이미 존재, 추가 의미 relation은 semantic/derived 후보 |
+| `ALIAS` | runtime-supported via reveal / future object-type candidate | 동일 인물의 가명/코드네임/마스크 정체 | 현재는 `CHARACTER reveal` + partner merge + `RK_ALIAS_IDENTITY` semantic leaf로 운영 |
+| `LOCATION` | semantic-defined | 장소/거점/은신처/행선지 | 현재는 `ATTRIBUTE` semantic key 후보 |
+| `ORG` | semantic-defined | 조직/소속/집단 | 현재는 `ATTRIBUTE` 또는 `RELATIONSHIP/AFFILIATION` 의미로 우회 |
+| `ITEM` | semantic-defined | 물건/증거물/소지품 | 현재는 `ATTRIBUTE` 또는 event summary로 우회 |
 
 ## 3) 왜 이렇게 나누는가
 
@@ -39,11 +39,13 @@
 - `ATTRIBUTE`
   - 사실 공개, 상태 변화, 압력, 관계 프레임 변화의 현재 실구현 축
 
-### 3.2 semantic lane에만 먼저 올릴 것
+### 3.2 semantic lane에서 먼저 넓게 가져갈 것
 - `RELATION`
-  - object로 두면 “무슨 관계가 드러났는가”를 명시적으로 모델링할 수 있다.
+  - `PRECEDES` 같은 운영 relation은 이미 RDB에 있다.
+  - 다만 `AFFILIATION`, `MENTORS`, `PARTNER_AT_TIME`, `IN_LAW` 같은 의미 relation은 semantic/derived lane에서 먼저 정의하는 편이 낫다.
 - `ALIAS`
-  - `sameAs`, `aliasOf`, `maskIdentityOf` 같은 동일성/가면 관계를 모델링하기 쉽다.
+  - 현재도 reveal + partner merge로 런타임 신호가 있다.
+  - 다만 `ALIAS`를 독립 object type으로 질의/해석하는 구조는 semantic lane에서 먼저 확장하는 것이 안전하다.
 - `LOCATION`, `ORG`, `ITEM`
   - 현재 RDB에는 직접 타입이 없지만, semantic lane에서는 reveal target/object로 다루기 좋다.
 
@@ -123,12 +125,14 @@ semantic lane에서 object는 이렇게 해석한다.
   - phase1에선 필요 시 `target_id=aboutCharacterId` fallback
 
 3. `RELATION`
-- 현재 runtime 직접 질의 없음
-- 우선 semantic overlay / dashboard / explanation용
+- `PRECEDES` 같은 운영 relation은 계속 RDB 메인 레인
+- 그 외 의미 relation(`AFFILIATION`, `MENTORS`, `PARTNER_AT_TIME` 등)은 semantic overlay / dashboard / explanation / future derived-fact 후보
 
 4. `ALIAS`
-- 현재 runtime 직접 질의 없음
-- 우선 `CHARACTER reveal + RK_ALIAS_IDENTITY` 조합으로 해석
+- 현재 runtime 신호는 있음
+  - `CHARACTER reveal`
+  - `partnerCharacterId` merge
+- semantic lane에선 `ALIAS` object type 또는 `RK_ALIAS_IDENTITY` 조합으로 확장 해석
 
 5. `LOCATION|ORG|ITEM`
 - 현재 runtime 직접 질의 없음
@@ -153,8 +157,8 @@ object 확장 경로 인덱스
 
 1. `CHARACTER`
 2. `ATTRIBUTE`
-3. `RELATION`
-4. `ALIAS`
+3. `RELATION` (운영 relation / semantic relation 구분)
+4. `ALIAS` (runtime reveal merge 유지 + semantic object 후보)
 5. `LOCATION`
 6. `ORG`
 7. `ITEM`
@@ -162,5 +166,7 @@ object 확장 경로 인덱스
 단, runtime strict answer lane은 계속 다음 원칙을 유지한다.
 
 - `CHARACTER`, `ATTRIBUTE`는 RDB가 메인
-- `RELATION`, `ALIAS`, `LOCATION`, `ORG`, `ITEM`은 semantic lane에서 먼저 정의
+- `RELATION`은 운영 relation은 RDB, 의미 relation은 semantic lane
+- `ALIAS`는 현재 reveal lane runtime 신호 유지, object type 확장은 semantic lane
+- `LOCATION`, `ORG`, `ITEM`은 semantic lane에서 먼저 정의
 - 필요할 때만 runtime materialization 또는 join helper 추가

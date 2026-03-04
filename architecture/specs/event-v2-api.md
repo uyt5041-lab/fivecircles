@@ -12,6 +12,11 @@ Scope Note
   - `GET /api/event/taxonomy/tree`
   - `POST /api/event/taxonomy/preview`
   - `GET /api/event/taxonomy/drift`
+- Runtime semantic lane endpoints also live outside v2 under:
+  - `GET /api/event/semantic/health`
+  - `GET /api/event/semantic/object-types`
+  - `GET /api/event/semantic/reveal-semantics`
+  - `GET /api/event/semantic/runtime-mappings`
 - Taxonomy contract details are documented in:
   - `fivecircles/architecture/specs/api-contract.md`
   - `fivecircles/architecture/specs/taxonomy/taxonomy-dashboard.md`

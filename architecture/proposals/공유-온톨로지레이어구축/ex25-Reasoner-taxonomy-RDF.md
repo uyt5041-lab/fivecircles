@@ -4,6 +4,10 @@
 
 ## 관련 draft / 참조
 
+- SPO 인덱스:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/SPO/INDEX.md`
+- 현재 SPO-lite -> Fuseki semantic lane 통합 계획:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/SPO/generalized-spo-semantic-lane-plan.md`
 - semantic lane object schema 초안:
   - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/semantic-lane-object-schema-draft.md`
 - triple store용 object schema TTL 초안:
@@ -13,9 +17,55 @@
 - reveal semantic 상속 초안:
   - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-semantic-inheritance-draft.md`
 
-이 경우 reasoner는 “토핑” 수준이 아니라, **‘파생 지식 생성기(derived facts generator)’**로 한 단계 역할이 커져.
+이 경우 reasoner/semantic lane은 “토핑” 수준이 아니라, **event 기준 사실을 semantic graph로 확장하는 보조 레인**이 된다.
 
-다만 여기서도 **핫패스(사용자 조회)는 RDB 유지**, reasoner는 **오프라인/준실시간으로 파생 사실을 만들어 RDB에 적재**하는 쪽이 제일 안전하고 구현 리스크가 낮아.
+현재 권장 구조는 단일하지 않다.
+- `reasoner-only batch materialize -> RDB serve`는 여전히 유효한 옵션
+- 하지만 현재 방향은 **event-anchored RDF projection을 Fuseki에 적재하고, runtime에서 semantic 보조 질의를 수행**하는 쪽이다
+
+고정 원칙
+- 핫패스의 strict answer selection은 계속 RDB 유지
+- Fuseki는 runtime semantic expansion/resolver lane
+- event가 single source of truth
+
+## Event-Anchored RDF + Runtime Semantic Lane
+
+핵심
+- RDB event가 ground truth
+- TTL/RDF는 event에서 export한 projection
+- Fuseki는 이 projection을 담는 runtime semantic store
+
+즉 구조는 아래와 같다.
+
+1. RDB event/reveal/relation/role에서 export
+2. event-anchored TTL 생성
+3. TTL을 Fuseki dataset에 load
+4. runtime에서 event-service가 Fuseki를 질의
+5. Fuseki 결과를 RDB strict filter로 번역
+6. 최종 answer는 RDB anchor event로 확정
+
+### 시퀀스
+
+```mermaid
+sequenceDiagram
+    participant D as MySQL
+    participant X as RDF Export
+    participant K as Fuseki
+    participant E as event-service
+    participant F as Frontend
+
+    Note over D,K: sync / projection lane
+    D->>X: event + roles + reveal + relation
+    X->>K: load TTL projection
+
+    Note over E,K: runtime semantic lane
+    F->>E: question / semantic assist request
+    E->>K: SPARQL expand / resolve
+    K-->>E: semantic lineage / leaf set / sameAs
+    E->>D: strict RDB query
+    D-->>E: anchor event / answerability / context
+    E-->>F: final answer + semantic evidence
+```
 
 ---
 

@@ -405,6 +405,66 @@ Scope
 
 ---
 
+## Event Semantic API
+
+Base URL: `/api/event/semantic`
+
+Note
+- This section documents Fuseki-backed runtime semantic lane endpoints.
+- These endpoints are read-only semantic metadata/expansion endpoints.
+- Strict answer selection and spoiler gate remain RDB-owned.
+
+### GET /health
+
+- **Description**: Return Fuseki runtime availability and mode.
+- **Response**: `ApiResponse<SemanticHealthResponse>`
+
+SemanticHealthResponse
+- `enabled: boolean`
+- `reachable: boolean`
+- `url: string`
+- `dataset: string`
+- `mode: string`
+  - `disabled | unreachable | runtime`
+
+### GET /object-types
+
+- **Description**: Return semantic object type catalog from Fuseki.
+- **Response**: `ApiResponse<List<SemanticObjectTypeResponse>>`
+
+SemanticObjectTypeResponse
+- `code: string`
+- `label: string`
+- `status?: string`
+- `notes?: string`
+
+### GET /reveal-semantics
+
+- **Description**: Return reveal semantic roots/leaves with broader links from Fuseki.
+- **Response**: `ApiResponse<List<SemanticRevealSemanticResponse>>`
+
+SemanticRevealSemanticResponse
+- `code: string`
+- `label: string`
+- `broaderCode?: string`
+- `objectTypeCode?: string`
+
+### GET /runtime-mappings
+
+- **Description**: Return semantic-to-runtime mapping metadata from Fuseki.
+- **Response**: `ApiResponse<List<SemanticRuntimeMappingResponse>>`
+
+SemanticRuntimeMappingResponse
+- `code: string`
+- `label: string`
+- `runtimeSource?: string`
+- `runtimeTargetType?: string`
+- `runtimeKeyField?: string`
+- `runtimeIdField?: string`
+- `notes?: string`
+
+---
+
 ## Wiki Service
 
 Base URL: `/api/wiki/v1`

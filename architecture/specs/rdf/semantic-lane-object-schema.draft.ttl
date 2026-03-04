@@ -48,6 +48,11 @@ ns:runtimeIdField a owl:DatatypeProperty ;
   rdfs:domain ns:RuntimeMapping ;
   rdfs:range xsd:string .
 
+ns:mapsObjectType a owl:ObjectProperty ;
+  rdfs:domain ns:RuntimeMapping ;
+  rdfs:range ns:ObjectType ;
+  rdfs:label "maps object type"@en .
+
 ns:status a owl:DatatypeProperty ;
   rdfs:range xsd:string .
 
@@ -194,6 +199,7 @@ ns:rk_resource_money a ns:RevealSemantic ;
 
 ns:map_character_runtime a ns:RuntimeMapping ;
   rdfs:label "CHARACTER runtime mapping"@en ;
+  ns:mapsObjectType ns:CHARACTER ;
   ns:runtimeSource "event_reveal" ;
   ns:runtimeTargetType "CHARACTER" ;
   ns:runtimeIdField "target_id" ;
@@ -201,6 +207,7 @@ ns:map_character_runtime a ns:RuntimeMapping ;
 
 ns:map_attribute_runtime a ns:RuntimeMapping ;
   rdfs:label "ATTRIBUTE runtime mapping"@en ;
+  ns:mapsObjectType ns:ATTRIBUTE ;
   ns:runtimeSource "event_reveal" ;
   ns:runtimeTargetType "ATTRIBUTE" ;
   ns:runtimeKeyField "target_key" ;
@@ -209,10 +216,12 @@ ns:map_attribute_runtime a ns:RuntimeMapping ;
 
 ns:map_relation_runtime a ns:RuntimeMapping ;
   rdfs:label "RELATION runtime mapping"@en ;
+  ns:mapsObjectType ns:RELATION ;
   ns:runtimeSource "semantic-only" ;
   ns:notes "현재 runtime RDB 직접 대응 없음"@ko .
 
 ns:map_alias_runtime a ns:RuntimeMapping ;
   rdfs:label "ALIAS runtime mapping"@en ;
+  ns:mapsObjectType ns:ALIAS ;
   ns:runtimeSource "semantic-only" ;
   ns:notes "현재는 CHARACTER reveal + RK_ALIAS_IDENTITY 조합으로 우회"@ko .

@@ -1,5 +1,12 @@
 좋아. “SPO를 넣으면 뭐가 바뀌냐”를 **(1) 시스템 검색 관점**과 **(2) 사용자 체감 관점**으로 딱 갈라서 말할게.
 
+## 관련 인덱스 / 후속 계획
+
+- SPO 문서 인덱스:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/SPO/INDEX.md`
+- 현재 SPO-lite -> Fuseki semantic lane 통합 계획:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/SPO/generalized-spo-semantic-lane-plan.md`
+
 ## 운영 정렬 메모 (2026-02-26)
 
 이 문서의 SPO 예시는 `Q20 기준 + 기존 PredicateCode 우선 + DB 최소 변경` 원칙으로 해석한다.
