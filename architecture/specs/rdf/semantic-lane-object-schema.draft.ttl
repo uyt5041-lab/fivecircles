@@ -1,0 +1,218 @@
+@prefix ns: <https://nospoiler.dev/ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns:SemanticLaneObjectSchemaDraft a owl:Ontology ;
+  rdfs:label "Semantic Lane Object Schema Draft"@en ;
+  rdfs:comment "RDB 메인 레인을 유지하면서 semantic 보조 레인에서 쓸 object type / reveal semantic / runtime mapping 초안"@ko .
+
+### Core classes
+
+ns:ObjectType a owl:Class ;
+  rdfs:label "Object Type"@en .
+
+ns:RevealSemantic a owl:Class ;
+  rdfs:label "Reveal Semantic"@en .
+
+ns:RuntimeMapping a owl:Class ;
+  rdfs:label "Runtime Mapping"@en .
+
+### Properties
+
+ns:objectType a owl:ObjectProperty ;
+  rdfs:domain ns:RevealSemantic ;
+  rdfs:range ns:ObjectType ;
+  rdfs:label "object type"@en .
+
+ns:broader a owl:ObjectProperty ;
+  rdfs:domain ns:RevealSemantic ;
+  rdfs:range ns:RevealSemantic ;
+  rdfs:subPropertyOf rdfs:subClassOf ;
+  rdfs:label "broader reveal semantic"@en .
+
+ns:runtimeSource a owl:DatatypeProperty ;
+  rdfs:domain ns:RuntimeMapping ;
+  rdfs:range xsd:string .
+
+ns:runtimeTargetType a owl:DatatypeProperty ;
+  rdfs:domain ns:RuntimeMapping ;
+  rdfs:range xsd:string .
+
+ns:runtimeKeyField a owl:DatatypeProperty ;
+  rdfs:domain ns:RuntimeMapping ;
+  rdfs:range xsd:string .
+
+ns:runtimeIdField a owl:DatatypeProperty ;
+  rdfs:domain ns:RuntimeMapping ;
+  rdfs:range xsd:string .
+
+ns:status a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+ns:notes a owl:DatatypeProperty ;
+  rdfs:range xsd:string .
+
+### Object types
+
+ns:CHARACTER a ns:ObjectType ;
+  rdfs:label "CHARACTER"@en ;
+  ns:status "implemented" ;
+  ns:notes "현재 RDB runtime target_type으로 사용 중"@ko .
+
+ns:ATTRIBUTE a ns:ObjectType ;
+  rdfs:label "ATTRIBUTE"@en ;
+  ns:status "implemented" ;
+  ns:notes "현재 RDB runtime target_type으로 사용 중"@ko .
+
+ns:RELATION a ns:ObjectType ;
+  rdfs:label "RELATION"@en ;
+  ns:status "draft" ;
+  ns:notes "semantic lane 우선, runtime은 ATTRIBUTE 또는 relation predicate로 우회"@ko .
+
+ns:ALIAS a ns:ObjectType ;
+  rdfs:label "ALIAS"@en ;
+  ns:status "draft" ;
+  ns:notes "현재는 R_IDENTITY_REVEAL 하위 semantic leaf로 먼저 다룸"@ko .
+
+ns:LOCATION a ns:ObjectType ;
+  rdfs:label "LOCATION"@en ;
+  ns:status "draft" .
+
+ns:ORG a ns:ObjectType ;
+  rdfs:label "ORG"@en ;
+  ns:status "draft" .
+
+ns:ITEM a ns:ObjectType ;
+  rdfs:label "ITEM"@en ;
+  ns:status "draft" .
+
+### Reveal semantic roots
+
+ns:r_semantic_reveal a ns:RevealSemantic ;
+  rdfs:label "R_SEMANTIC_REVEAL"@en .
+
+ns:r_identity_reveal a ns:RevealSemantic ;
+  rdfs:label "R_IDENTITY_REVEAL"@en ;
+  ns:objectType ns:CHARACTER ;
+  ns:broader ns:r_semantic_reveal .
+
+ns:r_relationship_reveal a ns:RevealSemantic ;
+  rdfs:label "R_RELATIONSHIP_REVEAL"@en ;
+  ns:objectType ns:RELATION ;
+  ns:broader ns:r_semantic_reveal .
+
+ns:r_location_reveal a ns:RevealSemantic ;
+  rdfs:label "R_LOCATION_REVEAL"@en ;
+  ns:objectType ns:LOCATION ;
+  ns:broader ns:r_semantic_reveal .
+
+ns:r_plan_or_intent_reveal a ns:RevealSemantic ;
+  rdfs:label "R_PLAN_OR_INTENT_REVEAL"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_semantic_reveal .
+
+ns:r_evidence_reveal a ns:RevealSemantic ;
+  rdfs:label "R_EVIDENCE_REVEAL"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_semantic_reveal .
+
+ns:r_capability_or_resource_reveal a ns:RevealSemantic ;
+  rdfs:label "R_CAPABILITY_OR_RESOURCE_REVEAL"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_semantic_reveal .
+
+ns:r_attribute_state_reveal a ns:RevealSemantic ;
+  rdfs:label "R_ATTRIBUTE_STATE_REVEAL"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_semantic_reveal .
+
+### Reveal semantic leaves
+
+ns:rk_alias_identity a ns:RevealSemantic ;
+  rdfs:label "RK_ALIAS_IDENTITY"@en ;
+  ns:objectType ns:ALIAS ;
+  ns:broader ns:r_identity_reveal .
+
+ns:rk_true_identity a ns:RevealSemantic ;
+  rdfs:label "RK_TRUE_IDENTITY"@en ;
+  ns:objectType ns:CHARACTER ;
+  ns:broader ns:r_identity_reveal .
+
+ns:rk_affiliation a ns:RevealSemantic ;
+  rdfs:label "RK_AFFILIATION"@en ;
+  ns:objectType ns:RELATION ;
+  ns:broader ns:r_relationship_reveal .
+
+ns:rk_family_relation a ns:RevealSemantic ;
+  rdfs:label "RK_FAMILY_RELATION"@en ;
+  ns:objectType ns:RELATION ;
+  ns:broader ns:r_relationship_reveal .
+
+ns:rk_betrayal_relation a ns:RevealSemantic ;
+  rdfs:label "RK_BETRAYAL_RELATION"@en ;
+  ns:objectType ns:RELATION ;
+  ns:broader ns:r_relationship_reveal .
+
+ns:rk_hideout_location a ns:RevealSemantic ;
+  rdfs:label "RK_HIDEOUT_LOCATION"@en ;
+  ns:objectType ns:LOCATION ;
+  ns:broader ns:r_location_reveal .
+
+ns:rk_route_or_destination a ns:RevealSemantic ;
+  rdfs:label "RK_ROUTE_OR_DESTINATION"@en ;
+  ns:objectType ns:LOCATION ;
+  ns:broader ns:r_location_reveal .
+
+ns:rk_crime_fact a ns:RevealSemantic ;
+  rdfs:label "RK_CRIME_FACT"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_evidence_reveal .
+
+ns:rk_secret_past a ns:RevealSemantic ;
+  rdfs:label "RK_SECRET_PAST"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_evidence_reveal .
+
+ns:rk_evidence_object a ns:RevealSemantic ;
+  rdfs:label "RK_EVIDENCE_OBJECT"@en ;
+  ns:objectType ns:ITEM ;
+  ns:broader ns:r_evidence_reveal .
+
+ns:rk_power_resource a ns:RevealSemantic ;
+  rdfs:label "RK_POWER_RESOURCE"@en ;
+  ns:objectType ns:ORG ;
+  ns:broader ns:r_capability_or_resource_reveal .
+
+ns:rk_resource_money a ns:RevealSemantic ;
+  rdfs:label "RK_RESOURCE_MONEY"@en ;
+  ns:objectType ns:ATTRIBUTE ;
+  ns:broader ns:r_capability_or_resource_reveal .
+
+### Runtime mappings
+
+ns:map_character_runtime a ns:RuntimeMapping ;
+  rdfs:label "CHARACTER runtime mapping"@en ;
+  ns:runtimeSource "event_reveal" ;
+  ns:runtimeTargetType "CHARACTER" ;
+  ns:runtimeIdField "target_id" ;
+  ns:notes "target_id=character.id"@ko .
+
+ns:map_attribute_runtime a ns:RuntimeMapping ;
+  rdfs:label "ATTRIBUTE runtime mapping"@en ;
+  ns:runtimeSource "event_reveal" ;
+  ns:runtimeTargetType "ATTRIBUTE" ;
+  ns:runtimeKeyField "target_key" ;
+  ns:runtimeIdField "target_id" ;
+  ns:notes "phase1에서는 target_key 우선, target_id는 aboutCharacterId 또는 attribute.id cutover 후보"@ko .
+
+ns:map_relation_runtime a ns:RuntimeMapping ;
+  rdfs:label "RELATION runtime mapping"@en ;
+  ns:runtimeSource "semantic-only" ;
+  ns:notes "현재 runtime RDB 직접 대응 없음"@ko .
+
+ns:map_alias_runtime a ns:RuntimeMapping ;
+  rdfs:label "ALIAS runtime mapping"@en ;
+  ns:runtimeSource "semantic-only" ;
+  ns:notes "현재는 CHARACTER reveal + RK_ALIAS_IDENTITY 조합으로 우회"@ko .

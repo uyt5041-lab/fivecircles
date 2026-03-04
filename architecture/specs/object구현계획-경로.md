@@ -4,6 +4,7 @@
 
 ### 스펙 (구현 계획)
 - `fivecircles/architecture/specs/reveals/reveals-routing-mvp-and-v3.md` — V3 `target_key`/object 1급 엔티티화 로드맵 (섹션 5~7)
+- `fivecircles/architecture/specs/reveals/semantic-lane-object-schema-draft.md` — semantic 보조 레인 object type 초안 (`CHARACTER|ATTRIBUTE|RELATION|ALIAS|LOCATION|ORG|ITEM`)
 
 ### 제안/설계 원본
 - `fivecircles/architecture/proposals/공유-온톨로지레이어구축/ex04-triplestore.md` — 트리플 구조 `(subject)(predicate)(object)` 원형

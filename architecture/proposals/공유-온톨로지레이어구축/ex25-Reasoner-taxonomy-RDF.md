@@ -2,6 +2,17 @@
 
  **“새로운 사실을 만들어서(추론) 그걸로 다른 질문들을 답하게 하는 페이지”**
 
+## 관련 draft / 참조
+
+- semantic lane object schema 초안:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/semantic-lane-object-schema-draft.md`
+- triple store용 object schema TTL 초안:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/semantic-lane-object-schema.draft.ttl`
+- Fuseki/SPARQL 샘플 쿼리:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/rdf/semantic-lane-object-schema.sample-queries.md`
+- reveal semantic 상속 초안:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-semantic-inheritance-draft.md`
+
 이 경우 reasoner는 “토핑” 수준이 아니라, **‘파생 지식 생성기(derived facts generator)’**로 한 단계 역할이 커져.
 
 다만 여기서도 **핫패스(사용자 조회)는 RDB 유지**, reasoner는 **오프라인/준실시간으로 파생 사실을 만들어 RDB에 적재**하는 쪽이 제일 안전하고 구현 리스크가 낮아.

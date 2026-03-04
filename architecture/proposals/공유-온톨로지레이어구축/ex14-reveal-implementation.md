@@ -72,6 +72,12 @@
     *   `EventQueryServiceImpl`의 비대해진 조회 로직을 `EventAssembler` 도입 등을 통해 다이어트.
     *   `EventRevealMapper`에 Bulk 조회 쿼리 추가로 N+1 문제 해결.
 
+### 관련 후속 문서
+- semantic 보조 레인 object schema 초안:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/semantic-lane-object-schema-draft.md`
+- reveal semantic 상속 초안:
+  - `/Users/pio/IdeaProjects/nospoiler/fivecircles/architecture/specs/reveals/reveal-semantic-inheritance-draft.md`
+
 ---
 **작성일**: 2026-02-06 (초안: 2026-02-05)
 **작성자**: Antigravity (AI Assistant)
