@@ -2,6 +2,8 @@
 
 이 폴더는 프로젝트에 “개발 5사이클(+Integrate)” 운영체제를 이식하기 위한 템플릿입니다.
 
+> 이 템플릿은 여러 새 프로젝트를 거치며 점진적으로 진화해왔습니다. 그래서 일부 문서나 구조에는 이전 사용 흔적이 남아 있을 수 있으며, 현재 프로젝트에 맞게 정리·조정해서 사용하는 것을 전제로 합니다.
+
 ## License
 This project’s design and governance documents are licensed under **CC BY 4.0**.
 
