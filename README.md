@@ -1,4 +1,4 @@
-# fivecircles
+# FiveCircles
 
 이 폴더는 프로젝트에 “개발 5사이클(+Integrate)” 운영체제를 이식하기 위한 템플릿입니다.
 
