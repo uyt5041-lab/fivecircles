@@ -56,35 +56,38 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 경로 `fivecircles/agent/prompts` 에 있는 프롬프트들을 참고하여 사용할 수 있습니다.
 
 기본 구조:
-  fivecircles/agent/
-  ├── configs/
-  │   ├── planner-gemini.json   # 조율자 (전체 지휘)
-  │   ├── coder-claude.json     # 구현자 (event, spoiler-policy, qa)
-  │   ├── ops-codex.json        # 운영자 (deploy, git, docs)
-  │   └── reviewer-claude.json  # 검토자 (리뷰, 테스트)
-  ├── collaboration-protocol.md  # [업데이트됨]
-  └── ...
 
-  역할 요약
-  ┌──────────────┬────────┬──────────┬───────────────────────────────────────┐
-  │    Alias     │ Agent  │   역할    │                 담당                   │
-  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
-  │ agent-plan   │ Gemini │ Planner  │ 전체 조율, 태스크 분배                     │
-  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
-  │ agent-code   │ Claude │ Coder    │ event, spoiler-policy, qa 서비스 코딩    │
-  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
-  │ agent-codex  │ Codex  │ Ops      │ Deploy, Git, 문서 편집                  │
-  ├──────────────┼────────┼──────────┼───────────────────────────────────────┤
-  │ agent-review │ Claude │ Reviewer │ 코드 리뷰, 테스트                         │
-  └──────────────┴────────┴──────────┴───────────────────────────────────────┘
-  작업 흐름
+```text
+fivecircles/agent/
+├── configs/
+│   ├── planner-gemini.json
+│   ├── coder-claude.json
+│   ├── ops-codex.json
+│   └── reviewer-claude.json
+├── collaboration-protocol.md
+└── ...
+```
 
-  사용자 → Planner(Gemini)
-                ↓ 지시
-      ┌─────────┼─────────┐
-      ↓         ↓         ↓
-   Coder     Ops      Reviewer
-  (Claude)  (Codex)   (Claude)
+역할 요약:
+
+| Alias | 기본 Agent 예시 | 기본 역할 | 주 담당 |
+|------|------------------|-----------|---------|
+| `agent-plan` | Gemini | Planner | 전체 조율, 태스크 분배 |
+| `agent-code` | Claude | Coder | 기능 구현, 서비스 코드 작업 |
+| `agent-codex` | Codex | Ops | Deploy, Git, 문서 편집 |
+| `agent-review` | Claude | Reviewer | 코드 리뷰, 테스트, 검증 |
+
+역할은 고정된 것이 아니라 프로젝트 규모, 사용 가능한 모델, 현재 작업 성격에 따라 유동적으로 지정하거나 재배치할 수 있습니다.
+
+작업 흐름:
+
+```text
+사용자 -> Planner
+            |
+    +-------+-------+
+    |       |       |
+  Coder    Ops   Reviewer
+```
 
 
 중요! 스펙은 항상 최신으로 유지하고 바꿀때마다 인지시켜줘야 합니다.
