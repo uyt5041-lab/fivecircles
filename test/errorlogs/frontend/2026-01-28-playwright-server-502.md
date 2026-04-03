@@ -2,8 +2,8 @@
 
 - **Timestamp**: 2026-01-28 17:07:49 +0900
 - **Test**: Playwright `front/check_console.spec.js` (server URL)
-- **Target**: http://100.120.44.64:3000
-- **Note**: `100.120.44.64` is the Windows host. Ubuntu/WSL base: `http://100.79.74.49:8080`. DB connections use the Ubuntu host address (`DB_HOST`).
+- **Target**: http://<frontend-host-ip>:3000
+- **Note**: `<frontend-host-ip>` is the frontend host. `<api-host-ip>` is the backend host used by the environment.
 - **Result**: FAIL
 
 ## Summary
@@ -12,7 +12,7 @@
 ## Repro
 1. Deploy server with `docker compose up -d --build` on `bit-ts`.
 2. Run:
-   `PW_BASE_URL=http://100.120.44.64:3000 npx playwright test check_console.spec.js`
+   `PW_BASE_URL=http://<frontend-host-ip>:3000 npx playwright test check_console.spec.js`
 
 ## Error
 - Console: `Failed to load resource: the server responded with a status of 502 (Bad Gateway)`

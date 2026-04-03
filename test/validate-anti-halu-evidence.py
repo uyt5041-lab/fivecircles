@@ -9,6 +9,7 @@ Runs against gateway on bit-ts:
 """
 
 import json
+import os
 import sys
 import urllib.parse
 import urllib.request
@@ -194,7 +195,12 @@ def run_coevents(
 
 
 def main() -> int:
-    login = post_json("/api/auth/v1/login", {"email": "1@1.com", "password": "1"})
+    test_email = os.environ.get("TEST_EMAIL")
+    test_password = os.environ.get("TEST_PASSWORD")
+    if not test_email or not test_password:
+        print("Set TEST_EMAIL and TEST_PASSWORD before running this script.", file=sys.stderr)
+        return 2
+    login = post_json("/api/auth/v1/login", {"email": test_email, "password": test_password})
     token = login["data"]["accessToken"]
 
     checks = [

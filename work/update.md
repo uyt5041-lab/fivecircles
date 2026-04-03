@@ -306,7 +306,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 - Update event-v2-api base URL and paths to /api/event/v2 (refs: fivecircles/architecture/specs/event-v2-api.md)
 ## Addendum (2026-01-21) - Add mistakes arrest guardrail
 ### Docs
-- Add mistakes-arrest guide and register mistakes-arrest skill (refs: fivecircles/agent/mistakes-arrest.md, /Users/pio/.codex/skills/mistakes-arrest/SKILL.md)
+- Add mistakes-arrest guide and register mistakes-arrest skill (refs: fivecircles/agent/mistakes-arrest.md)
 ## Addendum (2026-01-21) - Replace repeat-mistakes doc
 ### Docs
 - Replace repeat-mistakes with mistakes-repeating (refs: fivecircles/agent/mistakes-repeating.md)
@@ -471,7 +471,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Frontend
 - Updated Playwright flow to use `domcontentloaded` and fail on console errors (refs: front/check_console.spec.js)
 ### Tests
-- Server browser test passed against http://100.120.44.64:3000 (refs: front/check_console.spec.js)
+- Server browser test passed against the configured frontend host (refs: front/check_console.spec.js)
 ## Addendum (2026-01-28) - Widget commonization + Playwright output
 ### Frontend
 - Moved event QA widgets to front/common and updated imports (refs: front/common/widgets, front/features/event/components/EventQADrawer.tsx)
@@ -510,7 +510,7 @@ This file summarizes recent updates so other agents can continue without re‑di
 ### Backend
 - Repaired auth flyway history + created refresh_tokens table (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-flyway-checksum-mismatch.md)
 ### Tests
-- Signup/login/me verified via gateway for 6@6.com (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-email-send-failure.md)
+- Signup/login/me verified via gateway for a test account (refs: fivecircles/test/errorlogs/backend/2026-01-28-auth-email-send-failure.md)
 ## Addendum (2026-01-28) - Frontend console check
 ### Tests
 - Server Playwright console check passed (refs: front/check_console.spec.js)

@@ -19,7 +19,7 @@
   "mcpServers": {
     "notion": {
       "command": "node",
-      "args": ["/Users/pio/nospoiler-mcp-tools/notion-mcp/bin/cli.mjs"],
+      "args": ["/path/to/notion-mcp/bin/cli.mjs"],
       "env": {
         "NOTION_API_TOKEN": "${NOTION_API_TOKEN}"
       }

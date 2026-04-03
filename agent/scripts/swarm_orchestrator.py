@@ -19,8 +19,8 @@ from enum import Enum
 # ============================================================
 # Configuration
 # ============================================================
-PROJECT_ROOT = Path("/Users/pio/IdeaProjects/nospoiler")
-FIVECIRCLES = PROJECT_ROOT / "fivecircles"
+PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", str(Path(__file__).resolve().parents[2])))
+FIVECIRCLES = Path(os.environ.get("FIVECIRCLES_ROOT", str(PROJECT_ROOT)))
 OUTPUT_DIR = FIVECIRCLES / "architecture" / "proposals"
 LOG_DIR = FIVECIRCLES / "work" / "swarm-logs"
 

@@ -16,7 +16,7 @@
   "mcpServers": {
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/pio/IdeaProjects/nospoiler"]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
     },
     "browser": {
       "command": "npx",
