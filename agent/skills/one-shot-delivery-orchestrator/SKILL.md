@@ -527,9 +527,9 @@ Update it after each phase.
 
 If creating the file is inappropriate for the repository, keep the same state in the delivery ledger only.
 
-## AlphaFlower output location policy
+## Repository output location policy
 
-When working in the AlphaFlower repository, place durable outputs under the matching `fivecircles/` operating folder:
+Place durable outputs under the current repository's `fivecircles/` operating folder when it exists. Resolve the repository root dynamically with `git rev-parse --show-toplevel` when possible, otherwise use the current working directory.
 
 - requirements: `fivecircles/requirements/`
 - durable decisions: `fivecircles/requirements/decisions.md`

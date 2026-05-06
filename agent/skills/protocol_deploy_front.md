@@ -6,37 +6,46 @@ Start the Vite dev server for the frontend with network access enabled, so it ca
 ## Usage
 Execute when the user says "프론트 띄워", "deploy front", "dev 서버", or `/deploy-front`.
 
-## Access URLs
-| Target | URL |
-|---|---|
-| Local (PC) | http://localhost:3000/ |
-| Network (Phone) | http://100.104.8.64:3000/ |
+## Dynamic Inputs
+
+- `PROJECT_ROOT`: current repository root, resolved with `git rev-parse --show-toplevel` when possible, otherwise the current working directory.
+- `FRONTEND_DIR`: detected frontend directory. Prefer `front/`, `frontend/`, `apps/web/`, `apps/frontend/`, then the repo root when it contains `package.json`.
+- `DEV_PORT`: default `3000`, unless the user specifies another port or the project config already uses one.
+- `NETWORK_HOST`: default `0.0.0.0` for LAN/mobile access.
+- `STOP_CONTAINER`: optional. Only stop a Docker container when the current project has a known frontend container for the selected port.
 
 ## Protocol Steps
 
 // turbo-all
 
-1. **Stop Docker frontend container** (if running, to free port 3000)
+1. **Resolve project paths**
    ```bash
-   docker stop nospoiler-frontend 2>/dev/null || true
+   PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+   for candidate in front frontend apps/web apps/frontend .; do
+     if [ -f "$PROJECT_ROOT/$candidate/package.json" ]; then
+       FRONTEND_DIR="$PROJECT_ROOT/$candidate"
+       break
+     fi
+   done
+   : "${FRONTEND_DIR:=$PROJECT_ROOT}"
+   : "${DEV_PORT:=3000}"
    ```
 
-2. **Kill any process on port 3000** (if still occupied)
+2. **Free the selected port only when needed**
    ```bash
-   lsof -ti :3000 | xargs kill -9 2>/dev/null || true
+   lsof -ti :"$DEV_PORT" | xargs kill -9 2>/dev/null || true
    ```
 
-3. **Start Vite dev server with network access**
+3. **Start dev server with network access**
    ```bash
-   cd /Users/pio/IdeaProjects/nospoiler/front && npm run dev -- --host 0.0.0.0 --port 3000
+   cd "$FRONTEND_DIR" && npm run dev -- --host "$NETWORK_HOST" --port "$DEV_PORT"
    ```
 
 4. **Verify**
-   - Confirm output shows `Local: http://localhost:3000/` and `Network:` URLs.
-   - Report both URLs to the user for PC and phone access.
+   - Confirm output shows a localhost URL and, when available, a network URL.
+   - Report the resolved `FRONTEND_DIR`, local URL, and network/mobile URL to the user.
 
 ## Notes
 - `--host 0.0.0.0` opens the server to all network interfaces (required for phone access).
-- The Docker `nospoiler-frontend` container also binds to port 3000, so it must be stopped first.
 - Phone must be on the same Wi-Fi/network as the dev machine.
-- Tailscale IP: `100.104.8.64` (stable across restarts).
+- If a stable VPN/Tailscale IP is needed, derive it at runtime with `tailscale ip -4` or ask the user for the target address.

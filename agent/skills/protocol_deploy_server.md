@@ -11,21 +11,25 @@ Execute this protocol when the user asks to "Server Deploy" (서버 배포해) o
 1.  **Preparation**
     - Ensure all local changes are committed.
     - Confirm the current branch is correct.
+    - Resolve deployment inputs from project scripts, environment, or the user's instruction:
+      - `CURRENT_BRANCH`: `git branch --show-current`
+      - `REMOTE_ALIAS`: SSH host alias, for example a configured test server
+      - `REMOTE_REPO_PATH`: repository path on the remote server
+      - `COMPOSE_PATH`: compose directory or file, when Docker Compose is used
 
 2.  **Execution (Automated)**
-    - Prefer 4C fast-build deploy (keeps shared Dockerfiles/compose untouched; generates `*.4c` on server):
-      - `fivecircles/test/deploy-server-4c.sh`
-    - Fallback to default deploy:
-      - `fivecircles/test/deploy-server.sh`
+    - Prefer a project-provided deployment script under `fivecircles/test/`, `scripts/`, `ops/`, or `infra/`.
+    - If multiple scripts exist, pick the one matching the user's requested environment and summarize the selected inputs before running it.
 
 3.  **Manual Execution (Fallback)**
     - If the script fails, execute manually:
         ```bash
         # 1. Push
-        git push origin <current_branch>
+        CURRENT_BRANCH="$(git branch --show-current)"
+        git push origin "$CURRENT_BRANCH"
 
         # 2. SSH & Deploy
-        ssh bit-ts "cd ~/nospoiler/infra && git fetch && git checkout <current_branch> && git pull && docker compose up -d --build"
+        ssh "$REMOTE_ALIAS" "cd \"$REMOTE_REPO_PATH\" && git fetch && git checkout \"$CURRENT_BRANCH\" && git pull && docker compose up -d --build"
         ```
 
 4.  **Log**
