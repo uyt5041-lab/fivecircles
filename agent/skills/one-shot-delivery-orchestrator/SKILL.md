@@ -14,6 +14,7 @@ Your job is to drive the requested software work from requirements to tested, pu
 - `$doc-contract-writer`
 - `$one-go`
 - `$test-runner`
+- `$mermaid-flow-report`
 - `$릴레이샷` for open-ended relay into the next implementable TODO
 - optional post-delivery `$스케줄릴레이샷` only when the user has provided a work-until time
 
@@ -21,6 +22,33 @@ This skill is not a planning-only workflow.
 This skill is not an implementation-only workflow.
 This skill is not a test-only workflow.
 This skill is not complete until documentation, implementation, validation, and required push/publication handling have all reached terminal states.
+
+Boundary rule: this skill owns the top-level one-shot lifecycle. `$one-go` is
+only the implementation-phase engine inside this lifecycle; do not collapse
+`원샷딜` into `$one-go` alone.
+
+Mandatory report/relay loop: every one-shot delivery cycle starts by consulting
+`$mermaid-flow-report` for the target/current flow and next-unit score table.
+`$릴레이샷` uses that score table to choose and write the next unit into the
+flow form. Validation must refresh the report artifacts, and closeout must
+compare the final current flow against the start target before relay continues.
+
+Target flow authority: for AlphaFlower one-shot delivery work, the canonical
+target flow is the one-shot vs one-go flow report and its rendered HTML/PNG
+siblings.
+
+Path convention:
+
+- From this repo-local skill folder, use the skill-folder relative path
+  `../../../architecture/spec/AIConsolLayers/one-shot-vs-one-go-flow-report.md`.
+- From the repository root, use the repo-relative path
+  `fivecircles/architecture/spec/AIConsolLayers/one-shot-vs-one-go-flow-report.md`.
+- In global mirrors under `~/.codex/skills` or `~/.agents/skills`, resolve
+  repo-relative paths against the active workspace root. Do not hard-code an
+  absolute AlphaFlower path.
+
+If this skill text conflicts with that target flow, update the skill text
+instead of bypassing the target.
 
 ## Mandatory Flow Form
 
@@ -40,41 +68,66 @@ Use this shape unless the user gives a stricter one:
 - 위험/확인 필요:
 - 상태:
 
-1. Doc / Contract
+1. Start Report / Target Check
+- 사용할 스킬: mermaid-flow-report
+- 기준 타겟 플로우:
+- 현재 플로우:
+- 점수표/선정 기준:
+- 상태:
+
+2. Relay Unit Selection
+- 사용할 스킬: relay-shot
+- 확인한 TODO source:
+- 점수 상위 후보:
+- 선택한 다음 단위작업:
+- 플로우폼 반영:
+- 상태:
+
+3. Doc / Contract
 - 사용할 스킬: doc-contract-writer
 - 문서 생성/수정:
 - 계약 확인:
 - 상태:
 
-2. Implementation
+4. Implementation
 - 사용할 스킬: one-go
 - batch가 명시된 경우: batch-sequential-runner
 - 재귀 TODO:
 - 수정 대상:
 - 상태:
 
-3. Validation
+5. Validation + Report
 - 사용할 스킬: test-runner
+- 필수 리포트 스킬: mermaid-flow-report
 - 자동 테스트:
 - 빌드/lint:
 - Playwright/browser smoke:
+- Mermaid/PNG/HTML 리포트:
+- 타겟 대비 현상태:
 - 상태:
 - 결과:
 
-4. Repair Loop
+6. Repair Loop
 - 실패 원인:
 - 수리 배치:
 - 재테스트:
 - 상태:
 
-5. Push / Publication
+7. Push / Publication
 - git status 확인:
 - 커밋 범위:
 - 커밋:
 - 푸시:
 - 상태:
 
-6. Relay Shot
+8. Closeout Report
+- 사용할 스킬: mermaid-flow-report
+- 시작 타겟 대비 최종 현재 플로우:
+- 남은 GAP/PARTIAL:
+- 다음 점수표 갱신:
+- 상태:
+
+9. Relay Shot
 - 사용할 스킬: relay-shot
 - 확인한 TODO source:
 - 다음 후보:
@@ -82,12 +135,13 @@ Use this shape unless the user gives a stricter one:
 - 새 원샷딜 시작 여부:
 - 멈춘 이유:
 
-7. Final Ledger
+10. Final Ledger
 - Doc:
 - Implementation:
 - Validation:
 - Repair:
 - Push:
+- Report:
 - Relay:
 - 남은 리스크:
 ```
@@ -97,20 +151,32 @@ During longer work, report the compact status form:
 ```txt
 [원샷딜 플로우폼 상태]
 0 Scope Intake: COMPLETED
-1 Doc / Contract: TODO
-2 Implementation: TODO
-3 Validation: TODO
-4 Repair Loop: TODO
-5 Push / Publication: TODO
-6 Relay Shot: TODO
-7 Final Ledger: TODO
+1 Start Report / Target Check: TODO
+2 Relay Unit Selection: TODO
+3 Doc / Contract: TODO
+4 Implementation: TODO
+5 Validation + Report: TODO
+6 Repair Loop: TODO
+7 Push / Publication: TODO
+8 Closeout Report: TODO
+9 Relay Shot: TODO
+10 Final Ledger: TODO
 ```
 
 Rules:
 
 - Do not begin code edits until the flow form exists, unless the user explicitly asks for an emergency patch.
 - Keep each phase status in one of the terminal/pending states used by this skill.
-- After push/publication, always fill `6. Relay Shot`.
+- Do not start implementation until `1. Start Report / Target Check` and
+  `2. Relay Unit Selection` have either completed or been explicitly skipped
+  with reason.
+- After validation, always refresh the Mermaid report before claiming the
+  target flow still holds.
+- After push/publication, always fill `8. Closeout Report` and `9. Relay Shot`.
+- After `9. Relay Shot`, always record an explicit continuation decision:
+  `CONTINUE_WITH_NEXT_FORM` or `STOP_WITH_REASON`. If continuing, write the
+  next selected task into a fresh one-shot flow form before ending the current
+  response. If stopping, write the concrete stop reason.
 - If relay launches a next task, start a new flow form for the new one-shot cycle.
 - If relay stops, record the stop reason, not just the next task name.
 
@@ -137,14 +203,22 @@ If another skill is also relevant, this skill owns the top-level lifecycle and m
 
 Complete the current requested delivery scope through this lifecycle:
 
-1. Requirements, design, and contract documentation
-2. Implementation execution with `$one-go`
-3. Test execution and actual behavior validation
-4. Fix and retest loop when failures are fixable
-5. Push/publication handling after tests pass or reach an accepted terminal state
-6. Open-ended relay with `$릴레이샷` into the next implementable TODO when the user asked to keep going
-7. Time-limited relay with `$스케줄릴레이샷` only when the user provided a work-until time
-8. Final integration review and delivery report
+1. Start report with `$mermaid-flow-report`: read target/current flow and
+   score the next unit candidates.
+2. Start relay with `$릴레이샷`: select the highest safe unit and write it into
+   the one-shot flow form.
+3. Requirements, design, and contract documentation
+4. Implementation execution with `$one-go`
+5. Test execution and actual behavior validation, including mandatory report
+   refresh for workflow/routing/security flows
+6. Fix and retest loop when failures are fixable
+7. Push/publication handling after tests pass or reach an accepted terminal state
+8. Closeout report with `$mermaid-flow-report`
+9. Open-ended relay with `$릴레이샷` into the next implementable TODO when the user asked to keep going
+   - Decide and record `CONTINUE_WITH_NEXT_FORM` or `STOP_WITH_REASON`.
+   - If continuing, fill the next one-shot flow form from the refreshed score table.
+10. Time-limited relay with `$스케줄릴레이샷` only when the user provided a work-until time
+11. Final integration review and delivery report
 
 Do not stop after documentation.
 Do not stop after implementation.
@@ -205,6 +279,8 @@ Purpose:
 - inspect actual UI when relevant
 - use browser/computer tools when available
 - use Playwright when repeatable browser scenarios are useful
+- invoke `$mermaid-flow-report` for one-shot delivery reports and any
+  workflow/routing/security/provider/RAG/GraphDB/state-machine work
 - compare actual behavior against requirements and contracts
 - produce a final validation verdict
 
@@ -280,31 +356,48 @@ If validation returns FAIL and the failures are fixable within scope, route the 
 Follow this flow:
 
 1. Parse the user request and requested scope.
-2. Build a delivery ledger and initial flow plan: `$doc-contract-writer` -> `$one-go` -> `$test-runner` -> push/publication -> `$릴레이샷` or `$스케줄릴레이샷`.
-3. Run or delegate the documentation phase using `$doc-contract-writer`.
-4. Verify that the documentation output includes:
+2. Build a delivery ledger and initial flow plan:
+   `$mermaid-flow-report` -> `$릴레이샷` unit selection ->
+   `$doc-contract-writer` -> `$one-go` -> `$test-runner` +
+   `$mermaid-flow-report` -> repair if needed -> push/publication ->
+   closeout `$mermaid-flow-report` -> `$릴레이샷` or `$스케줄릴레이샷`.
+3. Run or refresh the start report using `$mermaid-flow-report`.
+   - Confirm the target flow.
+   - Confirm the current flow when one exists.
+   - Read or create the done/not-done score table.
+4. Run start-of-cycle `$릴레이샷`.
+   - Select the highest safe next unit from the report score table.
+   - Write that unit back into the one-shot flow form.
+5. Run or delegate the documentation phase using `$doc-contract-writer`.
+6. Verify that the documentation output includes:
    - requirements
    - assumptions
    - contracts
    - acceptance criteria
    - implementation batches
    - test plan
-5. Run or delegate the implementation phase using `$one-go`.
-6. Verify that the implementation has a terminal state.
-7. Run or delegate the validation phase using `$test-runner`.
-8. If validation fails and failures are fixable:
+7. Run or delegate the implementation phase using `$one-go`.
+8. Verify that the implementation has a terminal state.
+9. Run or delegate the validation phase using `$test-runner`; for workflow,
+   routing, planner/provider, privacy/security, wrapper, RAG, GraphDB,
+   state-machine, or skill-orchestration work, validation must include
+   `$mermaid-flow-report` artifacts and a Playwright/browser render check.
+10. If validation fails and failures are fixable:
    - create a focused repair batch
    - run `$batch-sequential-runner` for the repair
    - rerun `$test-runner`
-9. Repeat the repair loop only while progress is reasonable.
-10. Run the push/publication phase:
+11. Repeat the repair loop only while progress is reasonable.
+12. Run the push/publication phase:
    - push if there is a valid push target and intended changes are ready
    - skip with reason if there is nothing to push or no push target
    - block with reason if pushing is unsafe or impossible
-11. If the user provided a work-until time, run `$스케줄릴레이샷` after push/publication handling.
-12. Otherwise, if the user asked to keep going or finish remaining work, run `$릴레이샷` after push/publication handling.
-13. Run final integration review.
-14. Produce final response only when every phase has a terminal state.
+13. Run the closeout report using `$mermaid-flow-report`.
+    - Compare the final current flow against the start target.
+    - Refresh the score table for remaining gaps.
+14. If the user provided a work-until time, run `$스케줄릴레이샷` after the closeout report.
+15. Otherwise, if the user asked to keep going or finish remaining work, run `$릴레이샷` after the closeout report.
+16. Run final integration review.
+17. Produce final response only when every phase has a terminal state.
 
 ## Repair loop policy
 
@@ -527,9 +620,9 @@ Update it after each phase.
 
 If creating the file is inappropriate for the repository, keep the same state in the delivery ledger only.
 
-## Repository output location policy
+## AlphaFlower output location policy
 
-Place durable outputs under the current repository's `fivecircles/` operating folder when it exists. Resolve the repository root dynamically with `git rev-parse --show-toplevel` when possible, otherwise use the current working directory.
+When working in the AlphaFlower repository, place durable outputs under the matching `fivecircles/` operating folder:
 
 - requirements: `fivecircles/requirements/`
 - durable decisions: `fivecircles/requirements/decisions.md`
