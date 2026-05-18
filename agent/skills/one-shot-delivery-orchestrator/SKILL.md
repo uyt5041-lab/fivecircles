@@ -33,9 +33,10 @@ Mandatory report/relay loop: every one-shot delivery cycle starts by consulting
 flow form. Validation must refresh the report artifacts, and closeout must
 compare the final current flow against the start target before relay continues.
 
-Target flow authority: for AlphaFlower one-shot delivery work, the canonical
-target flow is the one-shot vs one-go flow report and its rendered HTML/PNG
-siblings.
+Target flow authority: for project-specific one-shot delivery work, resolve the
+canonical target flow from the active workspace using repo-relative paths. The
+default target flow is the one-shot vs one-go flow report and its rendered
+HTML/PNG siblings.
 
 Path convention:
 
@@ -44,8 +45,8 @@ Path convention:
 - From the repository root, use the repo-relative path
   `fivecircles/architecture/spec/AIConsolLayers/one-shot-vs-one-go-flow-report.md`.
 - In global mirrors under `~/.codex/skills` or `~/.agents/skills`, resolve
-  repo-relative paths against the active workspace root. Do not hard-code an
-  absolute AlphaFlower path.
+  repo-relative paths against the active workspace root. Do not hard-code
+  personal, machine-local, or project-specific absolute paths.
 
 If this skill text conflicts with that target flow, update the skill text
 instead of bypassing the target.
@@ -620,9 +621,10 @@ Update it after each phase.
 
 If creating the file is inappropriate for the repository, keep the same state in the delivery ledger only.
 
-## AlphaFlower output location policy
+## Project output location policy
 
-When working in the AlphaFlower repository, place durable outputs under the matching `fivecircles/` operating folder:
+When the active workspace has a `fivecircles/` operating folder, place durable
+outputs under that matching repo-relative folder:
 
 - requirements: `fivecircles/requirements/`
 - durable decisions: `fivecircles/requirements/decisions.md`

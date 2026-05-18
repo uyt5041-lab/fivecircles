@@ -86,8 +86,8 @@ select the next task by intuition alone. Score the remaining gaps against the
 target Mermaid flow and choose the task that connects the highest upstream
 unmatched node/edge with the fastest validated path to the target.
 
-For AlphaFlower Admin AI flow work, always use the provider policy flow
-validation ledger:
+For project-specific Admin AI flow work, resolve the provider policy flow
+validation ledger from the active workspace using repo-relative paths:
 
 - Skill-folder relative path:
   `../../../architecture/spec/AIConsolLayers/provider-policy-flow-validation.md`
@@ -101,7 +101,8 @@ cycle is closed.
 
 Path convention: global mirrors under `~/.codex/skills` or `~/.agents/skills`
 must resolve repo-relative paths against the active workspace root. Do not
-hard-code absolute AlphaFlower paths in this skill.
+hard-code personal, machine-local, or project-specific absolute paths in this
+skill.
 
 Scoring protocol:
 
@@ -241,7 +242,7 @@ Required closeout evidence:
 
 1. Include or link the target Mermaid flow diagram.
 2. Include or link the current implemented Mermaid flow diagram.
-3. For AlphaFlower Admin AI flow work, update
+3. For project-specific Admin AI flow work, update
    `../../../architecture/spec/AIConsolLayers/provider-policy-flow-validation.md`
    from the repo-local skill folder, or the repo-root relative
    `fivecircles/architecture/spec/AIConsolLayers/provider-policy-flow-validation.md`

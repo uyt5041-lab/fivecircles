@@ -12,10 +12,11 @@ one-go, or complete remaining work, do not stop at TODO analysis. Select the
 next highest-value remaining task from the mandatory report score table and
 immediately continue through the full one-shot loop again.
 
-Canonical target flow: for AlphaFlower one-shot delivery work, the target flow
-is documented in the one-shot vs one-go flow report and its HTML/PNG siblings.
-This protocol must follow that flow. If text here drifts from the target
-report, update this protocol rather than bypassing the target.
+Canonical target flow: for project-specific one-shot delivery work, resolve the
+target flow report from the active workspace using repo-relative paths. The
+default target flow is documented in the one-shot vs one-go flow report and its
+HTML/PNG siblings. This protocol must follow that flow. If text here drifts
+from the target report, update this protocol rather than bypassing the target.
 
 Path convention:
 
@@ -24,8 +25,8 @@ Path convention:
 - From the repository root, use the repo-relative path
   `fivecircles/architecture/spec/AIConsolLayers/one-shot-vs-one-go-flow-report.md`.
 - In global mirrors under `~/.codex/skills` or `~/.agents/skills`, resolve
-  repo-relative paths against the active workspace root. Do not hard-code an
-  absolute AlphaFlower path.
+  repo-relative paths against the active workspace root. Do not hard-code
+  personal, machine-local, or project-specific absolute paths.
 
 `$릴레이샷` is the default time-unlimited relay skill. `$스케줄릴레이샷` is the separate time-limited relay gate. Use schedule relay only when the user provided a work-until time, stop time, deadline, or session end time.
 
