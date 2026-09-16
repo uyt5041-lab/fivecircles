@@ -7,8 +7,10 @@ description: End-to-end project execution workflow for Codex. Use when the user 
 
 ## Philosopher / Coder relay mode
 
-Apply this section only when the user or active flow form selected
-`philosopher-coder`; standalone/solo behavior is unchanged.
+Apply this section only when the user explicitly requested `philosopher-coder`
+for this run, including a handoff recording that request. An old flow form's
+implicit mode is not consent. Otherwise use native orchestration: direct work
+or optional, context-driven delegation, with no fixed role/model roster.
 Resolve `fivecircles/agent/skills/collaboration/SKILL.md` from the verified
 project root first, otherwise use the installed sibling collaboration skill.
 Read that entrypoint and its `references/relay-cycle.md` before this phase.

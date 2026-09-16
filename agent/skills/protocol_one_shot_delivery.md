@@ -2,7 +2,13 @@
 
 ## Philosopher / Coder mode
 
-When the active flow selects `philosopher-coder`, resolve the project's
+Native orchestration is the default: work directly or delegate when useful for
+the current task, without mandatory spawning or fixed role/model assignments.
+Preserve session settings unless the task or user justifies an override.
+An old flow form's implicit collaboration mode does not change this default.
+
+Only when the user explicitly requests `philosopher-coder` for this run
+(or a handoff records that request), resolve the project's
 `fivecircles/agent/skills/collaboration/SKILL.md` first; otherwise use the
 installed `collaboration/SKILL.md` beside this protocol. Read its relay-cycle
 reference. It owns role routing, pre-commit closeout/logall, receipt handling,

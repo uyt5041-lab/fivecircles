@@ -5,35 +5,37 @@ description: 릴레이샷, relay-shot, relay shot, 원샷딜 마지막 릴레이
 
 # 릴레이샷
 
-## First step: resolve execution mode
+## Orchestration: context-driven delegation
 
-Invoking relay-shot defaults to `philosopher-coder`: Astra Design, Sol Ultra
-implementation, and fresh Astra Critic at the collaboration review gates.
-Before selecting a task or starting implementation, record the resolved mode
-in the active flow form. For philosopher-coder, read the collaboration entrypoint
-and relay-cycle reference below. Editing or explaining this skill does not itself start a relay.
+Use the current session's native orchestration as the default (`native`).
+Keep its configured model and reasoning effort, including Ultra when selected;
+this skill does not change them. Editing or explaining this skill does not
+itself start a relay.
 
-Use `solo` only when the user explicitly requests it for this run, for example
-"단독으로 릴레이샷" or "solo relay-shot". Record that request with the mode.
-An old form's implicit solo default is not an explicit user choice. Preserve an
-explicit solo choice within the same run until the user changes it.
-Carry the resolved mode into each next batch, one-shot form, and timed-relay
-handoff; a deadline does not reset the mode. Separate one-shot/one-go requests
-outside this relay keep their own selection rules.
+The main agent may complete a batch directly or delegate bounded work when
+the context benefits from it. Spawning is optional: there is no minimum agent
+count, fixed role roster, or separate permission requirement to work directly.
+Choose roles and supported models appropriate to the task; inherit the current
+settings unless a task-specific reason or explicit user choice warrants an
+override. Do not pin a model or reasoning effort just because relay-shot runs.
+If delegation is unavailable, continue directly when feasible; report only
+actual task blockers.
 
-Resolve the local `agent/skills/collaboration/SKILL.md` under the verified
-fivecircles operating root (repository root for a standalone fivecircles repo,
-`fivecircles/` inside a host project); otherwise use the installed sibling skill.
-Its `references/relay-cycle.md` owns collaborative role routing, closeout order,
-and re-entry. The ordinary lifecycle below applies to explicitly selected solo.
-Higher-priority instructions, project authority, required validation, and user
-scope still win. If philosopher-coder is selected and its dependency, model or delegation capability is
-unavailable, report BLOCKED and request direction; do not silently fall back to
-solo or substitute a model. Mode selection does not expand execution permissions.
+Keep this policy across batches and one-shot/timed-relay handoffs, but reassess
+delegation for each task. Old forms that inherited `philosopher-coder` from a
+default are not user consent; treat them as `native`. Honor an explicit request
+to work solo without spawning.
 
-The same main coordinator returns to DESIGN after closeout. Opening direction
-assessment produces a DIRECTIVE, not a candidate PASS. Fresh candidate approval
-is a later, separate gate. Do not recursively invoke another relay/root.
+Only when the user explicitly requests `philosopher-coder` for this run, resolve
+the local `agent/skills/collaboration/SKILL.md` under the verified fivecircles
+operating root, otherwise the installed sibling skill. Its
+`references/relay-cycle.md` governs that opt-in mode, not ordinary delegation.
+If that explicitly requested mode is unavailable, explain the limitation
+without silently substituting it.
+
+The main agent owns validation, integration, and the next relay decision.
+Delegation does not replace the required review/test/closeout gates or expand
+execution permissions. Do not recursively invoke another relay/root.
 
 This is the default time-unlimited relay skill for one-shot delivery.
 
@@ -166,8 +168,9 @@ should have a useful value or an explicit `SKIPPED_WITH_REASON`.
 
 ```md
 0. Scope Intake
-- 실행 모드: philosopher-coder (기본) / solo (명시적 사용자 요청 근거):
-- 협업 선택 시: philosopher-coder / run_id / batch_id / 실제 역할 agent/model/effort:
+- 실행 방식: native (기본, 직접 수행 또는 필요시 위임) / 사용자 명시 모드:
+- 위임 시에만: 목적 / 범위 / 역할 / 실제 agent/model/effort (고정값 없음):
+- philosopher-coder 명시 요청 시에만: 요청 근거 / run_id / batch_id:
 - 요청 범위:
 - 브랜치:
 - 사용자 제약:

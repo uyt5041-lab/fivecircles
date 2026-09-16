@@ -5,10 +5,19 @@ description: "원샷딜, 원샷오케, 원샷딜리버리, 원샷배송, 한번�
 
 # One Shot Delivery Orchestrator
 
+## Native orchestration default
+
+Use the current session's native orchestration. Delegation is optional and
+context-driven, including when entered from relay-shot. Do not require a spawn
+or fixed role/model roster; inherit session settings unless the task or user
+calls for an appropriate supported override. Direct execution still follows
+the same documentation, review, test, and closeout gates.
+
 ## Philosopher / Coder relay mode
 
-Apply this section only when the user or active flow form selected
-`philosopher-coder`; standalone/solo behavior is unchanged.
+Apply this section only when the user explicitly requested `philosopher-coder`
+for this run, including a handoff recording that request. An old flow form's
+implicit mode is not consent; ordinary relay uses native orchestration.
 Resolve `fivecircles/agent/skills/collaboration/SKILL.md` from the verified
 project root first, otherwise use the installed sibling collaboration skill.
 Read that entrypoint and its `references/relay-cycle.md` before this phase.
@@ -465,7 +474,10 @@ After two unsuccessful repair attempts on the same failure, mark the affected ph
 
 ## Subagent policy
 
-You may use subagents when useful.
+You may use subagents when useful; zero subagents is a valid choice.
+Choose roles and supported models to fit the bounded task, not a fixed relay
+roster. Preserve inherited model/effort settings unless an override is justified
+by the task or explicitly requested by the user.
 
 Use subagents for:
 
