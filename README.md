@@ -33,10 +33,15 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 
 ## 에이전트 스킬 (Agent Skills)
 
+디노킹덤(공룡왕국)은 Fivecircles workframe 기반 레이어별 오딧 자동화 스킬셋입니다.
+[소개·등록 방법·스킬 목록](agent/skills/dinokingdom/readme.md)과 [업데이트 노트](agent/skills/dinokingdom/update-notes/readme.md)를 확인하세요.
+
 | 스킬명 | 파일명 | 발동 명령어 | 설명 |
 | --- | --- | --- | --- |
 | Philosopher / Coder 협업 | `collaboration/SKILL.md` | `"협업 모드 릴레이샷"` | Astra 설계·fresh 검수와 Sol Ultra 구현, 로그올·허용 통합·단일 재진입을 연결합니다. |
 | Fivecircles | `fivecircles/SKILL.md` | `"fivecircles"` | fivecircles 운영 워크플로를 시작하고 프로젝트 규칙을 적용합니다. |
+| 공룡왕국 에이전시 · 파이어볼 | `fireball/SKILL.md` | `"구현자 시동"`, `"구현 파이어볼"`, `"파이어볼"` | Graft 조사와 구조 설계부터 계약·구현·검증·로그올·승인된 Git/CD 루프를 진행합니다. |
+| 디노스킬등록 | `regdinoskill/SKILL.md` | `"디노스킬등록"`, `"regdinoskill"` | 디노킹덤 README에 실제 스킬의 설명·시동어·위치를 등록하거나 갱신합니다. |
 | One Shot Delivery Orchestrator | `one-shot-delivery-orchestrator/SKILL.md` | `"원샷딜"`, `"원샷딜리버리"` | 요구사항, 계약, 구현, 테스트, 브라우저 검증, 로그까지 한 작업을 끝까지 배달합니다. |
 | Batch Sequential Runner | `batch-sequential-runner/SKILL.md` | `"배치 순차 실행"`, `"끝까지 진행"` | 여러 단계/배치를 terminal state까지 순차 실행합니다. |
 | Doc Contract Writer | `doc-contract-writer/SKILL.md` | `"계약 문서 작성"`, `"설계 먼저"` | 구현 전 요구사항, API/DTO/tool 계약, DoD, 검증 기준을 문서화합니다. |
@@ -50,3 +55,5 @@ This project’s design and governance documents are licensed under **CC BY 4.0*
 | 빠른 디버깅 | `protocol_quick_debug.md` | `"빠른 디버깅"` | mistakes-arrest와 learn-from-log를 먼저 검색해 재발 오류를 빠르게 잡습니다. |
 | 로그 요약 | `protocol_logging_summary.md` | `"로그 요약"` | 작업 종료 시 update/todo/sync/error 기록을 표준화합니다. |
 | 동료 리뷰 | `protocol_peer_review.md` | `"리뷰해"` | 변경사항과 의사결정을 검토하고 리뷰 기록을 남깁니다. |
+
+디노킹덤 추가 서명: 희동 (Codex), 2026-09-22T16:11:22+09:00.

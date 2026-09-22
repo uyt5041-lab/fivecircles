@@ -1,0 +1,6 @@
+interface:
+  display_name: "공룡왕국 에이전시 · 파이어볼"
+  short_description: "새 워크트리에서 Graft·설계·계약·구현·검증·배포 루프 진행"
+  default_prompt: "$fireball 구현자 희동으로 선택한 기능 문서를 확인하고, 새 워크트리에서 설계·계약·TODO를 정리한 뒤 검증과 승인된 배포까지 진행해."
+policy:
+  allow_implicit_invocation: true

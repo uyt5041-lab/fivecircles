@@ -1,0 +1,6 @@
+interface:
+  display_name: "디노스킬등록 / regdinoskill"
+  short_description: "디노킹덤 README에 스킬 설명·시동어·위치를 등록하거나 갱신"
+  default_prompt: "$regdinoskill 지정한 스킬의 실제 문서를 확인하고 디노킹덤 README에 설명·시동어·위치를 등록해."
+policy:
+  allow_implicit_invocation: true
