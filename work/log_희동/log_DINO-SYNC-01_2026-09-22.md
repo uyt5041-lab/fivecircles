@@ -2,8 +2,8 @@
 
 - 구현자/서명: 희동 (Codex)
 - 작성일시: 2026-09-22T16:15:39+09:00
-- 최종수정일시: 2026-09-22T16:15:39+09:00
-- 상태: VERIFIED / Git 전달 대기
+- 최종수정일시: 2026-09-22T16:17:13+09:00
+- 상태: VERIFIED / Git 전달 확인
 
 ## 작업 범위
 
@@ -35,6 +35,11 @@
 
 ## 전달
 
-- Git 커밋/푸시/통합은 검증 이후 수행하고 별도 영수증을 추가한다.
+- 구현 커밋: `c771fc15dde3ff5e9b7d54c5ce7e775bce98c6b4`, 스킬·문서13개.
+- `git push -u origin codex/dinokingdom-skills-20260922`: 성공.
+- 기존 작업 브랜치에서 `git merge --ff-only codex/dinokingdom-skills-20260922`: 성공.
+- `git push origin codex/fivecircles-v2-frontier`: `ed00105..c771fc1` 성공.
+- 2026-09-22T16:17:13+09:00 확인한 `git ls-remote` 결과는 두 브랜치 모두 위 전체 SHA와 일치.
+- 이 영수증과 TODO 완료 기록은 구현 커밋 뒤의 문서 커밋으로 추가한다. 현재 기록의 자기 SHA를 미리 주장하지 않는다.
 - 기본 main 브랜치를 바꾸거나 오래된 main에 공용 스킬 이외의 작업을 섞지 않는다.
 - 기존 작업 브랜치의 fast-forward만 허용하며 원격 이동/충돌 발생 시 force-push하지 않는다.
