@@ -732,4 +732,4 @@
 - [x] 위험도별 필수 EGM 정책과 호출자/양식을 공개 템플릿에 동기화.
 - [x] structure-architect의 최소 범위·점수·MSA·계약 항목을 보정하고 합성 사례로 독립 적용 확인.
 - [x] 링크·frontmatter·공개 범위·diff 검증.
-- [ ] feature branch push, main merge/push 후 원격 readback과 integrate-log 기록.
+- [x] feature branch push, main merge 후 원격 readback과 integrate-log 기록 (PR #1, c973a5a).

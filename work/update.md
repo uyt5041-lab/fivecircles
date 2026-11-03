@@ -1096,3 +1096,5 @@ This file summarizes recent updates so other agents can continue without re‑di
 - structure-architect의 최소 산출 범위, 조건부 MSA 검토, 진단용 점수와 계약 항목을 보정했다.
 - 스킬 형식 6/6, 새 링크·공개 패키지 패턴 검사·diff 검증 통과. 구조 적용 사례 2개는 합성 검증이며 실제 제품 FULL 실행이 아니다.
 - [적용과 검증](review/egm-structure-2026-11-03.md), [게시 상태](integrate-log.md), [범위·롤백](worklog.md).
+
+- 게시 완료 확인: PR #1 merge `c973a5a`, 원격 main ancestry·스킬 파일 일치 확인. [실제 게시 기록](integrate-log.md).
