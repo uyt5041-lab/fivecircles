@@ -1088,3 +1088,11 @@ This file summarizes recent updates so other agents can continue without re‑di
 - 재발 방지를 위해 learn-from-log에 “모달 스크롤은 API보다 레이아웃 체인부터 점검” 규칙을 추가했다. (refs: fivecircles/test/learn-from-log.md)
 ### Tests
 - PASS: `cd front && npm run build`
+
+
+## 2026-11-03 — FC-EGM-RISK-20261103
+
+- 위험도별 필수 EGM 정책과 리소스·단계별 보안·중복·구조·호환 기준을 공개 스킬에 연결했다.
+- structure-architect의 최소 산출 범위, 조건부 MSA 검토, 진단용 점수와 계약 항목을 보정했다.
+- 스킬 형식 6/6, 새 링크·공개 패키지 패턴 검사·diff 검증 통과. 구조 적용 사례 2개는 합성 검증이며 실제 제품 FULL 실행이 아니다.
+- [적용과 검증](review/egm-structure-2026-11-03.md), [게시 상태](integrate-log.md), [범위·롤백](worklog.md).
