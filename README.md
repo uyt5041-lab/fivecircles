@@ -124,3 +124,18 @@ fivecircles/agent/
 | **서버 배포 (Deploy Server)** | `protocol_deploy_server.md` | `"서버 배포해"` | SSH를 통해 테스트 서버에 배포(`git pull` & `docker compose up`)를 수행합니다. |
 | **스코어링 (Scoring)** | `protocol_agent_scoring.md` | (울트라 기록에 포함) | 작업 성과를 정량적으로 평가하고 `log-score.md`에 기록합니다. |
 | **톺아보기 (Read Log)** | `protocol_read_log_setup.md` | `"톺아보기"` | 로그(update, todo, sync)를 읽고 최근 변경사항(예: 포트변경)을 분석하여 다음 작업을 설정합니다. |
+
+
+## 위험도별 필수 EGM과 구조 설계 (2026-11-03)
+
+- [공통 정책](agent/skills/doc-contract-writer/references/egm-design-review.md): 계약·권한·데이터 변경은 FULL5단계, 작은 수정은 TARGETED, 유효 결과는 재사용합니다.
+- [개발 검토 기준](agent/skills/doc-contract-writer/references/engineering-review-standard.md): 리소스·보안 시점·중복·구조·호환성을 확인합니다.
+- [구조 설계 스킬](agent/skills/structure-architect/SKILL.md): 작은 변경의 간단한 결과와 전체 구조 설계를 구분합니다. 기존 agent/structure-architect 경로는 안내 진입점으로 유지합니다.
+- [계약 작성](agent/skills/doc-contract-writer/SKILL.md), [릴레이](agent/skills/relay-shot/SKILL.md), [원샷 조정](agent/skills/one-shot-delivery-orchestrator/SKILL.md), [실행 양식](agent/skills/protocol_one_shot_delivery.md)이 같은 정책을 참조합니다.
+
+EGM 실행에는 [공식 EGM bundle](https://github.com/google/elephant-goldfish-model)과 호스트의 독립 검토자 실행 도구가 필요합니다. 공식 bundle은 배포 원본·라이선스를 유지하여 별도로 설치합니다. 이 저장소는 해당 bundle이나 외부 실행 도구를 내장하지 않습니다.
+릴레이/원샷이 이름으로 참조하는 구현·테스트·리포트 스킬은 호스트에서 확인해 사용합니다. 필요한 스킬/검토 수단이 없으면 해당 단계를 BLOCKED로 기록하고 임의 PASS로 대체하지 않습니다.
+
+[이번 적용과 검증](work/review/egm-structure-2026-11-03.md) · [푸시·머지 기록](work/integrate-log.md)
+
+배포 스킬 식별자는 `relay-shot`이며, 설명의 한국어 호출 키워드 `릴레이샷`은 유지합니다. 기존 로컬 설치의 호출 이름은 이 게시 작업에서 일괄 변경하지 않습니다.
